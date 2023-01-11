@@ -2779,7 +2779,7 @@ input[type="number"]:focus {
 }
 
 .mobileBasket_sticky.transition {
-    transition: top linear 700ms;
+    transition: top linear 400ms;
 }
 
 .mobileBasket_sticky.opened {

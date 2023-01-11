@@ -282,7 +282,7 @@ function openMobileBasketFunc() {
   startPosition = 0;
   setTimeout(() => {
     mobileBasketSticky.classList.remove("transition");
-  }, 700);
+  }, 400);
 }
 
 function closeMobileBasketFunc() {
@@ -317,7 +317,7 @@ function closeMobileBasketFunc() {
     mobileBasketSticky.classList.remove("transition");
     mobileBasketSticky.style.top = "unset";
     mobileBasketSticky.style.bottom = "60px";
-  }, 700);
+  }, 400);
 }
 
 const openMobileBasket = document.querySelector(".mobileBasket__header");
@@ -727,10 +727,10 @@ function handleTouchMove(event) {
   }
   let newPosition =  parseInt(mobileBasketSticky.style.top) - yDiff;
   console.log(newPosition);
-  if ((window.innerHeight-60) > newPosition && newPosition > 0) {
+  if ((window.innerHeight-60) > y2 && y2 > 0) {
     console.log(menu.style.overflow);
     console.log("here");
-    mobileBasketSticky.style.top = newPosition + "px";
+    mobileBasketSticky.style.top = y2 + "px";
   }
   console.log(mobileBasketSticky.style.bottom);
   console.log(mobileBasketSticky.style.top);
@@ -768,7 +768,7 @@ function handleTouchMove(event) {
 }*/
 
 function handleTouchEnd(event) {
-  if (Math.abs(full) < 10) {
+  if (Math.abs(full) < 5) {
     unsetOverflow();
     return;
   }
