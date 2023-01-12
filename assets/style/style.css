@@ -104,6 +104,7 @@ a:active {
 
 .menu__h2,
 .aboutUs__h2 {
+    display: flex;
     font-size: 24px;
     font-weight: 500;
     color: var(--color-bordeaux);
@@ -880,7 +881,8 @@ address {
     border-radius: 10px;
     background-color: var(--color-bordeaux);
     color: var(--text-color-white);
-
+    border: 2px solid #FFFFFF;    
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.35);
 }
 
 .aboutUs__span,
@@ -1211,19 +1213,24 @@ address {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
+.deskBasket__h3 {
+    font-size: 13px;
+    font-weight: 500;
+}
 .mobileBasket__h3 {
     font-size: 15px;
     font-weight: 500;
 }
 
-.mobileBasket__weight {
+.mobileBasket__weight,
+.deskBasket__weight {
     font-size: 13px;
     font-weight: 700;
     color: var(--text-color-light-grey);
 }
 
-.mobileBasket__price {
+.mobileBasket__price,
+.deskBasket__price{
     font-weight: 500;
     font-size: 15px;
     color: #838383;
@@ -1271,6 +1278,10 @@ address {
     flex-direction: column;
     row-gap: 10px;
 }
+.deskBasket__footer_item {
+    padding-left: 19px;
+    padding-right: 19px;
+}
 
 /*.mobileBasket__footer_item {
     display: none;
@@ -1310,7 +1321,10 @@ address {
     display: flex;
     align-items: center;
 }
-
+.deskBasket_priceDelivery {
+    font-size: 15px;
+    font-weight: 500;
+}
 .mobileBasket__footer_span,
 .deskBasket__footer_span {
     padding-right: 30px;
@@ -1359,7 +1373,7 @@ address {
 
 .deskBasket__button_order {
     font-size: 15px;
-    font-weight: 700;
+    font-weight: 400;
     color: var(--text-color-white);
     width: 100%;
 }
@@ -1368,7 +1382,10 @@ address {
 .mobileBasket_totalCheck span {
     font-size: 20px;
 }
-
+.mobileBasket_totalCheck span {
+    font-size: 20px;
+    font-weight: 400;
+}
 .input_text {
     height: 100%;
     text-align: center;
@@ -1466,7 +1483,7 @@ input[type="number"]:focus {
     flex-direction: column;
     row-gap: 10px;
     position: sticky;
-    top: 75px;
+    top: 124px;
     z-index: 100;
 }
 
@@ -1491,6 +1508,7 @@ input[type="number"]:focus {
 .asideMenu__label:hover,
 .category_active {
     background-color: var(--color-bordeaux);
+    font-weight: 700;
 }
 
 .gallery {
@@ -1952,7 +1970,21 @@ input[type="number"]:focus {
         grid-template-columns: 195px 1fr;
         flex-wrap: nowrap;*/
     }
-
+    .header {
+        padding-left: 43px;
+        padding-right: 40px;
+        height: 124px;
+    }
+    .resto {
+        display: block;
+        font-weight: 400;
+        font-size: 15px;
+        letter-spacing: 0.2em;
+        color: #B4B2B2;
+    }
+    .aboutUs__buttons {
+        width: 360px;
+    }
     .menu__main_img {
         height: 140px;
     }
@@ -2237,13 +2269,21 @@ input[type="number"]:focus {
     }
 
     .aboutUs__h2 {
+       width: 100%;
         order: 0;
-        flex-grow: 1;
+        padding-bottom: 0; 
+    }
+    .aboutUs__wr {
+        display: flex;
+        column-gap: 20px;
     }
 
     .workTime {
-        /*order: 1;*/
-        flex-grow: 1;
+        width: 100%;
+        order: 1;
+        column-gap: 10px;
+        justify-content: end;
+        padding-bottom: 0;
     }
 
     .mainGallery,
@@ -2400,7 +2440,12 @@ input[type="number"]:focus {
         padding-left: 195px;
         padding-right: 147px;
     }
-
+    .modal__desc {
+        font-size: 16px;
+    }
+    .topping__price {
+        font-weight: 450;
+    }
     .menu__main {
         grid-auto-flow: dense;
         max-width: 1000px;
@@ -2411,7 +2456,9 @@ input[type="number"]:focus {
     .menu__main_img {
         height: 240px;
     }
-
+    .aboutUs__buttons {
+        width: 100%;
+    }
     .order {
         display: grid;
         grid-template-columns: 630px 361px;
@@ -2428,6 +2475,17 @@ input[type="number"]:focus {
         padding-bottom: 28px;
         padding-left: 27px;
         padding-right: 30px;
+    }
+    .aboutUs__wr {
+        display: flex;
+        flex-direction: column;
+        column-gap: 20px;
+    }
+    .workTime {
+        padding-bottom: 70px;
+        display: flex;
+        justify-content: space-between;
+        order: 0;
     }
 
     .order__list,
@@ -2537,20 +2595,14 @@ input[type="number"]:focus {
 
     .modal__fav {}
 
+    
     .header {
         position: relative;
         padding-left: 190px;
         padding-right: 147px;
         height: 124px;
     }
-
-    .resto {
-        display: block;
-        font-weight: 400;
-        font-size: 15px;
-        letter-spacing: 0.2em;
-        color: #B4B2B2;
-    }
+    
 
     .burgerMenu {
         display: none;

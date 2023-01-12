@@ -266,11 +266,12 @@ function openMobileBasketFunc() {
   mobileBasketHeaderImg.style.display = "block";
   mobileBasketFooter.style.position = "fixed";
   mobileBasketFooter.style.bottom = 0;
-  mobileBasketFooter.style.right = 0;
+  mobileBasketFooter.style.right = 0;*/
   if (window.innerWidth > 800) {
     mobileBasketHeaderWr.style.width = "50%";
+    mobileBasketHeader.style.justifyContent = "end";
   }
-  mobileBasketOpen.style.position = "fixed";
+  /*mobileBasketOpen.style.position = "fixed";
   mobileBasketOpen.style.top = 0;*/
   openMobileBasket.removeEventListener("click", openMobileBasketFunc);
   btnCloseMobileBasket.addEventListener("click", (e) => {
@@ -731,7 +732,7 @@ function handleTouchMove(event) {
     console.log(menu.style.overflow);
     console.log("here");
     mobileBasketSticky.style.top = y2 + "px";
-  }
+      }
   console.log(mobileBasketSticky.style.bottom);
   console.log(mobileBasketSticky.style.top);
 }
