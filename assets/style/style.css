@@ -1260,12 +1260,12 @@ address {
     position: fixed;
     right: 0;
     bottom: calc(-100vh + 130px);
-    transition: bottom linear 700ms;
+    transition: bottom linear 400ms;
 }
 
 .mobileBasket_sticky.opened .mobileBasket__footer {
     bottom: 0;
-    transition: bottom linear 700ms;
+    transition: bottom linear 400ms;
 }
 
 

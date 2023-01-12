@@ -259,6 +259,7 @@ function openMobileBasketFunc() {
   mobileBasket.style.display = "flex";*/
   mobileBasketHeaderPrice.style.display = "none";
   btnCloseMobileBasket.style.display = "block";
+  console.log(mobileBasketSticky.style.top);
   //mobileBasketSticky.style.position = "unset";
   /*mobileBasketOpen.style.animation = "mobileBasket 0.7s forwards";
   mobileBasketFooter.style.animation = "mobileBasket 0.7s forwards";
@@ -274,9 +275,7 @@ function openMobileBasketFunc() {
   /*mobileBasketOpen.style.position = "fixed";
   mobileBasketOpen.style.top = 0;*/
   openMobileBasket.removeEventListener("click", openMobileBasketFunc);
-  btnCloseMobileBasket.addEventListener("click", (e) => {
-    closeMobileBasketFunc();
-  });
+  btnCloseMobileBasket.addEventListener("click", closeMobileBasketFunc);
   mobileBasketSticky.classList.add("transition");
   mobileBasketSticky.classList.add("opened");
   mobileBasketSticky.style.top = 0 + "px";
@@ -312,11 +311,12 @@ function closeMobileBasketFunc() {
 
   mobileBasketSticky.classList.add("transition");
   mobileBasketSticky.classList.remove("opened");
-  unsetOverflow();
+  
   setTimeout(() => {
-    openMobileBasket.addEventListener("click", openMobileBasketFunc);
-    mobileBasketSticky.classList.remove("transition");
     mobileBasketSticky.style.top = "unset";
+    unsetOverflow();
+    openMobileBasket.addEventListener("click", openMobileBasketFunc);
+    mobileBasketSticky.classList.remove("transition");    
     mobileBasketSticky.style.bottom = "60px";
   }, 400);
 }
@@ -782,10 +782,14 @@ function handleTouchEnd(event) {
   if (yDiff > 0) {
     hiddenOverflow();
     openMobileBasketFunc();
+    console.log(yDiff);
+    console.log("open");
     /*  mobileBasketSticky.style.bottom = window.innerHeight + "px";
     mobileBasketSticky.classList.add("opened");*/
   } else {
     closeMobileBasketFunc();
+    console.log(yDiff);
+    console.log("close");
     /*
     mobileBasketSticky.style.bottom = 60 + "px";
     mobileBasketSticky.classList.remove("opened");*/
