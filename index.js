@@ -188,7 +188,7 @@ for (let imgClick of imgsClick) {
     currentBtnAdd.style.display = "none";
     currentBtnCount.style.display = "flex";*/
 
-    modalTrue = "true";
+    modalTrue = true;
     modal.style.display = "flex";
     divBlock.style.display = "block";
     if (window.innerWidth < 1400) {
@@ -235,7 +235,7 @@ for (let imgClick of imgsClick) {
 /*----------------------Close modal window------------------------*/
 
 function closeModal() {
-  modalTrue = "false";
+  modalTrue = false;
   divBlock.style.display = "none";
   btnCloseModal.style.display = "none";
   modalFooter.style.display = "none";
@@ -920,14 +920,6 @@ class order {
         this.options = options;
     }
 
-    getResp(
-        { endpoint, options = {} },
-        callback = () => {
-            console.error('No callback for GET response');
-        }
-    ) {
-        this.load('GET', endpoint, callback, options);
-    }
 
     errorHandler(res) {
         if (!res.ok) {
@@ -935,7 +927,6 @@ class order {
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
             throw Error(res.statusText);
         }
-
         return res;
     }
 
