@@ -257,6 +257,7 @@ function unsetOverflow() {
 function openMobileBasketFunc() {
   /*document.body.style.overflow = "hidden";
   mobileBasket.style.display = "flex";*/
+  hiddenOverflow();
   mobileBasketHeaderPrice.style.display = "none";
   btnCloseMobileBasket.style.display = "block";
   console.log(mobileBasketSticky.style.top);
@@ -296,7 +297,7 @@ function closeMobileBasketFunc() {
   console.log(mobileBasketSticky.style.top);
   mobileBasketHeaderPrice.style.display = "block";
   //mobileBasketHeaderImg.style.display = "none";
-  //mobileBasketHeaderWr.style.width = "100%";
+  mobileBasketHeaderWr.style.width = "100%";
   btnCloseMobileBasket.style.display = "none";
   /*mobileBasketSticky.style.position = "fixed";
   mobileBasketOpen.style.top = "unset";
@@ -373,6 +374,7 @@ for (let i = 0; i < buttonAdd.length; i++) {
     let currentBtnCount = currentCard.querySelector(".card__button_count");
     currentBtnAdd.style.display = "none";
     currentBtnCount.style.display = "flex";
+    
     /* buttonAdd[i].style.display = "none";
     cardCount[i].style.display = "flex";*/
   });
@@ -634,7 +636,7 @@ currentLiMobileNav.forEach((elemLiAside) => {
       mobileNav.scrollLeft = elemRight - 10;
     }
     elemLabelAside.classList.add("nav__label_active");
-
+    elemLabelAside.classList.add("transition");
     let categoryId = elemLabelAside.getAttribute("data-name");
     let currentMenuCat = document.querySelector(
       '.menu__cat[data-name="' + categoryId + '"]'
@@ -650,6 +652,7 @@ currentLiMobileNav.forEach((elemLiAside) => {
       let currentScroll = window.scrollY;
       if (previousScroll === currentScroll) {
         window.addEventListener("scroll", scrollAsideMenu);
+        elemLabelAside.classList.remove("transition");
         clearInterval(timerId);
       } else {
         previousScroll = currentScroll;
@@ -826,3 +829,23 @@ function handleTouchEnd(event) {
 /*---------------All parameters------------------------
 
 totalCount  //Общее количество заказанных позиций*/
+
+
+function renderModal() {
+  let modalH2 = modal.querySelector(".modal__h2");
+  modalH2.textContent = "NewContent"
+};
+
+class order {
+  render(data) {
+
+  }
+
+  load() {
+
+  }
+
+  save() {
+
+  }
+}
