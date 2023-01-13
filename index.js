@@ -15,6 +15,42 @@
 // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
 let vh = window.innerHeight * 0.01;
 let mobileBasketTrue = false;
+const data = [
+  {
+    card: {
+      name: "newName",
+      img: "https://live.staticflickr.com//65535//49298804222_474cfe8682.jpg",
+      weight: "360 г.",
+      price: 400,
+    },
+    quantity: 3,    
+  },
+  {
+    card: {
+      name: "newName",
+      img: "https://live.staticflickr.com//65535//49298804222_474cfe8682.jpg",
+      weight: "360 г.",
+      price: 400,
+    },
+    quantity: 3,
+  },
+  {
+    card: {
+      name: "newName",
+      img: "https://live.staticflickr.com//65535//49298804222_474cfe8682.jpg",
+      weight: "360 г.",
+      price: 400,
+    },
+    quantity: 3,
+  },
+];
+
+let x1 = null;
+let y1 = null;
+let xDiff = 0;
+let yDiff = 0;
+let full = 0;
+let touchTrue = false;
 // Then we set the value in the --vh custom property to the root of the document
 document.documentElement.style.setProperty("--vh", `${vh}px`);
 
@@ -38,7 +74,7 @@ const mobileBasket = document.querySelector(".mobileBasket");
 const buttonAdd = document.querySelectorAll(".card__button");
 const cardCount = document.querySelectorAll(".card__button_count");
 const footerCopyright = document.querySelector(".footer__copyright");
-const buttonsCount = document.querySelectorAll(".button__count");
+let buttonsCount = document.querySelectorAll(".button__count");
 const btnCloseModal = document.querySelector(".modal__close");
 const btnCloseMobileBasket = document.querySelector(".mobileBasket__close");
 const modalFooter = document.querySelector(".modal__footer");
@@ -59,7 +95,8 @@ const divBlock = document.querySelector(".block");
 let modalTrue = false;
 let basketTrue = false;
 let scrollTrue = true;
-let startPosition = window.innerHeight - parseInt(mobileBasketSticky.style.bottom) + "px";
+let startPosition =
+  window.innerHeight - parseInt(mobileBasketSticky.style.bottom) + "px";
 //--------------------  Плюс/минус в меню-------------------//
 
 function countPlus(count) {
@@ -257,10 +294,17 @@ function unsetOverflow() {
 function openMobileBasketFunc() {
   /*document.body.style.overflow = "hidden";
   mobileBasket.style.display = "flex";*/
+  if (!touchTrue) {
+    mobileBasketSticky.style.top = (window.innerHeight - 60) + "px";
+  }
+   yDiff = 0;
+   full = 0;
   hiddenOverflow();
   mobileBasketHeaderPrice.style.display = "none";
   btnCloseMobileBasket.style.display = "block";
+  console.log(mobileBasketSticky.style.bottom);
   console.log(mobileBasketSticky.style.top);
+  console.log(startPosition);
   //mobileBasketSticky.style.position = "unset";
   /*mobileBasketOpen.style.animation = "mobileBasket 0.7s forwards";
   mobileBasketFooter.style.animation = "mobileBasket 0.7s forwards";
@@ -275,6 +319,7 @@ function openMobileBasketFunc() {
   }
   /*mobileBasketOpen.style.position = "fixed";
   mobileBasketOpen.style.top = 0;*/
+  touchTrue = false;
   openMobileBasket.removeEventListener("click", openMobileBasketFunc);
   btnCloseMobileBasket.addEventListener("click", closeMobileBasketFunc);
   mobileBasketSticky.classList.add("transition");
@@ -290,10 +335,12 @@ function closeMobileBasketFunc() {
 
   //document.body.style.overflow = "unset";
   // mobileBasket.style.display = "none";
+  yDiff = 0;
+   full = 0;
   console.log(mobileBasketSticky.style.top);
-  startPosition = window.innerHeight - 60 + "px"
+  startPosition = window.innerHeight - 60 + "px";
   mobileBasketSticky.style.top = startPosition;
-  
+
   console.log(mobileBasketSticky.style.top);
   mobileBasketHeaderPrice.style.display = "block";
   //mobileBasketHeaderImg.style.display = "none";
@@ -312,12 +359,12 @@ function closeMobileBasketFunc() {
 
   mobileBasketSticky.classList.add("transition");
   mobileBasketSticky.classList.remove("opened");
-  
+
   setTimeout(() => {
     mobileBasketSticky.style.top = "unset";
     unsetOverflow();
     openMobileBasket.addEventListener("click", openMobileBasketFunc);
-    mobileBasketSticky.classList.remove("transition");    
+    mobileBasketSticky.classList.remove("transition");
     mobileBasketSticky.style.bottom = "60px";
   }, 400);
 }
@@ -374,7 +421,7 @@ for (let i = 0; i < buttonAdd.length; i++) {
     let currentBtnCount = currentCard.querySelector(".card__button_count");
     currentBtnAdd.style.display = "none";
     currentBtnCount.style.display = "flex";
-    
+
     /* buttonAdd[i].style.display = "none";
     cardCount[i].style.display = "flex";*/
   });
@@ -695,21 +742,16 @@ currentLabelsAside.forEach((label) => {
 mobileBasketHeader.addEventListener("touchstart", handleTouchStart, false);
 mobileBasketHeader.addEventListener("touchmove", handleTouchMove, false);
 mobileBasketHeader.addEventListener("touchend", handleTouchEnd, false);
-let x1 = null;
-let y1 = null;
-let xDiff = 0;
-let yDiff = 0;
-let full = 0;
+
 
 function handleTouchStart(event) {
+  touchTrue = true;
   hiddenOverflow();
-  ;
   console.log(startPosition);
   mobileBasketSticky.style.top = startPosition;
   const firstTouch = event.touches[0];
   x1 = firstTouch.clientX;
   y1 = firstTouch.clientY;
-
 }
 
 function handleTouchMove(event) {
@@ -729,13 +771,13 @@ function handleTouchMove(event) {
   if (full > 10) {
     mobileBasketSticky.classList.remove("opened");
   }
-  let newPosition =  parseInt(mobileBasketSticky.style.top) - yDiff;
+  let newPosition = parseInt(mobileBasketSticky.style.top) - yDiff;
   console.log(newPosition);
-  if ((window.innerHeight-60) > y2 && y2 > 0) {
+  if (window.innerHeight - 60 > y2 && y2 > 0) {
     console.log(menu.style.overflow);
     console.log("here");
     mobileBasketSticky.style.top = y2 + "px";
-      }
+  }
   console.log(mobileBasketSticky.style.bottom);
   console.log(mobileBasketSticky.style.top);
 }
@@ -784,15 +826,13 @@ function handleTouchEnd(event) {
 */
   if (yDiff > 0) {
     hiddenOverflow();
+    console.log("!!!!!");
     openMobileBasketFunc();
-    console.log(yDiff);
-    console.log("open");
     /*  mobileBasketSticky.style.bottom = window.innerHeight + "px";
     mobileBasketSticky.classList.add("opened");*/
   } else {
     closeMobileBasketFunc();
-    console.log(yDiff);
-    console.log("close");
+   
     /*
     mobileBasketSticky.style.bottom = 60 + "px";
     mobileBasketSticky.classList.remove("opened");*/
@@ -830,22 +870,84 @@ function handleTouchEnd(event) {
 
 totalCount  //Общее количество заказанных позиций*/
 
-
 function renderModal() {
   let modalH2 = modal.querySelector(".modal__h2");
-  modalH2.textContent = "NewContent"
-};
+  modalH2.textContent = "NewContent";
+}
 
 class order {
   render(data) {
+    let mobileBasketMenu = document.querySelector(".mobileBasket__menu");
+    let totalCheck = 0;
+    const fragment = document.createDocumentFragment();
+    const basketCard = mobileBasketMenu.querySelector("#basketTemp");
+    data.forEach((item) => {
+      const cardClone = basketCard.content.cloneNode(true);
+      if (cardClone !== null) {
+        cardClone.querySelector(".mobileBasket__card_img").src = item.card.img;
+        cardClone.querySelector(".mobileBasket__h3").textContent =
+          item.card.name;
+        cardClone.querySelector(".mobileBasket__weight").textContent =
+          item.card.weight;
+        cardClone.querySelector(".basket__price").textContent = item.card.price;
+        if (item.typeDeliavery === "takeaway") {
 
+        }
+        totalCheck += item.card.price * item.quantity;
+        let currentMinus = cardClone.querySelector(".count_minus");
+        let currentCount = cardClone.querySelector(".input_text");
+        let currentPlus = cardClone.querySelector(".count_plus");
+        currentPlus.addEventListener("click", countPlus(currentCount));
+        currentMinus.addEventListener("click", countMinus(currentCount));
+        cardClone.querySelector(".input_text").value = item.quantity;
+        fragment.append(cardClone);
+      }
+    });
+    document.querySelector(".mobileBasket__menu").innerHTML = "";
+    document.querySelector(".mobileBasket__menu").appendChild(fragment);
+    document.querySelector(".mobileBasket__header_price").textContent =
+      totalCheck;
+    document.querySelector(".totalCheck").textContent = totalCheck;
   }
 
   load() {
 
+
+
+   class Loader {
+    constructor(baseLink, options) {
+        this.baseLink = baseLink;
+        this.options = options;
+    }
+
+    getResp(
+        { endpoint, options = {} },
+        callback = () => {
+            console.error('No callback for GET response');
+        }
+    ) {
+        this.load('GET', endpoint, callback, options);
+    }
+
+    errorHandler(res) {
+        if (!res.ok) {
+            if (res.status === 401 || res.status === 404)
+                console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
+            throw Error(res.statusText);
+        }
+
+        return res;
+    }
+
+    load(method, endpoint, callback, options = {}) {
+        fetch(url, "GET")
+            .then(this.errorHandler)
+            .then((res) => res.json())
+            .then((data) => callback(data))
+            .catch((err) => console.error(err));
+    }
+}
   }
 
-  save() {
-
-  }
+  save() {}
 }

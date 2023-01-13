@@ -1186,7 +1186,7 @@ address {
     display: flex;
     flex-direction: column;
     row-gap: 25px;
-    height: calc(100vh - 420px);
+    max-height: calc(100vh - 420px);
     overflow-y: auto;
     z-index: 100;
 }
