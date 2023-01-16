@@ -242,9 +242,9 @@
               <main class="mobileBasket__main">
                 <section class="mobileBasket__delivery">
                   <div class="mobileBasket__delivery__wrapper">
-                    <li class="mobileBasket__delivery__item basket__delivery_active">
+                    <li class="basket__delivery__item basket__delivery_active">
                       <input
-                        class="mobileBasket__delivery_input"
+                        class="basket__delivery_input"
                         type="radio"
                         name="delivery"
                         value="0"
@@ -255,9 +255,9 @@
                         >Доставка</label
                       >
                     </li>
-                    <li class="mobileBasket__delivery__item">
+                    <li class="basket__delivery__item">
                       <input
-                        class="mobileBasket__delivery_input"
+                        class="basket__delivery_input"
                         type="radio"
                         name="delivery"
                         value=""
@@ -271,29 +271,29 @@
                     <div class="hovering_active hover__active_left"></div>
                   </div>
                 </section>
-                <section class="mobileBasket__menu">
-                  <template id="basketTemp">
-                    <div class="mobileBasket__card">
-                      <div class="mobileBasket__card_pict">
+                <section class="mobileBasket__menu basket__menu">
+                  <template class = "basketTemp">
+                    <div class="basket__card">
+                      <div class="basket__card_pict">
                         <img
-                          class="mobileBasket__card_img"
+                          class="basket__card_img"
                           src="assets/img/kebab.jpg"
                           alt=""
                         />
                       </div>
-                      <div class="mobileBasket__desc">
-                        <h3 class="mobileBasket__h3">
+                      <div class="basket__desc">
+                        <h3 class="basket__h3">
                           Кебаб из ягненка с салатом из свежих овощей
                         </h3>
-                        <div class="mobileBasket__desc_main">
-                          <div class="mobileBasket__weightPrice">
-                            <span class="mobileBasket__weight"> 360 г. </span>
-                            <div class="mobileBasket__price">
+                        <div class="basket__desc_main">
+                          <div class="basket__weightPrice">
+                            <span class="basket__weight"> 360 г. </span>
+                            <div class="divBasket__price">
                               <span class="basket__price">670</span>
                               <span class="rouble">i</span>
                             </div>
                           </div>
-                          <div class="mobileBasket__count button__count">
+                          <div class="basket__count button__count">
                             <div class="count_minus">-</div>
                             <div class="count__wrapper">
                               <input
@@ -324,13 +324,13 @@
             <div class="mobileBasket_priceDelivery">
               <span class="mobileBasket__footer_span">Доставка</span>
               <div class="mobileBasket__price_delivery">
-                <span id="mobileBasket_priceDelivery">250 </span>
+                <span class="priceDelivery">250 </span>
                 <span class="rouble"> i</span>
               </div>
             </div>
-            <p class="mobileBasket_forFreeDelivery">
+            <p class="basket_forFreeDelivery">
               Закажите ещё на
-              <span id="mobileBasket_forFreeDelivery">105</span>
+              <span class="check_forFreeDelivery">105</span>
               <span class="rouble">i</span> для бесплатной доставки!
             </p>
           </div>
@@ -1194,10 +1194,10 @@
                   <section class="deskBasket__delivery">
                     <div class="deskBasket__delivery__wrapper">
                       <li
-                        class="desktopBasket__delivery__item basket__delivery_active"
+                        class="basket__delivery__item basket__delivery_active"
                       >
                         <input
-                          class="deskBasket__delivery_input"
+                          class="basket__delivery_input"
                           type="radio"
                           name="delivery"
                           value="0"
@@ -1210,9 +1210,9 @@
                           >Доставка</label
                         >
                       </li>
-                      <li class="desktopBasket__delivery__item">
+                      <li class="basket__delivery__item">
                         <input
-                          class="deskBasket__delivery_input"
+                          class="basket__delivery_input"
                           type="radio"
                           name="delivery"
                           value=""
@@ -1226,264 +1226,46 @@
                       <div class="hovering_active hover__active_left"></div>
                     </div>
                   </section>
-                  <section class="deskBasket__menu">
-                    <div class="deskBasket__card">
-                      <div class="deskBasket__card_pict">
-                        <img
-                          class="deskBasket__card_img"
-                          src="assets/img/kebab.jpg"
-                          alt=""
-                        />
-                      </div>
-                      <div class="deskBasket__desc">
-                        <h3 class="deskBasket__h3">
-                          Кебаб из ягненка с салатом из свежих овощей
-                        </h3>
-                        <div class="deskBasket__desc_main">
-                          <div class="deskBasket__weightPrice">
-                            <span class="deskBasket__weight"> 360 г. </span>
-                            <div class="deskBasket__price">
-                              <span class="basket__price">670</span>
-                              <span class="rouble">i</span>
+                  <section class="deskBasket__menu basket__menu">                   
+                    <template class = "basketTemp">
+                      <div class="basket__card">
+                        <div class="basket__card_pict">
+                          <img
+                            class="basket__card_img"
+                            src="assets/img/kebab.jpg"
+                            alt=""
+                          />
+                        </div>
+                        <div class="basket__desc">
+                          <h3 class="basket__h3">
+                            Кебаб из ягненка с салатом из свежих овощей
+                          </h3>
+                          <div class="basket__desc_main">
+                            <div class="basket__weightPrice">
+                              <span class="basket__weight"> 360 г. </span>
+                              <div class="divBasket__price">
+                                <span class="basket__price">670</span>
+                                <span class="rouble">i</span>
+                              </div>
                             </div>
-                          </div>
-                          <div class="deskBasket__count button__count">
-                            <div class="count_minus" id="left">-</div>
-                            <div class="count__wrapper">
-                              <input
-                                type="text"
-                                class="input_text"
-                                size="6"
-                                value="1"
-                                pattern="[0-9]{,3}"
-                                inputmode="numeric"
-                              />
+                            <div class="basket__count button__count">
+                              <div class="count_minus">-</div>
+                              <div class="count__wrapper">
+                                <input
+                                  type="text"
+                                  class="input_text"
+                                  size="6"
+                                  value="1"
+                                  pattern="[0-9]{1,3}"
+                                  inputmode="numeric"
+                                />
+                              </div>
+                              <div class="count_plus" id="right">+</div>
                             </div>
-                            <div class="count_plus" id="right">+</div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="deskBasket__card">
-                      <div class="deskBasket__card_pict">
-                        <img
-                          class="deskBasket__card_img"
-                          src="assets/img/kebab.jpg"
-                          alt=""
-                        />
-                      </div>
-                      <div class="deskBasket__desc">
-                        <h3 class="deskBasket__h3">
-                          Кебаб из ягненка с салатом из свежих овощей
-                        </h3>
-                        <div class="deskBasket__desc_main">
-                          <div class="deskBasket__weightPrice">
-                            <span class="deskBasket__weight"> 360 г. </span>
-                            <div class="deskBasket__price">
-                              <span class="basket__price">670</span>
-                              <span class="rouble">i</span>
-                            </div>
-                          </div>
-                          <div class="deskBasket__count button__count">
-                            <div class="count_minus" id="left">-</div>
-                            <div class="count__wrapper">
-                              <input
-                                type="text"
-                                class="input_text"
-                                size="6"
-                                value="1"
-                                pattern="[0-9]{,3}"
-                                inputmode="numeric"
-                              />
-                            </div>
-                            <div class="count_plus" id="right">+</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="deskBasket__card">
-                      <div class="deskBasket__card_pict">
-                        <img
-                          class="deskBasket__card_img"
-                          src="assets/img/kebab.jpg"
-                          alt=""
-                        />
-                      </div>
-                      <div class="deskBasket__desc">
-                        <h3 class="deskBasket__h3">
-                          Кебаб из ягненка с салатом из свежих овощей
-                        </h3>
-                        <div class="deskBasket__desc_main">
-                          <div class="deskBasket__weightPrice">
-                            <span class="deskBasket__weight"> 360 г. </span>
-                            <div class="deskBasket__price">
-                              <span class="basket__price">670</span>
-                              <span class="rouble">i</span>
-                            </div>
-                          </div>
-                          <div class="deskBasket__count button__count">
-                            <div class="count_minus" id="left">-</div>
-                            <div class="count__wrapper">
-                              <input
-                                type="text"
-                                class="input_text"
-                                size="6"
-                                value="1"
-                                pattern="[0-9]{,3}"
-                                inputmode="numeric"
-                              />
-                            </div>
-                            <div class="count_plus" id="right">+</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="deskBasket__card">
-                      <div class="deskBasket__card_pict">
-                        <img
-                          class="deskBasket__card_img"
-                          src="assets/img/kebab.jpg"
-                          alt=""
-                        />
-                      </div>
-                      <div class="deskBasket__desc">
-                        <h3 class="deskBasket__h3">
-                          Кебаб из ягненка с салатом из свежих овощей
-                        </h3>
-                        <div class="deskBasket__desc_main">
-                          <div class="deskBasket__weightPrice">
-                            <span class="deskBasket__weight"> 360 г. </span>
-                            <div class="deskBasket__price">
-                              <span class="basket__price">670</span>
-                              <span class="rouble">i</span>
-                            </div>
-                          </div>
-                          <div class="deskBasket__count button__count">
-                            <div class="count_minus" id="left">-</div>
-                            <div class="count__wrapper">
-                              <input
-                                type="text"
-                                class="input_text"
-                                size="6"
-                                value="1"
-                                pattern="[0-9]{,3}"
-                                inputmode="numeric"
-                              />
-                            </div>
-                            <div class="count_plus" id="right">+</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="deskBasket__card">
-                      <div class="deskBasket__card_pict">
-                        <img
-                          class="deskBasket__card_img"
-                          src="assets/img/kebab.jpg"
-                          alt=""
-                        />
-                      </div>
-                      <div class="deskBasket__desc">
-                        <h3 class="deskBasket__h3">
-                          Кебаб из ягненка с салатом из свежих овощей
-                        </h3>
-                        <div class="deskBasket__desc_main">
-                          <div class="deskBasket__weightPrice">
-                            <span class="deskBasket__weight"> 360 г. </span>
-                            <div class="deskBasket__price">
-                              <span class="basket__price">670</span>
-                              <span class="rouble">i</span>
-                            </div>
-                          </div>
-                          <div class="deskBasket__count button__count">
-                            <div class="count_minus" id="left">-</div>
-                            <div class="count__wrapper">
-                              <input
-                                type="text"
-                                class="input_text"
-                                size="6"
-                                value="1"
-                                pattern="[0-9]{,3}"
-                                inputmode="numeric"
-                              />
-                            </div>
-                            <div class="count_plus" id="right">+</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="deskBasket__card">
-                      <div class="deskBasket__card_pict">
-                        <img
-                          class="deskBasket__card_img"
-                          src="assets/img/kebab.jpg"
-                          alt=""
-                        />
-                      </div>
-                      <div class="deskBasket__desc">
-                        <h3 class="deskBasket__h3">
-                          Кебаб из ягненка с салатом из свежих овощей
-                        </h3>
-                        <div class="deskBasket__desc_main">
-                          <div class="deskBasket__weightPrice">
-                            <span class="deskBasket__weight"> 360 г. </span>
-                            <div class="deskBasket__price">
-                              <span class="basket__price">670</span>
-                              <span class="rouble">i</span>
-                            </div>
-                          </div>
-                          <div class="deskBasket__count button__count">
-                            <div class="count_minus" id="left">-</div>
-                            <div class="count__wrapper">
-                              <input
-                                type="text"
-                                class="input_text"
-                                size="6"
-                                value="1"
-                                pattern="[0-9]{,3}"
-                                inputmode="numeric"
-                              />
-                            </div>
-                            <div class="count_plus" id="right">+</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="deskBasket__card">
-                      <div class="deskBasket__card_pict">
-                        <img
-                          class="deskBasket__card_img"
-                          src="assets/img/kebab.jpg"
-                          alt=""
-                        />
-                      </div>
-                      <div class="deskBasket__desc">
-                        <h3 class="deskBasket__h3">Кебаб</h3>
-                        <div class="deskBasket__desc_main">
-                          <div class="deskBasket__weightPrice">
-                            <span class="deskBasket__weight"> 360 г. </span>
-                            <div class="deskBasket__price">
-                              <span class="basket__price">670</span>
-                              <span class="rouble">i</span>
-                            </div>
-                          </div>
-                          <div class="deskBasket__count button__count">
-                            <div class="count_minus" id="left">-</div>
-                            <div class="count__wrapper">
-                              <input
-                                type="text"
-                                class="input_text"
-                                size="6"
-                                value="1"
-                                pattern="[0-9]{,3}"
-                                inputmode="numeric"
-                              />
-                            </div>
-                            <div class="count_plus" id="right">+</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    </template>
                   </section>
                 </div>
                 <div class="deskBasket__footer">
@@ -1493,19 +1275,19 @@
                     </button>
                     <div class="deskBasket_priceDelivery">
                       <span class="deskBasket__footer_span">Доставка</span>
-                      <span id="deskBasket_priceDelivery">250</span>
+                      <span class="priceDelivery">250</span>
                       <span class="rouble"> i</span>
                     </div>
-                    <p class="deskBasket_forFreeDelivery">
+                    <p class="basket_forFreeDelivery">
                       Закажите ещё на
-                      <span>105</span>
+                      <span class="check_forFreeDelivery">105</span>
                       <span class="rouble">i</span> для бесплатной доставки!
                     </p>
                   </div>
                   <button class="deskBasket__button_order">
                     <span>Верно, далее</span>
                     <div class="deskBasket_totalCheck">
-                      <span>1895</span>
+                      <span class="totalCheck" >1895</span>
                       <span class="rouble"> i</span>
                     </div>
                   </button>

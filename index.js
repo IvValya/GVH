@@ -15,35 +15,49 @@
 // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
 let vh = window.innerHeight * 0.01;
 let mobileBasketTrue = false;
-const data = [
-  {
-    card: {
-      name: "newName",
-      img: "https://live.staticflickr.com//65535//49298804222_474cfe8682.jpg",
-      weight: "360 г.",
-      price: 400,
-    },
-    quantity: 3,    
+const data = {
+  basket: {
+    idCategory: "popular",
+    cards: [
+      {
+        card: {
+          name: "newName",
+          img: "assets/img/bigImg.jpg",
+          weight: "360 г.",
+          price: 400,
+        },
+        quantity: 1,
+      },
+      {
+        card: {
+          name: "newName",
+          img: "assets/img/kare.jpg",
+          weight: "360 г.",
+          price: 150,
+        },
+        quantity: 2,
+      },
+      {
+        card: {
+          name: "newName",
+          img: "assets/img/image_for_basket.jpg",
+          weight: "360 г.",
+          price: 400,
+        },
+        quantity: 1,
+      },
+    ],
   },
-  {
-    card: {
-      name: "newName",
-      img: "https://live.staticflickr.com//65535//49298804222_474cfe8682.jpg",
-      weight: "360 г.",
-      price: 400,
-    },
-    quantity: 3,
+  delivery: {
+    typeDelivery: "takeaway",
+    priceDelivery: 500,
+    orderPriceForFree: 1500
   },
-  {
-    card: {
-      name: "newName",
-      img: "https://live.staticflickr.com//65535//49298804222_474cfe8682.jpg",
-      weight: "360 г.",
-      price: 400,
-    },
-    quantity: 3,
+  customerInfo: {
+    address: {},
+    payment: {},
   },
-];
+};
 
 let x1 = null;
 let y1 = null;
@@ -136,12 +150,6 @@ for (let buttonCount of buttonsCount) {
   plus.addEventListener("click", countPlus(count));
 }
 
-//----------------------Вызов бургер-меню-----------------//
-/*burger.addEventListener("click", () => {
-  console.log("here");
-  document.querySelector(".mobile").classList.toggle("hidden");
-})*/
-
 /*----------------------------многоточие в конце строки-----------------*/
 
 function truncateNames() {
@@ -197,7 +205,7 @@ for (let imgClick of imgsClick) {
       footer.style.paddingBottom = "60px";
       mobileBasketSticky.style.display = "block";
       btnCloseMobileBasket.style.display = "none";
-      startPosition = (window.innerHeight - 60) + "px";
+      startPosition = window.innerHeight - 60 + "px";
       mobileBasketSticky.style.bottom = "60px";
       //mobileBasketSticky.style.top = "calc((var(--vh, 1vh) * 100) - 60px)";
       mobileBasketHeaderWr.style.width = "100%";
@@ -221,8 +229,6 @@ for (let imgClick of imgsClick) {
         btnCloseModal.style.animation = "zoom 0.3s forwards";
         modalFooter.style.animation = "zoom 0.3s forwards";
       }, 400);
-      //
-
       //document.querySelector(".asideMenu__ul").style.position = "fixed";
       //document.querySelector(".asideMenu__ul").style.top = ;
     }
@@ -295,10 +301,10 @@ function openMobileBasketFunc() {
   /*document.body.style.overflow = "hidden";
   mobileBasket.style.display = "flex";*/
   if (!touchTrue) {
-    mobileBasketSticky.style.top = (window.innerHeight - 60) + "px";
+    mobileBasketSticky.style.top = window.innerHeight - 60 + "px";
   }
-   yDiff = 0;
-   full = 0;
+  yDiff = 0;
+  full = 0;
   hiddenOverflow();
   mobileBasketHeaderPrice.style.display = "none";
   btnCloseMobileBasket.style.display = "block";
@@ -332,11 +338,10 @@ function openMobileBasketFunc() {
 }
 
 function closeMobileBasketFunc() {
-
   //document.body.style.overflow = "unset";
   // mobileBasket.style.display = "none";
   yDiff = 0;
-   full = 0;
+  full = 0;
   console.log(mobileBasketSticky.style.top);
   startPosition = window.innerHeight - 60 + "px";
   mobileBasketSticky.style.top = startPosition;
@@ -407,7 +412,7 @@ for (let i = 0; i < buttonAdd.length; i++) {
       footer.style.paddingBottom = "60px";
       mobileBasketSticky.style.display = "block";
       btnCloseMobileBasket.style.display = "none";
-      startPosition = (window.innerHeight - 60) + "px";
+      startPosition = window.innerHeight - 60 + "px";
       mobileBasketSticky.style.bottom = "60px";
       //mobileBasketSticky.style.top = "calc((var(--vh, 1vh) * 100) - 60px)";
       mobileBasketHeaderWr.style.width = "100%";
@@ -476,31 +481,36 @@ window.addEventListener("scroll", function () {
 });
 
 /*--------------------------Choose delivery/takeaway--------------------------*/
-/*const btnDelivery = document.querySelectorAll(".mobileBasket__delivery__item");
-for (let t = 0; t < btnDelivery.length; t++) {
-  btnDelivery[t].addEventListener("click", (e) => {
-    let currentDelivery = e.currentTarget.closest(
-      ".mobileBasket__delivery__item"
-    );
-    currentDelivery.classList.add("basket__delivery_active");
-    if (t === btnDelivery.length - 1) {
-      btnDelivery[t - 1].classList.remove("basket__delivery_active");
-    } else {
-      btnDelivery[t + 1].classList.remove("basket__delivery_active");
-    }
-  });
-}*/
 
-const btnDelivery = document.querySelectorAll(".mobileBasket__delivery__item");
-for (let t = 0; t < btnDelivery.length; t++) {
-  btnDelivery[t].addEventListener("click", (e) => {
-    let currentDelivery = e.currentTarget.closest(
-      ".mobileBasket__delivery__item"
-    );
-    let wrapp = e.currentTarget.closest(".mobileBasket__delivery__wrapper");
+
+const btnDelivery = document.querySelectorAll(".basket__delivery__item");
+btnDelivery.forEach((currentBtnDelivery) => {
+  currentBtnDelivery.addEventListener("click", btnDeliveryClick);
+});
+const inputsDelivery = document.querySelectorAll(".basket__delivery_input");
+inputsDelivery.forEach((inputDelivery) => {
+  inputDelivery.addEventListener("click", (ev) => {
+    ev.stopPropagation();
+  })
+})
+
+  function btnDeliveryClick(e) {
+    let wrapp;
+    console.log(e);
+    let currentBtn = e.currentTarget.closest(".basket__delivery__item");
+    console.log(currentBtn);
+    if (window.innerWidth < 1400) {
+      wrapp = currentBtn.closest(".mobileBasket__delivery__wrapper");
+      console.log("mobile");
+    }
+    else {
+      wrapp = currentBtn.closest(".deskBasket__delivery__wrapper");
+      console.log("desk");
+    }
+    console.log(wrapp);
     let hoverActive = wrapp.querySelector(".hovering_active");
-    let currentTypeDelivery = currentDelivery.querySelector(
-      ".mobileBasket__delivery_input"
+    let currentTypeDelivery = currentBtn.querySelector(
+      ".basket__delivery_input"
     ).id;
     if (currentTypeDelivery === "takeaway") {
       hoverActive.classList.remove("hover__active_left");
@@ -509,13 +519,52 @@ for (let t = 0; t < btnDelivery.length; t++) {
       hoverActive.classList.remove("hover__active_right");
       hoverActive.classList.add("hover__active_left");
     }
-    document.querySelectorAll(".mobileBasket__delivery__item").forEach((el) => {
+    document.querySelectorAll(".basket__delivery__item").forEach((el) => {
       el.classList.remove("basket__delivery_active");
     });
-    e.currentTarget.classList.add("basket__delivery_active");
-  });
-}
+    currentBtn.classList.add("basket__delivery_active");
+  }
 
+
+/*
+
+
+for (let t = 0; t < btnDelivery.length; t++) {
+  btnDelivery[t].addEventListener("click", (e) => {
+    console.log(btnDelivery.length);
+    console.log(t);
+    let currentDeliveryBtn = e.currentTarget.closest(
+      ".basket__delivery__item"
+    );
+      console.log(currentDeliveryBtn);
+    let wrapp;
+    if (window.innerWidth < 1400) {
+      wrapp = currentDeliveryBtn.closest(".mobileBasket__delivery__wrapper");
+      console.log("mobile");
+    }
+    else {
+      wrapp = currentDeliveryBtn.closest(".deskBasket__delivery__wrapper");
+      console.log("desk");
+    }
+    console.log(wrapp);
+    let hoverActive = wrapp.querySelector(".hovering_active");
+    let currentTypeDelivery = currentDeliveryBtn.querySelector(
+      ".basket__delivery_input"
+    ).id;
+    if (currentTypeDelivery === "takeaway") {
+      hoverActive.classList.remove("hover__active_left");
+      hoverActive.classList.add("hover__active_right");
+    } else {
+      hoverActive.classList.remove("hover__active_right");
+      hoverActive.classList.add("hover__active_left");
+    }
+    document.querySelectorAll(".basket__delivery__item").forEach((el) => {
+      el.classList.remove("basket__delivery_active");
+    });
+    currentDeliveryBtn.classList.add("basket__delivery_active");
+  });
+}*/
+/*
 const btnDeliverys = document.querySelectorAll(
   ".desktopBasket__delivery__item"
 );
@@ -544,7 +593,7 @@ for (let t = 0; t < btnDeliverys.length; t++) {
     e.currentTarget.classList.add("basket__delivery_active");
   });
 }
-
+*/
 //---------------------------Scroll menu-------------------------------------------------
 
 function scrollAsideMenu() {
@@ -622,14 +671,14 @@ window.addEventListener("scroll", scrollAsideMenu);
     ) {
       // Angle is no more than 45 degrees off of swipe left/right
       this.checked = !!(x < 0);
-      let items = document.querySelectorAll(".mobileBasket__delivery__item");
+      let items = document.querySelectorAll(".basket__delivery__item");
       if (
         (x < 0 && !items[1].classList.contains("basket__delivery_active")) ||
         (x > 0 && !items[0].classList.contains("basket__delivery_active"))
       ) {
         document
           .querySelector(
-            ".mobileBasket__delivery__item:not(.basket__delivery_active)"
+            ".basket__delivery__item:not(.basket__delivery_active)"
           )
           .click();
       }
@@ -743,7 +792,6 @@ mobileBasketHeader.addEventListener("touchstart", handleTouchStart, false);
 mobileBasketHeader.addEventListener("touchmove", handleTouchMove, false);
 mobileBasketHeader.addEventListener("touchend", handleTouchEnd, false);
 
-
 function handleTouchStart(event) {
   touchTrue = true;
   hiddenOverflow();
@@ -832,7 +880,7 @@ function handleTouchEnd(event) {
     mobileBasketSticky.classList.add("opened");*/
   } else {
     closeMobileBasketFunc();
-   
+
     /*
     mobileBasketSticky.style.bottom = 60 + "px";
     mobileBasketSticky.classList.remove("opened");*/
@@ -877,22 +925,47 @@ function renderModal() {
 
 class order {
   render(data) {
-    let mobileBasketMenu = document.querySelector(".mobileBasket__menu");
+    let {basket, delivery, customerInfo} = data;
+    let {typeDelivery, priceDelivery, orderPriceForFree} = delivery;
+    let currentBasket;
+
+    //Прорисовка типа и цены доставки в корзине---------------------------------
+    if (window.innerWidth < 1400) {
+      currentBasket = document.querySelector(".mobileBasket");
+    }
+    else {
+      currentBasket = document.querySelector(".deskBasket");
+    }
+    let currentDelivery = currentBasket.querySelector(".hovering_active");   
+    let deliveryItem = currentBasket.querySelectorAll(".basket__delivery__item");
+    deliveryItem.forEach((delivery) => {
+      delivery.classList.remove("basket__delivery_active");
+    });    
+    if (typeDelivery === "takeaway") {
+      currentDelivery.classList.add("hover__active_right");
+      deliveryItem[1].classList.add("basket__delivery_active");
+    } 
+    else {
+      currentDelivery.classList.add("hover__active_left");
+      deliveryItem[0].classList.add("basket__delivery_active");
+    }
+    //-----------------------------------------------------------------------
+
+    let {idCategory, cards} = basket;
     let totalCheck = 0;
     const fragment = document.createDocumentFragment();
-    const basketCard = mobileBasketMenu.querySelector("#basketTemp");
-    data.forEach((item) => {
+    console.log(currentBasket);
+    const basketCard = currentBasket.querySelector(".basketTemp");   
+    cards.forEach((item) => {
       const cardClone = basketCard.content.cloneNode(true);
+      console.log(cardClone);
       if (cardClone !== null) {
-        cardClone.querySelector(".mobileBasket__card_img").src = item.card.img;
-        cardClone.querySelector(".mobileBasket__h3").textContent =
+        cardClone.querySelector(".basket__card_img").src = item.card.img;
+        cardClone.querySelector(".basket__h3").textContent =
           item.card.name;
-        cardClone.querySelector(".mobileBasket__weight").textContent =
+        cardClone.querySelector(".basket__weight").textContent =
           item.card.weight;
         cardClone.querySelector(".basket__price").textContent = item.card.price;
-        if (item.typeDeliavery === "takeaway") {
-
-        }
         totalCheck += item.card.price * item.quantity;
         let currentMinus = cardClone.querySelector(".count_minus");
         let currentCount = cardClone.querySelector(".input_text");
@@ -903,41 +976,56 @@ class order {
         fragment.append(cardClone);
       }
     });
-    document.querySelector(".mobileBasket__menu").innerHTML = "";
-    document.querySelector(".mobileBasket__menu").appendChild(fragment);
+    
+    let deliveryPrice = currentBasket.querySelector(".priceDelivery");
+    let checKForFree = currentBasket.querySelector(".check_forFreeDelivery")
+    if (totalCheck >= orderPriceForFree) {
+      deliveryPrice.textContent = 0;
+      checKForFree.textContent = 0;
+      priceDelivery = 0;
+    }
+    else {
+      deliveryPrice.textContent = priceDelivery;
+      checKForFree.textContent = orderPriceForFree - totalCheck;
+    }
+    let currentBasketMenu = currentBasket.querySelector(".basket__menu");
+    currentBasketMenu.innerHTML = "";
+    currentBasketMenu.appendChild(fragment);
     document.querySelector(".mobileBasket__header_price").textContent =
-      totalCheck;
-    document.querySelector(".totalCheck").textContent = totalCheck;
+      totalCheck ;
+      currentBasket.querySelector(".totalCheck").textContent = totalCheck + priceDelivery;
   }
 
   load() {
-
-
-
-   class Loader {
-    constructor(baseLink, options) {
+    class Loader {
+      constructor(baseLink, options) {
         this.baseLink = baseLink;
         this.options = options;
-    }
+      }
 
-
-    errorHandler(res) {
+      errorHandler(res) {
         if (!res.ok) {
-            if (res.status === 401 || res.status === 404)
-                console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
-            throw Error(res.statusText);
+          if (res.status === 401 || res.status === 404)
+            console.log(
+              `Sorry, but there is ${res.status} error: ${res.statusText}`
+            );
+          throw Error(res.statusText);
         }
         return res;
-    }
+      }
 
-    load(method, endpoint, callback, options = {}) {
+      load() {
         fetch(url, "GET")
-            .then(this.errorHandler)
-            .then((res) => res.json())
-            .then((data) => callback(data))
-            .catch((err) => console.error(err));
+          .then(this.errorHandler)
+          .then((res) => res.json())
+          .then((data) => () => {
+            const basket = JSON.parse(data);
+            debugger
+            render(basket);
+          })
+          .catch((err) => console.error(err));
+      }
     }
-}
   }
 
   save() {}
