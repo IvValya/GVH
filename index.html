@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="assets/style/style.css" />
     <link rel="stylesheet" href="assets/swiper/swiper-bundle.min.css" />
-    
+
     <style>
       .swiper {
         width: 100%;
@@ -39,10 +39,10 @@
       }
     </style>
     <script src="dishes.js"></script>
-    <script> 
-    let menu = new dishes();
-      menu.load();
-      </script>
+    <script>
+      let dishesList = new dishesL();
+      dishesList.load();
+    </script>
     <title>GRILL VINO & ХАЧАПУРИ</title>
   </head>
   <body>
@@ -169,7 +169,10 @@
             id="tab_0"
             checked=""
           />
-          <label class="nav__label nav__label_active" data-name="cat1" for="tab_0"
+          <label
+            class="nav__label nav__label_active"
+            data-name="cat1"
+            for="tab_0"
             >Популярные блюда</label
           >
         </li>
@@ -317,22 +320,107 @@
       <div class="wrapper__main_big">
         <aside class="asideMenu">
           <ul class="asideMenu__ul">
-            <input class="asideMenu__input" type="radio" id="cat1" />
-            <label class="asideMenu__label category_active" for="cat1"
-              >Популярные блюда</label
-            >
-            <input class="asideMenu__input" type="radio" id="cat2" />
-            <label class="asideMenu__label" for="cat2">Блюда на углях</label>
-            <input class="asideMenu__input" type="radio" id="cat3" />
-            <label class="asideMenu__label" for="cat3">Супы</label>
-            <input class="asideMenu__input" type="radio" id="cat4" />
-            <label class="asideMenu__label" for="cat4">Десерты</label>
+            <template class="asideItemTemp">
+              <input class="asideMenu__input" type="radio" id="cat1" />
+              <label class="asideMenu__label category_active" for="cat1"
+                >Популярные</label
+              >
+            </template>
           </ul>
           <h1 class="visually-hidden"></h1>
         </aside>
         <div class="wrapper__main_small">
           <div class="menu">
             <div class="menu__list">
+              <template class="dishesListTemp">
+                <div id="category1" class="menu__cat" data-name="cat1">
+                  <h2 class="menu__h2">Популярные блюда</h2>
+                  <template class="menuCardTemp">
+                    <div class="menu__list_item list_item">
+                      <a class="menu__card">
+                        <img class="card__img" src="assets/img/kare.jpg" alt="" />
+                        <div class="card_desc">
+                          <div class="card__text">
+                            <div class="card">
+                              <span class="card__desc_name"
+                                >Пеновани из слоёного теста с беконом, сыром
+                                сулугуни и зеленью Подается со сметаной</span
+                              >
+                              <span class="card__desc_weight">280 г.</span>
+                            </div>
+                          </div>
+                          <div class="card__desc_price">
+                            <span class="desc_price">670</span>
+                            <span class="rouble">i</span>
+                          </div>
+                        </div>
+                      </a>
+                      <button class="card__button" type="button">
+                        <div class="card__button_add">
+                          <img class="img__plus" src="assets/img/plus.svg" alt="" />
+                          <span>добавить</span>
+                        </div>
+                      </button>
+                      <div class="card__button_count button__count">
+                        <div class="count_minus card__count_minus" id="left">-</div>
+                        <div class="card__count_wrapper">
+                          <input
+                            type="text"
+                            class="input_text"
+                            size="6"
+                            value="1"
+                            pattern="[0-9]{,3}"
+                            inputmode="numeric"
+                          />
+                        </div>
+                        <div class="count_plus card__count_plus" id="right">+</div>
+                      </div>
+                    </div>
+                  </template>
+                    
+                  </template>
+                  <div class="menu__list_item list_item">
+                    <a class="menu__card">
+                      <img class="card__img" src="assets/img/kare.jpg" alt="" />
+                      <div class="card_desc">
+                        <div class="card__text">
+                          <div class="card">
+                            <span class="card__desc_name"
+                              >Пеновани из слоёного теста с беконом, сыром
+                              сулугуни и зеленью Подается со сметаной</span
+                            >
+                            <span class="card__desc_weight">280 г.</span>
+                          </div>
+                        </div>
+                        <div class="card__desc_price">
+                          <span class="desc_price">670</span>
+                          <span class="rouble">i</span>
+                        </div>
+                      </div>
+                    </a>
+                    <button class="card__button" type="button">
+                      <div class="card__button_add">
+                        <img class="img__plus" src="assets/img/plus.svg" alt="" />
+                        <span>добавить</span>
+                      </div>
+                    </button>
+                    <div class="card__button_count button__count">
+                      <div class="count_minus card__count_minus" id="left">-</div>
+                      <div class="card__count_wrapper">
+                        <input
+                          type="text"
+                          class="input_text"
+                          size="6"
+                          value="1"
+                          pattern="[0-9]{,3}"
+                          inputmode="numeric"
+                        />
+                      </div>
+                      <div class="count_plus card__count_plus" id="right">+</div>
+                    </div>
+                  </div>
+                </div>
+              </template>
               <div id="category1" class="menu__cat" data-name="cat1">
                 <h2 class="menu__h2">Популярные блюда</h2>
                 <div class="menu__list_item list_item">
@@ -537,616 +625,7 @@
                   </div>
                 </div>
               </div>
-              <div id="category2" class="menu__cat" data-name="cat2">
-                <h2 class="menu__h2">Блюда на углях</h2>
-                <div class="menu__list_item list_item">
-                  <a class="menu__card">
-                    <img class="card__img" src="assets/img/kare.jpg" alt="" />
-                    <div class="card_desc">
-                      <div class="card__text">
-                        <div class="card">
-                          <span class="card__desc_name"
-                            >Пеновани из слоёного теста с беконом, сыром
-                            сулугуни и зеленью Подается со сметаной</span
-                          >
-                          <span class="card__desc_weight">280 г.</span>
-                        </div>
-                      </div>
-                      <div class="card__desc_price">
-                        <span class="desc_price">670</span>
-                        <span class="rouble">i</span>
-                      </div>
-                    </div>
-                  </a>
-                  <button class="card__button" type="button">
-                    <div class="card__button_add">
-                      <img class="img__plus" src="assets/img/plus.svg" alt="" />
-                      <span>добавить</span>
-                    </div>
-                  </button>
-                  <div class="card__button_count button__count">
-                    <div class="count_minus card__count_minus" id="left">-</div>
-                    <div class="card__count_wrapper">
-                      <input
-                        type="text"
-                        class="input_text"
-                        size="6"
-                        value="1"
-                        pattern="[0-9]{,3}"
-                        inputmode="numeric"
-                      />
-                    </div>
-                    <div class="count_plus card__count_plus" id="right">+</div>
-                  </div>
-                </div>
-                <div class="menu__list_item list_item">
-                  <a class="menu__card">
-                    <img class="card__img" src="assets/img/kare.jpg" alt="" />
-                    <div class="card_desc">
-                      <div class="card__text">
-                        <div class="card">
-                          <span class="card__desc_name"
-                            >Пеновани из слоёного теста с беконом, сыром
-                            сулугуни и зеленью Подается со сметаной</span
-                          >
-                          <span class="card__desc_weight">280 г.</span>
-                        </div>
-                      </div>
-                      <div class="card__desc_price">
-                        <span class="desc_price">670</span>
-                        <span class="rouble">i</span>
-                      </div>
-                    </div>
-                  </a>
-                  <button class="card__button" type="button">
-                    <div class="card__button_add">
-                      <img class="img__plus" src="assets/img/plus.svg" alt="" />
-                      <span>добавить</span>
-                    </div>
-                  </button>
-
-                  <div class="card__button_count button__count">
-                    <div class="count_minus card__count_minus" id="left">-</div>
-                    <div class="card__count_wrapper">
-                      <input
-                        type="text"
-                        class="input_text"
-                        size="6"
-                        value="1"
-                        pattern="[0-9]{,3}"
-                        inputmode="numeric"
-                      />
-                    </div>
-                    <div class="count_plus card__count_plus" id="right">+</div>
-                  </div>
-                </div>
-                <div class="menu__list_item list_item">
-                  <a class="menu__card">
-                    <img class="card__img" src="assets/img/kare.jpg" alt="" />
-                    <div class="card_desc">
-                      <div class="card__text">
-                        <div class="card">
-                          <span class="card__desc_name"
-                            >Пеновани из слоёного теста с беконом, сыром
-                            сулугуни и зеленью Подается со сметаной</span
-                          >
-                          <span class="card__desc_weight">280 г.</span>
-                        </div>
-                      </div>
-                      <div class="card__desc_price">
-                        <span class="desc_price">670</span>
-                        <span class="rouble">i</span>
-                      </div>
-                    </div>
-                  </a>
-                  <button class="card__button" type="button">
-                    <div class="card__button_add">
-                      <img class="img__plus" src="assets/img/plus.svg" alt="" />
-                      <span>добавить</span>
-                    </div>
-                  </button>
-
-                  <div class="card__button_count button__count">
-                    <div class="count_minus card__count_minus" id="left">-</div>
-                    <div class="card__count_wrapper">
-                      <input
-                        type="text"
-                        class="input_text"
-                        size="6"
-                        value="1"
-                        pattern="[0-9]{,3}"
-                        inputmode="numeric"
-                      />
-                    </div>
-                    <div class="count_plus card__count_plus" id="right">+</div>
-                  </div>
-                </div>
-                <div class="menu__list_item list_item">
-                  <a class="menu__card">
-                    <img class="card__img" src="assets/img/kare.jpg" alt="" />
-                    <div class="card_desc">
-                      <div class="card__text">
-                        <div class="card">
-                          <span class="card__desc_name"
-                            >Пеновани из слоёного теста с беконом, сыром
-                            сулугуни и зеленью Подается со сметаной</span
-                          >
-                          <span class="card__desc_weight">280 г.</span>
-                        </div>
-                      </div>
-                      <div class="card__desc_price">
-                        <span class="desc_price">670</span>
-                        <span class="rouble"></span>
-                      </div>
-                    </div>
-                  </a>
-                  <button class="card__button" type="button">
-                    <div class="card__button_add">
-                      <img class="img__plus" src="assets/img/plus.svg" alt="" />
-                      <span>добавить</span>
-                    </div>
-                  </button>
-
-                  <div class="card__button_count button__count">
-                    <div class="count_minus card__count_minus" id="left">-</div>
-                    <div class="card__count_wrapper">
-                      <input
-                        type="text"
-                        class="input_text"
-                        size="6"
-                        value="1"
-                        pattern="[0-9]{,3}"
-                        inputmode="numeric"
-                      />
-                    </div>
-                    <div class="count_plus card__count_plus" id="right">+</div>
-                  </div>
-                </div>
-                <div class="menu__list_item list_item">
-                  <a class="menu__card">
-                    <img class="card__img" src="assets/img/kare.jpg" alt="" />
-                    <div class="card_desc">
-                      <div class="card__text">
-                        <div class="card">
-                          <span class="card__desc_name">Пеновани </span>
-                          <span class="card__desc_weight">280 г.</span>
-                        </div>
-                      </div>
-                      <div class="card__desc_price">
-                        <span class="desc_price">670</span>
-                        <span class="rouble">i</span>
-                      </div>
-                    </div>
-                  </a>
-                  <button class="card__button" type="button">
-                    <div class="card__button_add">
-                      <img class="img__plus" src="assets/img/plus.svg" alt="" />
-                      <span>добавить</span>
-                    </div>
-                  </button>
-
-                  <div class="card__button_count button__count">
-                    <div class="count_minus card__count_minus" id="left">-</div>
-                    <div class="card__count_wrapper">
-                      <input
-                        type="text"
-                        class="input_text"
-                        size="6"
-                        value="1"
-                        pattern="[0-9]{,3}"
-                        inputmode="numeric"
-                      />
-                    </div>
-                    <div class="count_plus card__count_plus" id="right">+</div>
-                  </div>
-                </div>
-              </div>
-              <div id="category3" class="menu__cat" data-name="cat3">
-                <h2 class="menu__h2">Супы</h2>
-                <div class="menu__list_item list_item">
-                  <a class="menu__card">
-                    <img class="card__img" src="assets/img/kare.jpg" alt="" />
-                    <div class="card_desc">
-                      <div class="card__text">
-                        <div class="card">
-                          <span class="card__desc_name"
-                            >Пеновани из слоёного теста с беконом, сыром
-                            сулугуни и зеленью Подается со сметаной</span
-                          >
-                          <span class="card__desc_weight">280 г.</span>
-                        </div>
-                      </div>
-                      <div class="card__desc_price">
-                        <span class="desc_price">670</span>
-                        <span class="rouble">i</span>
-                      </div>
-                    </div>
-                  </a>
-                  <button class="card__button" type="button">
-                    <div class="card__button_add">
-                      <img class="img__plus" src="assets/img/plus.svg" alt="" />
-                      <span>добавить</span>
-                    </div>
-                  </button>
-                  <div class="card__button_count button__count">
-                    <div class="count_minus card__count_minus" id="left">-</div>
-                    <div class="card__count_wrapper">
-                      <input
-                        type="text"
-                        class="input_text"
-                        size="6"
-                        value="1"
-                        pattern="[0-9]{,3}"
-                        inputmode="numeric"
-                      />
-                    </div>
-                    <div class="count_plus card__count_plus" id="right">+</div>
-                  </div>
-                </div>
-                <div class="menu__list_item list_item">
-                  <a class="menu__card">
-                    <img class="card__img" src="assets/img/kare.jpg" alt="" />
-                    <div class="card_desc">
-                      <div class="card__text">
-                        <div class="card">
-                          <span class="card__desc_name"
-                            >Пеновани из слоёного теста с беконом, сыром
-                            сулугуни и зеленью Подается со сметаной</span
-                          >
-                          <span class="card__desc_weight">280 г.</span>
-                        </div>
-                      </div>
-                      <div class="card__desc_price">
-                        <span class="desc_price">670</span>
-                        <span class="rouble">i</span>
-                      </div>
-                    </div>
-                  </a>
-                  <button class="card__button" type="button">
-                    <div class="card__button_add">
-                      <img class="img__plus" src="assets/img/plus.svg" alt="" />
-                      <span>добавить</span>
-                    </div>
-                  </button>
-
-                  <div class="card__button_count button__count">
-                    <div class="count_minus card__count_minus" id="left">-</div>
-                    <div class="card__count_wrapper">
-                      <input
-                        type="text"
-                        class="input_text"
-                        size="6"
-                        value="1"
-                        pattern="[0-9]{,3}"
-                        inputmode="numeric"
-                      />
-                    </div>
-                    <div class="count_plus card__count_plus" id="right">+</div>
-                  </div>
-                </div>
-                <div class="menu__list_item list_item">
-                  <a class="menu__card">
-                    <img class="card__img" src="assets/img/kare.jpg" alt="" />
-                    <div class="card_desc">
-                      <div class="card__text">
-                        <div class="card">
-                          <span class="card__desc_name"
-                            >Пеновани из слоёного теста с беконом, сыром
-                            сулугуни и зеленью Подается со сметаной</span
-                          >
-                          <span class="card__desc_weight">280 г.</span>
-                        </div>
-                      </div>
-                      <div class="card__desc_price">
-                        <span class="desc_price">670</span>
-                        <span class="rouble">i</span>
-                      </div>
-                    </div>
-                  </a>
-                  <button class="card__button" type="button">
-                    <div class="card__button_add">
-                      <img class="img__plus" src="assets/img/plus.svg" alt="" />
-                      <span>добавить</span>
-                    </div>
-                  </button>
-
-                  <div class="card__button_count button__count">
-                    <div class="count_minus card__count_minus" id="left">-</div>
-                    <div class="card__count_wrapper">
-                      <input
-                        type="text"
-                        class="input_text"
-                        size="6"
-                        value="1"
-                        pattern="[0-9]{,3}"
-                        inputmode="numeric"
-                      />
-                    </div>
-                    <div class="count_plus card__count_plus" id="right">+</div>
-                  </div>
-                </div>
-                <div class="menu__list_item list_item">
-                  <a class="menu__card">
-                    <img class="card__img" src="assets/img/kare.jpg" alt="" />
-                    <div class="card_desc">
-                      <div class="card__text">
-                        <div class="card">
-                          <span class="card__desc_name"
-                            >Пеновани из слоёного теста с беконом, сыром
-                            сулугуни и зеленью Подается со сметаной</span
-                          >
-                          <span class="card__desc_weight">280 г.</span>
-                        </div>
-                      </div>
-                      <div class="card__desc_price">
-                        <span class="desc_price">670</span>
-                        <span class="rouble">i</span>
-                      </div>
-                    </div>
-                  </a>
-                  <button class="card__button" type="button">
-                    <div class="card__button_add">
-                      <img class="img__plus" src="assets/img/plus.svg" alt="" />
-                      <span>добавить</span>
-                    </div>
-                  </button>
-
-                  <div class="card__button_count button__count">
-                    <div class="count_minus card__count_minus" id="left">-</div>
-                    <div class="card__count_wrapper">
-                      <input
-                        type="text"
-                        class="input_text"
-                        size="6"
-                        value="1"
-                        pattern="[0-9]{,3}"
-                        inputmode="numeric"
-                      />
-                    </div>
-                    <div class="count_plus card__count_plus" id="right">+</div>
-                  </div>
-                </div>
-                <div class="menu__list_item list_item">
-                  <a class="menu__card">
-                    <img class="card__img" src="assets/img/kare.jpg" alt="" />
-                    <div class="card_desc">
-                      <div class="card__text">
-                        <div class="card">
-                          <span class="card__desc_name">Пеновани </span>
-                          <span class="card__desc_weight">280 г.</span>
-                        </div>
-                      </div>
-                      <div class="card__desc_price">
-                        <span class="desc_price">670</span>
-                        <span class="rouble">i</span>
-                      </div>
-                    </div>
-                  </a>
-                  <button class="card__button" type="button">
-                    <div class="card__button_add">
-                      <img class="img__plus" src="assets/img/plus.svg" alt="" />
-                      <span>добавить</span>
-                    </div>
-                  </button>
-                  <div class="card__button_count button__count">
-                    <div class="count_minus card__count_minus" id="left">-</div>
-                    <div class="card__count_wrapper">
-                      <input
-                        type="text"
-                        class="input_text"
-                        size="6"
-                        value="1"
-                        pattern="[0-9]{,3}"
-                        inputmode="numeric"
-                      />
-                    </div>
-                    <div class="count_plus card__count_plus" id="right">+</div>
-                  </div>
-                </div>
-              </div>
-              <div id="category4" class="menu__cat" data-name="cat4">
-                <h2 class="menu__h2">Десерты</h2>
-                <div class="menu__list_item list_item">
-                  <a class="menu__card">
-                    <img class="card__img" src="assets/img/kare.jpg" alt="" />
-                    <div class="card_desc">
-                      <div class="card__text">
-                        <div class="card">
-                          <span class="card__desc_name"
-                            >Пеновани из слоёного теста с беконом, сыром
-                            сулугуни и зеленью Подается со сметаной</span
-                          >
-                          <span class="card__desc_weight">280 г.</span>
-                        </div>
-                      </div>
-                      <div class="card__desc_price">
-                        <span class="desc_price">670</span>
-                        <span class="rouble">i</span>
-                      </div>
-                    </div>
-                  </a>
-                  <button class="card__button" type="button">
-                    <div class="card__button_add">
-                      <img class="img__plus" src="assets/img/plus.svg" alt="" />
-                      <span>добавить</span>
-                    </div>
-                  </button>
-                  <div class="card__button_count button__count">
-                    <div class="count_minus card__count_minus" id="left">-</div>
-                    <div class="card__count_wrapper">
-                      <input
-                        type="text"
-                        class="input_text"
-                        size="6"
-                        value="1"
-                        pattern="[0-9]{,3}"
-                        inputmode="numeric"
-                      />
-                    </div>
-                    <div class="count_plus card__count_plus" id="right">+</div>
-                  </div>
-                </div>
-                <div class="menu__list_item list_item">
-                  <a class="menu__card">
-                    <img class="card__img" src="assets/img/kare.jpg" alt="" />
-                    <div class="card_desc">
-                      <div class="card__text">
-                        <div class="card">
-                          <span class="card__desc_name"
-                            >Пеновани из слоёного теста с беконом, сыром
-                            сулугуни и зеленью Подается со сметаной</span
-                          >
-                          <span class="card__desc_weight">280 г.</span>
-                        </div>
-                      </div>
-                      <div class="card__desc_price">
-                        <span class="desc_price">670</span>
-                        <span class="rouble">i</span>
-                      </div>
-                    </div>
-                  </a>
-                  <button class="card__button" type="button">
-                    <div class="card__button_add">
-                      <img class="img__plus" src="assets/img/plus.svg" alt="" />
-                      <span>добавить</span>
-                    </div>
-                  </button>
-
-                  <div class="card__button_count button__count">
-                    <div class="count_minus card__count_minus" id="left">-</div>
-                    <div class="card__count_wrapper">
-                      <input
-                        type="text"
-                        class="input_text"
-                        size="6"
-                        value="1"
-                        pattern="[0-9]{,3}"
-                        inputmode="numeric"
-                      />
-                    </div>
-                    <div class="count_plus card__count_plus" id="right">+</div>
-                  </div>
-                </div>
-                <div class="menu__list_item list_item">
-                  <a class="menu__card">
-                    <img class="card__img" src="assets/img/kare.jpg" alt="" />
-                    <div class="card_desc">
-                      <div class="card__text">
-                        <div class="card">
-                          <span class="card__desc_name"
-                            >Пеновани из слоёного теста с беконом, сыром
-                            сулугуни и зеленью Подается со сметаной</span
-                          >
-                          <span class="card__desc_weight">280 г.</span>
-                        </div>
-                      </div>
-                      <div class="card__desc_price">
-                        <span class="desc_price">670</span>
-                        <span class="rouble">i</span>
-                      </div>
-                    </div>
-                  </a>
-                  <button class="card__button" type="button">
-                    <div class="card__button_add">
-                      <img class="img__plus" src="assets/img/plus.svg" alt="" />
-                      <span>добавить</span>
-                    </div>
-                  </button>
-
-                  <div class="card__button_count button__count">
-                    <div class="count_minus card__count_minus" id="left">-</div>
-                    <div class="card__count_wrapper">
-                      <input
-                        type="text"
-                        class="input_text"
-                        size="6"
-                        value="1"
-                        pattern="[0-9]{,3}"
-                        inputmode="numeric"
-                      />
-                    </div>
-                    <div class="count_plus card__count_plus" id="right">+</div>
-                  </div>
-                </div>
-                <div class="menu__list_item list_item">
-                  <a class="menu__card">
-                    <img class="card__img" src="assets/img/kare.jpg" alt="" />
-                    <div class="card_desc">
-                      <div class="card__text">
-                        <div class="card">
-                          <span class="card__desc_name"
-                            >Пеновани из слоёного теста с беконом, сыром
-                            сулугуни и зеленью Подается со сметаной</span
-                          >
-                          <span class="card__desc_weight">280 г.</span>
-                        </div>
-                      </div>
-                      <div class="card__desc_price">
-                        <span class="desc_price">670</span>
-                        <span class="rouble">i</span>
-                      </div>
-                    </div>
-                  </a>
-                  <button class="card__button" type="button">
-                    <div class="card__button_add">
-                      <img class="img__plus" src="assets/img/plus.svg" alt="" />
-                      <span>добавить</span>
-                    </div>
-                  </button>
-
-                  <div class="card__button_count button__count">
-                    <div class="count_minus card__count_minus" id="left">-</div>
-                    <div class="card__count_wrapper">
-                      <input
-                        type="text"
-                        class="input_text"
-                        size="6"
-                        value="1"
-                        pattern="[0-9]{,3}"
-                        inputmode="numeric"
-                      />
-                    </div>
-                    <div class="count_plus card__count_plus" id="right">+</div>
-                  </div>
-                </div>
-                <div class="menu__list_item list_item">
-                  <a class="menu__card">
-                    <img class="card__img" src="assets/img/kare.jpg" alt="" />
-                    <div class="card_desc">
-                      <div class="card__text">
-                        <div class="card">
-                          <span class="card__desc_name">Пеновани </span>
-                          <span class="card__desc_weight">280 г.</span>
-                        </div>
-                      </div>
-                      <div class="card__desc_price">
-                        <span class="desc_price">670</span>
-                        <span class="rouble">i</span>
-                      </div>
-                    </div>
-                  </a>
-                  <button class="card__button" type="button">
-                    <div class="card__button_add">
-                      <img class="img__plus" src="assets/img/plus.svg" alt="" />
-                      <span>добавить</span>
-                    </div>
-                  </button>
-                  <div class="card__button_count button__count">
-                    <div class="count_minus card__count_minus" id="left">-</div>
-                    <div class="card__count_wrapper">
-                      <input
-                        type="text"
-                        class="input_text"
-                        size="6"
-                        value="1"
-                        pattern="[0-9]{,3}"
-                        inputmode="numeric"
-                      />
-                    </div>
-                    <div class="count_plus card__count_plus" id="right">+</div>
-                  </div>
-                </div>
-              </div>
+            
             </div>
             <div class="deskBasket">
               <div class="deskBasket__wrapper">
