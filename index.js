@@ -1,6 +1,6 @@
 window.onload=init;
-function init() {
-  
+function init()
+  {
 /*window.addEventListener("load",()=> {
   console.log(window.innerHeight);
   console.log(window.visualViewport.height);
@@ -126,7 +126,7 @@ const menu = document.querySelector(".menu");
 const menuMobileNav = document.querySelector(".menu__mobile_nav");
 const modal = document.querySelector(".modal");
 const main = document.querySelector(".main");
-const menu__h2 = document.querySelector(".menu__h2");
+const menuH2 = document.querySelector(".menu__h2");
 const burger = document.querySelector(".burgerMenu");
 const mobileBasketSticky = document.querySelector(".mobileBasket_sticky");
 const toBasket = document.querySelector(".add__order");
@@ -522,7 +522,7 @@ btnAddOnModal.addEventListener("click", () => {
 //--------------Добавление/снятие прозрачности у мобильного меню-------------------//
 
 window.addEventListener("scroll", function () {
-  const menu_h2top = menu__h2.getBoundingClientRect().top;
+  const menu_h2top = menuH2.getBoundingClientRect().top;
   const footerCopTop = footerCopyright.getBoundingClientRect().top;
   const mobileBasketTop = mobileBasketSticky.getBoundingClientRect().top;
   if (menu_h2top >= 149) {
@@ -662,9 +662,11 @@ function scrollAsideMenu() {
         label.classList.remove("category_active");
       });
       let categoryId = menuCat[i].getAttribute("data-name");
+      console.log(categoryId);
       currentMenuCat = document.getElementById(categoryId);
+      console.log(currentMenuCat);
       currentMenuCat.classList.add("category_active");
-
+      
       let currentLabelAside = document.querySelector(
         "label.asideMenu__label[for=" + categoryId + "]"
       );
@@ -1083,4 +1085,6 @@ class order {
   }
 }
 
+let orderBasket = new order();
+orderBasket.render(data);
 }
