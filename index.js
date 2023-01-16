@@ -19,32 +19,37 @@ const data = {
   basket: {
     idCategory: "popular",
     cards: [
-      {
+      { 
+        id: 1,
         card: {
           name: "newName",
           img: "assets/img/bigImg.jpg",
           weight: "360 г.",
           price: 400,
-        },
-        quantity: 1,
+          quantity: 1,
+        },        
       },
-      {
+      { 
+        id: 3,
         card: {
           name: "newName",
           img: "assets/img/kare.jpg",
           weight: "360 г.",
           price: 150,
+          quantity: 2,
         },
-        quantity: 2,
+        
       },
       {
+        id: 4,
         card: {
           name: "newName",
           img: "assets/img/image_for_basket.jpg",
           weight: "360 г.",
           price: 400,
+          quantity: 1,
         },
-        quantity: 1,
+        
       },
     ],
   },
@@ -116,6 +121,13 @@ let startPosition =
 function countPlus(count) {
   return function () {
     if (count.value < 999) {
+      let currentElementId = count.dataset.id;
+
+      const card = data.basket.cards.find((card) => card.id === parseInt(currentElementId));
+      console.log(card);
+      post.card.quantity ++;
+      orderBasket.save(data);
+      console.log(currentElementId);
       count.value++;
     }
   };
@@ -131,9 +143,14 @@ function countMinus(count) {
       if (modalTrue) {
         currentCard = count.closest(".modal__order");
         currentBtnAdd = currentCard.querySelector(".modal__order_button");
-      } else {
+      } else if (count.closest(".list_item")) {
         currentCard = count.closest(".list_item");
         currentBtnAdd = currentCard.querySelector(".card__button");
+      }
+      else {
+        currentCard = count.closest(".basket__card");
+        currentCard.remove();
+        return;
       }
       let currentBtnCount = currentCard.querySelector(".card__button_count");
       currentBtnCount.style.display = "none";
@@ -955,24 +972,28 @@ class order {
     let totalCheck = 0;
     const fragment = document.createDocumentFragment();
     console.log(currentBasket);
-    const basketCard = currentBasket.querySelector(".basketTemp");   
+    const basketCard = currentBasket.querySelector(".basketTemp");
     cards.forEach((item) => {
       const cardClone = basketCard.content.cloneNode(true);
       console.log(cardClone);
       if (cardClone !== null) {
+        cardClone.querySelector(".basket__card").dataset.id = item.id;
         cardClone.querySelector(".basket__card_img").src = item.card.img;
         cardClone.querySelector(".basket__h3").textContent =
           item.card.name;
         cardClone.querySelector(".basket__weight").textContent =
           item.card.weight;
         cardClone.querySelector(".basket__price").textContent = item.card.price;
-        totalCheck += item.card.price * item.quantity;
+        totalCheck += item.card.price * item.card.quantity;
         let currentMinus = cardClone.querySelector(".count_minus");
         let currentCount = cardClone.querySelector(".input_text");
         let currentPlus = cardClone.querySelector(".count_plus");
+        currentCount.dataset.id = item.id;
+        currentMinus.dataset.id = item.id;
+        currentPlus.dataset.id = item.id;
         currentPlus.addEventListener("click", countPlus(currentCount));
         currentMinus.addEventListener("click", countMinus(currentCount));
-        cardClone.querySelector(".input_text").value = item.quantity;
+        cardClone.querySelector(".input_text").value = item.card.quantity;
         fragment.append(cardClone);
       }
     });
@@ -1020,7 +1041,6 @@ class order {
           .then((res) => res.json())
           .then((data) => () => {
             const basket = JSON.parse(data);
-            debugger
             render(basket);
           })
           .catch((err) => console.error(err));
@@ -1028,5 +1048,7 @@ class order {
     }
   }
 
-  save() {}
+  save(data) {
+    console.log(data);
+  }
 }
