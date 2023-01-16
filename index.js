@@ -15,11 +15,51 @@
 // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
 let vh = window.innerHeight * 0.01;
 let mobileBasketTrue = false;
+/*const dishes =  [
+    {
+      id: 1,
+      name: "Популярные блюда",
+      products: [
+        {
+          id: 1,
+          name: "Каре ягненка",
+          img: ["assets/img/bigImg.jpg", "assets/img/bigImg.jpg"],
+          desc: "Подаём с маринованным луком, коул слоу и соусом сацебели",
+          weight: 360,
+          price: 400,
+          priceBeforeDiscount: 650,
+          typeDishFav: ["assets/img/kids.svg","assets/img/spicy.svg"],
+          toppings: [
+            {
+              id: 1,
+              name: "Курица",
+              img: "assets/img/chicken.svg",
+              price: 90,
+              weight: 30,
+            },
+            {
+              id: 2,
+              name: "Сыр",
+              img: "assets/img/cheese.svg",
+              price: 90,
+              weight: 30,
+            },
+          ],
+          BJU: {
+            totalEnergy: 500,
+            protein: 20,
+            fat: 50,
+            carbohydrates: 32,
+          },
+        },
+      ],
+    },
+  ];
+*/
 const data = {
   basket: {
-    idCategory: "popular",
     cards: [
-      { 
+      {
         id: 1,
         card: {
           name: "newName",
@@ -27,9 +67,9 @@ const data = {
           weight: "360 г.",
           price: 400,
           quantity: 1,
-        },        
+        },
       },
-      { 
+      {
         id: 3,
         card: {
           name: "newName",
@@ -38,7 +78,6 @@ const data = {
           price: 150,
           quantity: 2,
         },
-        
       },
       {
         id: 4,
@@ -49,14 +88,13 @@ const data = {
           price: 400,
           quantity: 1,
         },
-        
       },
     ],
   },
   delivery: {
     typeDelivery: "takeaway",
     priceDelivery: 500,
-    orderPriceForFree: 1500
+    orderPriceForFree: 1500,
   },
   customerInfo: {
     address: {},
@@ -122,12 +160,15 @@ function countPlus(count) {
   return function () {
     if (count.value < 999) {
       let currentElementId = count.dataset.id;
-
-      const card = data.basket.cards.find((card) => card.id === parseInt(currentElementId));
-      console.log(card);
-      post.card.quantity ++;
-      orderBasket.save(data);
-      console.log(currentElementId);
+      if (count.closest(".basket__card")) {
+        const card = data.basket.cards.find(
+          (card) => card.id === parseInt(currentElementId)
+        );
+        console.log(card);
+        card.card.quantity++;
+        orderBasket.save(data);
+        console.log(currentElementId);
+      }
       count.value++;
     }
   };
@@ -146,8 +187,7 @@ function countMinus(count) {
       } else if (count.closest(".list_item")) {
         currentCard = count.closest(".list_item");
         currentBtnAdd = currentCard.querySelector(".card__button");
-      }
-      else {
+      } else {
         currentCard = count.closest(".basket__card");
         currentCard.remove();
         return;
@@ -499,7 +539,6 @@ window.addEventListener("scroll", function () {
 
 /*--------------------------Choose delivery/takeaway--------------------------*/
 
-
 const btnDelivery = document.querySelectorAll(".basket__delivery__item");
 btnDelivery.forEach((currentBtnDelivery) => {
   currentBtnDelivery.addEventListener("click", btnDeliveryClick);
@@ -508,40 +547,38 @@ const inputsDelivery = document.querySelectorAll(".basket__delivery_input");
 inputsDelivery.forEach((inputDelivery) => {
   inputDelivery.addEventListener("click", (ev) => {
     ev.stopPropagation();
-  })
-})
+  });
+});
 
-  function btnDeliveryClick(e) {
-    let wrapp;
-    console.log(e);
-    let currentBtn = e.currentTarget.closest(".basket__delivery__item");
-    console.log(currentBtn);
-    if (window.innerWidth < 1400) {
-      wrapp = currentBtn.closest(".mobileBasket__delivery__wrapper");
-      console.log("mobile");
-    }
-    else {
-      wrapp = currentBtn.closest(".deskBasket__delivery__wrapper");
-      console.log("desk");
-    }
-    console.log(wrapp);
-    let hoverActive = wrapp.querySelector(".hovering_active");
-    let currentTypeDelivery = currentBtn.querySelector(
-      ".basket__delivery_input"
-    ).id;
-    if (currentTypeDelivery === "takeaway") {
-      hoverActive.classList.remove("hover__active_left");
-      hoverActive.classList.add("hover__active_right");
-    } else {
-      hoverActive.classList.remove("hover__active_right");
-      hoverActive.classList.add("hover__active_left");
-    }
-    document.querySelectorAll(".basket__delivery__item").forEach((el) => {
-      el.classList.remove("basket__delivery_active");
-    });
-    currentBtn.classList.add("basket__delivery_active");
+function btnDeliveryClick(e) {
+  let wrapp;
+  console.log(e);
+  let currentBtn = e.currentTarget.closest(".basket__delivery__item");
+  console.log(currentBtn);
+  if (window.innerWidth < 1400) {
+    wrapp = currentBtn.closest(".mobileBasket__delivery__wrapper");
+    console.log("mobile");
+  } else {
+    wrapp = currentBtn.closest(".deskBasket__delivery__wrapper");
+    console.log("desk");
   }
-
+  console.log(wrapp);
+  let hoverActive = wrapp.querySelector(".hovering_active");
+  let currentTypeDelivery = currentBtn.querySelector(
+    ".basket__delivery_input"
+  ).id;
+  if (currentTypeDelivery === "takeaway") {
+    hoverActive.classList.remove("hover__active_left");
+    hoverActive.classList.add("hover__active_right");
+  } else {
+    hoverActive.classList.remove("hover__active_right");
+    hoverActive.classList.add("hover__active_left");
+  }
+  document.querySelectorAll(".basket__delivery__item").forEach((el) => {
+    el.classList.remove("basket__delivery_active");
+  });
+  currentBtn.classList.add("basket__delivery_active");
+}
 
 /*
 
@@ -935,6 +972,7 @@ function handleTouchEnd(event) {
 
 totalCount  //Общее количество заказанных позиций*/
 
+
 function renderModal() {
   let modalH2 = modal.querySelector(".modal__h2");
   modalH2.textContent = "NewContent";
@@ -942,33 +980,33 @@ function renderModal() {
 
 class order {
   render(data) {
-    let {basket, delivery, customerInfo} = data;
-    let {typeDelivery, priceDelivery, orderPriceForFree} = delivery;
+    let { basket, delivery, customerInfo } = data;
+    let { typeDelivery, priceDelivery, orderPriceForFree } = delivery;
     let currentBasket;
 
     //Прорисовка типа и цены доставки в корзине---------------------------------
     if (window.innerWidth < 1400) {
       currentBasket = document.querySelector(".mobileBasket");
-    }
-    else {
+    } else {
       currentBasket = document.querySelector(".deskBasket");
     }
-    let currentDelivery = currentBasket.querySelector(".hovering_active");   
-    let deliveryItem = currentBasket.querySelectorAll(".basket__delivery__item");
+    let currentDelivery = currentBasket.querySelector(".hovering_active");
+    let deliveryItem = currentBasket.querySelectorAll(
+      ".basket__delivery__item"
+    );
     deliveryItem.forEach((delivery) => {
       delivery.classList.remove("basket__delivery_active");
-    });    
+    });
     if (typeDelivery === "takeaway") {
       currentDelivery.classList.add("hover__active_right");
       deliveryItem[1].classList.add("basket__delivery_active");
-    } 
-    else {
+    } else {
       currentDelivery.classList.add("hover__active_left");
       deliveryItem[0].classList.add("basket__delivery_active");
     }
     //-----------------------------------------------------------------------
 
-    let {idCategory, cards} = basket;
+    let { cards } = basket;
     let totalCheck = 0;
     const fragment = document.createDocumentFragment();
     console.log(currentBasket);
@@ -979,8 +1017,7 @@ class order {
       if (cardClone !== null) {
         cardClone.querySelector(".basket__card").dataset.id = item.id;
         cardClone.querySelector(".basket__card_img").src = item.card.img;
-        cardClone.querySelector(".basket__h3").textContent =
-          item.card.name;
+        cardClone.querySelector(".basket__h3").textContent = item.card.name;
         cardClone.querySelector(".basket__weight").textContent =
           item.card.weight;
         cardClone.querySelector(".basket__price").textContent = item.card.price;
@@ -997,15 +1034,14 @@ class order {
         fragment.append(cardClone);
       }
     });
-    
+
     let deliveryPrice = currentBasket.querySelector(".priceDelivery");
-    let checKForFree = currentBasket.querySelector(".check_forFreeDelivery")
+    let checKForFree = currentBasket.querySelector(".check_forFreeDelivery");
     if (totalCheck >= orderPriceForFree) {
       deliveryPrice.textContent = 0;
       checKForFree.textContent = 0;
       priceDelivery = 0;
-    }
-    else {
+    } else {
       deliveryPrice.textContent = priceDelivery;
       checKForFree.textContent = orderPriceForFree - totalCheck;
     }
@@ -1013,17 +1049,10 @@ class order {
     currentBasketMenu.innerHTML = "";
     currentBasketMenu.appendChild(fragment);
     document.querySelector(".mobileBasket__header_price").textContent =
-      totalCheck ;
-      currentBasket.querySelector(".totalCheck").textContent = totalCheck + priceDelivery;
+      totalCheck;
+    currentBasket.querySelector(".totalCheck").textContent =
+      totalCheck + priceDelivery;
   }
-
-  load() {
-    class Loader {
-      constructor(baseLink, options) {
-        this.baseLink = baseLink;
-        this.options = options;
-      }
-
       errorHandler(res) {
         if (!res.ok) {
           if (res.status === 401 || res.status === 404)
@@ -1039,15 +1068,13 @@ class order {
         fetch(url, "GET")
           .then(this.errorHandler)
           .then((res) => res.json())
-          .then((data) => () => {
+          .then((data) => {
             const basket = JSON.parse(data);
             render(basket);
           })
           .catch((err) => console.error(err));
       }
-    }
-  }
-
+ 
   save(data) {
     console.log(data);
   }

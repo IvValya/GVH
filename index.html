@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="assets/style/style.css" />
     <link rel="stylesheet" href="assets/swiper/swiper-bundle.min.css" />
+    
     <style>
       .swiper {
         width: 100%;
@@ -37,6 +38,11 @@
         object-fit: cover;
       }
     </style>
+    <script src="dishes.js"></script>
+    <script> 
+    let menu = new dishes();
+      menu.load();
+      </script>
     <title>GRILL VINO & ХАЧАПУРИ</title>
   </head>
   <body>
@@ -153,63 +159,21 @@
     </aside>
 
     <section class="menu__mobile_nav">
-      <li class="nav__li">
-        <input
-          class="nav__input"
-          type="radio"
-          name="categoty"
-          value="0"
-          id="tab_0"
-          checked=""
-        />
-        <label class="nav__label nav__label_active" data-name="cat1" for="tab_0"
-          >Популярные блюда</label
-        >
-      </li>
-      <li class="nav__li">
-        <input
-          class="nav__input"
-          type="radio"
-          name="categoty"
-          value=""
-          id="tab_1"
-          checked=""
-        />
-        <label class="nav__label" data-name="cat2" for="tab_1">Блюда на углях</label>
-      </li>
-      <li class="nav__li">
-        <input
-          class="nav__input"
-          type="radio"
-          name="categoty"
-          value=""
-          id="tab_2"
-          checked=""
-        />
-        <label class="nav__label" data-name="cat3" for="tab_2"
-          >Супы</label
-        >
-      </li>
-      <li class="nav__li">
-        <input
-          class="nav__input"
-          type="radio"
-          name="categoty"
-          value=""
-          id="tab_3"
-          checked=""
-        />
-        <label class="nav__label" data-name="cat4" for="tab_3">Десерты</label>
-      </li>
-      <li class="nav__li">
-        <input
-          class="nav__input"
-          type="radio"
-          name="categoty"
-          value=""
-          id="tab_4"
-          checked=""
-        />
+      <template class="nav__li_temp">
+        <li class="nav__li">
+          <input
+            class="nav__input"
+            type="radio"
+            name="categoty"
+            value="0"
+            id="tab_0"
+            checked=""
+          />
+          <label class="nav__label nav__label_active" data-name="cat1" for="tab_0"
+            >Популярные блюда</label
+          >
+        </li>
+      </template>
     </section>
 
     <aside class="mobileBasket_sticky">
@@ -272,7 +236,7 @@
                   </div>
                 </section>
                 <section class="mobileBasket__menu basket__menu">
-                  <template class = "basketTemp">
+                  <template class="basketTemp">
                     <div class="basket__card">
                       <div class="basket__card_pict">
                         <img
@@ -1226,8 +1190,8 @@
                       <div class="hovering_active hover__active_left"></div>
                     </div>
                   </section>
-                  <section class="deskBasket__menu basket__menu">                   
-                    <template class = "basketTemp">
+                  <section class="deskBasket__menu basket__menu">
+                    <template class="basketTemp">
                       <div class="basket__card">
                         <div class="basket__card_pict">
                           <img
@@ -1287,7 +1251,7 @@
                   <button class="deskBasket__button_order">
                     <span>Верно, далее</span>
                     <div class="deskBasket_totalCheck">
-                      <span class="totalCheck" >1895</span>
+                      <span class="totalCheck">1895</span>
                       <span class="rouble"> i</span>
                     </div>
                   </button>
@@ -1712,7 +1676,7 @@
                   <span class="workTime__span"> Пн-Вс: 11:00-24:00 </span>
                 </div>
                 <h2 class="aboutUs__h2">Как нас найти</h2>
-              </div>              
+              </div>
               <address class="address">
                 г. Мурино, пр. Авиаторов Балтики, д.11/1
               </address>
@@ -2178,7 +2142,7 @@
       window.addEventListener("DOMContentLoaded", () => {
         document.getElementById("burgerMenu").style.display = "flex";
         openMobileMenu();
-      } );
+      });
       window.addEventListener("resize", () => {
         document.getElementById("burgerMenu").style.display = "flex";
         openMobileMenu();
