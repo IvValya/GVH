@@ -1,3 +1,6 @@
+window.onload=init;
+function init() {
+  
 /*window.addEventListener("load",()=> {
   console.log(window.innerHeight);
   console.log(window.visualViewport.height);
@@ -1078,4 +1081,6 @@ class order {
   save(data) {
     console.log(data);
   }
+}
+
 }

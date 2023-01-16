@@ -63,9 +63,24 @@ class dishesL {
       menuCat.id = item.id;
       menuCat.dataset.name = item.id;
       categoryClone.querySelector(".menu__h2").textContent = item.name;
+     // let fragmentCard = document.createDocumentFragment();
+      let menuCardTemp = menuCat.querySelector(".menuCardTemp");
+      let { products, id, name } = item;
+      products.forEach((card) => {
+        let cardIitemClone = menuCardTemp.content.cloneNode(true);
+        cardIitemClone.querySelector(".card__img").src = card.img[0];
+        cardIitemClone.querySelector(".card__desc_name").textContent =
+          card.name;
+        cardIitemClone.querySelector(".card__desc_weight").textContent =
+          card.weight + " гр.";
+        cardIitemClone.querySelector(".desc_price").textContent = card.price;
+        cardIitemClone.querySelector(".menu__list_item").id = card.id;
+        menuCat.appendChild(cardIitemClone);
+      });
       fragment1.append(categoryClone);
     });
     menuList.innerHTML = "";
     menuList.appendChild(fragment1);
+    
   }
 }
