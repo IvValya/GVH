@@ -11,8 +11,8 @@
           "weight": 360,
           "price": 400,
           "priceBeforeDiscount": 650,
-          "typeDishFav": ["assets/img/kids.svg","assets/img/spicy.svg"],
-          "toppings": ["1", "2"],
+          "typeDishFav": ["assets/img/kids.svg","assets/img/kids.svg","assets/img/spicy.svg"],
+          "toppings": [10, 10],
           "BJU": {
             "totalEnergy": 500,
             "protein": 20,
@@ -34,7 +34,7 @@
       "weight": 360,
       "price": 400,
       "priceBeforeDiscount": 650,
-      "typeDishFav": ["assets/img/kids.svg","assets/img/spicy.svg"],
+      "typeDishFav": ["assets/img/kids.svg","assets/img/kids.svg","assets/img/spicy.svg"],
       "toppings": [10, 20],
       "BJU": {
         "totalEnergy": 500,
@@ -58,7 +58,7 @@
       "price": 400,
       "priceBeforeDiscount": 650,
       "typeDishFav": ["assets/img/kids.svg","assets/img/spicy.svg"],
-      "toppings": ["1", "2"],
+      "toppings": [10, 20],
       "BJU": {
         "totalEnergy": 500,
         "protein": 20,

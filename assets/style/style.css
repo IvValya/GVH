@@ -1737,7 +1737,7 @@ input[type="number"]:focus {
 
 .topping__list {
     display: flex;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     column-gap: 50px;
 }
 

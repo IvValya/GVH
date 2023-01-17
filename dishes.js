@@ -1,3 +1,4 @@
+var menuData;
 class dishesL {
   errorHandler(res) {
     if (!res.ok) {
@@ -9,11 +10,12 @@ class dishesL {
     }
     return res;
   }
-  load() {
+  load() {   
     fetch("dishes.json" /*, "GET"*/)
       .then(this.errorHandler)
       .then((res) => res.json())
       .then((data) => {
+        menuData = data;
         this.renderCategories(data);
       })
       .catch((err) => console.error(err));
@@ -24,8 +26,8 @@ class dishesL {
     let { dishes, tops } = menu;
     let galleryList = document.querySelector(".gallery__list .swiper-wrapper");
     const fragment = document.createDocumentFragment();
-    const galleryTemp = galleryList.querySelector(".galleryTemp");
-    tops.forEach((item) => {      
+    const galleryTemp = document.querySelector(".galleryTemp");
+    tops.forEach((item) => {
       dishes.forEach((dish) => {
         const cardClone = galleryTemp.content.cloneNode(true);
         const card = dish.products.find(
@@ -33,17 +35,18 @@ class dishesL {
         );
         console.log(card);
         if (card) {
-            cardClone.querySelector(".card__img").src = card.img[0];
-            cardClone.querySelector(".card__desc_name").textContent = card.name;
-            cardClone.querySelector(".card__desc_weight").textContent =
-              card.weight + " г.";
-            cardClone.querySelector(".desc_price").textContent = card.price;
-            fragment.append(cardClone);
+          cardClone.querySelector(".card__img").src = card.img[0];
+          cardClone.querySelector(".card__desc_name").textContent = card.name;
+          cardClone.querySelector(".card__desc_weight").textContent =
+            card.weight + " г.";
+          cardClone.querySelector(".desc_price").textContent = card.price;
+          cardClone.querySelector(".list_item").id = "dish" + card.id;
+          fragment.append(cardClone);
         }
-      });      
+      });
     });
     galleryList.innerHTML = "";
-      galleryList.appendChild(fragment);
+    galleryList.appendChild(fragment);
   }
 
   renderCategories(menu) {
@@ -103,7 +106,7 @@ class dishesL {
         cardIitemClone.querySelector(".card__desc_weight").textContent =
           card.weight + " гр.";
         cardIitemClone.querySelector(".desc_price").textContent = card.price;
-        cardIitemClone.querySelector(".menu__list_item").id = card.id;
+        cardIitemClone.querySelector(".list_item").id = "dish" + card.id;
         menuCat.appendChild(cardIitemClone);
       });
       fragment1.append(categoryClone);
