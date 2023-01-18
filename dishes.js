@@ -10,7 +10,7 @@ class dishesL {
     }
     return res;
   }
-  load() {   
+  load() {
     fetch("dishes.json" /*, "GET"*/)
       .then(this.errorHandler)
       .then((res) => res.json())
@@ -40,7 +40,13 @@ class dishesL {
           cardClone.querySelector(".card__desc_weight").textContent =
             card.weight + " г.";
           cardClone.querySelector(".desc_price").textContent = card.price;
-          cardClone.querySelector(".list_item").id = "dish" + card.id;
+          cardClone.querySelector(".list_item").dataset.id = "dish" + card.id;
+          let currentMinus = cardClone.querySelector(".count_minus");
+          let currentCount = cardClone.querySelector(".input_text");
+          let currentPlus = cardClone.querySelector(".count_plus");
+          currentCount.dataset.id = "dish" + card.id;
+          currentMinus.dataset.id = "dish" + card.id;
+          currentPlus.dataset.id = "dish" + card.id;
           fragment.append(cardClone);
         }
       });
@@ -53,9 +59,9 @@ class dishesL {
     let { dishes } = menu;
     let menuMobileNav = document.querySelector(".menu__mobile_nav");
     const fragment = document.createDocumentFragment();
-    const navLi = menuMobileNav.querySelector(".nav__li_temp");
+    const navLi = document.querySelector(".nav__li_temp");
     const asideMenuUl = document.querySelector(".asideMenu__ul");
-    const asideNavItem = asideMenuUl.querySelector(".asideItemTemp");
+    const asideNavItem = document.querySelector(".asideItemTemp");
     let currentNav;
     dishes.forEach((item) => {
       const cardClone = navLi.content.cloneNode(true);
@@ -88,7 +94,7 @@ class dishesL {
     currentNav.appendChild(fragmentaside);
     let fragment1 = document.createDocumentFragment();
     const menuList = document.querySelector(".menu__list");
-    let dishesListTemp = menuList.querySelector(".dishesListTemp");
+    let dishesListTemp = document.querySelector(".dishesListTemp");
     dishes.forEach((item) => {
       let categoryClone = dishesListTemp.content.cloneNode(true);
       let menuCat = categoryClone.querySelector(".menu__cat");
@@ -96,7 +102,7 @@ class dishesL {
       menuCat.dataset.name = "cat" + item.id;
       categoryClone.querySelector(".menu__h2").textContent = item.name;
       // let fragmentCard = document.createDocumentFragment();
-      let menuCardTemp = menuCat.querySelector(".menuCardTemp");
+      let menuCardTemp = document.querySelector(".menuCardTemp");
       let { products, id, name } = item;
       products.forEach((card) => {
         let cardIitemClone = menuCardTemp.content.cloneNode(true);
@@ -106,7 +112,14 @@ class dishesL {
         cardIitemClone.querySelector(".card__desc_weight").textContent =
           card.weight + " гр.";
         cardIitemClone.querySelector(".desc_price").textContent = card.price;
-        cardIitemClone.querySelector(".list_item").id = "dish" + card.id;
+        cardIitemClone.querySelector(".list_item").dataset.id =
+          "dish" + card.id;
+        let currentMinus = cardIitemClone.querySelector(".count_minus");
+        let currentCount = cardIitemClone.querySelector(".input_text");
+        let currentPlus = cardIitemClone.querySelector(".count_plus");
+        currentCount.dataset.id = "dish" + card.id;
+        currentMinus.dataset.id = "dish" + card.id;
+        currentPlus.dataset.id = "dish" + card.id;
         menuCat.appendChild(cardIitemClone);
       });
       fragment1.append(categoryClone);
@@ -116,3 +129,5 @@ class dishesL {
     this.renderTop10(menu);
   }
 }
+let dishesList = new dishesL();
+dishesList.load();
