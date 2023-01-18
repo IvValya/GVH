@@ -357,8 +357,15 @@ btnModalOrder.addEventListener("click", () => {
     // mobileBasket.style.display = "none";
     yDiff = 0;
     full = 0;
+    if (data.basket.length === 0) {
+      startPosition = window.innerHeight + "px";
+    } else {
+      startPosition = window.innerHeight - 60 + "px";
+    }
+    
+
     console.log(mobileBasketSticky.style.top);
-    startPosition = window.innerHeight - 60 + "px";
+
     mobileBasketSticky.style.top = startPosition;
 
     console.log(mobileBasketSticky.style.top);
@@ -385,7 +392,13 @@ btnModalOrder.addEventListener("click", () => {
       unsetOverflow();
       openMobileBasket.addEventListener("click", openMobileBasketFunc);
       mobileBasketSticky.classList.remove("transition");
-      mobileBasketSticky.style.bottom = "60px";
+      //mobileBasketSticky.style.bottom = "60px";
+      console.log(data.basket);
+      if (data.basket.length === 0) {
+        mobileBasketSticky.style.bottom = 0;
+      } else {
+        mobileBasketSticky.style.bottom = "60px";
+      }
     }, 400);
   }
 
@@ -1069,20 +1082,18 @@ totalCount  //Общее количество заказанных позици�
 
   class order {
     render(data) {
-      let { basket, delivery, customerInfo } = data;      
+      let { basket, delivery, customerInfo } = data;
       let currentBasket;
 
       if (Object.keys(delivery).length === 0) {
         let item = menuData.deliveries.find(
-          (delivery) => 
-            delivery.typeDelivery === "delivery"
+          (delivery) => delivery.typeDelivery === "delivery"
         );
         console.log(menuData.deliveries);
         data.delivery.typeDelivery = item.typeDelivery;
         data.delivery.priceDelivery = item.priceDelivery;
-        data.delivery.orderPriceForFree =item.orderPriceForFree;
-      }
-      else {
+        data.delivery.orderPriceForFree = item.orderPriceForFree;
+      } else {
         console.log("here");
       }
 
@@ -1106,7 +1117,6 @@ totalCount  //Общее количество заказанных позици�
         currentDelivery.classList.add("hover__active_left");
         deliveryItem[0].classList.add("basket__delivery_active");
       }
-
 
       let totalCheck = 0;
       const fragment = document.createDocumentFragment();
