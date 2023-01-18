@@ -1,28 +1,28 @@
 {
     "basket": [
-        {
-          "id": 3,
-          "card": {
-            "name": "newName",
-            "img": "assets/img/bigImg.jpg",
-            "weight": "360 г.",
-            "price": 400,
-            "quantity": 1,
-            "toppings": [1, 2]
-          }
-        },
-        {
-          "id": 4,
-          "card": {
-            "name": "Стейк",
-            "img": "assets/img/image_for_basket.jpg",
-            "weight": "360 г.",
-            "price": 400,
-            "quantity": 3,
-            "toppings": []
-          }
+      {
+        "id": 3,
+        "card": {
+          "name": "newName",
+          "img": "assets/img/bigImg.jpg",
+          "weight": "360 г.",
+          "price": 400,
+          "quantity": 1,
+          "toppings": [1, 2]
         }
-       
+      },
+      {
+        "id": 4,
+        "card": {
+          "name": "Стейк",
+          "img": "assets/img/image_for_basket.jpg",
+          "weight": "360 г.",
+          "price": 400,
+          "quantity": 3,
+          "toppings": []
+        }
+      }
+     
       ],
    
     "delivery": {

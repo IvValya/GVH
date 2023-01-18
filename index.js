@@ -417,9 +417,18 @@ window.addEventListener("load",()=> {
 
   for (let i = 0; i < buttonAdd.length; i++) {
     buttonAdd[i].addEventListener("click", (e) => {
-      console.log(e.currentTarget);
+      let currentCard = e.currentTarget.closest(".list_item");
+      renderHeaderBasket(currentCard);
       let dishId = e.currentTarget.closest(".list_item").dataset.id;
       orderBasket.addToBasket(dishId, e.currentTarget);
+      /* buttonAdd[i].style.display = "none";
+    cardCount[i].style.display = "flex";*/
+    });
+  }
+
+    function renderHeaderBasket(currentCard) {
+      
+      
       if (window.innerWidth < 1400) {
         mobileBasket.style.display = "flex";
         mobileBasketSticky.style.position = "fixed";
@@ -434,16 +443,12 @@ window.addEventListener("load",()=> {
       } /*else if (window.innerWidth < 1400) {
       document.querySelector(".add__order_tablet").style.display = "flex";
     }*/
-      let currentCard = e.currentTarget.closest(".list_item");
+      //let currentCard = e.currentTarget.closest(".list_item");
       let currentBtnAdd = currentCard.querySelector(".card__button");
       let currentBtnCount = currentCard.querySelector(".card__button_count");
       currentBtnAdd.style.display = "none";
       currentBtnCount.style.display = "flex";
-
-      /* buttonAdd[i].style.display = "none";
-    cardCount[i].style.display = "flex";*/
-    });
-  }
+    }
 
   //--------------------------Add to basket from modal window-------------------//
   const btnAddOnModal = document.querySelector(".modal__order_button");
@@ -1131,20 +1136,24 @@ totalCount  //Общее количество заказанных позици�
       currentBasket.querySelector(".totalCheck").textContent =
         totalCheck + priceDelivery;
       let allMenu = document.querySelectorAll(".list_item");
+if (basket) {
+
 
       data.basket.forEach((itemCard) => {
         console.log(itemCard.id);
         for (let itemMenu of allMenu) {
           if (itemMenu.dataset.id === "dish" + itemCard.id) {
-            itemMenu.querySelector(".card__button").style.display = "none";
             const btnCount = itemMenu.querySelector(".button__count");
-            btnCount.style.display = "flex";
+            renderHeaderBasket(itemMenu);
+           // btnCount.style.display = "flex";
             btnCount.querySelector(".input_text").value =
               itemCard.card.quantity;
+              //card__button
           } else {
           }
         }
       });
+    }
     }
 
     errorHandler(res) {
@@ -1200,7 +1209,7 @@ totalCount  //Общее количество заказанных позици�
         },
       };
       basket.push(elem);
-      orderBasket.render(data);
+      this.render(data);
       /*
       let { dishes } = menuData;
     console.log(dishId);
@@ -1214,8 +1223,8 @@ totalCount  //Общее количество заказанных позици�
     removeFromBasket(count) {
       //dishesList.renderCategories(menuData);
 
-      orderBasket.save(data);
-      orderBasket.render(data);
+      this.save(data);
+      this.render(data);
      
       if (modalTrue) {
         let cardC = document.querySelector(
