@@ -1,6 +1,7 @@
 window.onload = init;
 function init() {
   let mobileBasketTrue = false;
+  var basketOpen = true;
   var data;
   let x1 = null;
   let y1 = null;
@@ -109,16 +110,19 @@ function init() {
       let indexCard = data.basket.indexOf(currCard);
       console.log(indexCard);
       if (count.value > 1) {
-        currCard.card.quantity--;      
+        currCard.card.quantity--;
       } else if (count.value === "1") {
         let currentCard;
         let currentBtnAdd;
         data.basket.splice(indexCard, 1);
         console.log(data.basket);
-        let currentCards = document.querySelectorAll('.list_item[data-id="' + count.dataset.id + '"]');
+        let currentCards = document.querySelectorAll(
+          '.list_item[data-id="' + count.dataset.id + '"]'
+        );
         currentCards.forEach((currentCard) => {
-         currentCard.querySelector(".card__button").style.display = "block";
-         currentCard.querySelector(".card__button_count").style.display = "none";
+          currentCard.querySelector(".card__button").style.display = "block";
+          currentCard.querySelector(".card__button_count").style.display =
+            "none";
         });
         /* console.log(data.basket);
         if (modalTrue) {
@@ -426,29 +430,27 @@ window.addEventListener("load",()=> {
     });
   }
 
-    function renderHeaderBasket(currentCard) {
-      
-      
-      if (window.innerWidth < 1400) {
-        mobileBasket.style.display = "flex";
-        mobileBasketSticky.style.position = "fixed";
-        footer.style.paddingBottom = "60px";
-        mobileBasketSticky.style.display = "block";
-        btnCloseMobileBasket.style.display = "none";
-        startPosition = window.innerHeight - 60 + "px";
-        mobileBasketSticky.style.bottom = "60px";
-        mobileBasketHeaderWr.style.width = "100%";
-        mobileBasketHeaderImg.style.display = "none";
-        mobileBasketTrue = true;
-      } /*else if (window.innerWidth < 1400) {
+  function renderHeaderBasket(currentCard) {
+    if (window.innerWidth < 1400) {
+      mobileBasket.style.display = "flex";
+      mobileBasketSticky.style.position = "fixed";
+      footer.style.paddingBottom = "60px";
+      mobileBasketSticky.style.display = "block";
+      btnCloseMobileBasket.style.display = "none";
+      startPosition = window.innerHeight - 60 + "px";
+      mobileBasketSticky.style.bottom = "60px";
+      mobileBasketHeaderWr.style.width = "100%";
+      mobileBasketHeaderImg.style.display = "none";
+      mobileBasketTrue = true;
+    } /*else if (window.innerWidth < 1400) {
       document.querySelector(".add__order_tablet").style.display = "flex";
     }*/
-      //let currentCard = e.currentTarget.closest(".list_item");
-      let currentBtnAdd = currentCard.querySelector(".card__button");
-      let currentBtnCount = currentCard.querySelector(".card__button_count");
-      currentBtnAdd.style.display = "none";
-      currentBtnCount.style.display = "flex";
-    }
+    //let currentCard = e.currentTarget.closest(".list_item");
+    let currentBtnAdd = currentCard.querySelector(".card__button");
+    let currentBtnCount = currentCard.querySelector(".card__button_count");
+    currentBtnAdd.style.display = "none";
+    currentBtnCount.style.display = "flex";
+  }
 
   //--------------------------Add to basket from modal window-------------------//
   const btnAddOnModal = document.querySelector(".modal__order_button");
@@ -1067,9 +1069,24 @@ totalCount  //Общее количество заказанных позици�
 
   class order {
     render(data) {
-      let { basket, delivery, customerInfo } = data;
-      let { typeDelivery, priceDelivery, orderPriceForFree } = delivery;
+      let { basket, delivery, customerInfo } = data;      
       let currentBasket;
+
+      if (Object.keys(delivery).length === 0) {
+        let item = menuData.deliveries.find(
+          (delivery) => 
+            delivery.typeDelivery === "delivery"
+        );
+        console.log(menuData.deliveries);
+        data.delivery.typeDelivery = item.typeDelivery;
+        data.delivery.priceDelivery = item.priceDelivery;
+        data.delivery.orderPriceForFree =item.orderPriceForFree;
+      }
+      else {
+        console.log("here");
+      }
+
+      let { typeDelivery, priceDelivery, orderPriceForFree } = delivery;
       if (window.innerWidth < 1400) {
         currentBasket = document.querySelector(".mobileBasket");
       } else {
@@ -1089,6 +1106,8 @@ totalCount  //Общее количество заказанных позици�
         currentDelivery.classList.add("hover__active_left");
         deliveryItem[0].classList.add("basket__delivery_active");
       }
+
+
       let totalCheck = 0;
       const fragment = document.createDocumentFragment();
       console.log(currentBasket);
@@ -1136,24 +1155,23 @@ totalCount  //Общее количество заказанных позици�
       currentBasket.querySelector(".totalCheck").textContent =
         totalCheck + priceDelivery;
       let allMenu = document.querySelectorAll(".list_item");
-if (basket) {
-
 
       data.basket.forEach((itemCard) => {
         console.log(itemCard.id);
         for (let itemMenu of allMenu) {
           if (itemMenu.dataset.id === "dish" + itemCard.id) {
+            if (basket && basketOpen) {
+              renderHeaderBasket(itemMenu);
+              basketOpen = false;
+            }
+            itemMenu.querySelector(".card__button").style.display = "none";
             const btnCount = itemMenu.querySelector(".button__count");
-            renderHeaderBasket(itemMenu);
-           // btnCount.style.display = "flex";
+            btnCount.style.display = "flex";
             btnCount.querySelector(".input_text").value =
               itemCard.card.quantity;
-              //card__button
-          } else {
           }
         }
       });
-    }
     }
 
     errorHandler(res) {
@@ -1168,7 +1186,7 @@ if (basket) {
     }
 
     load() {
-      fetch("order.json" /*, "GET"*/)
+      fetch("orderFree.json" /*, "GET"*/)
         .then(this.errorHandler)
         .then((res) => res.json())
         .then((order) => {
@@ -1225,15 +1243,14 @@ if (basket) {
 
       this.save(data);
       this.render(data);
-     
+
       if (modalTrue) {
         let cardC = document.querySelector(
           '.list_item[data-id="' + count.dataset.id + '"]'
         );
-       // modalFooter.querySelector(".modal__order_button").style.display = "block";
+        // modalFooter.querySelector(".modal__order_button").style.display = "block";
         //modalFooter.querySelector(".modal__button_count").style.display = "none";
 
-        
         renderModal(menuData, count.dataset.id, cardC);
       }
     }

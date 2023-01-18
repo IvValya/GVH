@@ -1,0 +1,23 @@
+{
+    "basket": [
+      ],
+   
+    "delivery": {
+    },
+    "customerInfo": {
+      "address": {},
+      "payment": {}
+    },
+    "deliveries": [
+      {
+        "typeDelivery": "takeaway",
+        "priceDelivery": 0,
+        "orderPriceForFree": 1500
+      },
+      {
+        "typeDelivery": "delivery",
+        "priceDelivery": 500,
+        "orderPriceForFree": 2000
+      }
+    ]
+  }

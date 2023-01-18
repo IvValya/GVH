@@ -126,6 +126,8 @@ class dishesL {
     });
     menuList.innerHTML = "";
     menuList.appendChild(fragment1);
+    document.querySelector(".nav__label").classList.add("nav__label_active");
+    document.querySelector(".asideMenu__label").classList.add("category_active");
     this.renderTop10(menu);
   }
 }

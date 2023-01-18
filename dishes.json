@@ -1,18 +1,19 @@
 {
-  "dishes": [{
+  "dishes": [
+    {
       "id": 1,
       "name": "Популярные блюда",
       "products": [
         {
           "id": 1,
           "name": "Хачапури",
-          "img": ["assets/img/bigImg.jpg", "assets/img/bigImg.jpg"],
+          "img": [ "assets/img/bigImg.jpg", "assets/img/bigImg.jpg" ],
           "desc": "Подаём с маринованным луком, коул слоу и соусом сацебели",
           "weight": 360,
           "price": 400,
           "priceBeforeDiscount": 650,
-          "typeDishFav": ["assets/img/kids.svg","assets/img/kids.svg","assets/img/spicy.svg"],
-          "toppings": [10, 10],
+          "typeDishFav": [ "assets/img/kids.svg", "assets/img/kids.svg", "assets/img/spicy.svg" ],
+          "toppings": [ 10, 10 ],
           "BJU": {
             "totalEnergy": 500,
             "protein": 20,
@@ -20,56 +21,56 @@
             "carbohydrates": 32
           }
         }
-   ]
-},
-{
-  "id": 2,
-  "name": "Горячие блюда",
-  "products": [
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Горячие блюда",
+      "products": [
+        {
+          "id": 3,
+          "name": "Каре ягненка",
+          "img": [ "assets/img/bigImg.jpg", "assets/img/bigImg.jpg" ],
+          "desc": "Подаём с маринованным луком, коул слоу и соусом сацебели",
+          "weight": 360,
+          "price": 400,
+          "priceBeforeDiscount": 650,
+          "typeDishFav": [ "assets/img/kids.svg", "assets/img/kids.svg", "assets/img/spicy.svg" ],
+          "toppings": [ 10, 20 ],
+          "BJU": {
+            "totalEnergy": 500,
+            "protein": 20,
+            "fat": 50,
+            "carbohydrates": 32
+          }
+        }
+      ]
+    },
     {
       "id": 3,
-      "name": "Каре ягненка",
-      "img": ["assets/img/bigImg.jpg", "assets/img/bigImg.jpg"],
-      "desc": "Подаём с маринованным луком, коул слоу и соусом сацебели",
-      "weight": 360,
-      "price": 400,
-      "priceBeforeDiscount": 650,
-      "typeDishFav": ["assets/img/kids.svg","assets/img/kids.svg","assets/img/spicy.svg"],
-      "toppings": [10, 20],
-      "BJU": {
-        "totalEnergy": 500,
-        "protein": 20,
-        "fat": 50,
-        "carbohydrates": 32
-      }
-    }
-]
-},
-{
-  "id": 3,
-  "name": "Шашлык",
-  "products": [
-    {
-      "id": 4,
       "name": "Шашлык",
-      "img": ["assets/img/bigImg.jpg", "assets/img/bigImg.jpg"],
-      "desc": "Подаём с маринованным луком, коул слоу и соусом сацебели",
-      "weight": 360,
-      "price": 400,
-      "priceBeforeDiscount": 650,
-      "typeDishFav": ["assets/img/kids.svg","assets/img/spicy.svg"],
-      "toppings": [10, 20],
-      "BJU": {
-        "totalEnergy": 500,
-        "protein": 20,
-        "fat": 50,
-        "carbohydrates": 32
-      }
+      "products": [
+        {
+          "id": 4,
+          "name": "Шашлык",
+          "img": [ "assets/img/bigImg.jpg", "assets/img/bigImg.jpg" ],
+          "desc": "Подаём с маринованным луком, коул слоу и соусом сацебели",
+          "weight": 360,
+          "price": 400,
+          "priceBeforeDiscount": 650,
+          "typeDishFav": [ "assets/img/kids.svg", "assets/img/spicy.svg" ],
+          "toppings": [ 10, 20 ],
+          "BJU": {
+            "totalEnergy": 500,
+            "protein": 20,
+            "fat": 50,
+            "carbohydrates": 32
+          }
+        }
+      ]
     }
-]
-}
-],
-  "tops": [1, 3],
+  ],
+  "tops": [ 1, 3 ],
   "toppings": [
     {
       "id": 10,
@@ -85,5 +86,17 @@
       "price": 90,
       "weight": 30
     }
+  ],
+  "deliveries": [
+    {
+      "typeDelivery": "takeaway",
+      "priceDelivery": 0,
+      "orderPriceForFree": 1500
+    },
+    {
+      "typeDelivery": "delivery",
+      "priceDelivery": 500,
+      "orderPriceForFree": 2000
+    }
   ]
-  }
+}
