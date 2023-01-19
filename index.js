@@ -46,6 +46,8 @@ function init() {
     ".mobileBasket__header_wr"
   );
   const divBlock = document.querySelector(".block");
+  const inputs = document.querySelectorAll(".input_text");
+  console.log(inputs);
   let modalTrue = false;
   let basketTrue = false;
   let scrollTrue = true;
@@ -58,6 +60,56 @@ function init() {
       }
     }
   }
+  inputs.forEach((input) => {
+    input.addEventListener("change", inputChange);
+  });
+
+  function inputChange(e) {
+    console.log(e);
+    let dishID = e.currentTarget.dataset.id;
+    currentElementId = parseInt(dishID.split("").splice(4).join(""));
+    console.log(dishID);
+    console.log(currentElementId);
+    console.log(data.basket);
+    const currentCard = data.basket.find(
+      (card) => card.id === parseInt(currentElementId)
+    );
+    if (e.currentTarget.value < 1) {
+      e.currentTarget.value = 1;
+      let minus = e.currentTarget.closest(".button__count").querySelector(".count_minus");
+      console.log(minus);
+      minus.click();
+    } else {
+      currentCard.card.quantity = e.currentTarget.value;
+      renderData(dishID);
+    }
+  }
+  // input change
+  /*
+function inputOnchange(count) {
+  console.log(data);
+ let dishID = count.dataset.id;
+ currentElementId = parseInt(
+  dishID.split("").splice(4).join("")
+);
+console.log(dishID);
+console.log(currentElementId);
+console.log(data.basket);
+ const currentCard = data.basket.find(
+  (card) => card.id === parseInt(currentElementId)
+);
+currentCard.card.quantity = count.value;
+renderData(dishID);
+}
+inputs.forEach((input) => {
+input.onchange = inputOnchange(input);
+});
+
+/*
+inputs.forEach((input) => {
+  input.addEventListener("onchange", inputOnchange(input));
+})
+*/
 
   //--------------------  Плюс/минус в меню-------------------//
 
@@ -201,19 +253,7 @@ function init() {
       modalTrue = true;
       modal.style.display = "flex";
       divBlock.style.display = "block";
-      if (window.innerWidth < 1400) {
-        mobileBasket.style.display = "flex";
-        mobileBasketSticky.style.position = "fixed";
-        footer.style.paddingBottom = "60px";
-        mobileBasketSticky.style.display = "block";
-        btnCloseMobileBasket.style.display = "none";
-        startPosition = window.innerHeight - 60 + "px";
-        mobileBasketSticky.style.bottom = "60px";
-        mobileBasketHeaderWr.style.width = "100%";
-        mobileBasketHeaderImg.style.display = "none";
-        console.log(mobileBasketSticky.getBoundingClientRect().top);
-        mobileBasketTrue = true;
-      }
+
       if (window.innerWidth < 800) {
         btnCloseModal.style.display = "block";
         modal.style.animation = "modal 0.7s forwards";
@@ -233,6 +273,20 @@ function init() {
         //document.querySelector(".asideMenu__ul").style.top = ;
       }
 
+      if (data.basket.length !== 0) {
+        if (window.innerWidth < 1400) {
+          mobileBasket.style.display = "flex";
+          mobileBasketSticky.style.position = "fixed";
+          footer.style.paddingBottom = "60px";
+          mobileBasketSticky.style.display = "block";
+          btnCloseMobileBasket.style.display = "none";
+          startPosition = window.innerHeight - 60 + "px";
+          mobileBasketSticky.style.bottom = "60px";
+          mobileBasketHeaderWr.style.width = "100%";
+          mobileBasketHeaderImg.style.display = "none";
+          mobileBasketTrue = true;
+        }
+      }
       main.style.overflow = "hidden";
       menu.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
@@ -532,10 +586,6 @@ window.addEventListener("load",()=> {
           price: toppingPrice,
         });
       });
-      
-      //.modal__total_number
-      // .modal__order_old
-      console.log(toppingActive);
     }
     // let card = cards.find((item) => item.dataset.id === modalID
     orderBasket.addToBasket(modalID, cards[0]);
@@ -1124,13 +1174,10 @@ for (let t = 0; t < btnDeliverys.length; t++) {
   function renderModal(dataLocal, dishId, target) {
     let { dishes, toppings } = dataLocal;
     let toppPrice = 0;
-    console.log(dishId);
-    console.log(target);
     dishes.forEach((dish) => {
       const card = dish.products.find(
         (product) => "dish" + product.id === dishId
       );
-      console.log(card);
       if (card) {
         const modalWindow = document.querySelector(".modal");
         const modalFav = document.querySelector(".modal__fav");
@@ -1184,6 +1231,7 @@ for (let t = 0; t < btnDeliverys.length; t++) {
           const cardBasket = data.basket.find(
             (cardBasketL) => "dish" + cardBasketL.id === dishId
           );
+          console.log(cardBasket);
           if (cardBasket) {
             cardBasket.card.toppings.forEach((cardTopping) => {
               console.log(cardTopping.id);
@@ -1216,34 +1264,31 @@ for (let t = 0; t < btnDeliverys.length; t++) {
         ).textContent = card.BJU.carbohydrates;
         const modalFooter = document.querySelector(".modal__footer");
         toppingLabels = document.querySelectorAll(".topping__label");
-        console.log(toppingLabels);
         const currentBTN = target
           .closest(".list_item")
           .querySelector(".card__button");
         const currentValue = target
           .closest(".list_item")
           .querySelector(".input_text").value;
-        console.log(currentValue);
         const btnCount = modalFooter.querySelector(".button__count");
         const modalOrderBtn = modalFooter.querySelector(".modal__order_button");
         const count = modalFooter.querySelector(".input_text");
         const btnMinus = modalFooter.querySelector(".count_minus");
         const btnPlus = modalFooter.querySelector(".count_plus");
         if (currentBTN.style.display === "none") {
-          console.log("btn count");
           modalFooter.querySelector(".modal__order_button").style.display =
             "none";
           btnCount.style.display = "flex";
           btnCount.querySelector(".input_text").value = currentValue;
           buttonsCount = document.querySelectorAll(".button__count");
         } else {
-          console.log("btn add");
           modalFooter.querySelector(".modal__order_button").style.display =
             "block";
           btnCount.style.display = "none";
         }
         modalOrderBtn.dataset.id = "dish" + card.id;
         count.dataset.id = "dish" + card.id;
+        // count.addEventListener("onchange", inputOnchange(count));
         btnCount.dataset.id = "dish" + card.id;
         btnMinus.dataset.id = "dish" + card.id;
         btnPlus.dataset.id = "dish" + card.id;
@@ -1252,32 +1297,11 @@ for (let t = 0; t < btnDeliverys.length; t++) {
         const cardTopping = data.basket.find(
           (cardBasket) => "dish" + cardBasket.id === dishId
         );
-
-        console.log(dishId);
-        console.log(data.basket);
-        console.log(cardTopping);
-        if (cardTopping) {
-          console.log("true");
-        }
-
         // прибавляем топпинги
 
         const cardBasket = data.basket.find(
           (cardBasketL) => "dish" + cardBasketL.id === dishId
         );
-        if (cardBasket) {
-        }
-
-        /*console.log(card);
-        card.toppings.forEach((topping) => {
-          let topp =  menuData.toppings.find(
-            (item) => item.id === topping
-          )
-          console.log(topp);
-          toppPrice +=topp.price;
-
-        });
-*/
 
         console.log(toppPrice);
         modalFooter.querySelector(".modal__old_number").textContent =
@@ -1358,7 +1382,9 @@ for (let t = 0; t < btnDeliverys.length; t++) {
           let currentPlus = cardClone.querySelector(".count_plus");
           currentCount.dataset.id = "dish" + item.id;
           currentPlus.addEventListener("click", countPlus(currentCount));
+          currentCount.addEventListener("change", inputChange);
           currentMinus.addEventListener("click", countMinus(currentCount));
+          // currentCount.addEventListener("onchange", inputOnchange(currentCount));
           cardClone.querySelector(".input_text").value = item.card.quantity;
           fragment.append(cardClone);
         }
