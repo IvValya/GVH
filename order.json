@@ -7,8 +7,30 @@
           "img": "assets/img/bigImg.jpg",
           "weight": "360 г.",
           "price": 400,
+          "priceBeforeDiscount": 650,
           "quantity": 1,
-          "toppings": [1, 2]
+          "toppings": [
+            {
+              "id": 10,
+              "price": 90
+            },
+            {
+              "id": 20,
+              "price": 90
+            }
+        ]
+        }
+      },
+      {
+        "id": 5,
+        "card": {
+          "name": "newName",
+          "img": "assets/img/bigImg.jpg",
+          "weight": "360 г.",
+          "price": 400,
+          "priceBeforeDiscount": 650,
+          "quantity": 1,
+          "toppings": []
         }
       },
       {
@@ -18,8 +40,14 @@
           "img": "assets/img/image_for_basket.jpg",
           "weight": "360 г.",
           "price": 400,
-          "quantity": 3,
-          "toppings": []
+          "priceBeforeDiscount": 650,
+          "quantity": 2,
+          "toppings": [
+            {
+              "id": 10,
+              "price": 90
+            }
+          ]
         }
       }
      
@@ -33,17 +61,5 @@
     "customerInfo": {
       "address": {},
       "payment": {}
-    },
-    "deliveries": [
-      {
-        "typeDelivery": "takeaway",
-        "priceDelivery": 0,
-        "orderPriceForFree": 1500
-      },
-      {
-        "typeDelivery": "delivery",
-        "priceDelivery": 500,
-        "orderPriceForFree": 2000
-      }
-    ]
+    }
   }

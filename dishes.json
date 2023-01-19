@@ -5,6 +5,23 @@
       "name": "Популярные блюда",
       "products": [
         {
+          "id": 5,
+          "name": "Хачапури",
+          "img": [ "assets/img/bigImg.jpg", "assets/img/bigImg.jpg" ],
+          "desc": "Подаём с маринованным луком, коул слоу и соусом сацебели",
+          "weight": 360,
+          "price": 400,
+          "priceBeforeDiscount": 650,
+          "typeDishFav": [ "assets/img/kids.svg", "assets/img/kids.svg", "assets/img/spicy.svg" ],
+          "toppings": [ 10, 10 ],
+          "BJU": {
+            "totalEnergy": 500,
+            "protein": 20,
+            "fat": 50,
+            "carbohydrates": 32
+          }
+        },
+        {
           "id": 1,
           "name": "Хачапури",
           "img": [ "assets/img/bigImg.jpg", "assets/img/bigImg.jpg" ],
