@@ -71,6 +71,7 @@ function init() {
     console.log(dishID);
     console.log(currentElementId);
     console.log(data.basket);
+    this.value = this.value.replace(/[^\d.]/g, '');
     const currentCard = data.basket.find(
       (card) => card.id === parseInt(currentElementId)
     );
