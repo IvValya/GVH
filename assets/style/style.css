@@ -1276,7 +1276,10 @@ address {
     padding-left: 19px;
     padding-right: 19px;
 }
-
+.deskBasket__footer  {
+    position: absolute;
+    bottom: 0;
+}
 /*.mobileBasket__footer_item {
     display: none;
 }*/
@@ -1378,7 +1381,9 @@ address {
     font-size: 15px;
     font-weight: 400;
     color: var(--text-color-white);
-    width: 100%;
+    width: 360px;
+    border: none;
+    border-radius: 0px 0px 10px 10px;
 }
 
 .deskBasket_totalCheck,
