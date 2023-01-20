@@ -85,33 +85,7 @@ function init() {
       renderData(dishID);
     }
   }
-  // input change
-  /*
-function inputOnchange(count) {
-  console.log(data);
- let dishID = count.dataset.id;
- currentElementId = parseInt(
-  dishID.split("").splice(4).join("")
-);
-console.log(dishID);
-console.log(currentElementId);
-console.log(data.basket);
- const currentCard = data.basket.find(
-  (card) => card.id === parseInt(currentElementId)
-);
-currentCard.card.quantity = count.value;
-renderData(dishID);
-}
-inputs.forEach((input) => {
-input.onchange = inputOnchange(input);
-});
-
-/*
-inputs.forEach((input) => {
-  input.addEventListener("onchange", inputOnchange(input));
-})
-*/
-
+  
   //--------------------  Плюс/минус в меню-------------------//
 
   function countPlus(count) {
@@ -492,6 +466,7 @@ btnModalOrder.addEventListener("click", () => {
       console.log(data.basket);
       if (data.basket.length === 0) {
         mobileBasketSticky.style.bottom = 0;
+        footer.style.paddingBottom = 0;
       } else {
         mobileBasketSticky.style.bottom = "60px";
       }
@@ -621,7 +596,7 @@ window.addEventListener("load",()=> {
     } else {
       menuMobileNav.style.backgroundColor = "rgb(255, 255, 255, 0.7)";
     }
-    if (mobileBasketTrue) {
+    if (data.basket.length !== 0) {
       if (footerCopTop < mobileBasketTop) {
         footer.style.paddingBottom = "60px";
         mobileBasketTrue = false;
@@ -1085,6 +1060,24 @@ for (let t = 0; t < btnDeliverys.length; t++) {
   }
 
   /*---------------All parameters------------------------*/
+  function clearFunc() {
+    data.basket = [];
+    let btnsAdd = document.querySelectorAll(".card__button");
+    let btnsCount = document.querySelectorAll(".button__count");
+    let inputsClear = document.querySelectorAll(".input_text");
+    inputsClear.forEach((item) => {
+      item.value = 1;
+      console.log(item.value);
+    })
+    btnsAdd.forEach ((item) => {
+      item.style.display = "block"
+    });
+    btnsCount.forEach((item) => {
+      item.style.display = "none";
+    })
+    console.log(data);
+    orderBasket.render(data);
+  }
 
   function renderData(itemID) {
     let totalCheck = 0;
@@ -1410,7 +1403,6 @@ for (let t = 0; t < btnDeliverys.length; t++) {
       let allMenu = document.querySelectorAll(".list_item");
 
       data.basket.forEach((itemCard) => {
-        console.log(itemCard.id);
         for (let itemMenu of allMenu) {
           if (itemMenu.dataset.id === "dish" + itemCard.id) {
             if (basket && basketOpen) {
@@ -1425,6 +1417,10 @@ for (let t = 0; t < btnDeliverys.length; t++) {
           }
         }
       });
+      let btnsClear = document.querySelectorAll(".clear");
+      btnsClear.forEach((clear) => {
+        clear.addEventListener("click", clearFunc);
+      })
     }
 
     errorHandler(res) {

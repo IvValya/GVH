@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'Muller';
     src: url('../fonts/MullerRegular.eot');
-    src: local('Muller'), local('Muller'),
+    src: local('Muller Regular'), local('Muller-Regular'),
         url('../fonts/MullerRegular.eot?#iefix') format('embedded-opentype'),
         url('../fonts/MullerRegular.woff2') format('woff2'),
         url('../fonts/MullerRegular.woff') format('woff'),
@@ -383,6 +383,9 @@ a:active {
     padding: 5px;
 }
 
+.clear {
+    cursor: pointer;
+}
 
 .nav__input {
     display: none;
@@ -1313,9 +1316,21 @@ address {
     align-items: center;
 }
 .deskBasket_priceDelivery {
+    height: fit-content;
     font-size: 15px;
     font-weight: 500;
 }
+.deskBasket_priceDelivery .rouble {
+    padding-top: 0;
+    padding-bottom: 4px;
+}
+.deskBasket_priceDelivery .rouble,
+.deskBasket_priceDelivery .priceDelivery,
+.mobileBasket_priceDelivery .rouble,
+.mobileBasket_priceDelivery .priceDelivery {
+    color: var(--text-color-grey);
+}
+
 .mobileBasket__footer_span,
 .deskBasket__footer_span {
     padding-right: 30px;
@@ -2767,6 +2782,13 @@ input[type="number"]:focus {
         flex-direction: row;
         justify-content: flex-start;
         padding-left: 195px;
+    }
+    .card__desc_price {
+    height: 100%;
+    }
+    .rouble {
+        align-self: start;
+        padding-top: 4px;
     }
 }
 
