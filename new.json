@@ -1,0 +1,228 @@
+{
+    "meals": [
+        {
+            "id": 37,
+            "name": "Популярные блюда",
+            "products": [
+                {
+                    "id": 19,
+                    "name": "Шашлык2",
+                    "description": "Description shahlik",
+                    "contents": "Contents shashlik",
+                    "allergens": "Allergen shashlik",
+                    "weight": "350",
+                    "price": 500,
+                    "sale_price": 0,
+                    "nutrition_cal": "500",
+                    "nutrition_protein": "25",
+                    "nutrition_fat": "100",
+                    "nutrition_carbo": "35",
+                    "typeDishFav": [
+                        "assets/img/spicy.svg",
+                        "assets/img/spicy.svg",
+                        "assets/img/kids.svg",
+                        "assets/img/spicy.svg"
+                    ],
+                    "img": [
+                        "http://new.grillvino.ru/wp-content/uploads/2023/01/test01-1024x576.jpg"
+                    ],
+                    "toppings": []
+                }
+            ]
+        },
+        {
+            "id": 39,
+            "name": "Блюда на углях",
+            "products": [
+                {
+                    "id": 19,
+                    "name": "Шашлык2",
+                    "description": "Description shahlik",
+                    "contents": "Contents shashlik",
+                    "allergens": "Allergen shashlik",
+                    "weight": "350",
+                    "price": 500,
+                    "sale_price": 0,
+                    "nutrition_cal": "500",
+                    "nutrition_protein": "25",
+                    "nutrition_fat": "100",
+                    "nutrition_carbo": "35",
+                    "typeDishFav": [
+                        "assets/img/spicy.svg",
+                        "assets/img/spicy.svg",
+                        "assets/img/kids.svg",
+                        "assets/img/spicy.svg"
+                    ],
+                    "img": [
+                        "http://new.grillvino.ru/wp-content/uploads/2023/01/test01-1024x576.jpg"
+                    ],
+                    "toppings": []
+                }
+            ]
+        },
+        {
+            "id": 42,
+            "name": "Хачапури",
+            "products": [
+                {
+                    "id": 99,
+                    "name": "Машлык1",
+                    "description": "Description mashlik",
+                    "contents": "Contents mashlik",
+                    "allergens": "Allergen mashlik",
+                    "weight": "360",
+                    "price": 600,
+                    "sale_price": 250,
+                    "nutrition_cal": "600",
+                    "nutrition_protein": "30",
+                    "nutrition_fat": "120",
+                    "nutrition_carbo": "40",
+                    "typeDishFav": [
+                        "assets/img/kids.svg"
+                    ],
+                    "img": [
+                        "http://new.grillvino.ru/wp-content/uploads/2023/01/test01-1024x576.jpg"
+                    ],
+                    "toppings": []
+                }
+            ]
+        },
+        {
+            "id": 44,
+            "name": "Салаты",
+            "products": []
+        },
+        {
+            "id": 46,
+            "name": "Закуски",
+            "products": []
+        },
+        {
+            "id": 48,
+            "name": "Супы",
+            "products": []
+        },
+        {
+            "id": 50,
+            "name": "Хинкали",
+            "products": []
+        },
+        {
+            "id": 52,
+            "name": "Горячие блюда",
+            "products": []
+        },
+        {
+            "id": 54,
+            "name": "Гарниры",
+            "products": []
+        },
+        {
+            "id": 56,
+            "name": "Десерты",
+            "products": [
+                {
+                    "id": 123,
+                    "name": "Курымын1",
+                    "description": "",
+                    "contents": "",
+                    "allergens": "",
+                    "weight": "",
+                    "price": 300,
+                    "sale_price": 0,
+                    "nutrition_cal": "",
+                    "nutrition_protein": "",
+                    "nutrition_fat": "",
+                    "nutrition_carbo": "",
+                    "typeDishFav": [],
+                    "img": [
+                        "http://new.grillvino.ru/wp-content/uploads/2023/01/test01-1024x576.jpg"
+                    ],
+                    "toppings": [
+                        220,
+                        210,
+                        111
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 58,
+            "name": "Напитки",
+            "products": []
+        },
+        {
+            "id": 60,
+            "name": "Соусы",
+            "products": []
+        }
+    ],
+    "toppings": [
+        {
+            "name": "Сыр сулугуни ",
+            "iiko_meal_id": "",
+            "weight": "150",
+            "price": "150",
+            "image": "http://new.grillvino.ru/wp-content/uploads/2023/01/halapenka.png",
+            "id": 220
+        },
+        {
+            "name": "Лук зеленый ",
+            "iiko_meal_id": "",
+            "weight": "50",
+            "price": "100",
+            "image": "http://new.grillvino.ru/wp-content/uploads/2023/01/chiken.png",
+            "id": 213
+        },
+        {
+            "name": "Коул слоу",
+            "iiko_meal_id": "",
+            "weight": "100",
+            "price": "70",
+            "image": "http://new.grillvino.ru/wp-content/uploads/2023/01/chedder.png",
+            "id": 210
+        },
+        {
+            "name": "Лук маринованный",
+            "iiko_meal_id": "",
+            "weight": "20",
+            "price": "30",
+            "image": "http://new.grillvino.ru/wp-content/uploads/2023/01/halapenka.png",
+            "id": 107
+        },
+        {
+            "name": "Гренки пшеничные ",
+            "iiko_meal_id": "",
+            "price": "30",
+            "weight": "20",
+            "image": "http://new.grillvino.ru/wp-content/uploads/2023/01/chiken.png",
+            "id": 111
+        },
+        {
+            "name": "Фокаччо",
+            "iiko_meal_id": "",
+            "price": "30",
+            "weight": "50",
+            "image": "http://new.grillvino.ru/wp-content/uploads/2023/01/chedder.png",
+            "id": 109
+        },
+        {
+            "name": "Томаты черри ",
+            "iiko_meal_id": "",
+            "weight": "100",
+            "price": "150",
+            "image": "http://new.grillvino.ru/wp-content/uploads/2023/01/halapenka.png",
+            "id": 105
+        }
+    ],
+    "top10": [
+        19,
+        123
+    ],
+    "delivery_options": {
+        "delivery_price": "300",
+        "takeaway_discount": "10",
+        "free_delivery_order_total": "1500",
+        "takeaway_discount_order_total": "1000"
+    }
+}

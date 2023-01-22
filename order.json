@@ -54,9 +54,7 @@
       ],
    
     "delivery": {
-      "typeDelivery": "takeaway",
-      "priceDelivery": 0,
-      "orderPriceForFree": 1500
+      "typeDelivery": "takeaway"
     },
     "customerInfo": {
       "address": {},

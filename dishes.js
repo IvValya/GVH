@@ -11,7 +11,7 @@ class dishesL {
     return res;
   }
   load() {
-    fetch("dishes.json" /*, "GET"*/)
+    fetch("new.json" /*, "GET"*/)
       .then(this.errorHandler)
       .then((res) => res.json())
       .then((data) => {
@@ -19,27 +19,34 @@ class dishesL {
         this.renderCategories(data);
       })
       .catch((err) => console.error(err));
-    /* const dishes = JSON.parse(dishes.json);
-            this.renderCategories(dishes);*/
+    
   }
   renderTop10(menu) {
-    let { dishes, tops } = menu;
+    let { meals, top10 } = menu;
     let galleryList = document.querySelector(".gallery__list .swiper-wrapper");
     const fragment = document.createDocumentFragment();
     const galleryTemp = document.querySelector(".galleryTemp");
-    tops.forEach((item) => {
-      dishes.forEach((dish) => {
+    top10.forEach((item) => {
+      meals.forEach((dish) => {
         const cardClone = galleryTemp.content.cloneNode(true);
         const card = dish.products.find(
           (product) => product.id === parseInt(item)
         );
         console.log(card);
+        let price;
+        
         if (card) {
+          if (card.sale_price === 0) {
+            price = card.price;
+          } 
+          else {
+            price = card.sale_price;
+          }
           cardClone.querySelector(".card__img").src = card.img[0];
           cardClone.querySelector(".card__desc_name").textContent = card.name;
           cardClone.querySelector(".card__desc_weight").textContent =
             card.weight + " г.";
-          cardClone.querySelector(".desc_price").textContent = card.price;
+          cardClone.querySelector(".desc_price").textContent = price;
           cardClone.querySelector(".list_item").dataset.id = "dish" + card.id;
           let currentMinus = cardClone.querySelector(".count_minus");
           let currentCount = cardClone.querySelector(".input_text");
@@ -56,14 +63,14 @@ class dishesL {
   }
 
   renderCategories(menu) {
-    let { dishes } = menu;
+    let { meals } = menu;
     let menuMobileNav = document.querySelector(".menu__mobile_nav");
     const fragment = document.createDocumentFragment();
     const navLi = document.querySelector(".nav__li_temp");
     const asideMenuUl = document.querySelector(".asideMenu__ul");
     const asideNavItem = document.querySelector(".asideItemTemp");
     let currentNav;
-    dishes.forEach((item) => {
+    meals.forEach((item) => {
       const cardClone = navLi.content.cloneNode(true);
       console.log(cardClone);
       //cardClone.querySelector(".nav__li").id = "tab" + item.id;
@@ -80,7 +87,7 @@ class dishesL {
     currentNav.innerHTML = "";
     currentNav.appendChild(fragment);
     let fragmentaside = document.createDocumentFragment();
-    dishes.forEach((item) => {
+    meals.forEach((item) => {
       const cardCloneAside = asideNavItem.content.cloneNode(true);
       cardCloneAside.querySelector(".asideMenu__input").id = "cat" + item.id;
       cardCloneAside
@@ -95,23 +102,32 @@ class dishesL {
     let fragment1 = document.createDocumentFragment();
     const menuList = document.querySelector(".menu__list");
     let dishesListTemp = document.querySelector(".dishesListTemp");
-    dishes.forEach((item) => {
+    meals.forEach((item) => {
       let categoryClone = dishesListTemp.content.cloneNode(true);
       let menuCat = categoryClone.querySelector(".menu__cat");
-      menuCat.id = item.id;
+    // let hrefCat = dishesListTemp.querySelector(".href__cat");
+      //hrefCat.name = "href" + item.id;
       menuCat.dataset.name = "cat" + item.id;
       categoryClone.querySelector(".menu__h2").textContent = item.name;
       // let fragmentCard = document.createDocumentFragment();
       let menuCardTemp = document.querySelector(".menuCardTemp");
       let { products, id, name } = item;
       products.forEach((card) => {
+        
+        let price;
+        if (card.sale_price === 0) {
+          price = card.price;
+        } 
+        else {
+          price = card.sale_price;
+        }
         let cardIitemClone = menuCardTemp.content.cloneNode(true);
         cardIitemClone.querySelector(".card__img").src = card.img[0];
         cardIitemClone.querySelector(".card__desc_name").textContent =
           card.name;
         cardIitemClone.querySelector(".card__desc_weight").textContent =
           card.weight + " гр.";
-        cardIitemClone.querySelector(".desc_price").textContent = card.price;
+        cardIitemClone.querySelector(".desc_price").textContent = price;
         cardIitemClone.querySelector(".list_item").dataset.id =
           "dish" + card.id;
         let currentMinus = cardIitemClone.querySelector(".count_minus");
