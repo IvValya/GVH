@@ -35,6 +35,7 @@ function init() {
   const mobileBasketHeaderPrice = document.querySelector(
     ".mobileBasket__header_totalPrice"
   );
+  const buttonOrder = document.querySelectorAll(".button_order");
   const mobileBasketHeader = document.querySelector(".mobileBasket__header");
   const mobileBasketFooter = document.querySelector(".mobileBasket__footer");
   const mobileBasketOpen = document.querySelector(".mobileBasket_open");
@@ -54,12 +55,15 @@ function init() {
   let startPosition =
     window.innerHeight - parseInt(mobileBasketSticky.style.bottom) + "px";
 
-  function renderButton() {
-    for (let itemMenu of allMenu) {
-      if (itemMenu.id === "dish" + itemCard.id) {
-      }
+ 
+    buttonOrder.forEach((item) => {
+      item.addEventListener("click", renderFullOrder);
+    })
+
+    function renderFullOrder() {
+      console.log("Full Order");
     }
-  }
+
   inputs.forEach((input) => {
     input.addEventListener("change", inputChange);
   });
@@ -1243,9 +1247,9 @@ for (let t = 0; t < btnDeliverys.length; t++) {
       deliveryPrice.textContent = 0;
       priceDelivery = 0;
       otherText.textContent = " для скидки " + menuData.delivery_options.takeaway_discount + "%." 
-      if (totalCheck > parseInt(menuData.delivery_options.takeaway_discount_order_total)) {
+      if (totalCheck >= parseInt(menuData.delivery_options.takeaway_discount_order_total)) {
         checKForFree.textContent = 0;
-        
+        totalCheck = totalCheck*(100 - parseInt(menuData.delivery_options.takeaway_discount))/100;
       } else {
         checKForFree.textContent = parseInt(menuData.delivery_options.takeaway_discount_order_total - totalCheck);  
       }
@@ -1505,8 +1509,9 @@ for (let t = 0; t < btnDeliverys.length; t++) {
         deliveryPrice.textContent = 0;
         priceDelivery = 0;
         otherText.textContent = " для скидки " + menuData.delivery_options.takeaway_discount + "%." 
-        if (totalCheck > parseInt(menuData.delivery_options.takeaway_discount_order_total)) {
-          checKForFree.textContent = 0;         
+        if (totalCheck >= parseInt(menuData.delivery_options.takeaway_discount_order_total)) {
+          checKForFree.textContent = 0;
+          totalCheck = totalCheck*(100 - parseInt(menuData.delivery_options.takeaway_discount))/100;
         } else {
           checKForFree.textContent = parseInt(menuData.delivery_options.takeaway_discount_order_total - totalCheck);  
         }
