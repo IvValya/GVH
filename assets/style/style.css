@@ -585,12 +585,7 @@ a:active {
     border-radius: 10px;
 }
 .street {
-    width: 300px;
-}
-
-.street option {
-    width: 300px;
-
+    width: 100%;
 }
 
 
