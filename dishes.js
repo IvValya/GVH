@@ -11,7 +11,7 @@ class dishesL {
     return res;
   }
   load() {
-    fetch("new.json" /*, "GET"*/)
+    fetch( urLForGet /*, "GET"*/)
       .then(this.errorHandler)
       .then((res) => res.json())
       .then((data) => {
@@ -19,7 +19,6 @@ class dishesL {
         this.renderCategories(data);
       })
       .catch((err) => console.error(err));
-    
   }
   renderTop10(menu) {
     let { meals, top10 } = menu;
@@ -32,14 +31,12 @@ class dishesL {
         const card = dish.products.find(
           (product) => product.id === parseInt(item)
         );
-        console.log(card);
         let price;
-        
+
         if (card) {
           if (card.sale_price === 0) {
             price = card.price;
-          } 
-          else {
+          } else {
             price = card.sale_price;
           }
           cardClone.querySelector(".card__img").src = card.img[0];
@@ -65,28 +62,31 @@ class dishesL {
   renderCategories(menu) {
     let { meals } = menu;
     let menuMobileNav = document.querySelector(".menu__mobile_nav");
-    const fragment = document.createDocumentFragment();
-    const navLi = document.querySelector(".nav__li_temp");
     const asideMenuUl = document.querySelector(".asideMenu__ul");
     const asideNavItem = document.querySelector(".asideItemTemp");
     let currentNav;
-    meals.forEach((item) => {
-      const cardClone = navLi.content.cloneNode(true);
-      console.log(cardClone);
-      //cardClone.querySelector(".nav__li").id = "tab" + item.id;
-      cardClone.querySelector(".nav__li").dataset.name = "cat" + item.id;
-      cardClone.querySelector(".nav__label").textContent = item.name;
-      cardClone.querySelector(".nav__label").dataset.name = "cat" + item.id;
-      cardClone
-        .querySelector(".nav__label")
-        .setAttribute("for", "tab" + item.id);
-      cardClone.querySelector(".nav__input").id = "tab" + item.id;
-      fragment.append(cardClone);
-      currentNav = document.querySelector(".menu__mobile_nav");
-    });
-    currentNav.innerHTML = "";
-    currentNav.appendChild(fragment);
+
+    if (page) {
+      const fragment = document.createDocumentFragment();
+      const navLi = document.querySelector(".nav__li_temp");
+
+      meals.forEach((item) => {
+        const cardClone = navLi.content.cloneNode(true);
+        //cardClone.querySelector(".nav__li").id = "tab" + item.id;
+        cardClone.querySelector(".nav__li").dataset.name = "cat" + item.id;
+        cardClone.querySelector(".nav__label").textContent = item.name;
+        cardClone.querySelector(".nav__label").dataset.name = "cat" + item.id;
+        cardClone
+          .querySelector(".nav__label")
+          .setAttribute("for", "tab" + item.id);
+        cardClone.querySelector(".nav__input").id = "tab" + item.id;
+        fragment.append(cardClone);
+        currentNav = document.querySelector(".menu__mobile_nav");
+      });
+      currentNav.innerHTML = "";
+      currentNav.appendChild(fragment);
     let fragmentaside = document.createDocumentFragment();
+    document.querySelector(".nav__label").classList.add("nav__label_active");
     meals.forEach((item) => {
       const cardCloneAside = asideNavItem.content.cloneNode(true);
       cardCloneAside.querySelector(".asideMenu__input").id = "cat" + item.id;
@@ -99,13 +99,13 @@ class dishesL {
     });
     currentNav.innerHTML = "";
     currentNav.appendChild(fragmentaside);
-    let fragment1 = document.createDocumentFragment();
+      let fragment1 = document.createDocumentFragment();
     const menuList = document.querySelector(".menu__list");
     let dishesListTemp = document.querySelector(".dishesListTemp");
     meals.forEach((item) => {
       let categoryClone = dishesListTemp.content.cloneNode(true);
       let menuCat = categoryClone.querySelector(".menu__cat");
-    // let hrefCat = dishesListTemp.querySelector(".href__cat");
+      // let hrefCat = dishesListTemp.querySelector(".href__cat");
       //hrefCat.name = "href" + item.id;
       menuCat.dataset.name = "cat" + item.id;
       categoryClone.querySelector(".menu__h2").textContent = item.name;
@@ -113,12 +113,10 @@ class dishesL {
       let menuCardTemp = document.querySelector(".menuCardTemp");
       let { products, id, name } = item;
       products.forEach((card) => {
-        
         let price;
         if (card.sale_price === 0) {
           price = card.price;
-        } 
-        else {
+        } else {
           price = card.sale_price;
         }
         let cardIitemClone = menuCardTemp.content.cloneNode(true);
@@ -142,8 +140,26 @@ class dishesL {
     });
     menuList.innerHTML = "";
     menuList.appendChild(fragment1);
-    document.querySelector(".nav__label").classList.add("nav__label_active");
-    document.querySelector(".asideMenu__label").classList.add("category_active");
+    }
+    if (window.innerWidth > 800) {
+      let fragmentAside = document.createDocumentFragment();
+      meals.forEach((item) => {
+        const cardCloneAside = asideNavItem.content.cloneNode(true);
+        cardCloneAside.querySelector(".asideMenu__input").id = "cat" + item.id;
+        cardCloneAside
+          .querySelector(".asideMenu__label")
+          .setAttribute("for", "cat" + item.id);
+        currentNav = document.querySelector(".asideMenu__ul");
+        cardCloneAside.querySelector(".asideMenu__label").textContent =
+          item.name;
+        fragmentAside.append(cardCloneAside);
+      });
+      currentNav.innerHTML = "";
+      currentNav.appendChild(fragmentAside);
+      document
+        .querySelector(".asideMenu__label")
+        .classList.add("category_active");
+    }
     this.renderTop10(menu);
   }
 }

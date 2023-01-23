@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="assets/style/style.css" />
     <link rel="stylesheet" href="assets/swiper/swiper-bundle.min.css" />
+    <script>
+      var page = false;
+    </script>
+    <script src="dishes.js"></script>
     <style>
       .swiper {
         width: 100%;
@@ -184,11 +188,7 @@
             </a>
             <a class="menu__main_item onlyMobileHalf" href="index.html#href2">
               <h2 class="menu__main_h2">Блюда на углях</h2>
-              <img
-                src="./assets/img/salad.jpg"
-                alt=""
-                class="menu__main_img"
-              />
+              <img src="./assets/img/salad.jpg" alt="" class="menu__main_img" />
             </a>
             <a class="menu__main_item onlyMobileHalf" href="index.html#href3">
               <h2 class="menu__main_h2">Супы</h2>
@@ -200,11 +200,7 @@
             </a>
             <a class="menu__main_item onlyDeskHalf" href="">
               <h2 class="menu__main_h2">Десерты</h2>
-              <img
-                src="./assets/img/kare.jpg"
-                alt=""
-                class="menu__main_img"
-              />
+              <img src="./assets/img/kare.jpg" alt="" class="menu__main_img" />
             </a>
             <a class="menu__main_item onlyDeskHalf" href="">
               <h2 class="menu__main_h2">Топпинги</h2>
@@ -224,19 +220,11 @@
             </a>
             <a class="menu__main_item mobileDeskHalf" href="">
               <h2 class="menu__main_h2">Напитки</h2>
-              <img
-                src="./assets/img/manti.jpg"
-                alt=""
-                class="menu__main_img"
-              />
+              <img src="./assets/img/manti.jpg" alt="" class="menu__main_img" />
             </a>
             <a class="menu__main_item onlyTabletHalf" href="">
               <h2 class="menu__main_h2">Напитки</h2>
-              <img
-                src="./assets/img/salad.jpg"
-                alt=""
-                class="menu__main_img"
-              />
+              <img src="./assets/img/salad.jpg" alt="" class="menu__main_img" />
             </a>
             <a class="menu__main_item onlyTabletHalf" href="">
               <h2 class="menu__main_h2">Напитки</h2>
@@ -248,11 +236,7 @@
             </a>
             <a class="menu__main_item onlyTabletHalf" href="">
               <h2 class="menu__main_h2">Напитки</h2>
-              <img
-                src="./assets/img/kebab.jpg"
-                alt=""
-                class="menu__main_img"
-              />
+              <img src="./assets/img/kebab.jpg" alt="" class="menu__main_img" />
             </a>
             <a class="menu__main_item allHalf" href="">
               <h2 class="menu__main_h2">Напитки</h2>
@@ -263,7 +247,6 @@
               />
             </a>
           </section>
-
 
           <section class="gallery" loading="lazy">
             <div class="gallery__div">
@@ -758,18 +741,14 @@
     <template>
       <a class="menu__main_item allHalf" href="">
         <h2 class="menu__main_h2">Напитки</h2>
-        <img
-          src="./assets/img/bigImg.jpg"
-          alt=""
-          class="menu__main_img"
-        />
+        <img src="./assets/img/bigImg.jpg" alt="" class="menu__main_img" />
       </a>
     </template>
     <script src="index.js"></script>
     <script src="assets/swiper/swiper-bundle.min.js"></script>
-     <!-- Initialize Swiper -->
+    <!-- Initialize Swiper -->
 
-     <script>
+    <script>
       var swiper = new Swiper(".mySwiperModal", {
         navigation: {
           nextEl: ".swiper-button-next",
@@ -821,7 +800,6 @@
         document
           .getElementById("openMenu")
           .addEventListener("click", function () {
-            
             document.body.style.overflow = "hidden";
             setTimeout(() => {
               mobileMenu.open();
@@ -834,14 +812,13 @@
             setTimeout(() => {
               //document.getElementById("burgerMenu").style.display = "none";
               document.body.style.overflow = "unset";
-              
             }, 400);
           });
       }
       window.addEventListener("DOMContentLoaded", () => {
         document.getElementById("burgerMenu").style.display = "flex";
         openMobileMenu();
-      } );
+      });
       window.addEventListener("resize", () => {
         document.getElementById("burgerMenu").style.display = "flex";
         openMobileMenu();

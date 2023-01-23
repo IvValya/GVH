@@ -38,6 +38,10 @@
         object-fit: cover;
       }
     </style>
+    <script>
+      var urLForGet = "new.json";
+      var page = true;
+    </script>
     <script src="dishes.js"></script>
     <title>GRILL VINO & ХАЧАПУРИ</title>
   </head>
@@ -154,8 +158,7 @@
       </div>
     </aside>
 
-    <section class="menu__mobile_nav">      
-    </section>
+    <section class="menu__mobile_nav"></section>
 
     <aside class="mobileBasket_sticky">
       <div class="mobileBasket">
@@ -216,9 +219,7 @@
                     <div class="hovering_active hover__active_left"></div>
                   </div>
                 </section>
-                <section class="mobileBasket__menu basket__menu">
-                  
-                </section>
+                <section class="mobileBasket__menu basket__menu"></section>
                 <button class="mobileBasket__button_clear clear" type="button">
                   Убрать все
                 </button>
@@ -242,13 +243,13 @@
               <span class="other__text"> для бесплатной доставки!</span>
             </p>
           </div>
-          <button class="mobileBasket__button_order button_order">
+          <a class="mobileBasket__button_order button_order">
             <span>Верно, далее</span>
             <div class="mobileBasket_totalCheck">
               <span class="totalCheck"></span>
               <span class="rouble">i</span>
             </div>
-          </button>
+          </a>
         </footer>
       </div>
     </aside>
@@ -260,16 +261,12 @@
       </section>
       <div class="wrapper__main_big">
         <aside class="asideMenu">
-          <ul class="asideMenu__ul">
-            
-          </ul>
+          <ul class="asideMenu__ul"></ul>
           <h1 class="visually-hidden"></h1>
         </aside>
         <div class="wrapper__main_small">
           <div class="menu">
-            <div class="menu__list">
-              
-            </div>
+            <div class="menu__list"></div>
             <div class="deskBasket">
               <div class="deskBasket__wrapper">
                 <div class="deskBasket__header">
@@ -312,13 +309,14 @@
                       <div class="hovering_active hover__active_left"></div>
                     </div>
                   </section>
-                  <section class="deskBasket__menu basket__menu">
-                    
-                  </section>
+                  <section class="deskBasket__menu basket__menu"></section>
                 </div>
                 <div class="deskBasket__footer">
                   <div class="deskBasket__footer_item">
-                    <button class="deskBasket__button_clear clear" type="button">
+                    <button
+                      class="deskBasket__button_clear clear"
+                      type="button"
+                    >
                       Убрать все
                     </button>
                     <p class="deskBasket_priceDelivery">
@@ -329,17 +327,20 @@
                     <p class="basket_forFreeDelivery">
                       Закажите ещё на
                       <span class="check_forFreeDelivery"></span>
-                      <span class="rouble">i</span> 
+                      <span class="rouble">i</span>
                       <span class="other__text"> для бесплатной доставки!</span>
                     </p>
                   </div>
-                  <button class="deskBasket__button_order button_order">
+                  <a
+                    class="deskBasket__button_order button_order"
+                   
+                  >
                     <span>Верно, далее</span>
                     <div class="deskBasket_totalCheck">
                       <span class="totalCheck"></span>
                       <span class="rouble"> i</span>
                     </div>
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -362,9 +363,7 @@
                 <div class="swiper-wrapper">
                   <div class="gallery__list">
                     <div class="swiper mySwiper">
-                      <div class="swiper-wrapper">
-                        
-                      </div>
+                      <div class="swiper-wrapper"></div>
                       <div class="swiper-pagination"></div>
                     </div>
                   </div>
@@ -467,14 +466,11 @@
       </div>
     </footer>
 
-    
-
     <aside class="asideModal">
       <img class="modal__close" src="assets/img/close.svg" alt="" />
       <div class="modal">
         <div class="modal__header">
-          <div class="modal__fav">
-          </div>
+          <div class="modal__fav"></div>
         </div>
         <div class="modal__gallery">
           <div class="modal__div">
@@ -482,9 +478,7 @@
             <div class="swiper mySwiper">
               <div class="swiper-wrapper">
                 <div class="swiper mySwiperModal">
-                  <div class="swiper-wrapper">
-                                      
-                  </div>
+                  <div class="swiper-wrapper"></div>
                   <div class="swiper-button-next"></div>
                   <div class="swiper-button-prev"></div>
                   <div class="swiper-pagination"></div>
@@ -498,9 +492,7 @@
         </p>
         <div class="modal__topping">
           <h3 class="topping__h3">Топинги:</h3>
-          <div class="topping__list">
-            
-          </div>
+          <div class="topping__list"></div>
         </div>
         <div class="footer__BJU">
           <div class="modal__total_weight modal__BJU_item">
@@ -550,6 +542,8 @@
               <input
                 type="text"
                 class="input_text"
+                minlength="1"
+                maxlength="3"
                 size="6"
                 value="1"
                 pattern="[0-9]{,3}"
@@ -564,11 +558,7 @@
     <template class="basketTemp">
       <div class="basket__card">
         <div class="basket__card_pict">
-          <img
-            class="basket__card_img"
-            src="assets/img/kebab.jpg"
-            alt=""
-          />
+          <img class="basket__card_img" src="assets/img/kebab.jpg" alt="" />
         </div>
         <div class="basket__desc">
           <h3 class="basket__h3">
@@ -588,6 +578,8 @@
                 <input
                   type="text"
                   class="input_text"
+                  minlength="1"
+                  maxlength="3"
                   size="6"
                   value="1"
                   pattern="[0-9]{1,3}"
@@ -605,22 +597,15 @@
       <div class="swiper-slide">
         <div class="top10__card list_item">
           <a class="menu__card">
-            <img
-              class="card__img"
-              src="assets/img/kare.jpg"
-              alt=""
-            />
+            <img class="card__img" src="assets/img/kare.jpg" alt="" />
             <div class="card_desc">
               <div class="card__text">
                 <div class="card">
                   <span class="card__desc_name"
-                    >Пеновани из слоёного теста с беконом,
-                    сыром сулугуни и зеленью Подается со
-                    сметаной</span
+                    >Пеновани из слоёного теста с беконом, сыром сулугуни и
+                    зеленью Подается со сметаной</span
                   >
-                  <span class="card__desc_weight"
-                    >280 г.</span
-                  >
+                  <span class="card__desc_weight">280 г.</span>
                 </div>
               </div>
               <div class="card__desc_price">
@@ -631,38 +616,26 @@
           </a>
           <button class="card__button" type="button">
             <div class="card__button_add">
-              <img
-                class="img__plus"
-                src="assets/img/plus.svg"
-                alt=""
-              />
+              <img class="img__plus" src="assets/img/plus.svg" alt="" />
               <span>добавить</span>
             </div>
           </button>
 
           <div class="card__button_count button__count">
-            <div
-              class="count_minus card__count_minus"
-              
-            >
-              -
-            </div>
+            <div class="count_minus card__count_minus">-</div>
             <div class="card__count_wrapper">
               <input
                 type="text"
                 class="input_text"
+                minlength="1"
+                maxlength="3"
                 size="6"
                 value="1"
                 pattern="[0-9]{,3}"
                 inputmode="numeric"
               />
             </div>
-            <div
-              class="count_plus card__count_plus"
-             
-            >
-              +
-            </div>
+            <div class="count_plus card__count_plus">+</div>
           </div>
         </div>
       </div>
@@ -670,11 +643,7 @@
 
     <template class="toppingCardTemp">
       <div class="topping__card">
-        <input
-          class="topping__modal_check"
-          type="checkbox"
-          
-        />
+        <input class="topping__modal_check" type="checkbox" />
         <label class="topping__label" for="chicken"
           ><div class="topping__check">
             <img
@@ -700,7 +669,7 @@
         </label>
       </div>
     </template>
-    
+
     <template class="modalFavTemp">
       <img class="modal__fav_img" src="assets/img/spicy.svg" alt="" />
     </template>
@@ -708,11 +677,7 @@
     <template class="swiperGalleryModalTemp">
       <div class="swiper-slide">
         <a class="modal__img">
-          <img
-            class="modal__card_img"
-            src="assets/img/kare.jpg"
-            alt=""
-          />
+          <img class="modal__card_img" src="assets/img/kare.jpg" alt="" />
         </a>
       </div>
     </template>
@@ -726,26 +691,20 @@
           id="tab_0"
           checked=""
         />
-        <label
-          class="nav__label"
-          data-name="cat1"
-          for="tab_0"
+        <label class="nav__label" data-name="cat1" for="tab_0"
           >Популярные блюда</label
         >
       </li>
     </template>
     <template class="asideItemTemp">
       <input class="asideMenu__input" type="radio" id="cat1" />
-      <label class="asideMenu__label" for="cat1"
-        >Популярные</label
-      >
+      <label class="asideMenu__label" for="cat1">Популярные</label>
     </template>
 
     <template class="dishesListTemp">
-     <!-- <a class="href__cat" name="hrefid"></a>-->
-      <div class="menu__cat" data-name="cat1">       
+      <!-- <a class="href__cat" name="hrefid"></a>-->
+      <div class="menu__cat" data-name="cat1">
         <h2 class="menu__h2">Популярные блюда</h2>
-        
       </div>
     </template>
     <template class="menuCardTemp">
@@ -756,8 +715,8 @@
             <div class="card__text">
               <div class="card">
                 <span class="card__desc_name"
-                  >Пеновани из слоёного теста с беконом, сыром
-                  сулугуни и зеленью Подается со сметаной</span
+                  >Пеновани из слоёного теста с беконом, сыром сулугуни и
+                  зеленью Подается со сметаной</span
                 >
                 <span class="card__desc_weight">280 г.</span>
               </div>
@@ -775,29 +734,27 @@
           </div>
         </button>
         <div class="card__button_count button__count">
-          <div class="count_minus card__count_minus" >-</div>
+          <div class="count_minus card__count_minus">-</div>
           <div class="card__count_wrapper">
             <input
               type="text"
               class="input_text"
+              minlength="1"
+              maxlength="3"
               size="6"
               value="1"
               pattern="[0-9]{,3}"
               inputmode="numeric"
             />
           </div>
-          <div class="count_plus card__count_plus" >+</div>
+          <div class="count_plus card__count_plus">+</div>
         </div>
       </div>
     </template>
     <template class="basketTemp">
       <div class="basket__card">
         <div class="basket__card_pict">
-          <img
-            class="basket__card_img"
-            src="assets/img/kebab.jpg"
-            alt=""
-          />
+          <img class="basket__card_img" src="assets/img/kebab.jpg" alt="" />
         </div>
         <div class="basket__desc">
           <h3 class="basket__h3">
@@ -818,12 +775,14 @@
                   type="text"
                   class="input_text"
                   size="6"
+                  minlength="1"
+                  maxlength="3"
                   value="1"
                   pattern="[0-9]{1,3}"
                   inputmode="numeric"
                 />
               </div>
-              <div class="count_plus" >+</div>
+              <div class="count_plus">+</div>
             </div>
           </div>
         </div>
@@ -913,7 +872,6 @@
         document.getElementById("burgerMenu").style.display = "flex";
         openMobileMenu();
       });
-     
     </script>
   </body>
 </html>

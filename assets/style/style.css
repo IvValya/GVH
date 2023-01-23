@@ -141,9 +141,8 @@ a:active {
 .close {
     display: block;
 }
-.mobileBasket__close {
 
-}
+.mobileBasket__close {}
 
 .header__nav,
 .asideNav,
@@ -412,8 +411,9 @@ a:active {
     cursor: pointer;
     font-weight: 700;
     font-size: 15px;
-    
+
 }
+
 .nav__label_active.transition {
     transition: background-color 500ms linear;
 }
@@ -551,11 +551,99 @@ a:active {
 .order__basket .input_text {
     height: 42px;
 }
+.address__main {
+    display: grid;
+    grid-template-columns: 80px 80px 1fr  80px;
+    column-gap: 15px;
+    row-gap: 17px;
+}
+.street {
+    grid-column: span 4;
+}
+.flat,
+.intercom {
+    grid-column: 4/5;
+}
+.comments__textarea {
+    background: #FBFBFB;
+    border: 1px solid #D6D6D6;
+    border-radius: 10px;
+    height: 112px;
+    width: 100%;
+    resize: none;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 22px;
+}
+
+.address__item {
+    width: 80px;
+    height: 47px;
+    background: #FBFBFB;
+    border: 1px solid #D6D6D6;
+    border-radius: 10px;
+}
+.street {
+    width: 300px;
+}
+
+.street option {
+    width: 300px;
+
+}
+
+
+.comments__textarea:focus,
+.comments__textarea:active,
+.textarea:focus,
+.textarea:active {
+    outline: none;
+    background: #FFF3DC;
+    border-color: #B06D81;
+    border: 1px solid #B06D81;
+}
+
+input[type=text]::placeholder {
+    font-size: 15px;
+    font-weight: 500;
+    color: #BABABA;
+
+}
+
+input[type=text]::-webkit-input-placeholder {
+    font-size: 15px;
+    font-weight: 500;
+    color: #BABABA;
+}
+
+input[type=text]::-moz-placeholder {
+    font-size: 15px;
+    font-weight: 500;
+    color: #BABABA;
+}
+
+input[type=text]:-moz-placeholder {
+    font-size: 15px;
+    font-weight: 500;
+    color: #BABABA;
+}
+
+input[type=text]:-ms-input-placeholder {
+    font-size: 15px;
+    font-weight: 500;
+    color: #BABABA;
+}
+
+
+
+
 
 .card__pinck {
     background-color: var(--color-milky);
     width: 100%;
     height: 3px;
+    margin-bottom: 15px;
 }
 
 .order__list .basket__h3,
@@ -691,6 +779,7 @@ a:active {
     background-color: var(--text-color-white);
     justify-content: space-between;
 }
+
 .list_item .input_text {
     border: 1px solid #B06D81;
 }
@@ -894,7 +983,7 @@ address {
     border-radius: 10px;
     background-color: var(--color-bordeaux);
     color: var(--text-color-white);
-    border: 2px solid #FFFFFF;    
+    border: 2px solid #FFFFFF;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.35);
 }
 
@@ -1196,7 +1285,7 @@ address {
     column-gap: 10px;
 }
 
-.basket__card_img{
+.basket__card_img {
     width: 75px;
     height: 75px;
     object-fit: cover;
@@ -1226,7 +1315,7 @@ address {
     color: var(--text-color-light-grey);
 }
 
-.divBasket__price{
+.divBasket__price {
     font-weight: 500;
     font-size: 15px;
     color: #838383;
@@ -1272,14 +1361,17 @@ address {
     flex-direction: column;
     row-gap: 10px;
 }
+
 .deskBasket__footer_item {
     padding-left: 19px;
     padding-right: 19px;
 }
-.deskBasket__footer  {
+
+.deskBasket__footer {
     position: absolute;
     bottom: 0;
 }
+
 /*.mobileBasket__footer_item {
     display: none;
 }*/
@@ -1318,15 +1410,18 @@ address {
     display: flex;
     align-items: center;
 }
+
 .deskBasket_priceDelivery {
     height: fit-content;
     font-size: 15px;
     font-weight: 500;
 }
+
 .deskBasket_priceDelivery .rouble {
     padding-top: 0;
     padding-bottom: 4px;
 }
+
 .deskBasket_priceDelivery .rouble,
 .deskBasket_priceDelivery .priceDelivery,
 .mobileBasket_priceDelivery .rouble,
@@ -1390,10 +1485,12 @@ address {
 .mobileBasket_totalCheck span {
     font-size: 20px;
 }
+
 .mobileBasket_totalCheck span {
     font-size: 20px;
     font-weight: 400;
 }
+
 .input_text {
     height: 100%;
     text-align: center;
@@ -1517,8 +1614,9 @@ input[type="number"]:focus {
 .category_active {
     background-color: var(--color-bordeaux);
     font-weight: 700;
-   
+
 }
+
 .category_active {
     transition: background-color 400ms linear;
 }
@@ -1982,11 +2080,13 @@ input[type="number"]:focus {
         grid-template-columns: 195px 1fr;
         flex-wrap: nowrap;*/
     }
+
     .header {
         padding-left: 43px;
         padding-right: 40px;
         height: 124px;
     }
+
     .resto {
         display: block;
         font-weight: 400;
@@ -1994,9 +2094,11 @@ input[type="number"]:focus {
         letter-spacing: 0.2em;
         color: #B4B2B2;
     }
+
     .aboutUs__buttons {
         width: 360px;
     }
+
     .menu__main_img {
         height: 140px;
     }
@@ -2281,10 +2383,11 @@ input[type="number"]:focus {
     }
 
     .aboutUs__h2 {
-       width: 100%;
+        width: 100%;
         order: 0;
-        padding-bottom: 0; 
+        padding-bottom: 0;
     }
+
     .aboutUs__wr {
         display: flex;
         column-gap: 20px;
@@ -2452,18 +2555,22 @@ input[type="number"]:focus {
         padding-left: 195px;
         padding-right: 147px;
     }
+
     .modal__desc {
         font-size: 16px;
     }
+
     .topping__price {
         font-weight: 450;
     }
+
     .menu__main {
         grid-auto-flow: dense;
         max-width: 1000px;
         margin-left: auto;
         margin-right: auto;
     }
+
     .basket__h3 {
         font-size: 13px;
         font-weight: 500;
@@ -2472,9 +2579,11 @@ input[type="number"]:focus {
     .menu__main_img {
         height: 240px;
     }
+
     .aboutUs__buttons {
         width: 100%;
     }
+
     .order {
         display: grid;
         grid-template-columns: 630px 361px;
@@ -2492,11 +2601,13 @@ input[type="number"]:focus {
         padding-left: 27px;
         padding-right: 30px;
     }
+
     .aboutUs__wr {
         display: flex;
         flex-direction: column;
         column-gap: 20px;
     }
+
     .workTime {
         padding-bottom: 70px;
         display: flex;
@@ -2611,14 +2722,14 @@ input[type="number"]:focus {
 
     .modal__fav {}
 
-    
+
     .header {
         position: relative;
         padding-left: 190px;
         padding-right: 147px;
         height: 124px;
     }
-    
+
 
     .burgerMenu {
         display: none;
@@ -2788,9 +2899,11 @@ input[type="number"]:focus {
         justify-content: flex-start;
         padding-left: 195px;
     }
+
     .card__desc_price {
-    height: 100%;
+        height: 100%;
     }
+
     .rouble {
         align-self: start;
         padding-top: 4px;
@@ -2803,7 +2916,7 @@ input[type="number"]:focus {
     .modal__topping,
     .deskBasket__menu {
         scrollbar-color: #dad7d7;
-        
+
         /* «цвет ползунка» «цвет полосы скроллбара» */
         scrollbar-width: thin;
         /* толщина */
@@ -2815,7 +2928,7 @@ input[type="number"]:focus {
     }
 
     ::-webkit-scrollbar-track {
-        background-color:#dad7d7;
+        background-color: #dad7d7;
         border-radius: 3px;
     }
 

@@ -48,55 +48,48 @@ function init() {
   );
   const divBlock = document.querySelector(".block");
   const inputs = document.querySelectorAll(".input_text");
-  console.log(inputs);
   let modalTrue = false;
   let basketTrue = false;
   let scrollTrue = true;
-  let startPosition =
-    window.innerHeight - parseInt(mobileBasketSticky.style.bottom) + "px";
+  let startPosition = window.innerHeight; // - parseInt(mobileBasketSticky.style.bottom) + "px";
 
- 
-    buttonOrder.forEach((item) => {
-      item.addEventListener("click", renderFullOrder);
-    })
-
-    function renderFullOrder() {
-      console.log("Full Order");
-    }
-
-  inputs.forEach((input) => {
-    input.addEventListener("change", inputChange);
+  buttonOrder.forEach((item) => {
+    item.addEventListener("click", renderFullOrder);
   });
 
-  function inputChange(e) {
-    console.log(e);
+  function renderFullOrder() {
+    console.log("Full Order");
+  }
+
+  inputs.forEach((input) => {
+    input.addEventListener("change", inputCountChange);
+  });
+
+  function inputCountChange(e) {
     let dishID = e.currentTarget.dataset.id;
     currentElementId = parseInt(dishID.split("").splice(4).join(""));
-    console.log(dishID);
-    console.log(currentElementId);
-    console.log(data.basket);
-    this.value = this.value.replace(/[^\d.]/g, '');
+    this.value = this.value.replace(/[^\d.]/g, "");
     const currentCard = data.basket.find(
       (card) => card.id === parseInt(currentElementId)
     );
     if (e.currentTarget.value < 1) {
       e.currentTarget.value = 1;
-      let minus = e.currentTarget.closest(".button__count").querySelector(".count_minus");
-      console.log(minus);
+      let minus = e.currentTarget
+        .closest(".button__count")
+        .querySelector(".count_minus");
       minus.click();
     } else {
       currentCard.card.quantity = e.currentTarget.value;
       renderData(dishID);
     }
   }
-  
+
   //--------------------  Плюс/минус в меню-------------------//
 
   function countPlus(count) {
     return function () {
       if (count.value < 999) {
         let currentElementId = count.dataset.id;
-        console.log(count);
         let cards = document.querySelectorAll(
           '.input_text[data-id="' + currentElementId + '"]'
         );
@@ -104,16 +97,13 @@ function init() {
         currentElementId = parseInt(
           currentElementId.split("").splice(4).join("")
         );
-        console.log(currentElementId);
         const card = data.basket.find(
           (card) => card.id === parseInt(currentElementId)
         );
-        console.log(card);
         card.card.quantity++;
         cards.forEach((item) => {
           item.value = card.card.quantity;
         });
-        console.log(card.card.quantity);
 
         renderData(count.dataset.id);
       }
@@ -132,11 +122,8 @@ function init() {
         (card) => card.id === parseInt(currentElementId)
       );
 
-      console.log(count);
-      console.log(currCard);
       // }
       let indexCard = data.basket.indexOf(currCard);
-      console.log(indexCard);
       if (count.value > 1) {
         let cards = document.querySelectorAll(
           '.input_text[data-id="' + count.dataset.id + '"]'
@@ -147,7 +134,6 @@ function init() {
         });
       } else if (count.value === "1") {
         data.basket.splice(indexCard, 1);
-        console.log(data.basket);
         let currentCards = document.querySelectorAll(
           '.list_item[data-id="' + count.dataset.id + '"]'
         );
@@ -173,7 +159,6 @@ function init() {
   }
 
   for (let buttonCount of buttonsCount) {
-    console.log(buttonCount);
     let minus = buttonCount.querySelector(".count_minus");
     let plus = buttonCount.querySelector(".count_plus");
     let count = buttonCount.querySelector(".input_text");
@@ -228,7 +213,7 @@ function init() {
     currentBtnCount.style.display = "flex";*/
       let dishId;
       dishId = imgClick.closest(".list_item").dataset.id;
-      renderModal(menuData, dishId, e.currentTarget);
+      renderModal(dishId, e.currentTarget);
       modalTrue = true;
       modal.style.display = "flex";
       divBlock.style.display = "block";
@@ -269,21 +254,16 @@ function init() {
       main.style.overflow = "hidden";
       menu.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
-      console.log(toppingLabels);
 
       //toggle toppings
       for (let toppingLabel of toppingLabels) {
-        console.log(toppingLabel);
         toppingLabel.addEventListener("click", (e) => {
-          console.log(e.currentTarget);
-          console.log(e.currentTarget.closest(".modal").dataset.id);
           let currentTopping = e.currentTarget.closest(".topping__card");
           let currentToppingCheck = currentTopping.querySelector(
             ".topping__check_img"
           );
           let toppingID = toppingLabel.getAttribute("for");
           toppingID = parseInt(toppingID.split("").splice(7).join(""));
-          console.log(toppingID);
           const cardID = parseInt(dishId.split("").splice(4).join(""));
 
           const dataCard = data.basket.find((item) => item.id === cardID);
@@ -296,25 +276,19 @@ function init() {
                 .textContent
             );
             indexTopping = dataCard.card.toppings.indexOf(indexTopping);
-            console.log(indexTopping);
             const topping = dataCard.card.toppings;
-            console.log(topping);
             if (
               currentToppingCheck.classList.contains("topping__check_active")
             ) {
               currentToppingCheck.classList.remove("topping__check_active");
-              console.log(dataCard.card.toppings);
               dataCard.card.toppings.splice(indexTopping, 1);
-              console.log(dataCard.card.toppings);
             } else {
               currentToppingCheck.classList.add("topping__check_active");
-              console.log(dataCard.card.toppings);
               let newTopping = {
                 id: toppingID,
                 price: toppingPrice,
               };
               dataCard.card.toppings.push(newTopping);
-              console.log(dataCard.card.toppings);
             }
             renderData(dishId);
           } else {
@@ -361,7 +335,6 @@ function init() {
   }
 
   divBlock.addEventListener("click", (e) => {
-    console.log(e.target);
     closeModal();
   });
   const modalClose = document.querySelector(".modal__close");
@@ -398,9 +371,6 @@ btnModalOrder.addEventListener("click", () => {
     hiddenOverflow();
     mobileBasketHeaderPrice.style.display = "none";
     btnCloseMobileBasket.style.display = "block";
-    console.log(mobileBasketSticky.style.bottom);
-    console.log(mobileBasketSticky.style.top);
-    console.log(startPosition);
     //mobileBasketSticky.style.position = "unset";
     /*mobileBasketOpen.style.animation = "mobileBasket 0.7s forwards";
   mobileBasketFooter.style.animation = "mobileBasket 0.7s forwards";
@@ -438,11 +408,9 @@ btnModalOrder.addEventListener("click", () => {
       startPosition = window.innerHeight - 60 + "px";
     }
 
-    console.log(mobileBasketSticky.style.top);
 
     mobileBasketSticky.style.top = startPosition;
 
-    console.log(mobileBasketSticky.style.top);
     mobileBasketHeaderPrice.style.display = "block";
     //mobileBasketHeaderImg.style.display = "none";
     mobileBasketHeaderWr.style.width = "100%";
@@ -467,7 +435,6 @@ btnModalOrder.addEventListener("click", () => {
       openMobileBasket.addEventListener("click", openMobileBasketFunc);
       mobileBasketSticky.classList.remove("transition");
       //mobileBasketSticky.style.bottom = "60px";
-      console.log(data.basket);
       if (data.basket.length === 0) {
         mobileBasketSticky.style.bottom = 0;
         footer.style.paddingBottom = 0;
@@ -545,15 +512,12 @@ window.addEventListener("load",()=> {
   btnAddOnModal.addEventListener("click", toggleBtnAdd);
   function toggleBtnAdd() {
     const modalID = btnAddOnModal.dataset.id;
-    console.log(modalID);
     let cards = document.querySelectorAll(
       '.list_item .input_text[data-id="' + modalID + '"]'
     );
-    console.log(modalTrue);
     let toppings = document.querySelectorAll(".topping__check_active");
     if (toppings) {
       toppings.forEach((item) => {
-        console.log(item.closest(".topping__label"));
         let toppingID = item.closest(".topping__label").getAttribute("for");
         toppingID = parseInt(toppingID.split("").splice(7).join(""));
         let toppingPrice = parseInt(
@@ -570,7 +534,6 @@ window.addEventListener("load",()=> {
     // let card = cards.find((item) => item.dataset.id === modalID
     orderBasket.addToBasket(modalID, cards[0]);
     renderData(modalID);
-    console.log(cards[0]);
     btnAddOnModal.style.display = "none";
     const btnCountModal = document.querySelector(".modal__button_count");
     btnCountModal.style.display = "flex";
@@ -623,17 +586,12 @@ window.addEventListener("load",()=> {
 
   function btnDeliveryClick(e) {
     let wrapp;
-    console.log(e);
     let currentBtn = e.currentTarget.closest(".basket__delivery__item");
-    console.log(currentBtn);
     if (window.innerWidth < 1400) {
       wrapp = currentBtn.closest(".mobileBasket__delivery__wrapper");
-      console.log("mobile");
     } else {
       wrapp = currentBtn.closest(".deskBasket__delivery__wrapper");
-      console.log("desk");
     }
-    console.log(wrapp);
     let hoverActive = wrapp.querySelector(".hovering_active");
     let currentTypeDelivery = currentBtn.querySelector(
       ".basket__delivery_input"
@@ -653,13 +611,12 @@ window.addEventListener("load",()=> {
     currentBtn.classList.add("basket__delivery_active");
     if (data.basket.length !== 0) {
       currentID = "dish" + data.basket[0].id;
-    }
-    else {
+    } else {
       currentID = 0;
     }
     renderData(currentID);
   }
-//     
+  //
   /* function delivery(target) {
     let { delivery_options } = menuData;
     console.log(target);
@@ -697,7 +654,7 @@ window.addEventListener("load",()=> {
       }
     }
 */
-/*
+  /*
     if (typeDelivery === "delivery") {
       data.delivery.priceDelivery = parseInt(delivery_options.delivery_price);
     }
@@ -720,7 +677,7 @@ window.addEventListener("load",()=> {
       
       console.log(card);
     }*/
-    
+
   /*}
 
 
@@ -977,7 +934,6 @@ for (let t = 0; t < btnDeliverys.length; t++) {
       });
 
       let timerId = setInterval(() => {
-        console.log(previousScroll);
         let currentScroll = window.scrollY;
         if (previousScroll === currentScroll) {
           window.addEventListener("scroll", scrollAsideMenu);
@@ -1000,7 +956,6 @@ for (let t = 0; t < btnDeliverys.length; t++) {
       });
       label.classList.add("category_active");
       let currentId = label.getAttribute("for");
-      console.log(currentId);
       let currentMenuCat = document.querySelector(
         '.menu__cat[data-name="' + currentId + '"]'
       );
@@ -1028,7 +983,6 @@ for (let t = 0; t < btnDeliverys.length; t++) {
   function handleTouchStart(event) {
     touchTrue = true;
     hiddenOverflow();
-    console.log(startPosition);
     mobileBasketSticky.style.top = startPosition;
     const firstTouch = event.touches[0];
     x1 = firstTouch.clientX;
@@ -1053,14 +1007,9 @@ for (let t = 0; t < btnDeliverys.length; t++) {
       mobileBasketSticky.classList.remove("opened");
     }
     let newPosition = parseInt(mobileBasketSticky.style.top) - yDiff;
-    console.log(newPosition);
     if (window.innerHeight - 60 > y2 && y2 > 0) {
-      console.log(menu.style.overflow);
-      console.log("here");
       mobileBasketSticky.style.top = y2 + "px";
     }
-    console.log(mobileBasketSticky.style.bottom);
-    console.log(mobileBasketSticky.style.top);
   }
   /*console.log(positionBasket);
   var currentBottom = -window.innerHeight + (60 - yDiff) + "px";
@@ -1107,7 +1056,6 @@ for (let t = 0; t < btnDeliverys.length; t++) {
 */
     if (yDiff > 0) {
       hiddenOverflow();
-      console.log("!!!!!");
       openMobileBasketFunc();
       /*  mobileBasketSticky.style.bottom = window.innerHeight + "px";
     mobileBasketSticky.classList.add("opened");*/
@@ -1155,15 +1103,13 @@ for (let t = 0; t < btnDeliverys.length; t++) {
     let inputsClear = document.querySelectorAll(".input_text");
     inputsClear.forEach((item) => {
       item.value = 1;
-      console.log(item.value);
-    })
-    btnsAdd.forEach ((item) => {
-      item.style.display = "block"
+    });
+    btnsAdd.forEach((item) => {
+      item.style.display = "block";
     });
     btnsCount.forEach((item) => {
       item.style.display = "none";
-    })
-    console.log(data);
+    });
     orderBasket.render(data);
   }
 
@@ -1194,7 +1140,7 @@ for (let t = 0; t < btnDeliverys.length; t++) {
               dataCard.card.quantity;
             modalFooter.querySelector(".modal__total_number").textContent =
               (dataCard.card.price + toppPrice) * dataCard.card.quantity;
-            //renderModal(menuData, count.dataset.id, card);
+            //renderModal(count.dataset.id, card);
           }
 
           //modal
@@ -1215,15 +1161,12 @@ for (let t = 0; t < btnDeliverys.length; t++) {
       }
 
       basket.forEach((element) => {
-        console.log(element);
         let toppingPrice = 0;
         element.card.toppings.forEach((topping) => {
           toppingPrice += topping.price;
         });
-        console.log(toppingPrice);
         totalCheck +=
           element.card.quantity * (element.card.price + toppingPrice);
-        console.log(totalCheck);
       });
     }
 
@@ -1238,23 +1181,30 @@ for (let t = 0; t < btnDeliverys.length; t++) {
 
     // Delivery
 
-
-
     let deliveryPrice = currentBasket.querySelector(".priceDelivery");
     let checKForFree = currentBasket.querySelector(".check_forFreeDelivery");
     let otherText = currentBasket.querySelector(".other__text");
     if (data.delivery.typeDelivery === "takeaway") {
       deliveryPrice.textContent = 0;
       priceDelivery = 0;
-      otherText.textContent = " для скидки " + menuData.delivery_options.takeaway_discount + "%." 
-      if (totalCheck >= parseInt(menuData.delivery_options.takeaway_discount_order_total)) {
+      otherText.textContent =
+        " для скидки " + menuData.delivery_options.takeaway_discount + "%.";
+      if (
+        totalCheck >=
+        parseInt(menuData.delivery_options.takeaway_discount_order_total)
+      ) {
         checKForFree.textContent = 0;
-        totalCheck = totalCheck*(100 - parseInt(menuData.delivery_options.takeaway_discount))/100;
+        totalCheck =
+          (totalCheck *
+            (100 - parseInt(menuData.delivery_options.takeaway_discount))) /
+          100;
       } else {
-        checKForFree.textContent = parseInt(menuData.delivery_options.takeaway_discount_order_total - totalCheck);  
+        checKForFree.textContent = parseInt(
+          menuData.delivery_options.takeaway_discount_order_total - totalCheck
+        );
       }
     } else {
-      otherText.textContent = " для бесплатной доставки!" 
+      otherText.textContent = " для бесплатной доставки!";
       if (totalCheck >= menuData.delivery_options.free_delivery_order_total) {
         deliveryPrice.textContent = 0;
         checKForFree.textContent = 0;
@@ -1262,10 +1212,12 @@ for (let t = 0; t < btnDeliverys.length; t++) {
       } else {
         priceDelivery = parseInt(menuData.delivery_options.delivery_price);
         deliveryPrice.textContent = priceDelivery;
-        checKForFree.textContent = parseInt(menuData.delivery_options.free_delivery_order_total) - totalCheck;  
+        checKForFree.textContent =
+          parseInt(menuData.delivery_options.free_delivery_order_total) -
+          totalCheck;
       }
     }
-    
+
     /*console.log(data.delivery);
     if (totalCheck >= orderPriceForFree) {
       deliveryPrice.textContent = 0;
@@ -1282,8 +1234,8 @@ for (let t = 0; t < btnDeliverys.length; t++) {
     });
   }
 
-  function renderModal(dataLocal, dishId, target) {
-    let { meals, toppings } = dataLocal;
+  function renderModal(dishId, target) {
+    let { meals, toppings } = menuData;
     let toppPrice = 0;
     meals.forEach((dish) => {
       const card = dish.products.find(
@@ -1318,13 +1270,13 @@ for (let t = 0; t < btnDeliverys.length; t++) {
         mySwiperModal.innerHTML = "";
         mySwiperModal.appendChild(fragmentSwiperModal);
 
-        modalWindow.querySelector(".modal__desc").textContent = card.description + " " + card.contents;
+        modalWindow.querySelector(".modal__desc").textContent =
+          card.description + " " + card.contents;
         const fragmentTopping = document.createDocumentFragment();
         const toppingCardTemp = document.querySelector(".toppingCardTemp");
         const toppingList = modalWindow.querySelector(".topping__list");
         card.toppings.forEach((toppItem) => {
           const cardTopp = toppings.find((item) => item.id === toppItem);
-          console.log(cardTopp);
           toppingClone = toppingCardTemp.content.cloneNode(true);
           toppingClone.querySelector(".topping__img").src = cardTopp.image;
           toppingClone.querySelector(".topping__name").textContent =
@@ -1341,10 +1293,8 @@ for (let t = 0; t < btnDeliverys.length; t++) {
           const cardBasket = data.basket.find(
             (cardBasketL) => "dish" + cardBasketL.id === dishId
           );
-          console.log(cardBasket);
           if (cardBasket) {
             cardBasket.card.toppings.forEach((cardTopping) => {
-              console.log(cardTopping.id);
               if (cardTopping.id === cardTopp.id) {
                 toppPrice += parseInt(cardTopp.price);
                 toppingClone
@@ -1412,14 +1362,12 @@ for (let t = 0; t < btnDeliverys.length; t++) {
         const cardBasket = data.basket.find(
           (cardBasketL) => "dish" + cardBasketL.id === dishId
         );
-          let priceAfterDiscount;
-          if (parseInt(card.sale_price) === 0) {
-            priceAfterDiscount = card.price;
-          }
-          else {
-            priceAfterDiscount = parseInt(card.sale_price);
-          }
-        console.log(toppPrice);
+        let priceAfterDiscount;
+        if (parseInt(card.sale_price) === 0) {
+          priceAfterDiscount = card.price;
+        } else {
+          priceAfterDiscount = parseInt(card.sale_price);
+        }
         modalFooter.querySelector(".modal__old_number").textContent =
           (card.price + toppPrice) * currentValue;
         modalFooter.querySelector(".modal__total_number").textContent =
@@ -1428,30 +1376,29 @@ for (let t = 0; t < btnDeliverys.length; t++) {
     });
   }
 
-  class order {
+  class basket {
     render(data) {
-      let { basket, delivery, customerInfo } = data;
+      let { basket, delivery } = data;
       let currentBasket;
 
-      if (Object.keys(delivery).length === 0) {        
+      if (Object.keys(delivery).length === 0) {
         /*let item = menuData.deliveries.find(
           (delivery) => delivery.typeDelivery === "delivery"
         );*/
-        console.log(menuData.delivery_options);
         data.delivery.typeDelivery = "delivery";
-      //  data.delivery.priceDelivery =parseInt(menuData.delivery_options.delivery_price);
-       // data.delivery.orderPriceForFree = parseInt(menuData.delivery_options.free_delivery_order_total);
+        //  data.delivery.priceDelivery =parseInt(menuData.delivery_options.delivery_price);
+        // data.delivery.orderPriceForFree = parseInt(menuData.delivery_options.free_delivery_order_total);
       } else {
-        console.log("here");
       }
 
-      let { typeDelivery, priceDelivery, orderPriceForFree } = delivery;
+      let { typeDelivery } = delivery;
+      let priceDelivery;
       if (window.innerWidth < 1400) {
         currentBasket = document.querySelector(".mobileBasket");
       } else {
         currentBasket = document.querySelector(".deskBasket");
       }
-      
+
       let currentDelivery = currentBasket.querySelector(".hovering_active");
       let deliveryItem = currentBasket.querySelectorAll(
         ".basket__delivery__item"
@@ -1459,17 +1406,12 @@ for (let t = 0; t < btnDeliverys.length; t++) {
       deliveryItem.forEach((delivery) => {
         delivery.classList.remove("basket__delivery_active");
       });
-      
 
       let totalCheck = 0;
       const fragment = document.createDocumentFragment();
-      console.log(currentBasket);
       const basketCard = document.querySelector(".basketTemp");
-      console.log(basketCard);
       basket.forEach((item) => {
-        console.log(basketCard);
         const cardClone = basketCard.content.cloneNode(true);
-        console.log(cardClone);
         if (cardClone !== null) {
           cardClone.querySelector(".basket__card").dataset.id =
             "dish" + item.id;
@@ -1480,7 +1422,6 @@ for (let t = 0; t < btnDeliverys.length; t++) {
           cardClone.querySelector(".basket__price").textContent =
             item.card.price;
           let toppPrice = 0;
-          console.log(item);
           if (item.card.toppings) {
             item.card.toppings.forEach((topping) => {
               toppPrice += topping.price;
@@ -1493,7 +1434,7 @@ for (let t = 0; t < btnDeliverys.length; t++) {
           let currentPlus = cardClone.querySelector(".count_plus");
           currentCount.dataset.id = "dish" + item.id;
           currentPlus.addEventListener("click", countPlus(currentCount));
-          currentCount.addEventListener("change", inputChange);
+          currentCount.addEventListener("change", inputCountChange);
           currentMinus.addEventListener("click", countMinus(currentCount));
           // currentCount.addEventListener("onchange", inputOnchange(currentCount));
           cardClone.querySelector(".input_text").value = item.card.quantity;
@@ -1508,17 +1449,26 @@ for (let t = 0; t < btnDeliverys.length; t++) {
         deliveryItem[1].classList.add("basket__delivery_active");
         deliveryPrice.textContent = 0;
         priceDelivery = 0;
-        otherText.textContent = " для скидки " + menuData.delivery_options.takeaway_discount + "%." 
-        if (totalCheck >= parseInt(menuData.delivery_options.takeaway_discount_order_total)) {
+        otherText.textContent =
+          " для скидки " + menuData.delivery_options.takeaway_discount + "%.";
+        if (
+          totalCheck >=
+          parseInt(menuData.delivery_options.takeaway_discount_order_total)
+        ) {
           checKForFree.textContent = 0;
-          totalCheck = totalCheck*(100 - parseInt(menuData.delivery_options.takeaway_discount))/100;
+          totalCheck =
+            (totalCheck *
+              (100 - parseInt(menuData.delivery_options.takeaway_discount))) /
+            100;
         } else {
-          checKForFree.textContent = parseInt(menuData.delivery_options.takeaway_discount_order_total - totalCheck);  
+          checKForFree.textContent = parseInt(
+            menuData.delivery_options.takeaway_discount_order_total - totalCheck
+          );
         }
       } else {
         currentDelivery.classList.add("hover__active_left");
         deliveryItem[0].classList.add("basket__delivery_active");
-        otherText.textContent = " для бесплатной доставки!" 
+        otherText.textContent = " для бесплатной доставки!";
         if (totalCheck >= menuData.delivery_options.free_delivery_order_total) {
           deliveryPrice.textContent = 0;
           checKForFree.textContent = 0;
@@ -1526,11 +1476,12 @@ for (let t = 0; t < btnDeliverys.length; t++) {
         } else {
           priceDelivery = parseInt(menuData.delivery_options.delivery_price);
           deliveryPrice.textContent = priceDelivery;
-          checKForFree.textContent = parseInt(menuData.delivery_options.free_delivery_order_total) - totalCheck;  
+          checKForFree.textContent =
+            parseInt(menuData.delivery_options.free_delivery_order_total) -
+            totalCheck;
         }
       }
-     
-      
+
       let currentBasketMenu = currentBasket.querySelector(".basket__menu");
       currentBasketMenu.innerHTML = "";
       currentBasketMenu.appendChild(fragment);
@@ -1558,7 +1509,7 @@ for (let t = 0; t < btnDeliverys.length; t++) {
       let btnsClear = document.querySelectorAll(".clear");
       btnsClear.forEach((clear) => {
         clear.addEventListener("click", clearFunc);
-      })
+      });
     }
 
     errorHandler(res) {
@@ -1589,29 +1540,24 @@ for (let t = 0; t < btnDeliverys.length; t++) {
 
     addToBasket(dishId, target) {
       let { basket } = data;
-      console.log(target);
       let currentCard = target.closest(".list_item");
       let currentId = parseInt(dishId.split("").splice(4).join(""));
       let currentPriceAfterDiscount;
-      console.log(currentId);
       for (let i = 0; i < menuData.meals.length; i++) {
         currentPriceAfterDiscount = menuData.meals[i].products.find(
           (point) => point.id === currentId
         );
-        console.log(menuData.meals[i].products);
-        console.log(currentPriceAfterDiscount);
         if (currentPriceAfterDiscount) {
-          console.log("true");
-          break;t
+         
+          break;
+          
         }
       }
       if (currentPriceAfterDiscount.sale_price === 0) {
         currentPriceAfterDiscount = currentPriceAfterDiscount.price;
-      }
-      else {
+      } else {
         currentPriceAfterDiscount = currentPriceAfterDiscount.sale_price;
       }
-      console.log(currentPriceAfterDiscount);
       let currentName =
         currentCard.querySelector(".card__desc_name").textContent;
       let currentImg = currentCard.querySelector(".card__img").src;
@@ -1659,11 +1605,11 @@ for (let t = 0; t < btnDeliverys.length; t++) {
         let cardC = document.querySelector(
           '.list_item[data-id="' + count.dataset.id + '"]'
         );
-        renderModal(menuData, count.dataset.id, cardC);
+        renderModal(count.dataset.id, cardC);
       }
     }
   }
 
-  let orderBasket = new order();
+  let orderBasket = new basket();
   orderBasket.load();
 }
