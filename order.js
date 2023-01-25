@@ -29,9 +29,9 @@ class order {
       cardClone.querySelector(".basket__price").textContent = parseInt(
         item.price
       );
-      console.log()
-      cardClone.querySelector(".order__topping_desc").textContent = 
-        (item.description + " " + item.contents); //Заполнить когда появится новая структура
+      console.log();
+      cardClone.querySelector(".order__topping_desc").textContent =
+        item.description + " " + item.contents; //Заполнить когда появится новая структура
       cardClone.querySelector(".input_text").value = "0"; //Заполнить из корзины
       fragment.append(cardClone);
     });
@@ -69,52 +69,125 @@ class order {
       "Завтра, " + moment().add(1, "days").format("D MMMM"); //date.toLocaleString("ru", options);
   }
 
-  renderPayment() {
-  
+  getCheck() {
+    let totalCheck = 0;
+    const { basket, delivery } = data;
 
+    basket.forEach((item) => {
+      let toppPrice = 0;
+      item.card.toppings.forEach((topp) => {
+        toppPrice += topp.price;
+      });
+      console.log(toppPrice);
+      totalCheck += (item.card.price + toppPrice) * item.card.quantity;
+    });
+    console.log(totalCheck);
+
+    return totalCheck;
+  }
+
+  renderPayment() {
+    let totalCheck = this.getCheck();
+    console.log(totalCheck);
+    const { delivery } = data;
+    console.log(delivery.typeDelivery);
+    if (delivery.typeDelivery === "takeaway") {
+      document.querySelector(".address__main").style.display = "none";
+      document.querySelector(".comments__textarea").style.marginTop = 0;
+      document.querySelector(".shortChange").style.display = "none";
+    }
+    this.renderDelivery();
+    //bonus
+  }
+  renderBonus() {
+    let numberBonuses = 1200;
+    let writeOffPercent = 10;
+    numberBonuses = parseInt(numberBonuses);
+    writeOffPercent = parseInt(writeOffPercent);
+    const bonusMax = document.querySelector(".bonus_max");
+    const range = document.querySelector(".range");
+    const bonusText = document.querySelector("bonus__text");
+    if (writteOffPercent !== 0) {
+      bonusMax.textContent = Math.ceil(numberBonuses*writeOffPercent/100);
+      range.max = Math.ceil(numberBonuses*writteOffPercent/100);
+      bonusText.textContent = ``
+    }
+    else {
+
+    }
   }
 
   renderDelivery() {
+    let { delivery } = data;
+    let totalCheck = this.getCheck();
+    let currentBasket = document.querySelector(".footer__orderPayment");
     let deliveryPrice = currentBasket.querySelector(".priceDelivery");
-      let checKForFree = currentBasket.querySelector(".check_forFreeDelivery");
-      let otherText = currentBasket.querySelector(".other__text");
-      if (typeDelivery === "takeaway") {
-        currentDelivery.classList.add("hover__active_right");
-        deliveryItem[1].classList.add("basket__delivery_active");
-        deliveryPrice.textContent = 0;
-        priceDelivery = 0;
-        otherText.textContent =
-          " для скидки " + menuData.delivery_options.takeaway_discount + "%.";
-        if (
-          totalCheck >=
-          parseInt(menuData.delivery_options.takeaway_discount_order_total)
-        ) {
-          checKForFree.textContent = 0;
-          totalCheck =
-            (totalCheck *
-              (100 - parseInt(menuData.delivery_options.takeaway_discount))) /
-            100;
-        } else {
-          checKForFree.textContent = parseInt(
-            menuData.delivery_options.takeaway_discount_order_total - totalCheck
-          );
-        }
+    let checKForFree = currentBasket.querySelector(".check_forFreeDelivery");
+    let otherText = currentBasket.querySelector(".other__text");
+    let free_delivery_order_total = parseInt(
+      menuData.delivery_options.free_delivery_order_total
+    );
+    let delivery_price = parseInt(menuData.delivery_options.delivery_price);
+    let takeaway_discount_order_total = parseInt(
+      menuData.delivery_options.takeaway_discount_order_total
+    );
+    let takeaway_discount = parseInt(
+      menuData.delivery_options.takeaway_discount
+    );
+
+    if (delivery.typeDelivery === "takeaway") {
+      deliveryPrice.textContent = 0;
+      if (totalCheck >= takeaway_discount_order_total) {
+        otherText.textContent = " для скидки " + takeaway_discount + "%.";
+
+        checKForFree.textContent = 0;
+        totalCheck = Math.ceil((totalCheck * (100 - takeaway_discount)) / 100);
       } else {
-        currentDelivery.classList.add("hover__active_left");
-        deliveryItem[0].classList.add("basket__delivery_active");
-        otherText.textContent = " для бесплатной доставки!";
-        if (totalCheck >= menuData.delivery_options.free_delivery_order_total) {
-          deliveryPrice.textContent = 0;
-          checKForFree.textContent = 0;
-          priceDelivery = 0;
-        } else {
-          priceDelivery = parseInt(menuData.delivery_options.delivery_price);
-          deliveryPrice.textContent = priceDelivery;
-          checKForFree.textContent =
-            parseInt(menuData.delivery_options.free_delivery_order_total) -
-            totalCheck;
-        }
+        checKForFree.textContent = parseInt(
+          takeaway_discount_order_total - totalCheck
+        );
       }
+    } else {
+      otherText.textContent = " для бесплатной доставки!";
+      if (totalCheck < free_delivery_order_total) {
+        checKForFree.textContent =
+          parseInt(free_delivery_order_total) - totalCheck;
+        deliveryPrice.textContent = priceDelivery;
+        totalCheck += delivery_price;
+      } else {
+        deliveryPrice.textContent = 0;
+        checKForFree.textContent = 0;
+      }
+    }
+    document.querySelector(".orderPrice__price").textContent = totalCheck;
+    /*
+    if (typeDelivery === "takeaway") {
+      
+     
+
+      if (
+        totalCheck >=
+        parseInt(menuData.delivery_options.takeaway_discount_order_total)
+      ) {
+        totalCheck =
+          (totalCheck *
+            (100 - parseInt(menuData.delivery_options.takeaway_discount))) /
+          100;
+      } else {
+        
+      }
+    } else {
+      
+      if (totalCheck >= menuData.delivery_options.free_delivery_order_total) {
+        deliveryPrice.textContent = 0;
+        checKForFree.textContent = 0;
+        priceDelivery = 0;
+      } else {
+        priceDelivery = parseInt(menuData.delivery_options.delivery_price);
+        
+        
+      }
+    }*/
   }
 
   errorHandler(res) {
@@ -138,6 +211,7 @@ class order {
         this.renderExtra();
         this.renderAddress();
         this.renderDate();
+        this.renderPayment();
       })
       .catch((err) => console.error(err));
   }
@@ -148,11 +222,9 @@ class order {
 let orderNew = new order();
 orderNew.load();
 
-
-
 function renderModal(dishId, target) {
   let { meals, toppings } = menuData;
- 
+
   let toppPrice = 0;
   meals.forEach((dish) => {
     const card = dish.products.find(
@@ -286,23 +358,23 @@ function renderModal(dishId, target) {
         priceAfterDiscount = parseInt(card.sale_price);
       }
       modalFooter.querySelector(".modal__old_number").textContent =
-        (card.price + toppPrice) * currentValue ;
+        (card.price + toppPrice) * currentValue;
       modalFooter.querySelector(".modal__total_number").textContent =
         (priceAfterDiscount + toppPrice) * currentValue;
     }
   });
 }
 window.onload = init;
-function init() {  
-const confirmLabel = document.querySelector(".confirm__label");
-const confirmCheck = document.querySelector(".confirm_img");
-confirmLabel.addEventListener("click", () => {
-  confirmCheck.classList.toggle("confirm__active");
-});
+function init() {
+  const confirmLabel = document.querySelector(".confirm__label");
+  const confirmCheck = document.querySelector(".confirm_img");
+  confirmLabel.addEventListener("click", () => {
+    confirmCheck.classList.toggle("confirm__active");
+  });
 
-const selectDate = document.getElementById("date");
-const selectTime = document.getElementById("time");
-/*selectDate.addEventListener("change", function () {
+  const selectDate = document.getElementById("date");
+  const selectTime = document.getElementById("time");
+  /*selectDate.addEventListener("change", function () {
   let getDateValue = this.value;
   console.log(getDateValue);
 });
@@ -313,12 +385,12 @@ selectTime.addEventListener("input", function () {
   console.log(getTimeValue);
 });
 */
-const finalOrder = document.querySelector(".finalOrder");
-finalOrder.addEventListener("click", () => {
-  console.log(selectTime.value);
-});
+  const finalOrder = document.querySelector(".finalOrder");
+  finalOrder.addEventListener("click", () => {
+    console.log(selectTime.value);
+  });
 
-/*const cardsGalleryClick = document.querySelectorAll(".menu__card");
+  /*const cardsGalleryClick = document.querySelectorAll(".menu__card");
 cardsGalleryClick.forEach((cardClick) => {
   cardClick.addEventListener("click", (e) => {
     console.log(e.currentTarget);
@@ -328,14 +400,14 @@ cardsGalleryClick.forEach((cardClick) => {
   });
 });*/
 
-const header = document.querySelector(".header");
-const asideMenuUl = document.querySelector(".asideMenu__ul");
-const modalFooter = document.querySelector(".modal__footer");
-const main = document.querySelector(".main");
-const btnCloseModal = document.querySelector(".modal__close");
-const modal = document.querySelector(".modal");
-const divBlock = document.querySelector(".block");
-var timerId = null;
+  const header = document.querySelector(".header");
+  const asideMenuUl = document.querySelector(".asideMenu__ul");
+  const modalFooter = document.querySelector(".modal__footer");
+  const main = document.querySelector(".main");
+  const btnCloseModal = document.querySelector(".modal__close");
+  const modal = document.querySelector(".modal");
+  const divBlock = document.querySelector(".block");
+  var timerId = null;
   const imgsClick = document.querySelectorAll(".menu__card");
   for (let imgClick of imgsClick) {
     imgClick.addEventListener("click", (e) => {
@@ -369,7 +441,7 @@ var timerId = null;
         //document.querySelector(".asideMenu__ul").style.position = "fixed";
         //document.querySelector(".asideMenu__ul").style.top = ;
       }
-/*
+      /*
       if (data.basket.length !== 0) {
         if (window.innerWidth < 1400) {
           mobileBasket.style.display = "flex";
@@ -441,7 +513,7 @@ var timerId = null;
     divBlock.style.display = "none";
     btnCloseModal.style.display = "none";
     modalFooter.style.display = "none";
-    modal.style.overflow = "unset";   
+    modal.style.overflow = "unset";
     main.style.overflow = "unset";
     document.body.style.overflow = "unset";
     //modalFooter.style.display = "none";
@@ -449,7 +521,7 @@ var timerId = null;
       modal.style.animation = "modalBack 0.7s forwards";
       btnCloseModal.style.animation = "modalBack 0.7s forwards";
       header.style.position = "sticky";
-    } else if (window.innerWidth < 1400) {
+    } else if (window.innerWidth < 1450) {
       asideMenuUl.style.position = "sticky";
       header.style.top = 0;
       header.style.position = "sticky";
@@ -472,15 +544,12 @@ var timerId = null;
     closeModal();
   });
 
-
   const btnsShortChange = document.querySelectorAll(".shortChange__item");
-  
+
   btnsShortChange.forEach((btnShortChange) => {
     btnShortChange.addEventListener("click", () => {
-      document.querySelector(".shortChange__input").value = btnShortChange.textContent;
-    })
-  })
-
- 
-
+      document.querySelector(".shortChange__input").value =
+        btnShortChange.textContent;
+    });
+  });
 }

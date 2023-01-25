@@ -539,6 +539,7 @@ input {
 .bonus__item {
     display: flex;
     justify-content: space-between;
+    padding-bottom: 15px;
 }
 
 .order__payment {
@@ -1625,6 +1626,12 @@ address {
     display: flex;
     flex-direction: column;
     row-gap: 10px;
+} 
+
+.footer__orderPayment .mobileBasket__footer_item {
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: 20px;
 }
 
 .deskBasket__footer_item {
@@ -2424,7 +2431,33 @@ input[type="number"]:focus {
         justify-self: end;
         align-self: center;
     }
-
+    .address {
+        padding-bottom: 0px;
+    }
+    .address__main {
+        grid-template-columns: 80px 1fr 80px 80px 80px;
+        column-gap: 20px;        
+    }
+    .street {
+        grid-column: span 3;
+    }
+    .flat,
+    .intercom {     
+        grid-column: unset;
+    }
+    .entrance {
+        grid-column: 3/4;
+    }
+    .confirm__div {
+        padding-top: 20px;
+    }
+    .dateTime__item {
+        text-align: left;
+        padding-left: 25px;
+    }
+    .order__basket {
+        padding-top: 25px;
+    }
     .order__basket .basket__card {
         row-gap: 10px;
     }
@@ -2858,7 +2891,7 @@ input[type="number"]:focus {
         padding-top: 55px;
         padding-bottom: 65px;
     }
-
+    
     .order__item {
         margin: 0;
         padding-top: 0;
@@ -2866,9 +2899,25 @@ input[type="number"]:focus {
         padding-left: 27px;
         padding-right: 30px;
     }
-
+    .order__address {
+        padding-right: 122px;
+    }
+    .confirm__div {
+        padding-bottom: 10px;
+    }
     .order__payment {
         padding: 0;
+    }
+     
+    .address,
+    .wrapper__payment {
+        padding-top: 0px;
+    }
+    .paymentCard {
+        margin-top: 0px;
+    }
+    .dateTime {
+        padding-top: 0px;
     }
 
     .aboutUs__wr {

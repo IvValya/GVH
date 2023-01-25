@@ -18,7 +18,7 @@ function init() {
 
       let { typeDelivery } = delivery;
       let priceDelivery;
-      if (window.innerWidth < 1400) {
+      if (window.innerWidth < 1450) {
         currentBasket = document.querySelector(".mobileBasket");
       } else {
         currentBasket = document.querySelector(".deskBasket");
@@ -475,7 +475,7 @@ function init() {
       }
 
       if (data.basket.length !== 0) {
-        if (window.innerWidth < 1400) {
+        if (window.innerWidth < 1450) {
           mobileBasket.style.display = "flex";
           mobileBasketSticky.style.position = "fixed";
           footer.style.paddingBottom = "60px";
@@ -557,7 +557,7 @@ function init() {
       btnCloseModal.style.animation = "modalBack 0.7s forwards";
       header.style.position = "sticky";
       menuMobileNav.style.position = "sticky";
-    } else if (window.innerWidth < 1400) {
+    } else if (window.innerWidth < 1450) {
       asideMenuUl.style.position = "sticky";
       header.style.top = 0;
       header.style.position = "sticky";
@@ -722,7 +722,7 @@ window.addEventListener("load",()=> {
   }
 
   function renderHeaderBasket(currentCard) {
-    if (window.innerWidth < 1400) {
+    if (window.innerWidth < 1450) {
       mobileBasket.style.display = "flex";
       mobileBasketSticky.style.position = "fixed";
       footer.style.paddingBottom = "60px";
@@ -733,7 +733,7 @@ window.addEventListener("load",()=> {
       mobileBasketHeaderWr.style.width = "100%";
       mobileBasketHeaderImg.style.display = "none";
       mobileBasketTrue = true;
-    } /*else if (window.innerWidth < 1400) {
+    } /*else if (window.innerWidth < 1450) {
       document.querySelector(".add__order_tablet").style.display = "flex";
     }*/
     //let currentCard = e.currentTarget.closest(".list_item");
@@ -825,7 +825,7 @@ window.addEventListener("load",()=> {
   function btnDeliveryClick(e) {
     let wrapp;
     let currentBtn = e.currentTarget.closest(".basket__delivery__item");
-    if (window.innerWidth < 1400) {
+    if (window.innerWidth < 1450) {
       wrapp = currentBtn.closest(".mobileBasket__delivery__wrapper");
     } else {
       wrapp = currentBtn.closest(".deskBasket__delivery__wrapper");
@@ -1198,7 +1198,7 @@ for (let t = 0; t < btnDeliverys.length; t++) {
         '.menu__cat[data-name="' + currentId + '"]'
       );
       let topCurrentMenuCat = currentMenuCat.getBoundingClientRect().top;
-      if (window.innerWidth > 1400) {
+      if (window.innerWidth > 1450) {
         topCurrentMenuCat = topCurrentMenuCat;
       } else {
         topCurrentMenuCat = topCurrentMenuCat - 75;
@@ -1411,7 +1411,7 @@ for (let t = 0; t < btnDeliverys.length; t++) {
     document.querySelector(".mobileBasket__header_price").textContent =
       totalCheck;
 
-    if (window.innerWidth < 1400) {
+    if (window.innerWidth <1450) {
       currentBasket = document.querySelector(".mobileBasket");
     } else {
       currentBasket = document.querySelector(".deskBasket");
