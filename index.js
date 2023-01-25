@@ -1,5 +1,8 @@
+
 window.onload = init;
 function init() {
+  
+  
   let toppingActive = [];
   let mobileBasketTrue = false;
   var basketOpen = true;
@@ -52,6 +55,7 @@ function init() {
   let basketTrue = false;
   let scrollTrue = true;
   let startPosition = window.innerHeight; // - parseInt(mobileBasketSticky.style.bottom) + "px";
+ 
 
   buttonOrder.forEach((item) => {
     item.addEventListener("click", renderFullOrder);
@@ -408,7 +412,6 @@ btnModalOrder.addEventListener("click", () => {
       startPosition = window.innerHeight - 60 + "px";
     }
 
-
     mobileBasketSticky.style.top = startPosition;
 
     mobileBasketHeaderPrice.style.display = "block";
@@ -554,7 +557,7 @@ window.addEventListener("load",()=> {
 
   //--------------Добавление/снятие прозрачности у мобильного меню-------------------//
 
-  window.addEventListener("scroll", function () {
+    window.addEventListener("scroll", function () {
     const menu_h2top = menuH2.getBoundingClientRect().top;
     const footerCopTop = footerCopyright.getBoundingClientRect().top;
     const mobileBasketTop = mobileBasketSticky.getBoundingClientRect().top;
@@ -1548,9 +1551,7 @@ for (let t = 0; t < btnDeliverys.length; t++) {
           (point) => point.id === currentId
         );
         if (currentPriceAfterDiscount) {
-         
           break;
-          
         }
       }
       if (currentPriceAfterDiscount.sale_price === 0) {
@@ -1612,4 +1613,33 @@ for (let t = 0; t < btnDeliverys.length; t++) {
 
   let orderBasket = new basket();
   orderBasket.load();
+  if (location.hash) {
+    let nameCat = decodeURI(location.hash).slice(1);
+    let categories = document.querySelectorAll(".menu__h2");
+    let currentCategory;
+    console.log(categories);
+  
+    for ( let i = 0; i<categories.length; i++)
+    {      
+     if (categories[i].id === nameCat) {
+     currentCategory = categories[i];
+      break;
+     }
+   }
+   let coordsScroll = currentCategory.getBoundingClientRect().top;
+   console.log(coordsScroll);
+   if (window.innerWidth < 1450) {
+    coordsScroll = coordsScroll + 150;
+    console.log(coordsScroll);
+   }
+   window.scrollTo( {
+    top: coordsScroll,
+    behavior: 'smooth'
+   })
+   console.log(currentCategory);
+    //let currentCategory = categories.find( (item) => item.textContent === nameCat);
+  
+    // console.log(currentCategory);
+  }
+  
 }

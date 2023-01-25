@@ -9,7 +9,7 @@
 
     <script>
       var urLForGet = "new.json";
-      var page = false;
+      var page = 2;
     </script>
     <script src="dishes.js"></script>
     <style>
@@ -158,45 +158,37 @@
     </aside>
     <main class="main">
       <div class="auxiliary"></div>
-      <section class="mainGallery">
+      <section class="mainGallery orderGallery">
         <img class="mainGallery__item" src="assets/img/bigImg.jpg" alt="" />
       </section>
       <div class="wrapper__main_big">
         <aside class="asideMenu">
-          <ul class="asideMenu__ul">
-            <input class="asideMenu__input" type="radio" id="cat1" />
-            <label class="asideMenu__label category_active" for="cat1"
-              >Популярные блюда</label
-            >
-            <input class="asideMenu__input" type="radio" id="cat2" />
-            <label class="asideMenu__label" for="cat2">Блюда на углях</label>
-            <input class="asideMenu__input" type="radio" id="cat3" />
-            <label class="asideMenu__label" for="cat3">Супы</label>
-            <input class="asideMenu__input" type="radio" id="cat4" />
-            <label class="asideMenu__label" for="cat4">Десерты</label>
-          </ul>
+          <ul class="asideMenu__ul"></ul>
           <h1 class="visually-hidden"></h1>
         </aside>
         <div class="wrapper__main_small">
-          <section class="order">
+          <div class="order">
             <div class="order__item order__address">
               <h2 class="order__item_h2">Адрес</h2>
               <div class="address">
                 <div class="address__main">
-                  <select class="address__item street" name="" id="">
-                    <option value="">пр-т. Авиаторов Балтики</option>
-                    <option value="">пр-т. Авиаторов Балтики</option>
-                    <option value="">пр-т. Авиаторов Балтики</option>
-                  </select>
+                  <select
+                    class="address__item street"
+                    name=""
+                    id=""
+                  ></select>
                   <input
                     class="address__item house"
                     type="text"
                     placeholder="дом*"
-                    maxlength="6"
+                    minlength="1"
+                    maxlength="5"
+                    required
                   />
                   <input
                     class="address__item housing"
                     type="text"
+                    maxlength="3"
                     placeholder="корпус"
                   />
                   <input
@@ -204,19 +196,18 @@
                     type="text"
                     maxlength="4"
                     placeholder="квартира"
-                    inputmode="numeric"
                   />
                   <input
                     class="address__item entrance"
                     type="text"
+                    maxlength="3"
                     placeholder="подъезд"
-                    inputmode="numeric"
                   />
                   <input
                     class="address__item level"
                     type="text"
+                    maxlength="3"
                     placeholder="этаж"
-                    inputmode="numeric"
                   />
                   <input
                     class="address__item intercom"
@@ -233,11 +224,140 @@
                     placeholder="комментарии к заказу"
                   ></textarea>
                 </div>
+                <div class="confirm__div">
+                  <input class="confirm__check" type="checkbox" id="confirm" />
+                  <label class="confirm__label" for="confirm">
+                    <div class="confirm">
+                      <img
+                        class="confirm_img"
+                        src="assets/img/marker.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span class="confirm__text"
+                      >Не звонить для проверки заказа</span
+                    >
+                  </label>
+                </div>
               </div>
+
               <h2 class="order__item_h2">Время доставки</h2>
+              <div class="dateTime">
+                <select class="dateTime__item date" name="date" id="date">
+                  <option name="today" value="сегодня"></option>
+                  <option name="tomorrow" value="завтра"></option>
+                </select>
+                <select class="dateTime__item time" name="time" id="time">
+                  <option value="11:00">11:00</option>
+                  <option value="11:30">11:30</option>
+                  <option value="12:00">12:00</option>
+                  <option value="12:30">12:30</option>
+                  <option value="13:00">13:00</option>
+                  <option value="13:30">13:30</option>
+                  <option value="14:00">14:00</option>
+                  <option value="14:30">14:30</option>
+                  <option value="15:00">15:00</option>
+                  <option value="15:30">15:30</option>
+                  <option value="16:00">16:00</option>
+                  <option value="16:30">16:30</option>
+                  <option value="17:00">17:00</option>
+                  <option value="17:30">17:30</option>
+                  <option value="18:00">18:00</option>
+                  <option value="18:30">18:30</option>
+                  <option value="19:00">19:00</option>
+                  <option value="19:30">19:30</option>
+                  <option value="20:00">20:00</option>
+                  <option value="20:30">20:30</option>
+                  <option value="21:00">21:00</option>
+                  <option value="21:30">21:30</option>
+                  <option value="22:00">22:00</option>
+                  <option value="22:30">22:30</option>
+                  <option value="23:00">23:00</option>
+                </select>
+              </div>
             </div>
+
             <div class="order__item order__payment">
-              <h2 class="order__item_h2">Оплата</h2>
+              <div class="wrapper__payment">
+                <h2 class="order__item_h2">Оплата</h2>
+                <select name="paymentCard" id="paymentCard" class="paymentCard">
+                  <option value="Наличные курьеру">Наличные курьеру</option>
+                  <option value="Картой курьеру">Картой курьеру</option>
+                  <option value="Наличные/картой в ресторане">
+                    Наличные/картой в ресторане
+                  </option>
+                  <option value="Онлайн на сайте">Онлайн на сайте</option>
+                </select>
+                <div class="shortChange">
+                  <input
+                    type="text"
+                    class="shortChange__input"
+                    placeholder="сдача с ..."
+                  />
+
+                  <div class="shortChange__price">
+                    <button type="button" class="shortChange__item">1000</button>
+                    <button type="button" class="shortChange__item">2000</button>
+                    <button type="button" class="shortChange__item">5000</button>
+                    <button type="button" class="shortChange__item noShortChange">
+                      Без сдачи
+                    </button>
+                  </div>
+                </div>
+
+                <p class="bonus__text">У вас недостаточно бонусов</p>
+               
+                 
+                  
+                  
+
+                  
+                 
+                <form oninput="result.value=parseInt(range.value)">
+                  
+                  <input
+                    class="range"
+                    type="range"
+                    name="range"
+                    min="0"
+                    max="600"
+                    id="range"
+                    value="0"
+                  />
+                  <div class="bonus__item">
+                    <span class="bonus_min">0</span>
+                    <span class="bonus_max">600</span>
+                  </div>
+                
+                  <p class="spandingBonus">Списываем <output name="result" for="range">0</output> бонусов </p>
+                  
+                </form>
+              </div>
+              <div class="footer__orderPayment">
+                <div class="mobileBasket__footer_item">
+                  <div class="mobileBasket_priceDelivery">
+                    <span class="mobileBasket__footer_span">Доставка</span>
+                    <div class="mobileBasket__price_delivery">
+                      <span class="priceDelivery"> </span>
+                      <span class="rouble"> i</span>
+                    </div>
+                  </div>
+                  <p class="basket_forFreeDelivery">
+                    Закажите ещё на
+                    <span class="check_forFreeDelivery"></span>
+                    <span class="rouble">i</span>
+                    <span class="other__text"> для бесплатной доставки!</span>
+                  </p>
+                </div>
+                <button class="finalOrder">
+                  <span class="orderBtnText">ЗАКАЗАТЬ</span>
+                  <div class="orderPrice">
+                    <span class="orderPrice_text">к оплате &nbsp </span>
+                    <span class="orderPrice__price"> 1895</span>
+                    <span class="rouble">i</span>
+                  </div>
+                </button>
+              </div>
             </div>
             <div class="order__item order__basket">
               <h2 class="order__item_h2">Ваш заказ</h2>
@@ -280,7 +400,7 @@
               <h2 class="order__item_h2">Добавьте к заказу</h2>
               <div class="order__topping_list"></div>
             </div>
-          </section>
+          </div>
           <section class="gallery" loading="lazy">
             <div class="gallery__div">
               <h2 class="gallery__h2">ТОП-10</h2>
@@ -390,6 +510,98 @@
         >
       </div>
     </footer>
+    <aside class="asideModal">
+      <img class="modal__close" src="assets/img/close.svg" alt="" />
+      <div class="modal">
+        <div class="modal__header">
+          <div class="modal__fav"></div>
+        </div>
+        <div class="modal__gallery">
+          <div class="modal__div">
+            <h2 class="modal__h2">Каре ягненка</h2>
+            <div class="swiper mySwiper">
+              <div class="swiper-wrapper">
+                <div class="swiper mySwiperModal">
+                  <div class="swiper-wrapper"></div>
+                  <div class="swiper-button-next"></div>
+                  <div class="swiper-button-prev"></div>
+                  <div class="swiper-pagination"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="modal__desc">
+          Подаём с маринованным луком, коул слоу и соусом сацебели
+        </p>
+        <div class="modal__topping">
+          <h3 class="topping__h3">Топинги:</h3>
+          <div class="topping__list"></div>
+        </div>
+        <div class="footer__BJU">
+          <div class="modal__total_weight modal__BJU_item">
+            <span class="modal__weight">280</span>
+            <span>г.</span>
+          </div>
+          <div class="modal__total_energy modal__BJU_item">
+            <span class="modal__BJU_number">509</span>
+            <span class="modal__BJU_letter">ккал</span>
+          </div>
+          <div class="modal__squirreLS modal__BJU_item">
+            <span class="modal__BJU_number">29</span>
+            <span class="modal__BJU_letter">белки</span>
+          </div>
+          <div class="modal__fats modal__BJU_item">
+            <span class="modal__BJU_number">24</span>
+            <span class="modal__BJU_letter">жиры</span>
+          </div>
+          <div class="modal__carbohydrates modal__BJU_item">
+            <span class="modal__BJU_number">51</span>
+            <span class="modal__BJU_letter">углеводы</span>
+          </div>
+        </div>
+        <div class="aux"></div>
+      </div>
+      <div class="modal__footer">
+        <div class="modal__order">
+          <div class="modal__order_total">
+            <div class="modal__order_old">
+              <span class="modal__old_number">390</span>
+              <span class="modal__old_letter rouble">i</span>
+            </div>
+            <div class="modal__total_price">
+              <span class="modal__total_number">460</span>
+              <span class="modal__total_letter rouble">i</span>
+            </div>
+          </div>
+          <button class="modal__order_button">
+            <div class="modal__order_click">
+              <img src="assets/img/plus.svg" alt="" />
+              <span>добавить</span>
+            </div>
+          </button>
+          <div class="card__button_count button__count modal__button_count">
+            <div class="count_minus card__count_minus">-</div>
+            <div class="card__count_wrapper">
+              <input
+                type="text"
+                class="input_text"
+                minlength="1"
+                maxlength="3"
+                size="6"
+                value="1"
+                pattern="[0-9]{,3}"
+                inputmode="numeric"
+              />
+            </div>
+            <div class="count_plus card__count_plus">+</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <template class="optionTemp">
+      <option class="street__item" value="">пр-т. Авиаторов Балтики</option>
+    </template>
 
     <template class="toppingCardTemp">
       <div class="order__topping_card">
@@ -537,6 +749,7 @@
       </div>
     </template>
 
+    <script src="assets/momentjs/moment.js"></script>
     <script src="order.js"></script>
     <script src="assets/swiper/swiper-bundle.min.js"></script>
     <script src="assets/swiper/mobile-swipe-menu.min.js"></script>
