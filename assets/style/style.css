@@ -1946,7 +1946,7 @@ input[type="number"]:focus {
     flex-direction: column;
     justify-content: flex-start;
     width: 100%;
-    height: calc((var(--vh, 1vh) * 100) - 130px);
+    height: calc(100vh - 190px);    
     z-index: 100501;
     background-color: var(--text-color-white);
     /*max-height: calc(100vh - 130px);*/
@@ -2280,6 +2280,7 @@ input[type="number"]:focus {
     flex-wrap: nowrap;
     justify-content: space-between;
     padding-left: 25px;
+    background-color: var(--text-color-white);
 }
 
 .modal__order_click {

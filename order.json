@@ -3,8 +3,8 @@
       {
         "id": 231,
         "card": {
-          "name": "newName",
-          "img": "assets/img/bigImg.jpg",
+          "name": "Каре ягненка",
+          "img": "http://new.grillvino.ru/wp-content/uploads/2023/01/no_photo-1024x576.jpg",
           "weight": "360 г.",
           "price": 400,
           "priceBeforeDiscount": 650,
@@ -25,7 +25,7 @@
         "id": 485,
         "card": {
           "name": "newName",
-          "img": "assets/img/bigImg.jpg",
+          "img": "http://new.grillvino.ru/wp-content/uploads/2023/01/no_photo-1024x576.jpg",
           "weight": "360 г.",
           "price": 400,
           "priceBeforeDiscount": 650,
@@ -34,10 +34,10 @@
         }
       },
       {
-        "id": 529,
+        "id": 343,
         "card": {
           "name": "Стейк",
-          "img": "assets/img/image_for_basket.jpg",
+          "img": "http://new.grillvino.ru/wp-content/uploads/2023/01/no_photo-1024x576.jpg",
           "weight": "360 г.",
           "price": 400,
           "priceBeforeDiscount": 650,
