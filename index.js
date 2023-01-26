@@ -1,6 +1,8 @@
 
 window.onload = init;
-function init() {
+function init(
+
+) {
   class basket {
     render(data) {
       let { basket, delivery } = data;
@@ -61,7 +63,6 @@ function init() {
           currentPlus.addEventListener("click", countPlus(currentCount));
           currentCount.addEventListener("change", inputCountChange);
           currentMinus.addEventListener("click", countMinus(currentCount));
-          // currentCount.addEventListener("onchange", inputOnchange(currentCount));
           cardClone.querySelector(".input_text").value = item.card.quantity;
           fragment.append(cardClone);
         }
@@ -454,13 +455,13 @@ function init() {
       modalTrue = true;
       modal.style.display = "flex";
       divBlock.style.display = "block";
-
+      modal.style.overflow = "auto";
       if (window.innerWidth < 800) {
         btnCloseModal.style.display = "block";
         modal.style.animation = "modal 0.7s forwards";
         auxiliary.style.display = "block";
         btnCloseModal.style.animation = "modal 0.7s forwards";
-        modal.style.overflow = "auto";
+      // modal.style.overflow = "auto";
         modalFooter.style.display = "flex";
       } else {
         modal.style.animation = "zoom 0.7s forwards";
@@ -469,6 +470,7 @@ function init() {
           modalFooter.style.display = "flex";
           btnCloseModal.style.animation = "zoom 0.3s forwards";
           modalFooter.style.animation = "zoom 0.3s forwards";
+          
         }, 400);
         //document.querySelector(".asideMenu__ul").style.position = "fixed";
         //document.querySelector(".asideMenu__ul").style.top = ;
@@ -778,6 +780,9 @@ window.addEventListener("load",()=> {
       currentCard.querySelector(".card__button").style.display = "none";
       currentCard.querySelector(".button__count").style.display = "flex";
     });
+    let modalButton = document.querySelector(".modal__button_count");
+    modalButton.style.display = "flex"
+    modalButton.querySelector(".input_text").value = 1;
   }
 
   //-------------------------Open basket-----------------------------------------//
@@ -1201,7 +1206,7 @@ for (let t = 0; t < btnDeliverys.length; t++) {
       if (window.innerWidth > 1450) {
         topCurrentMenuCat = topCurrentMenuCat;
       } else {
-        topCurrentMenuCat = topCurrentMenuCat - 75;
+        topCurrentMenuCat = topCurrentMenuCat - 124;
       }
       window.scrollBy({
         top: topCurrentMenuCat,

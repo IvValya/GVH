@@ -30,7 +30,7 @@
                     "img": [
                         "http://new.grillvino.ru/wp-content/uploads/2023/01/no_photo-1024x576.jpg"
                     ],
-                    "toppings": []
+                    "toppings": [107, 111]
                 },
                 {
                     "id": 235,

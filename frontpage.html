@@ -293,7 +293,7 @@
     </footer>
     <aside class="asideModal">
       <img class="modal__close" src="assets/img/close.svg" alt="" />
-      <div class="modal">
+      <div class="modal ">
         <div class="modal__header">
           <div class="modal__fav"></div>
         </div>
@@ -343,6 +343,7 @@
         </div>
         <div class="aux"></div>
       </div>
+      
       <div class="modal__footer">
         <div class="modal__order">
           <div class="modal__order_total">
@@ -355,7 +356,7 @@
               <span class="modal__total_letter rouble">i</span>
             </div>
           </div>
-          <button class="modal__order_button">
+          <button class="modal__order_button ">
             <div class="modal__order_click">
               <img src="assets/img/plus.svg" alt="" />
               <span>добавить</span>
@@ -381,8 +382,10 @@
       </div>
     </aside>
     <template class="asideItemTemp">
-      <input class="asideMenu__input" type="radio" id="cat1" />
-      <label class="asideMenu__label" for="cat1">Популярные</label>
+      <div class="asideMenu__div">
+        <input class="asideMenu__input" type="radio" id="cat1" />
+        <label class="asideMenu__label" for="cat1">Популярные</label>
+      </div>
     </template>
     <template class="galleryTemp">
       <div class="swiper-slide">
@@ -438,7 +441,35 @@
     <template class="modalFavTemp">
       <img class="modal__fav_img" src="assets/img/spicy.svg" alt="" />
     </template>
-
+    <template class="toppingCardTemp">
+      <div class="topping__card">
+        <input class="topping__modal_check" type="checkbox" />
+        <label class="topping__label" for="chicken"
+          ><div class="topping__check">
+            <img
+              class="topping__check_img"
+              src="assets/img/marker.svg"
+              alt=""
+            />
+          </div>
+          <img class="topping__img" src="assets/img/cheese.svg" alt="" />
+          <div class="topping_desc">
+            <span class="topping__name">Сыр чеддер</span>
+            <div class="topping__other">
+              <div class="topping__weight">
+                <span class="topping__weight_number">30</span>
+                <span class="topping__weight_letter"> г.</span>
+              </div>
+              <div class="topping__price">
+                <span class="topping__price_number">90</span>
+                <span class="topping__price_letter rouble">i</span>
+              </div>
+            </div>
+          </div>
+        </label>
+      </div>
+    </template>
+    
     <template class="swiperGalleryModalTemp">
       <div class="swiper-slide">
         <a class="modal__img">

@@ -172,11 +172,7 @@
               <h2 class="order__item_h2">Адрес</h2>
               <div class="address">
                 <div class="address__main">
-                  <select
-                    class="address__item street"
-                    name=""
-                    id=""
-                  ></select>
+                  <select class="address__item street" name="" id=""></select>
                   <input
                     class="address__item house"
                     type="text"
@@ -281,12 +277,21 @@
               <div class="wrapper__payment">
                 <h2 class="order__item_h2">Оплата</h2>
                 <select name="paymentCard" id="paymentCard" class="paymentCard">
-                  <option value="Наличные курьеру">Наличные курьеру</option>
-                  <option value="Картой курьеру">Картой курьеру</option>
-                  <option value="Наличные/картой в ресторане">
+                  <option id="cashPay" value="Наличные курьеру">
+                    Наличные курьеру
+                  </option>
+                  <option id="courierPay" value="Картой курьеру">
+                    Картой курьеру
+                  </option>
+                  <option
+                    id="restaurantPay"
+                    value="Наличные/картой в ресторане"
+                  >
                     Наличные/картой в ресторане
                   </option>
-                  <option value="Онлайн на сайте">Онлайн на сайте</option>
+                  <option id="onlinePay" value="Онлайн на сайте">
+                    Онлайн на сайте
+                  </option>
                 </select>
                 <div class="shortChange">
                   <input
@@ -296,25 +301,33 @@
                   />
 
                   <div class="shortChange__price">
-                    <button type="button" class="shortChange__item">1000</button>
-                    <button type="button" class="shortChange__item">2000</button>
-                    <button type="button" class="shortChange__item">5000</button>
-                    <button type="button" class="shortChange__item noShortChange">
+                    <button type="button" class="shortChange__item">
+                      1000
+                    </button>
+                    <button type="button" class="shortChange__item">
+                      2000
+                    </button>
+                    <button type="button" class="shortChange__item">
+                      5000
+                    </button>
+                    <button
+                      type="button"
+                      class="shortChange__item noShortChange"
+                    >
                       Без сдачи
                     </button>
                   </div>
                 </div>
-
-                <p class="bonus__text">У вас <span class="numberBonuses"></span> недостаточно бонусов</p>
-               
-                 
-                  
-                  
-
-                  
-                 
-                <form oninput="result.value=parseInt(range.value)">
-                  
+                <p class="bonus__text">
+                  У вас
+                  <span class="numberBonuses"></span>
+                  доступно к списанию
+                  <span class="writeOffBonuses"></span>
+                </p>
+                <form
+                  class="form__range"
+                  oninput="result.value=parseInt(range.value)"
+                >
                   <input
                     class="range"
                     type="range"
@@ -328,9 +341,11 @@
                     <span class="bonus_min">0</span>
                     <span class="bonus_max">600</span>
                   </div>
-                
-                  <p class="spandingBonus">Списываем <output name="result" for="range">0</output> бонусов </p>
-                  
+
+                  <p class="spandingBonus">
+                    Списываем
+                    <output name="result" for="range">0</output> бонусов
+                  </p>
                 </form>
               </div>
               <div class="footer__orderPayment">
@@ -363,7 +378,7 @@
               <h2 class="order__item_h2">Ваш заказ</h2>
               <div class="order__list"></div>
               <div class="card__pinck"></div>
-              <div class="basket__card last__card">
+              <div class="basket__card last__card cutlery">
                 <div class="basket__card_pict">
                   <img
                     class="basket__card_img"
@@ -603,8 +618,8 @@
       <option class="street__item" value="">пр-т. Авиаторов Балтики</option>
     </template>
 
-    <template class="toppingCardTemp">
-      <div class="order__topping_card">
+    <template class="extraCardTemp">
+      <div class="order__topping_card item">
         <h3 class="basket__h3">Бородинский хлеб</h3>
         <div class="divBasket__price">
           <span class="basket__price">60</span>
@@ -629,7 +644,7 @@
     </template>
 
     <template class="basketCardTemp">
-      <div class="basket__card">
+      <div class="basket__card item">
         <div class="basket__card_pict">
           <img class="basket__card_img" src="assets/img/kebab.jpg" alt="" />
         </div>
@@ -659,8 +674,10 @@
     </template>
 
     <template class="asideItemTemp">
-      <input class="asideMenu__input" type="radio" id="cat1" />
-      <label class="asideMenu__label" for="cat1">Популярные</label>
+      <div class="asideMenu__div">
+        <input class="asideMenu__input" type="radio" id="cat1" />
+        <label class="asideMenu__label" for="cat1">Популярные</label>
+      </div>
     </template>
     <template class="galleryTemp">
       <div class="swiper-slide">

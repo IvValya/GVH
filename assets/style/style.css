@@ -607,6 +607,7 @@ input {
     font-weight: 700;
     font-size: 20px;
 }
+
 .orderPrice_text {
     font-weight: 700;
     font-size: 15px;
@@ -985,6 +986,17 @@ input[type=text]:-ms-input-placeholder {
 .last__card .basket__card_img {
     width: 27px;
     height: 35px;
+}
+
+.numberBonuses,
+.writeOffBonuses {
+    color: #B06D81;
+}
+
+.bonus__text {
+    font-weight: 500;
+    font-size: 13px;
+    color: #838383;
 }
 
 .menu {
@@ -1626,7 +1638,7 @@ address {
     display: flex;
     flex-direction: column;
     row-gap: 10px;
-} 
+}
 
 .footer__orderPayment .mobileBasket__footer_item {
     padding-left: 24px;
@@ -2371,6 +2383,10 @@ input[type="number"]:focus {
         width: 360px;
     }
 
+    .mainGallery.orderGallery {
+        height: 201px;
+    }
+
     .menu__main_img {
         height: 140px;
     }
@@ -2431,33 +2447,42 @@ input[type="number"]:focus {
         justify-self: end;
         align-self: center;
     }
+
     .address {
         padding-bottom: 0px;
     }
+
     .address__main {
         grid-template-columns: 80px 1fr 80px 80px 80px;
-        column-gap: 20px;        
+        column-gap: 20px;
     }
+
     .street {
         grid-column: span 3;
     }
+
     .flat,
-    .intercom {     
+    .intercom {
         grid-column: unset;
     }
+
     .entrance {
         grid-column: 3/4;
     }
+
     .confirm__div {
         padding-top: 20px;
     }
+
     .dateTime__item {
         text-align: left;
         padding-left: 25px;
     }
+
     .order__basket {
         padding-top: 25px;
     }
+
     .order__basket .basket__card {
         row-gap: 10px;
     }
@@ -2803,7 +2828,7 @@ input[type="number"]:focus {
 
     .footer__BJU {
         width: 50%;
-        height: 100%;
+        height: 100%; /*75px*/
     }
 
     .modal__BJU_item {
@@ -2846,6 +2871,11 @@ input[type="number"]:focus {
         column-gap: 50px;
         padding-top: 17px;
     }
+
+    .modal__desc {
+        height: 75px;
+       
+    }
 }
 
 @media screen and (min-width: 1450px) {
@@ -2856,6 +2886,8 @@ input[type="number"]:focus {
 
     .modal__desc {
         font-size: 16px;
+        max-height: 75px;
+      /*  overflow: auto;*/
     }
 
     .topping__price {
@@ -2872,6 +2904,10 @@ input[type="number"]:focus {
     .basket__h3 {
         font-size: 13px;
         font-weight: 500;
+    }
+
+    .mainGallery.orderGallery {
+        height: 340px;
     }
 
     .menu__main_img {
@@ -2891,7 +2927,7 @@ input[type="number"]:focus {
         padding-top: 55px;
         padding-bottom: 65px;
     }
-    
+
     .order__item {
         margin: 0;
         padding-top: 0;
@@ -2899,23 +2935,28 @@ input[type="number"]:focus {
         padding-left: 27px;
         padding-right: 30px;
     }
+
     .order__address {
         padding-right: 122px;
     }
+
     .confirm__div {
         padding-bottom: 10px;
     }
+
     .order__payment {
         padding: 0;
     }
-     
+
     .address,
     .wrapper__payment {
         padding-top: 0px;
     }
+
     .paymentCard {
         margin-top: 0px;
     }
+
     .dateTime {
         padding-top: 0px;
     }

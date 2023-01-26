@@ -1,14 +1,14 @@
 {
     "basket": [
       {
-        "id": 3,
+        "id": 231,
         "card": {
           "name": "newName",
           "img": "assets/img/bigImg.jpg",
           "weight": "360 г.",
           "price": 400,
           "priceBeforeDiscount": 650,
-          "quantity": 1,
+          "quantity": 5,
           "toppings": [
             {
               "id": 10,
@@ -22,7 +22,7 @@
         }
       },
       {
-        "id": 5,
+        "id": 485,
         "card": {
           "name": "newName",
           "img": "assets/img/bigImg.jpg",
@@ -34,7 +34,7 @@
         }
       },
       {
-        "id": 4,
+        "id": 529,
         "card": {
           "name": "Стейк",
           "img": "assets/img/image_for_basket.jpg",
