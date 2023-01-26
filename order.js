@@ -526,6 +526,7 @@ cardsGalleryClick.forEach((cardClick) => {
               dataCard.card.toppings.push(newTopping);
             }
             changeModalPrice(dishId);
+            orderNew.renderPayment();
           } else {
             currentToppingCheck.classList.toggle("topping__check_active");
           }
@@ -688,12 +689,10 @@ cardsGalleryClick.forEach((cardClick) => {
             );
             currentCard.remove();
           }
-
-          
         }
       }
       changeModalPrice(count.dataset.id);
-          orderNew.renderPayment();
+      orderNew.renderPayment();
     };
   }
 
@@ -708,6 +707,7 @@ cardsGalleryClick.forEach((cardClick) => {
 
   function changeModalPrice(itemID) {
     let { basket } = data;
+    console.log(itemID);
     const cardID = parseInt(itemID.split("").splice(4).join(""));
     const dataCard = basket.find((item) => item.id === cardID);
     let toppPrice = 0;
@@ -857,9 +857,11 @@ cardsGalleryClick.forEach((cardClick) => {
           price: toppingPrice,
         });
       });
+      
     }
-
+    
     addToBasket(modalID, cards[0]);
+    orderNew.renderPayment();
     cards.forEach((card) => {
       let currentCard = card.closest(".list_item");
       currentCard.querySelector(".card__button").style.display = "none";
@@ -882,6 +884,7 @@ cardsGalleryClick.forEach((cardClick) => {
       //renderHeaderBasket(currentCard);
       let dishId = e.currentTarget.closest(".list_item").dataset.id;
       addToBasket(dishId, e.currentTarget);
+      orderNew.renderPayment();
       currentCard.querySelector(".card__button").style.display = "none";
       currentCard.querySelector(".card__button_count").style.display = "flex";
       /* buttonAdd[i].style.display = "none";
