@@ -240,35 +240,35 @@
               <h2 class="order__item_h2">Время доставки</h2>
               <div class="dateTime">
                 <select class="dateTime__item date" name="date" id="date">
-                  <option name="today" value="сегодня"></option>
-                  <option name="tomorrow" value="завтра"></option>
+                  <option class="option_item" name="today" value="сегодня"></option>
+                  <option class="option_item" name="tomorrow" value="завтра"></option>
                 </select>
                 <select class="dateTime__item time" name="time" id="time">
-                  <option value="11:00">11:00</option>
-                  <option value="11:30">11:30</option>
-                  <option value="12:00">12:00</option>
-                  <option value="12:30">12:30</option>
-                  <option value="13:00">13:00</option>
-                  <option value="13:30">13:30</option>
-                  <option value="14:00">14:00</option>
-                  <option value="14:30">14:30</option>
-                  <option value="15:00">15:00</option>
-                  <option value="15:30">15:30</option>
-                  <option value="16:00">16:00</option>
-                  <option value="16:30">16:30</option>
-                  <option value="17:00">17:00</option>
-                  <option value="17:30">17:30</option>
-                  <option value="18:00">18:00</option>
-                  <option value="18:30">18:30</option>
-                  <option value="19:00">19:00</option>
-                  <option value="19:30">19:30</option>
-                  <option value="20:00">20:00</option>
-                  <option value="20:30">20:30</option>
-                  <option value="21:00">21:00</option>
-                  <option value="21:30">21:30</option>
-                  <option value="22:00">22:00</option>
-                  <option value="22:30">22:30</option>
-                  <option value="23:00">23:00</option>
+                  <option class="option_item" value="11:00">11:00</option>
+                  <option class="option_item" value="11:30">11:30</option>
+                  <option class="option_item" value="12:00">12:00</option>
+                  <option class="option_item" value="12:30">12:30</option>
+                  <option class="option_item" value="13:00">13:00</option>
+                  <option class="option_item" value="13:30">13:30</option>
+                  <option class="option_item" value="14:00">14:00</option>
+                  <option class="option_item" value="14:30">14:30</option>
+                  <option class="option_item" value="15:00">15:00</option>
+                  <option class="option_item" value="15:30">15:30</option>
+                  <option class="option_item" value="16:00">16:00</option>
+                  <option class="option_item" value="16:30">16:30</option>
+                  <option class="option_item" value="17:00">17:00</option>
+                  <option class="option_item" value="17:30">17:30</option>
+                  <option class="option_item" value="18:00">18:00</option>
+                  <option class="option_item" value="18:30">18:30</option>
+                  <option class="option_item" value="19:00">19:00</option>
+                  <option class="option_item" value="19:30">19:30</option>
+                  <option class="option_item" value="20:00">20:00</option>
+                  <option class="option_item" value="20:30">20:30</option>
+                  <option class="option_item" value="21:00">21:00</option>
+                  <option class="option_item" value="21:30">21:30</option>
+                  <option class="option_item" value="22:00">22:00</option>
+                  <option class="option_item" value="22:30">22:30</option>
+                  <option class="option_item" value="23:00">23:00</option>
                 </select>
               </div>
             </div>
@@ -276,20 +276,20 @@
             <div class="order__item order__payment">
               <div class="wrapper__payment">
                 <h2 class="order__item_h2">Оплата</h2>
-                <select name="paymentCard" id="paymentCard" class="paymentCard">
-                  <option id="cashPay" value="Наличные курьеру">
+                <select name="paymentCard" id="paymentCard" class="paymentCard ">
+                  <option class="option_item" id="cashPay" value="Наличные курьеру">
                     Наличные курьеру
                   </option>
-                  <option id="courierPay" value="Картой курьеру">
+                  <option class="option_item" id="courierPay" value="Картой курьеру">
                     Картой курьеру
                   </option>
-                  <option
+                  <option class="option_item"
                     id="restaurantPay"
                     value="Наличные/картой в ресторане"
                   >
                     Наличные/картой в ресторане
                   </option>
-                  <option id="onlinePay" value="Онлайн на сайте">
+                  <option class="option_item" id="onlinePay" value="Онлайн на сайте">
                     Онлайн на сайте
                   </option>
                 </select>
@@ -339,7 +339,7 @@
                   />
                   <div class="bonus__item">
                     <span class="bonus_min">0</span>
-                    <span class="bonus_max">600</span>
+                    <span class="bonus_max">0</span>
                   </div>
 
                   <p class="spandingBonus">
@@ -368,7 +368,7 @@
                   <span class="orderBtnText">ЗАКАЗАТЬ</span>
                   <div class="orderPrice">
                     <span class="orderPrice_text">к оплате &nbsp </span>
-                    <span class="orderPrice__price"> 1895</span>
+                    <span class="orderPrice__price"> </span>
                     <span class="rouble">i</span>
                   </div>
                 </button>
@@ -387,12 +387,10 @@
                   />
                 </div>
                 <h3 class="basket__h3">Столовые приборы</h3>
-
                 <div class="divBasket__price">
                   <span class="basket__price">0</span>
                   <span class="rouble">₽</span>
                 </div>
-
                 <div class="basket__count button__count">
                   <div class="count_minus">-</div>
                   <div class="count__wrapper">
@@ -407,7 +405,7 @@
                       inputmode="numeric"
                     />
                   </div>
-                  <div class="count_plus" id="right">+</div>
+                  <div class="count_plus">+</div>
                 </div>
               </div>
             </div>
