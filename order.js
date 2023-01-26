@@ -21,6 +21,8 @@ function init() {
         currentCount.dataset.id = "dish" + item.id;
         let currentMinus = cardClone.querySelector(".count_minus");
         let currentPlus = cardClone.querySelector(".count_plus");
+        currentMinus.dataset.id = "dish" + item.id;
+        currentPlus.dataset.id = "dish" + item.id;
         currentPlus.addEventListener("click", countPlus(currentCount));
         currentCount.addEventListener("change", inputCountChange);
         currentMinus.addEventListener("click", countMinus(currentCount));
@@ -51,6 +53,8 @@ function init() {
         currentCount.dataset.id = "dish" + item.id;
         let currentMinus = cardClone.querySelector(".count_minus");
         let currentPlus = cardClone.querySelector(".count_plus");
+        currentMinus.dataset.id = "dish" + item.id;
+        currentPlus.dataset.id = "dish" + item.id;
         currentPlus.addEventListener("click", countPlus(currentCount));
         currentCount.addEventListener("change", inputCountChange);
         currentMinus.addEventListener("click", countMinus(currentCount));
@@ -685,10 +689,11 @@ cardsGalleryClick.forEach((cardClick) => {
             currentCard.remove();
           }
 
-          changeModalPrice(count.dataschangeModalPriceet.id);
-          orderNew.renderPayment();
+          
         }
       }
+      changeModalPrice(count.dataset.id);
+          orderNew.renderPayment();
     };
   }
 
