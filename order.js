@@ -276,6 +276,7 @@ function init() {
       let totalCheck = this.getCheck();
       const { delivery } = data;
       if (delivery.typeDelivery === "takeaway") {
+        document.querySelector(".order__address .order__item_h2").textContent = "Детали";
         document.querySelector(".address__main").style.display = "none";
         document.querySelector(".comments__textarea").style.marginTop = 0;
         document.querySelector(".shortChange").style.display = "none";
@@ -716,8 +717,16 @@ cardsGalleryClick.forEach((cardClick) => {
 
   btnsShortChange.forEach((btnShortChange) => {
     btnShortChange.addEventListener("click", () => {
-      document.querySelector(".shortChange__input").value =
-        btnShortChange.textContent;
+      console.log(btnShortChange.classList.contains("noShortChange"));
+      if (btnShortChange.classList.contains("noShortChange")) {
+        document.querySelector(".shortChange__input").value = 
+        (btnShortChange.textContent).trim();
+      }
+      else {
+        document.querySelector(".shortChange__input").value = "сдача с " +
+        (btnShortChange.textContent).trim();
+      }
+      
     });
   });
 

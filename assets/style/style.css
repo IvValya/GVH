@@ -540,6 +540,7 @@ input {
     display: flex;
     justify-content: space-between;
     padding-bottom: 15px;
+    padding-top: 10px;
 }
 
 .order__payment {
