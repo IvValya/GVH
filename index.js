@@ -1,23 +1,117 @@
-
 window.onload = init;
-function init(
-
-) {
+function init() {
+  let toppingActive = [];
+  let mobileBasketTrue = false;
+  var basketOpen = true;
+  var data;
+  let x1 = null;
+  let y1 = null;
+  let xDiff = 0;
+  let yDiff = 0;
+  let full = 0;
+  let touchTrue = false;
   class basket {
+    convertFromBasket() {
+      console.log(data);
+      let convertedBasket = [];
+      let currentRefreshTime = Date.now();
+      let currentTypeDelivery = data.delivery.typeDelivery;
+      data.basket.forEach((item) => {
+        let currentId = item.id;
+        let currentQuantity = item.card.quantity;
+        let currentToppingsId = [];
+        item.card.toppings.forEach((topping) => {
+          currentToppingsId.push(topping.id);
+        });
+        convertedBasket.push({
+          id: currentId,
+          quantity: currentQuantity,
+          toppingsId: currentToppingsId,
+        });
+      });
+      let convertedData = {
+        basket: convertedBasket,
+        typeDelivery: currentTypeDelivery,
+        refreshTime: currentRefreshTime,
+      };
+      console.log(convertedData);
+      return convertedData;
+    }
+
+    convertToBasket(currentData) {
+      let currBasket = [];
+      let currentImg;
+      let currentName;
+      let currentWeight;
+      let currentPrice;
+      let currentPriceBeforeDiscount;
+      let currentToppings = [];
+      menuData.meals.forEach((dish) => {
+        dish.products.forEach((item) => {
+          let currentBasketItem = currentData.basket.find(
+            (elem) => elem.id === item.id
+          );
+          if (currentBasketItem) {
+            console.log(currentBasketItem);
+            currentName = item.name;
+            currentImg = item.img[0];
+            currentWeight = item.weight;
+            if (item.sale_price === 0) {
+              currentPrice = item.price;
+              currentPriceBeforeDiscount = item.price;
+            } else {
+              currentPrice = item.sale_price;
+              currentPriceBeforeDiscount = item.price;
+            }
+            if (currentBasketItem.toppingsId.length !== 0) {
+              currentBasketItem.toppingsId.forEach((topping) => {
+                let currentTopping = menuData.toppings.find(
+                  (elem) => elem.id === topping
+                );
+                if (currentTopping) {
+                  currentToppings.push({
+                    id: topping,
+                    price: currentTopping.price,
+                  });
+                }
+              });
+            }
+            currBasket.push({
+              id: currentBasketItem.id,
+              card: {
+                name: currentName,
+                img: currentImg,
+                weight: currentWeight,
+                price: parseInt(currentPrice),
+                priceBeforeDiscount: parseInt(currentPriceBeforeDiscount),
+                quantity: currentBasketItem.quantity,
+                toppings: currentToppings,
+              },
+            });
+            currentToppings = [];
+          }
+        });
+      });
+      data = {
+        basket: currBasket,
+        delivery: {
+          typeDelivery: currentData.typeDelivery,
+        },
+      };
+    }
+
+    save() {
+      let order = JSON.stringify(this.convertFromBasket());
+      console.log(order);
+      localStorage.setItem("basket", order);
+    }
+
     render(data) {
       let { basket, delivery } = data;
       let currentBasket;
-
       if (Object.keys(delivery).length === 0) {
-        /*let item = menuData.deliveries.find(
-          (delivery) => delivery.typeDelivery === "delivery"
-        );*/
         data.delivery.typeDelivery = "delivery";
-        //  data.delivery.priceDelivery =parseInt(menuData.delivery_options.delivery_price);
-        // data.delivery.orderPriceForFree = parseInt(menuData.delivery_options.free_delivery_order_total);
-      } else {
       }
-
       let { typeDelivery } = delivery;
       let priceDelivery;
       if (window.innerWidth < 1450) {
@@ -25,7 +119,6 @@ function init(
       } else {
         currentBasket = document.querySelector(".deskBasket");
       }
-
       let currentDelivery = currentBasket.querySelector(".hovering_active");
       let deliveryItem = currentBasket.querySelectorAll(
         ".basket__delivery__item"
@@ -116,7 +209,6 @@ function init(
       currentBasket.querySelector(".totalCheck").textContent =
         totalCheck + priceDelivery;
       let allMenu = document.querySelectorAll(".list_item");
-
       data.basket.forEach((itemCard) => {
         for (let itemMenu of allMenu) {
           if (itemMenu.dataset.id === "dish" + itemCard.id) {
@@ -149,19 +241,47 @@ function init(
       return res;
     }
 
+    loadFreeBasket() {
+      data = {
+        basket: [],
+        delivery: { typeDelivery: "delivery" },
+      };
+    }
+
     load() {
-      fetch("orderFree.json" /*, "GET"*/)
+     // localStorage.removeItem("basket");
+      let currentBasket = localStorage.getItem("basket");
+      if (currentBasket) {
+        let currentData = JSON.parse(currentBasket);
+        console.log(currentData);
+        let currentTime = Date.now();
+        if (currentTime - currentData.refreshTime > 2 * 3600 * 1000) {
+          localStorage.removeItem("basket");
+          this.loadFreeBasket();
+          console.log("Больше двух часов");
+        } else {
+          console.log(currentData);
+          if (currentData.basket.length === 0) {
+            this.loadFreeBasket();
+          } else {
+            this.convertToBasket(currentData);
+          }
+        }
+      } else {
+        this.loadFreeBasket();
+      }
+      console.log(data);
+      this.render(data);
+      /*
+      fetch("order.json" )
         .then(this.errorHandler)
         .then((res) => res.json())
         .then((order) => {
           data = order;
-          this.render(data);
+          
+          this.save();
         })
-        .catch((err) => console.error(err));
-    }
-
-    save(data) {
-      console.log(data);
+        .catch((err) => console.error(err));*/
     }
 
     addToBasket(dishId, target) {
@@ -210,6 +330,7 @@ function init(
       basket.push(elem);
       // renderData("dish" + elem.id);
       this.render(data);
+      this.save(data);
       toppingActive = [];
       /*
       let { dishes } = menuData;
@@ -236,17 +357,6 @@ function init(
 
   let orderBasket = new basket();
   orderBasket.load();
-  
-  let toppingActive = [];
-  let mobileBasketTrue = false;
-  var basketOpen = true;
-  var data;
-  let x1 = null;
-  let y1 = null;
-  let xDiff = 0;
-  let yDiff = 0;
-  let full = 0;
-  let touchTrue = false;
 
   const auxiliary = document.querySelector(".auxiliary");
   const header = document.querySelector(".header");
@@ -289,7 +399,6 @@ function init(
   let basketTrue = false;
   let scrollTrue = true;
   let startPosition = window.innerHeight; // - parseInt(mobileBasketSticky.style.bottom) + "px";
- 
 
   buttonOrder.forEach((item) => {
     item.addEventListener("click", renderFullOrder);
@@ -461,7 +570,7 @@ function init(
         modal.style.animation = "modal 0.7s forwards";
         auxiliary.style.display = "block";
         btnCloseModal.style.animation = "modal 0.7s forwards";
-      // modal.style.overflow = "auto";
+        // modal.style.overflow = "auto";
         modalFooter.style.display = "flex";
       } else {
         modal.style.animation = "zoom 0.7s forwards";
@@ -470,7 +579,6 @@ function init(
           modalFooter.style.display = "flex";
           btnCloseModal.style.animation = "zoom 0.3s forwards";
           modalFooter.style.animation = "zoom 0.3s forwards";
-          
         }, 400);
         //document.querySelector(".asideMenu__ul").style.position = "fixed";
         //document.querySelector(".asideMenu__ul").style.top = ;
@@ -781,7 +889,7 @@ window.addEventListener("load",()=> {
       currentCard.querySelector(".button__count").style.display = "flex";
     });
     let modalButton = document.querySelector(".modal__button_count");
-    modalButton.style.display = "flex"
+    modalButton.style.display = "flex";
     modalButton.querySelector(".input_text").value = 1;
   }
 
@@ -795,23 +903,23 @@ window.addEventListener("load",()=> {
 
   //--------------Добавление/снятие прозрачности у мобильного меню-------------------//
 
-    window.addEventListener("scroll", function () {
-      if (window.innerWidth < 800) {
-    const menu_h2top = menuH2.getBoundingClientRect().top;
-    const footerCopTop = footerCopyright.getBoundingClientRect().top;
-    const mobileBasketTop = mobileBasketSticky.getBoundingClientRect().top;
-    if (menu_h2top >= 149) {
-      menuMobileNav.style.backgroundColor = "white";
-    } else {
-      menuMobileNav.style.backgroundColor = "rgb(255, 255, 255, 0.7)";
-    }
-    if (data && data.basket && data.basket.length !== 0) {
-      if (footerCopTop < mobileBasketTop) {
-        footer.style.paddingBottom = "60px";
-        mobileBasketTrue = false;
+  window.addEventListener("scroll", function () {
+    if (window.innerWidth < 800) {
+      const menu_h2top = menuH2.getBoundingClientRect().top;
+      const footerCopTop = footerCopyright.getBoundingClientRect().top;
+      const mobileBasketTop = mobileBasketSticky.getBoundingClientRect().top;
+      if (menu_h2top >= 149) {
+        menuMobileNav.style.backgroundColor = "white";
+      } else {
+        menuMobileNav.style.backgroundColor = "rgb(255, 255, 255, 0.7)";
+      }
+      if (data && data.basket && data.basket.length !== 0) {
+        if (footerCopTop < mobileBasketTop) {
+          footer.style.paddingBottom = "60px";
+          mobileBasketTrue = false;
+        }
       }
     }
-  }
   });
 
   /*--------------------------Choose delivery/takeaway--------------------------*/
@@ -1252,6 +1360,7 @@ for (let t = 0; t < btnDeliverys.length; t++) {
     let newPosition = parseInt(mobileBasketSticky.style.top) - yDiff;
     if (window.innerHeight - 60 > y2 && y2 > 0) {
       mobileBasketSticky.style.top = y2 + "px";
+      //mobileBasketFooter.style.top = window.innerHeight + y2 - 125 +"px";
     }
   }
   /*console.log(positionBasket);
@@ -1416,7 +1525,7 @@ for (let t = 0; t < btnDeliverys.length; t++) {
     document.querySelector(".mobileBasket__header_price").textContent =
       totalCheck;
 
-    if (window.innerWidth <1450) {
+    if (window.innerWidth < 1450) {
       currentBasket = document.querySelector(".mobileBasket");
     } else {
       currentBasket = document.querySelector(".deskBasket");
@@ -1619,31 +1728,27 @@ for (let t = 0; t < btnDeliverys.length; t++) {
     });
   }
 
-  
   if (location.hash) {
     let nameCat = decodeURI(location.hash).slice(1);
     if (window.innerWidth < 800) {
       let categories = document.querySelectorAll(".nav__label");
-      for ( let i = 0; i<categories.length; i++)
-      {      
-       if (categories[i].textContent === nameCat) {
-       categories[i].click();
-        break;
-       }
-     }
-    }
-    else {
+      for (let i = 0; i < categories.length; i++) {
+        if (categories[i].textContent === nameCat) {
+          categories[i].click();
+          break;
+        }
+      }
+    } else {
       let categories = document.querySelectorAll(".asideMenu__label");
-      for ( let i = 0; i<categories.length; i++)
-    {      
-     if (categories[i].textContent === nameCat) {
-     categories[i].click();
-      break;
-     }
-   }
+      for (let i = 0; i < categories.length; i++) {
+        if (categories[i].textContent === nameCat) {
+          categories[i].click();
+          break;
+        }
+      }
     }
   }
-   /* let currentCategory;
+  /* let currentCategory;
     console.log(categories);
   
     for ( let i = 0; i<categories.length; i++)
@@ -1662,9 +1767,7 @@ for (let t = 0; t < btnDeliverys.length; t++) {
     top: coordsScroll,
     behavior: 'smooth'
    })*/
-    //let currentCategory = categories.find( (item) => item.textContent === nameCat);
-  
-    // console.log(currentCategory);
- 
-  
+  //let currentCategory = categories.find( (item) => item.textContent === nameCat);
+
+  // console.log(currentCategory);
 }
