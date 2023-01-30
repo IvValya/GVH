@@ -317,7 +317,8 @@ function init() {
       this.renderBonus();
       let { delivery } = data;
       let totalCheck = this.getCheck();
-      let currentBasket = document.querySelector(".footer__orderPayment");
+      let priceDelivery = parseInt(menuData.delivery_options.delivery_price);
+      let currentBasket = document.querySelector(".footer__orderPayment");      
       let deliveryPrice = currentBasket.querySelector(".priceDelivery");
       let checKForFree = currentBasket.querySelector(".check_forFreeDelivery");
       let otherText = currentBasket.querySelector(".other__text");
