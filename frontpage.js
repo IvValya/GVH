@@ -18,15 +18,134 @@ class frontpage {
         }
       });
   }
+
+  convertFromBasket() {
+    console.log(data);
+    let convertedBasket = [];
+    let currentRefreshTime = Date.now();
+    let currentTypeDelivery = data.delivery.typeDelivery;
+    data.basket.forEach((item) => {
+      let currentId = item.id;
+      let currentQuantity = item.card.quantity;
+      let currentToppingsId = [];
+      item.card.toppings.forEach((topping) => {
+        currentToppingsId.push(topping.id);
+      });
+      convertedBasket.push({
+        id: currentId,
+        quantity: currentQuantity,
+        toppingsId: currentToppingsId,
+      });
+    });
+    let convertedData = {
+      basket: convertedBasket,
+      typeDelivery: currentTypeDelivery,
+      refreshTime: currentRefreshTime,
+    };
+    console.log(convertedData);
+    return convertedData;
+  }
+
+  convertToBasket(currentData) {
+    let currBasket = [];
+    let currentImg;
+    let currentName;
+    let currentWeight;
+    let currentPrice;
+    let currentPriceBeforeDiscount;
+    let currentToppings = [];
+    menuData.meals.forEach((dish) => {
+      dish.products.forEach((item) => {
+        let currentBasketItem = currentData.basket.find(
+          (elem) => elem.id === item.id
+        );
+        if (currentBasketItem) {
+          console.log(currentBasketItem);
+          currentName = item.name;
+          currentImg = item.img[0];
+          currentWeight = item.weight;
+          if (item.sale_price === 0) {
+            currentPrice = item.price;
+            currentPriceBeforeDiscount = item.price;
+          } else {
+            currentPrice = item.sale_price;
+            currentPriceBeforeDiscount = item.price;
+          }
+          if (currentBasketItem.toppingsId.length !== 0) {
+            currentBasketItem.toppingsId.forEach((topping) => {
+              let currentTopping = menuData.toppings.find(
+                (elem) => elem.id === topping
+              );
+              if (currentTopping) {
+                currentToppings.push({
+                  id: topping,
+                  price: parseInt(currentTopping.price),
+                });
+              }
+            });
+          }
+          currBasket.push({
+            id: currentBasketItem.id,
+            card: {
+              name: currentName,
+              img: currentImg,
+              weight: currentWeight,
+              price: parseInt(currentPrice),
+              priceBeforeDiscount: parseInt(currentPriceBeforeDiscount),
+              quantity: currentBasketItem.quantity,
+              toppings: currentToppings,
+            },
+          });
+          currentToppings = [];
+        }
+      });
+    });
+    data = {
+      basket: currBasket,
+      delivery: {
+        typeDelivery: currentData.typeDelivery,
+      },
+    };
+    console.log(data);
+  }
+
+  save() {
+    let order = JSON.stringify(this.convertFromBasket());
+    console.log(order);
+    localStorage.setItem("basket", order);
+  }
+  
+  loadFreeBasket() {
+    data = {
+      basket: [],
+      delivery: { typeDelivery: "delivery" },
+    };
+  }
+
   load() {
-    fetch("order.json" /*, "GET"*/)
-      .then(this.errorHandler)
-      .then((res) => res.json())
-      .then((order) => {
-        data = order;
-        this.renderBtnsTop();
-      })
-      .catch((err) => console.error(err));
+    // localStorage.removeItem("basket");
+    let currentBasket = localStorage.getItem("basket");
+    if (currentBasket) {
+      let currentData = JSON.parse(currentBasket);
+      console.log(currentData);
+      let currentTime = Date.now();
+      if (currentTime - currentData.refreshTime > 2 * 3600 * 1000) {
+        localStorage.removeItem("basket");
+        this.loadFreeBasket();
+        console.log("Больше двух часов");
+      } else {
+        console.log(currentData);
+        if (currentData.basket.length === 0) {
+          this.loadFreeBasket();
+        } else {
+          this.convertToBasket(currentData);
+        }
+      }
+    } else {
+      this.loadFreeBasket();
+    }
+    console.log(data);
+    this.renderBtnsTop();
   }
 }
 
@@ -359,6 +478,7 @@ function init() {
       },
     };
     basket.push(elem);
+    front.save();
     console.log(data);
     // renderData("dish" + elem.id);
     toppingActive = [];
@@ -418,7 +538,7 @@ function init() {
         cards.forEach((item) => {
           item.value = card.card.quantity;
         });
-
+        front.save();
         changeModalPrice(count.dataset.id);
       }
     };
@@ -463,6 +583,7 @@ function init() {
             "none";
         }
       }
+      front.save();
       changeModalPrice(count.dataset.id);
     };
   }
@@ -513,6 +634,7 @@ function init() {
       minus.click();
     } else {
       currentCard.card.quantity = e.currentTarget.value;
+      front.save();
       changeModalPrice(dishID);
     }
   }

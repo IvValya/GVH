@@ -2,7 +2,149 @@ let data;
 let modalTrue = false;
 window.onload = init;
 function init() {
+  
+  let buttonsCount = document.querySelectorAll(".button__count");
+  for (let buttonCount of buttonsCount) {
+    let minus = buttonCount.querySelector(".count_minus");
+    let plus = buttonCount.querySelector(".count_plus");
+    let count = buttonCount.querySelector(".input_text");
+    minus.addEventListener("click", countMinus(count));
+    plus.addEventListener("click", countPlus(count));
+  }
+
   class order {
+    convertFromBasket() {
+      console.log(data);
+      let convertedBasket = [];
+      let currentRefreshTime = Date.now();
+      let currentTypeDelivery = data.delivery.typeDelivery;
+      data.basket.forEach((item) => {
+        let currentId = item.id;
+        let currentQuantity = item.card.quantity;
+        let currentToppingsId = [];
+        item.card.toppings.forEach((topping) => {
+          currentToppingsId.push(topping.id);
+        });
+        convertedBasket.push({
+          id: currentId,
+          quantity: currentQuantity,
+          toppingsId: currentToppingsId,
+        });
+      });
+      let convertedData = {
+        basket: convertedBasket,
+        typeDelivery: currentTypeDelivery,
+        refreshTime: currentRefreshTime,
+      };
+      console.log(convertedData);
+      return convertedData;
+    }
+
+    convertToBasket(currentData) {
+      let currBasket = [];
+      let currentImg;
+      let currentName;
+      let currentWeight;
+      let currentPrice;
+      let currentPriceBeforeDiscount;
+      let currentToppings = [];
+      menuData.meals.forEach((dish) => {
+        dish.products.forEach((item) => {
+          let currentBasketItem = currentData.basket.find(
+            (elem) => elem.id === item.id
+          );
+          if (currentBasketItem) {
+            console.log(currentBasketItem);
+            currentName = item.name;
+            currentImg = item.img[0];
+            currentWeight = item.weight;
+            if (item.sale_price === 0) {
+              currentPrice = item.price;
+              currentPriceBeforeDiscount = item.price;
+            } else {
+              currentPrice = item.sale_price;
+              currentPriceBeforeDiscount = item.price;
+            }
+            if (currentBasketItem.toppingsId.length !== 0) {
+              currentBasketItem.toppingsId.forEach((topping) => {
+                let currentTopping = menuData.toppings.find(
+                  (elem) => elem.id === topping
+                );
+                if (currentTopping) {
+                  currentToppings.push({
+                    id: topping,
+                    price: parseInt(currentTopping.price),
+                  });
+                }
+              });
+            }
+            currBasket.push({
+              id: currentBasketItem.id,
+              card: {
+                name: currentName,
+                img: currentImg,
+                weight: currentWeight,
+                price: parseInt(currentPrice),
+                priceBeforeDiscount: parseInt(currentPriceBeforeDiscount),
+                quantity: currentBasketItem.quantity,
+                toppings: currentToppings,
+              },
+            });
+            currentToppings = [];
+          }
+        });
+      });
+      data = {
+        basket: currBasket,
+        delivery: {
+          typeDelivery: currentData.typeDelivery,
+        },
+      };
+      console.log(data);
+    }
+
+    save() {
+      let order = JSON.stringify(this.convertFromBasket());
+      console.log(order);
+      localStorage.setItem("basket", order);
+    }
+    loadFreeBasket() {
+      data = {
+        basket: [],
+        delivery: { typeDelivery: "delivery" },
+      };
+    }
+
+    load() {
+      // localStorage.removeItem("basket");
+      let currentBasket = localStorage.getItem("basket");
+      if (currentBasket) {
+        let currentData = JSON.parse(currentBasket);
+        console.log(currentData);
+        let currentTime = Date.now();
+        if (currentTime - currentData.refreshTime > 2 * 3600 * 1000) {
+          localStorage.removeItem("basket");
+          this.loadFreeBasket();
+          console.log("Больше двух часов");
+        } else {
+          console.log(currentData);
+          if (currentData.basket.length === 0) {
+            this.loadFreeBasket();
+          } else {
+            this.convertToBasket(currentData);
+          }
+        }
+      } else {
+        this.loadFreeBasket();
+      }
+      console.log(data);
+      // this.render(data);
+      this.renderAddress();
+      this.renderPayment();
+      this.renderBasket();
+      this.renderExtra();
+      this.renderDate();
+    }
     renderBasket() {
       const { basket } = data;
       const fragment = document.createDocumentFragment();
@@ -219,19 +361,10 @@ function init() {
         totalCheck - range.value;
     }
 
-    errorHandler(res) {
-      if (!res.ok) {
-        if (res.status === 401 || res.status === 404)
-          console.log(
-            `Sorry, but there is ${res.status} error: ${res.statusText}`
-          );
-        throw Error(res.statusText);
-      }
-      return res;
-    }
+    
 
-    load() {
-      fetch("order.json" /*, "GET"*/)
+    /* load() {
+      fetch("order.json" )
         .then(this.errorHandler)
         .then((res) => res.json())
         .then((order) => {
@@ -247,7 +380,8 @@ function init() {
 
     save() {}
   }
-
+*/
+  }
   let orderNew = new order();
   orderNew.load();
 
@@ -526,6 +660,7 @@ cardsGalleryClick.forEach((cardClick) => {
               dataCard.card.toppings.push(newTopping);
             }
             changeModalPrice(dishId);
+            orderNew.save();
             orderNew.renderPayment();
           } else {
             currentToppingCheck.classList.toggle("topping__check_active");
@@ -619,6 +754,7 @@ cardsGalleryClick.forEach((cardClick) => {
           });
           changeModalPrice(count.dataset.id);
         }
+        orderNew.save();
         orderNew.renderPayment();
       }
     };
@@ -691,18 +827,10 @@ cardsGalleryClick.forEach((cardClick) => {
           }
         }
       }
+      orderNew.save();
       changeModalPrice(count.dataset.id);
       orderNew.renderPayment();
     };
-  }
-
-  let buttonsCount = document.querySelectorAll(".button__count");
-  for (let buttonCount of buttonsCount) {
-    let minus = buttonCount.querySelector(".count_minus");
-    let plus = buttonCount.querySelector(".count_plus");
-    let count = buttonCount.querySelector(".input_text");
-    minus.addEventListener("click", countMinus(count));
-    plus.addEventListener("click", countPlus(count));
   }
 
   function changeModalPrice(itemID) {
@@ -828,9 +956,9 @@ cardsGalleryClick.forEach((cardClick) => {
       },
     };
     basket.push(elem);
-    console.log(basket);
     toppingActive = [];
     changeModalPrice(dishId);
+    orderNew.save();
     orderNew.renderBasket();
   }
 
@@ -857,9 +985,8 @@ cardsGalleryClick.forEach((cardClick) => {
           price: toppingPrice,
         });
       });
-      
     }
-    
+
     addToBasket(modalID, cards[0]);
     orderNew.renderPayment();
     cards.forEach((card) => {
