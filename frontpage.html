@@ -4,12 +4,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="assets/style/style.css" />
-    <link rel="stylesheet" href="assets/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="/assets/style/style.css" />
+    <link rel="stylesheet" href="/assets/swiper/swiper-bundle.min.css" />
     <script>
       var page = 3;
     </script>
-    <script src="dishes.js"></script>
+    <script src="/assets/js/config.js"></script>
+    <script src="/assets/js/dishes.js"></script>
     <style>
       .swiper {
         width: 100%;
@@ -46,18 +47,18 @@
   <body>
     <div class="block"></div>
     <header class="header">
-      <a class="logo" href="frontpage.html">
+      <a class="logo" href="/frontpage.html">
         <picture>
-          <source srcset="assets/img/logo.svg" media="(min-width: 800px)" />
+          <source srcset="/assets/img/logo.svg" media="(min-width: 800px)" />
           <img
-            src="assets/img/mobileLogo.svg"
+            src="/assets/img/mobileLogo.svg"
             alt="Логотип GRILL VINO и ХАЧАПУРИ"
           />
         </picture>
         <span class="resto"> ресторан современной грузинской кухни </span>
       </a>
       <a id="openMenu" class="burgerMenu">
-        <img src="assets/img/icon_menu_burger.svg" alt="Мобильное меню" />
+        <img src="/assets/img/icon_menu_burger.svg" alt="Мобильное меню" />
       </a>
       <div class="header__nav">
         <nav class="nav">
@@ -70,7 +71,7 @@
         </nav>
         <div class="profile">
           <a href=""
-            ><img src="assets/img/iconProfile.svg" alt="" class="profile__img"
+            ><img src="/assets/img/iconProfile.svg" alt="" class="profile__img"
           /></a>
         </div>
         <div class="phone">
@@ -86,10 +87,10 @@
     <aside id="burgerMenu" class="mobile_wr">
       <div class="mobileWr__img">
         <div class="mobileWr__header_img">
-          <img src="assets/img/mobileLogo.svg" alt="" class="mobile__logo" />
+          <img src="/assets/img/mobileLogo.svg" alt="" class="mobile__logo" />
         </div>
         <img
-          src="assets/img/image_for_basket.jpg"
+          src="/assets/img/image_for_basket.jpg"
           alt=""
           class="tablet__img_main"
         />
@@ -97,13 +98,13 @@
       <div class="mobile">
         <div class="mobile__header">
           <img
-            src="assets/img/mobileLogo.svg"
+            src="/assets/img/mobileLogo.svg"
             alt=""
             class="mobile__logo logo_close"
           />
           <img
             id="closeMenu"
-            src="assets/img/close.svg"
+            src="/assets/img/close.svg"
             alt=""
             class="mobile__close"
           />
@@ -118,7 +119,7 @@
         </nav>
         <div class="mobile__profile">
           <div class="mobile__profile_img">
-            <a href=""><img src="assets/img/mobileIconProfile.svg" alt="" /></a>
+            <a href=""><img src="/assets/img/mobileIconProfile.svg" alt="" /></a>
           </div>
           <span>ПРОФИЛЬ</span>
         </div>
@@ -157,7 +158,7 @@
     <main class="main frontpage">
       <div class="auxiliary"></div>
       <section class="mainGallery">
-        <img class="mainGallery__item" src="assets/img/mainFrontpage.jpg" alt="" />
+        <img class="mainGallery__item" src="/assets/img/mainFrontpage.jpg" alt="" />
       </section>
       <div class="wrapper__main_big">
         <aside class="asideMenu">
@@ -241,13 +242,13 @@
         <div class="footer__main">
           <div class="footer__logo">
             <img
-              src="assets/img/logoFooterMobile.svg"
+              src="/assets/img/logoFooterMobile.svg"
               alt=""
               class="footer__img"
             />
             <div class="footer__favicon">
-              <img src="assets/img/vk.svg" alt="" class="vk" />
-              <img src="assets/img/telegramm.svg" alt="" class="telegram" />
+              <img src="/assets/img/vk.svg" alt="" class="vk" />
+              <img src="/assets/img/telegramm.svg" alt="" class="telegram" />
             </div>
           </div>
           <ul class="footer__nav">
@@ -292,7 +293,7 @@
       </div>
     </footer>
     <aside class="asideModal">
-      <img class="modal__close" src="assets/img/close.svg" alt="" />
+      <img class="modal__close" src="/assets/img/close.svg" alt="" />
       <div class="modal ">
         <div class="modal__header">
           <div class="modal__fav"></div>
@@ -358,7 +359,7 @@
           </div>
           <button class="modal__order_button ">
             <div class="modal__order_click">
-              <img src="assets/img/plus.svg" alt="" />
+              <img src="/assets/img/plus.svg" alt="" />
               <span>добавить</span>
             </div>
           </button>
@@ -390,7 +391,7 @@
       <div class="swiper-slide">
         <div class="top10__card list_item">
           <a class="menu__card">
-            <img class="card__img" src="assets/img/kare.jpg" alt="" />
+            <img class="card__img" src="/assets/img/kare.jpg" alt="" />
             <div class="card_desc">
               <div class="card__text">
                 <div class="card">
@@ -409,7 +410,7 @@
           </a>
           <button class="card__button" type="button">
             <div class="card__button_add">
-              <img class="img__plus" src="assets/img/plus.svg" alt="" />
+              <img class="img__plus" src="/assets/img/plus.svg" alt="" />
               <span>добавить</span>
             </div>
           </button>
@@ -433,11 +434,11 @@
     <template class = itemMenuTemp>
       <a class="menu__main_item" href="">
         <h2 class="menu__main_h2">Напитки</h2>
-        <img src="./assets/img/bigImg.jpg" alt="" class="menu__main_img" />
+        <img src="/assets/img/bigImg.jpg" alt="" class="menu__main_img" />
       </a>
     </template>
     <template class="modalFavTemp">
-      <img class="modal__fav_img" src="assets/img/spicy.svg" alt="" />
+      <img class="modal__fav_img" src="/assets/img/spicy.svg" alt="" />
     </template>
     <template class="toppingCardTemp">
       <div class="topping__card">
@@ -446,11 +447,11 @@
           ><div class="topping__check">
             <img
               class="topping__check_img"
-              src="assets/img/marker.svg"
+              src="/assets/img/marker.svg"
               alt=""
             />
           </div>
-          <img class="topping__img" src="assets/img/cheese.svg" alt="" />
+          <img class="topping__img" src="/assets/img/cheese.svg" alt="" />
           <div class="topping_desc">
             <span class="topping__name">Сыр чеддер</span>
             <div class="topping__other">
@@ -471,12 +472,12 @@
     <template class="swiperGalleryModalTemp">
       <div class="swiper-slide">
         <a class="modal__img">
-          <img class="modal__card_img" src="assets/img/kare.jpg" alt="" />
+          <img class="modal__card_img" src="/assets/img/kare.jpg" alt="" />
         </a>
       </div>
     </template>
-    <script src="frontpage.js"></script>
-    <script src="assets/swiper/swiper-bundle.min.js"></script>
+    <script src="/assets/js/frontpage.js"></script>
+    <script src="/assets/swiper/swiper-bundle.min.js"></script>
     <!-- Initialize Swiper -->
 
     <script>
@@ -509,7 +510,7 @@
       window.addEventListener("DOMContentLoaded", galleryFunc);
       window.addEventListener("resize", galleryFunc);
     </script>
-    <script src="assets/swiper/mobile-swipe-menu.min.js"></script>
+    <script src="/assets/swiper/mobile-swipe-menu.min.js"></script>
     <script>
       function openMobileMenu() {
         var mobileMenu = new MobileSwipeMenu("#burgerMenu", {
