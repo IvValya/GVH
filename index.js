@@ -10,6 +10,48 @@ function init() {
   let yDiff = 0;
   let full = 0;
   let touchTrue = false;
+  const auxiliary = document.querySelector(".auxiliary");
+  const header = document.querySelector(".header");
+  const footer = document.querySelector(".footer");
+  const menu = document.querySelector(".menu");
+  const menuMobileNav = document.querySelector(".menu__mobile_nav");
+  const modal = document.querySelector(".modal");
+  const main = document.querySelector(".main");
+  const menuH2 = document.querySelector(".menu__h2");
+  const burger = document.querySelector(".burgerMenu");
+  const mobileBasketSticky = document.querySelector(".mobileBasket_sticky");
+  const toBasket = document.querySelector(".add__order");
+  const mobileBasket = document.querySelector(".mobileBasket");
+  const buttonAdd = document.querySelectorAll(".card__button");
+  const cardCount = document.querySelectorAll(".card__button_count");
+  const footerCopyright = document.querySelector(".footer__copyright");
+  let buttonsCount = document.querySelectorAll(".button__count");
+  const btnCloseModal = document.querySelector(".modal__close");
+  const btnCloseMobileBasket = document.querySelector(".mobileBasket__close");
+  const modalFooter = document.querySelector(".modal__footer");
+  let toppingLabels;
+  const asideModal = document.querySelector(".asideModal");
+  const mobileBasketHeaderPrice = document.querySelector(
+    ".mobileBasket__header_totalPrice"
+  );
+  const buttonOrder = document.querySelectorAll(".button_order");
+  const mobileBasketHeader = document.querySelector(".mobileBasket__header");
+  const mobileBasketFooter = document.querySelector(".mobileBasket__footer");
+  const mobileBasketOpen = document.querySelector(".mobileBasket_open");
+  const asideMenuUl = document.querySelector(".asideMenu__ul");
+  const mobileBasketHeaderImg = document.querySelector(
+    ".mobileBasket__header_img"
+  );
+  const mobileBasketHeaderWr = document.querySelector(
+    ".mobileBasket__header_wr"
+  );
+  const divBlock = document.querySelector(".block");
+  const inputs = document.querySelectorAll(".input_text");
+  let modalTrue = false;
+  let basketTrue = false;
+  let scrollTrue = true;
+  let startPosition = window.innerHeight;
+
   class basket {
     convertFromBasket() {
       console.log(data);
@@ -71,7 +113,7 @@ function init() {
                 if (currentTopping) {
                   currentToppings.push({
                     id: topping,
-                    price: currentTopping.price,
+                    price: parseInt(currentTopping.price),
                   });
                 }
               });
@@ -98,6 +140,7 @@ function init() {
           typeDelivery: currentData.typeDelivery,
         },
       };
+      console.log(data);
     }
 
     save() {
@@ -147,7 +190,7 @@ function init() {
               toppPrice += topping.price;
             });
           }
-
+          console.log(toppPrice);
           totalCheck += (item.card.price + toppPrice) * item.card.quantity;
           let currentMinus = cardClone.querySelector(".count_minus");
           let currentCount = cardClone.querySelector(".input_text");
@@ -230,7 +273,7 @@ function init() {
       });
     }
 
-    errorHandler(res) {
+    /*errorHandler(res) {
       if (!res.ok) {
         if (res.status === 401 || res.status === 404)
           console.log(
@@ -239,7 +282,7 @@ function init() {
         throw Error(res.statusText);
       }
       return res;
-    }
+    }*/
 
     loadFreeBasket() {
       data = {
@@ -249,7 +292,7 @@ function init() {
     }
 
     load() {
-     // localStorage.removeItem("basket");
+      // localStorage.removeItem("basket");
       let currentBasket = localStorage.getItem("basket");
       if (currentBasket) {
         let currentData = JSON.parse(currentBasket);
@@ -272,16 +315,6 @@ function init() {
       }
       console.log(data);
       this.render(data);
-      /*
-      fetch("order.json" )
-        .then(this.errorHandler)
-        .then((res) => res.json())
-        .then((order) => {
-          data = order;
-          
-          this.save();
-        })
-        .catch((err) => console.error(err));*/
     }
 
     addToBasket(dishId, target) {
@@ -341,64 +374,12 @@ function init() {
         console.log(card);
   */
     }
-
-    removeFromBasket(count) {
-      this.save(data);
-      this.render(data);
-
-      if (modalTrue) {
-        let cardC = document.querySelector(
-          '.list_item[data-id="' + count.dataset.id + '"]'
-        );
-        renderModal(count.dataset.id, cardC);
-      }
-    }
   }
 
   let orderBasket = new basket();
   orderBasket.load();
 
-  const auxiliary = document.querySelector(".auxiliary");
-  const header = document.querySelector(".header");
-  const footer = document.querySelector(".footer");
-  const menu = document.querySelector(".menu");
-  const menuMobileNav = document.querySelector(".menu__mobile_nav");
-  const modal = document.querySelector(".modal");
-  const main = document.querySelector(".main");
-  const menuH2 = document.querySelector(".menu__h2");
-  const burger = document.querySelector(".burgerMenu");
-  const mobileBasketSticky = document.querySelector(".mobileBasket_sticky");
-  const toBasket = document.querySelector(".add__order");
-  const mobileBasket = document.querySelector(".mobileBasket");
-  const buttonAdd = document.querySelectorAll(".card__button");
-  const cardCount = document.querySelectorAll(".card__button_count");
-  const footerCopyright = document.querySelector(".footer__copyright");
-  let buttonsCount = document.querySelectorAll(".button__count");
-  const btnCloseModal = document.querySelector(".modal__close");
-  const btnCloseMobileBasket = document.querySelector(".mobileBasket__close");
-  const modalFooter = document.querySelector(".modal__footer");
-  let toppingLabels;
-  const asideModal = document.querySelector(".asideModal");
-  const mobileBasketHeaderPrice = document.querySelector(
-    ".mobileBasket__header_totalPrice"
-  );
-  const buttonOrder = document.querySelectorAll(".button_order");
-  const mobileBasketHeader = document.querySelector(".mobileBasket__header");
-  const mobileBasketFooter = document.querySelector(".mobileBasket__footer");
-  const mobileBasketOpen = document.querySelector(".mobileBasket_open");
-  const asideMenuUl = document.querySelector(".asideMenu__ul");
-  const mobileBasketHeaderImg = document.querySelector(
-    ".mobileBasket__header_img"
-  );
-  const mobileBasketHeaderWr = document.querySelector(
-    ".mobileBasket__header_wr"
-  );
-  const divBlock = document.querySelector(".block");
-  const inputs = document.querySelectorAll(".input_text");
-  let modalTrue = false;
-  let basketTrue = false;
-  let scrollTrue = true;
-  let startPosition = window.innerHeight; // - parseInt(mobileBasketSticky.style.bottom) + "px";
+  // - parseInt(mobileBasketSticky.style.bottom) + "px";
 
   buttonOrder.forEach((item) => {
     item.addEventListener("click", renderFullOrder);
@@ -501,6 +482,7 @@ function init() {
         currentCard.remove();
         //проверка на пустую корзину
       }
+      orderBasket.save(data);
       renderData(count.dataset.id);
     };
   }
@@ -638,6 +620,7 @@ function init() {
               dataCard.card.toppings.push(newTopping);
             }
             renderData(dishId);
+            orderBasket.save();
           } else {
             currentToppingCheck.classList.toggle("topping__check_active");
           }
@@ -965,6 +948,7 @@ window.addEventListener("load",()=> {
     } else {
       currentID = 0;
     }
+    orderBasket.save();
     renderData(currentID);
   }
   //
@@ -1463,12 +1447,13 @@ for (let t = 0; t < btnDeliverys.length; t++) {
       item.style.display = "none";
     });
     orderBasket.render(data);
+    orderBasket.save();
   }
 
   function renderData(itemID) {
     let totalCheck = 0;
     let { basket, delivery } = data;
-    let { priceDelivery, orderPriceForFree } = delivery;
+    let { priceDelivery } = delivery;
     if (basket.length !== 0) {
       let cards = document.querySelectorAll(
         '.input_text[data-id="' + itemID + '"]'
