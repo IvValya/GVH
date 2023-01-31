@@ -20,7 +20,6 @@ var data;
     }
 
     convertFromBasket() {
-      console.log(data);
       let convertedBasket = [];
       let currentRefreshTime = Date.now();
       let currentTypeDelivery = data.delivery.typeDelivery;
@@ -42,7 +41,6 @@ var data;
         typeDelivery: currentTypeDelivery,
         refreshTime: currentRefreshTime,
       };
-      console.log(convertedData);
       return convertedData;
     }
 
@@ -62,7 +60,6 @@ var data;
             (elem) => elem.id === item.id
           );
           if (currentBasketItem) {
-            console.log(currentBasketItem);
             currentName = item.name;
             currentImg = item.img[0];
             currentWeight = item.weight;
@@ -109,7 +106,6 @@ var data;
           typeDelivery: currentData.typeDelivery,
         },
       };
-      console.log(data);
     }
 
     save() {

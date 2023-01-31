@@ -85,7 +85,6 @@ class dishesL {
         let cardClone = itemMenuTemp.content.cloneNode(true);
         let className = item.columns;
         let itemNMenu = cardClone.querySelector(".menu__main_item")
-        console.log(nameHrefCategory);
         itemNMenu.href = nameHrefCategory + item.name;
         itemNMenu.classList.add(className);
         cardClone.querySelector(".menu__main_h2").textContent = item.name;

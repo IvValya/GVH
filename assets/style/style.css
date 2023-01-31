@@ -3355,7 +3355,7 @@ input[type="number"]:focus {
     }
 
     .deskBasket__menu {
-        max-height: calc(100% - 229px);
+        max-height: calc(100vh - 310px);
         flex-grow: 1;
     }
 
