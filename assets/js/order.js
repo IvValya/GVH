@@ -1,7 +1,7 @@
 let data;
 let modalTrue = false;
-window.onload = init;
-function init() {
+//window.onload = init;
+//function init() {
   let buttonsCount = document.querySelectorAll(".button__count");
   for (let buttonCount of buttonsCount) {
     let minus = buttonCount.querySelector(".count_minus");
@@ -1037,4 +1037,4 @@ cardsGalleryClick.forEach((cardClick) => {
       window.location = asideMenuDiv.dataset.catHref;
     });
   }
-}
+//}

@@ -1,5 +1,5 @@
-window.onload = init;
-function init() {
+//window.onload = init;
+//function init() {
   let toppingActive = [];
   let mobileBasketTrue = false;
   var basketOpen = true;
@@ -1748,4 +1748,4 @@ for (let t = 0; t < btnDeliverys.length; t++) {
   //let currentCategory = categories.find( (item) => item.textContent === nameCat);
 
   // console.log(currentCategory);
-}
+//}

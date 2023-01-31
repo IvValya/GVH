@@ -1,7 +1,7 @@
 var data;
 
-window.onload = init;
-function init() {
+//window.onload = init;
+//function init() {
   class frontpage {
     renderBtnsTop() {
       let allMenu = document.querySelectorAll(".list_item");
@@ -688,4 +688,4 @@ function init() {
       window.location = asideMenuDiv.dataset.catHref;
     });
   }
-}
+//}
