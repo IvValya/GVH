@@ -2,4 +2,4 @@
 https://ivvalya.github.io/GVH/index   
 https://ivvalya.github.io/GVH/frontpage  
 
-/ivvalya.github.io/GVH/template
+https://ivvalya.github.io/GVH/template
