@@ -88,11 +88,13 @@ function init() {
       let currentPrice;
       let currentPriceBeforeDiscount;
       let currentToppings = [];
-      menuData.meals.forEach((dish) => {
+      for (let t = 1; t < menuData.meals.length; t++) {
+        let dish = menuData.meals[t];
         dish.products.forEach((item) => {
           let currentBasketItem = currentData.basket.find(
             (elem) => elem.id === item.id
           );
+
           if (currentBasketItem) {
             console.log(currentBasketItem);
             currentName = item.name;
@@ -133,7 +135,8 @@ function init() {
             currentToppings = [];
           }
         });
-      });
+      }
+
       data = {
         basket: currBasket,
         delivery: {
@@ -311,7 +314,7 @@ function init() {
       let currentCard = target.closest(".list_item");
       let currentId = parseInt(dishId.split("").splice(4).join(""));
       let currentPriceAfterDiscount;
-      for (let i = 0; i < menuData.meals.length; i++) {
+      for (let i = 1; i < menuData.meals.length; i++) {
         currentPriceAfterDiscount = menuData.meals[i].products.find(
           (point) => point.id === currentId
         );

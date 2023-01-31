@@ -47,7 +47,8 @@ function init() {
       let currentPrice;
       let currentPriceBeforeDiscount;
       let currentToppings = [];
-      menuData.meals.forEach((dish) => {
+      for (let t = 1; t < menuData.meals.length; t++) {
+        let dish = menuData.meals[t];
         dish.products.forEach((item) => {
           let currentBasketItem = currentData.basket.find(
             (elem) => elem.id === item.id
@@ -92,7 +93,8 @@ function init() {
             currentToppings = [];
           }
         });
-      });
+      }
+
       data = {
         basket: currBasket,
         delivery: {
@@ -138,15 +140,15 @@ function init() {
         currentMinus.addEventListener("click", countMinus(currentCount));
         cardClone.querySelector(".order__topping_desc").textContent =
           item.description + " " + item.contents; //Заполнить когда появится новая структура
-          for (let i=0; i<data.basket.length; i++) {
-            let card = data.basket[i];
-            if (card.id !== item.id) {
-              cardClone.querySelector(".input_text").value = 0;
-            } else {
-              cardClone.querySelector(".input_text").value = card.card.quantity;
-              break;
-            }
+        for (let i = 0; i < data.basket.length; i++) {
+          let card = data.basket[i];
+          if (card.id !== item.id) {
+            cardClone.querySelector(".input_text").value = 0;
+          } else {
+            cardClone.querySelector(".input_text").value = card.card.quantity;
+            break;
           }
+        }
         /*data.basket.forEach((card) => {
           
         });*/
@@ -323,7 +325,7 @@ function init() {
     save() {}
   }
 */
-   
+
     renderBasket() {
       const { basket } = data;
       const fragment = document.createDocumentFragment();
@@ -933,7 +935,7 @@ cardsGalleryClick.forEach((cardClick) => {
     let currentId = parseInt(dishId.split("").splice(4).join(""));
     let currentDish;
     let currentPriceAfterDiscount;
-    for (let i = 0; i < menuData.meals.length; i++) {
+    for (let i = 1; i < menuData.meals.length; i++) {
       currentDish = menuData.meals[i].products.find(
         (point) => point.id === currentId
       );

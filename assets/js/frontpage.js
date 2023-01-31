@@ -1,14 +1,10 @@
-
 var data;
-
-
 
 window.onload = init;
 function init() {
-  
-class frontpage {
-  renderBtnsTop(){
-    let allMenu = document.querySelectorAll(".list_item");
+  class frontpage {
+    renderBtnsTop() {
+      let allMenu = document.querySelectorAll(".list_item");
 
       data.basket.forEach((itemCard) => {
         for (let itemMenu of allMenu) {
@@ -21,140 +17,143 @@ class frontpage {
           }
         }
       });
-  }
-
-  convertFromBasket() {
-    console.log(data);
-    let convertedBasket = [];
-    let currentRefreshTime = Date.now();
-    let currentTypeDelivery = data.delivery.typeDelivery;
-    data.basket.forEach((item) => {
-      let currentId = item.id;
-      let currentQuantity = item.card.quantity;
-      let currentToppingsId = [];
-      item.card.toppings.forEach((topping) => {
-        currentToppingsId.push(topping.id);
-      });
-      convertedBasket.push({
-        id: currentId,
-        quantity: currentQuantity,
-        toppingsId: currentToppingsId,
-      });
-    });
-    let convertedData = {
-      basket: convertedBasket,
-      typeDelivery: currentTypeDelivery,
-      refreshTime: currentRefreshTime,
-    };
-    console.log(convertedData);
-    return convertedData;
-  }
-
-  convertToBasket(currentData) {
-    let currBasket = [];
-    let currentImg;
-    let currentName;
-    let currentWeight;
-    let currentPrice;
-    let currentPriceBeforeDiscount;
-    let currentToppings = [];
-    menuData.meals.forEach((dish) => {
-      dish.products.forEach((item) => {
-        let currentBasketItem = currentData.basket.find(
-          (elem) => elem.id === item.id
-        );
-        if (currentBasketItem) {
-          console.log(currentBasketItem);
-          currentName = item.name;
-          currentImg = item.img[0];
-          currentWeight = item.weight;
-          if (item.sale_price === 0) {
-            currentPrice = item.price;
-            currentPriceBeforeDiscount = item.price;
-          } else {
-            currentPrice = item.sale_price;
-            currentPriceBeforeDiscount = item.price;
-          }
-          if (currentBasketItem.toppingsId.length !== 0) {
-            currentBasketItem.toppingsId.forEach((topping) => {
-              let currentTopping = menuData.toppings.find(
-                (elem) => elem.id === topping
-              );
-              if (currentTopping) {
-                currentToppings.push({
-                  id: topping,
-                  price: parseInt(currentTopping.price),
-                });
-              }
-            });
-          }
-          currBasket.push({
-            id: currentBasketItem.id,
-            card: {
-              name: currentName,
-              img: currentImg,
-              weight: currentWeight,
-              price: parseInt(currentPrice),
-              priceBeforeDiscount: parseInt(currentPriceBeforeDiscount),
-              quantity: currentBasketItem.quantity,
-              toppings: currentToppings,
-            },
-          });
-          currentToppings = [];
-        }
-      });
-    });
-    data = {
-      basket: currBasket,
-      delivery: {
-        typeDelivery: currentData.typeDelivery,
-      },
-    };
-    console.log(data);
-  }
-
-  save() {
-    let order = JSON.stringify(this.convertFromBasket());
-    console.log(order);
-    localStorage.setItem("basket", order);
-  }
-  
-  loadFreeBasket() {
-    data = {
-      basket: [],
-      delivery: { typeDelivery: "delivery" },
-    };
-  }
-
-  load() {
-    // localStorage.removeItem("basket");
-    let currentBasket = localStorage.getItem("basket");
-    if (currentBasket) {
-      let currentData = JSON.parse(currentBasket);
-      console.log(currentData);
-      let currentTime = Date.now();
-      if (currentTime - currentData.refreshTime > 2 * 3600 * 1000) {
-        localStorage.removeItem("basket");
-        this.loadFreeBasket();
-        console.log("Больше двух часов");
-      } else {
-        console.log(currentData);
-        if (currentData.basket.length === 0) {
-          this.loadFreeBasket();
-        } else {
-          this.convertToBasket(currentData);
-        }
-      }
-    } else {
-      this.loadFreeBasket();
     }
-    console.log(data);
-    this.renderBtnsTop();
+
+    convertFromBasket() {
+      console.log(data);
+      let convertedBasket = [];
+      let currentRefreshTime = Date.now();
+      let currentTypeDelivery = data.delivery.typeDelivery;
+      data.basket.forEach((item) => {
+        let currentId = item.id;
+        let currentQuantity = item.card.quantity;
+        let currentToppingsId = [];
+        item.card.toppings.forEach((topping) => {
+          currentToppingsId.push(topping.id);
+        });
+        convertedBasket.push({
+          id: currentId,
+          quantity: currentQuantity,
+          toppingsId: currentToppingsId,
+        });
+      });
+      let convertedData = {
+        basket: convertedBasket,
+        typeDelivery: currentTypeDelivery,
+        refreshTime: currentRefreshTime,
+      };
+      console.log(convertedData);
+      return convertedData;
+    }
+
+    convertToBasket(currentData) {
+      let currBasket = [];
+      let currentImg;
+      let currentName;
+      let currentWeight;
+      let currentPrice;
+      let currentPriceBeforeDiscount;
+      let currentToppings = [];
+      for (let t = 1; t < menuData.meals.length; t++) {
+        let dish = menuData.meals[t];
+
+        dish.products.forEach((item) => {
+          let currentBasketItem = currentData.basket.find(
+            (elem) => elem.id === item.id
+          );
+          if (currentBasketItem) {
+            console.log(currentBasketItem);
+            currentName = item.name;
+            currentImg = item.img[0];
+            currentWeight = item.weight;
+            if (item.sale_price === 0) {
+              currentPrice = item.price;
+              currentPriceBeforeDiscount = item.price;
+            } else {
+              currentPrice = item.sale_price;
+              currentPriceBeforeDiscount = item.price;
+            }
+            if (currentBasketItem.toppingsId.length !== 0) {
+              currentBasketItem.toppingsId.forEach((topping) => {
+                let currentTopping = menuData.toppings.find(
+                  (elem) => elem.id === topping
+                );
+                if (currentTopping) {
+                  currentToppings.push({
+                    id: topping,
+                    price: parseInt(currentTopping.price),
+                  });
+                }
+              });
+            }
+            currBasket.push({
+              id: currentBasketItem.id,
+              card: {
+                name: currentName,
+                img: currentImg,
+                weight: currentWeight,
+                price: parseInt(currentPrice),
+                priceBeforeDiscount: parseInt(currentPriceBeforeDiscount),
+                quantity: currentBasketItem.quantity,
+                toppings: currentToppings,
+              },
+            });
+            currentToppings = [];
+          }
+        });
+      }
+
+      data = {
+        basket: currBasket,
+        delivery: {
+          typeDelivery: currentData.typeDelivery,
+        },
+      };
+      console.log(data);
+    }
+
+    save() {
+      let order = JSON.stringify(this.convertFromBasket());
+      console.log(order);
+      localStorage.setItem("basket", order);
+    }
+
+    loadFreeBasket() {
+      data = {
+        basket: [],
+        delivery: { typeDelivery: "delivery" },
+      };
+    }
+
+    load() {
+      // localStorage.removeItem("basket");
+      let currentBasket = localStorage.getItem("basket");
+      if (currentBasket) {
+        let currentData = JSON.parse(currentBasket);
+        console.log(currentData);
+        let currentTime = Date.now();
+        if (currentTime - currentData.refreshTime > 2 * 3600 * 1000) {
+          localStorage.removeItem("basket");
+          this.loadFreeBasket();
+          console.log("Больше двух часов");
+        } else {
+          console.log(currentData);
+          if (currentData.basket.length === 0) {
+            this.loadFreeBasket();
+          } else {
+            this.convertToBasket(currentData);
+          }
+        }
+      } else {
+        this.loadFreeBasket();
+      }
+      console.log(data);
+      this.renderBtnsTop();
+    }
   }
-}
   function renderModal(dishId, target) {
     let { meals, toppings } = menuData;
-  
+
     let toppPrice = 0;
     meals.forEach((dish) => {
       const card = dish.products.find(
@@ -189,7 +188,7 @@ class frontpage {
         );
         mySwiperModal.innerHTML = "";
         mySwiperModal.appendChild(fragmentSwiperModal);
-  
+
         modalWindow.querySelector(".modal__desc").textContent =
           card.description + " " + card.contents;
         const fragmentTopping = document.createDocumentFragment();
@@ -228,7 +227,7 @@ class frontpage {
         });
         toppingList.innerHTML = "";
         toppingList.appendChild(fragmentTopping);
-  
+
         const footerBJU = document.querySelector(".footer__BJU");
         footerBJU.querySelector(".modal__weight").textContent = card.weight;
         footerBJU.querySelector(
@@ -273,7 +272,7 @@ class frontpage {
         btnMinus.dataset.id = "dish" + card.id;
         btnPlus.dataset.id = "dish" + card.id;
         // прорисовываем топпинги
-  
+
         let priceAfterDiscount;
         if (parseInt(card.sale_price) === 0) {
           priceAfterDiscount = card.price;
@@ -285,7 +284,6 @@ class frontpage {
         modalFooter.querySelector(".modal__total_number").textContent =
           (priceAfterDiscount + toppPrice) * currentValue;
       }
-      
     });
     changeModalPrice(dishId);
   }
@@ -441,7 +439,7 @@ class frontpage {
     let currentCard = target.closest(".list_item");
     let currentId = parseInt(dishId.split("").splice(4).join(""));
     let currentPriceAfterDiscount;
-    for (let i = 0; i < menuData.meals.length; i++) {
+    for (let i = 1; i < menuData.meals.length; i++) {
       currentPriceAfterDiscount = menuData.meals[i].products.find(
         (point) => point.id === currentId
       );
@@ -515,9 +513,9 @@ class frontpage {
       currentCard.querySelector(".card__button").style.display = "none";
       currentCard.querySelector(".button__count").style.display = "flex";
     });
-    document.querySelector(".modal__order_button").style.display = "none";    
+    document.querySelector(".modal__order_button").style.display = "none";
     let modalButton = document.querySelector(".modal__button_count");
-    modalButton.style.display = "flex"
+    modalButton.style.display = "flex";
     modalButton.querySelector(".input_text").value = 1;
   }
 
@@ -613,7 +611,6 @@ class frontpage {
       modalFooter.querySelector(".modal__total_number").textContent =
         (dataCard.card.price + toppPrice) * dataCard.card.quantity;
     }
-   
   }
   const inputs = document.querySelectorAll(".input_text");
   inputs.forEach((input) => {
