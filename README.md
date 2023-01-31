@@ -1,2 +1,2 @@
 # GVH
-https://ivvalya.github.io/GVH/
+https://ivvalya.github.io/GVH/template
