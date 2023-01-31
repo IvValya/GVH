@@ -70,10 +70,8 @@
             <li class="nav__item">КОНТАКТЫ</li>
           </a>
         </nav>
-        <div class="profile">
-          <a href=""
-            ><img src="/assets/img/iconProfile.svg" alt="" class="profile__img"
-          /></a>
+        <div class="profile profile__item">
+          <img src="/assets/img/iconProfile.svg" alt="" class="profile__img" />
         </div>
         <div class="phone">
           <a class="contacts__a" href="tel:+78129362292"
@@ -118,9 +116,9 @@
             <li class="nav__item">КОНТАКТЫ</li>
           </a>
         </nav>
-        <div class="mobile__profile">
+        <div class="mobile__profile profile__item">
           <div class="mobile__profile_img">
-            <a href=""><img src="/assets/img/mobileIconProfile.svg" alt="" /></a>
+            <img src="/assets/img/mobileIconProfile.svg" alt="" />
           </div>
           <span>ПРОФИЛЬ</span>
         </div>
@@ -240,8 +238,16 @@
               <h2 class="order__item_h2">Время доставки</h2>
               <div class="dateTime">
                 <select class="dateTime__item date" name="date" id="date">
-                  <option class="option_item" name="today" value="сегодня"></option>
-                  <option class="option_item" name="tomorrow" value="завтра"></option>
+                  <option
+                    class="option_item"
+                    name="today"
+                    value="сегодня"
+                  ></option>
+                  <option
+                    class="option_item"
+                    name="tomorrow"
+                    value="завтра"
+                  ></option>
                 </select>
                 <select class="dateTime__item time" name="time" id="time">
                   <option class="option_item" value="11:00">11:00</option>
@@ -276,20 +282,33 @@
             <div class="order__item order__payment">
               <div class="wrapper__payment">
                 <h2 class="order__item_h2">Оплата</h2>
-                <select name="paymentCard" id="paymentCard" class="paymentCard ">
-                  <option class="option_item" id="cashPay" value="Наличные курьеру">
+                <select name="paymentCard" id="paymentCard" class="paymentCard">
+                  <option
+                    class="option_item"
+                    id="cashPay"
+                    value="Наличные курьеру"
+                  >
                     Наличные курьеру
                   </option>
-                  <option class="option_item" id="courierPay" value="Картой курьеру">
+                  <option
+                    class="option_item"
+                    id="courierPay"
+                    value="Картой курьеру"
+                  >
                     Картой курьеру
                   </option>
-                  <option class="option_item"
+                  <option
+                    class="option_item"
                     id="restaurantPay"
                     value="Наличные/картой в ресторане"
                   >
                     Наличные/картой в ресторане
                   </option>
-                  <option class="option_item" id="onlinePay" value="Онлайн на сайте">
+                  <option
+                    class="option_item"
+                    id="onlinePay"
+                    value="Онлайн на сайте"
+                  >
                     Онлайн на сайте
                   </option>
                 </select>
