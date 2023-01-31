@@ -10,6 +10,14 @@ class dishesL {
     }
     return res;
   }
+
+  loadScript(src) {
+    let script = document.createElement('script');
+    script.src = src;
+    script.async = false;
+    document.body.append(script);
+  }
+
   load() {
     fetch(urLForGet /*, "GET"*/)
       .then(this.errorHandler)
@@ -17,8 +25,15 @@ class dishesL {
       .then((data) => {
         menuData = data;
         this.renderCategories(data);
+        if (page === 1) {
+          this.loadScript("/assets/js/index.js");
+        }
+        if (page === 2) {
+          this.loadScript("/assets/js/order.js");
+        }
         if (page === 3) {
           this.renderFrontpage();
+          this.loadScript("/assets/js/frontpage.js");
         }
       })
       .catch((err) => console.error(err));

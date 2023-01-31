@@ -2,6 +2,10 @@
 var data;
 
 
+
+window.onload = init;
+function init() {
+  
 class frontpage {
   renderBtnsTop(){
     let allMenu = document.querySelectorAll(".list_item");
@@ -148,9 +152,6 @@ class frontpage {
     this.renderBtnsTop();
   }
 }
-
-window.onload = init;
-function init() {
   function renderModal(dishId, target) {
     let { meals, toppings } = menuData;
   

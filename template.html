@@ -690,5 +690,50 @@
    <script src="assets/js/mask.js"></script>
     <script src="assets/js/profile.js"></script>
     <script src="assets/swiper/swiper-bundle.min.js"></script>
+    <script>
+      function openMobileMenu() {
+        var mobileMenu = new MobileSwipeMenu("#burgerMenu", {
+          mode: "right",
+          width: window.innerWidth,
+          hookWidth: 15,
+          events: {
+            opening: function () {
+              console.log(this, "Opened");
+            },
+            closing: function () {
+              console.log(this, "Closed");
+            },
+            drag: function (swipe) {
+              console.log(this, swipe);
+            },
+          },
+        });
+        document
+          .getElementById("openMenu")
+          .addEventListener("click", function () {
+            document.body.style.overflow = "hidden";
+            setTimeout(() => {
+              mobileMenu.open();
+            }, 10);
+          });
+        document
+          .getElementById("closeMenu")
+          .addEventListener("click", function () {
+            mobileMenu.close();
+            setTimeout(() => {
+              //document.getElementById("burgerMenu").style.display = "none";
+              document.body.style.overflow = "unset";
+            }, 400);
+          });
+      }
+      window.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("burgerMenu").style.display = "flex";
+        openMobileMenu();
+      });
+      window.addEventListener("resize", () => {
+        document.getElementById("burgerMenu").style.display = "flex";
+        openMobileMenu();
+      });
+    </script>
   </body>
 </html>

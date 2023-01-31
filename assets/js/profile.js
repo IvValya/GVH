@@ -1,6 +1,6 @@
 const buttonOnward = document.querySelector(".profile__button");
 const profileCloseBtn = document.querySelector(".profile__close");
-const profile = document.querySelector(".profile__item");
+const profile = document.querySelectorAll(".profile__item");
 const modalProfileFull = document.querySelector(".modalProfile");
 const modalProfile = document.querySelector(".profile__main");
 const main = document.querySelector(".main");
@@ -26,7 +26,10 @@ function closeProfile() {
     modalProfileFull.style.display = "none";
   }, 700);
 }
-profile.addEventListener("click", openProfile);
+
+profile.forEach((item) => {
+    item.addEventListener("click", openProfile);
+})
 profileCloseBtn.addEventListener("click", closeProfile);
 
 var element = document.getElementById("profile__phone");
