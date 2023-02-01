@@ -85,7 +85,7 @@ class dishesL {
         let cardClone = itemMenuTemp.content.cloneNode(true);
         let className = item.columns;
         let itemNMenu = cardClone.querySelector(".menu__main_item")
-        itemNMenu.href = nameHrefCategory + item.name;
+        itemNMenu.href = linkToMenuPage + item.name;
         itemNMenu.classList.add(className);
         cardClone.querySelector(".menu__main_h2").textContent = item.name;
         cardClone.querySelector(".menu__main_img").src = item.main_pic;
@@ -193,8 +193,8 @@ class dishesL {
         currentNav = document.querySelector(".asideMenu__ul");
         if (page !== 1) {
           let asideMenuDiv = cardCloneAside.querySelector(".asideMenu__div");
-          asideMenuDiv.dataset.catHref = nameHrefCategory + item.name;
-         // cardCloneAside.querySelector(".asideMenu__a").href = nameHrefCategory + item.name;
+          asideMenuDiv.dataset.catHref = linkToMenuPage + item.name;
+         // cardCloneAside.querySelector(".asideMenu__a").href = linkToMenuPage + item.name;
         }
         cardCloneAside.querySelector(".asideMenu__label").textContent =
           item.name;

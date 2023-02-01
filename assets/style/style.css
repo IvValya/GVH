@@ -2362,7 +2362,7 @@ input[type="number"]:focus {
 }
 
 /*--------------------Modal profile-----------------------------------*/
-.modalProfile {
+.modalAuth {
     display: none;
     z-index: 1000;
     position: absolute;
@@ -2371,12 +2371,13 @@ input[type="number"]:focus {
     height: 100vh;
 }
 
-.profile__extra {
+.auth__extra {
     height: 130px;
     backdrop-filter: blur(2px);
 }
 
-.profile__main {
+
+.auth__main {
     padding-top: 38px;
     padding-left: 43px;
     padding-right: 43px;
@@ -2386,12 +2387,22 @@ input[type="number"]:focus {
     height: calc(100vh - 130px);
 }
 
-.profile__h2 {
+.auth__main_code {
+    display: none;
+    position: relative;
+}
+
+.auth__main_code .auth__close {
+    position: absolute;
+    right: 38px;
+}
+
+.auth__h2 {
     font-size: 24px;
     color: #831335;
 }
 
-.profile__p {
+.auth__p {
     font-weight: 500;
     font-size: 14px;
     color: #757575;
@@ -2399,13 +2410,38 @@ input[type="number"]:focus {
     padding-bottom: 28px;
 }
 
-.profile__header {
+.auth__header {
     display: flex;
     justify-content: space-between;
     padding-bottom: 36px;
 }
 
-.profile__phone {
+.auth__error,
+.code__error {
+    display: none;
+    padding-bottom: 15px;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--color-bordeaux);
+}
+
+.newSMS {
+    display: none;
+    justify-self: center;
+    text-align: center;
+    cursor: pointer;
+    font-family: 'Good Pro';
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #757575;
+    line-height: 16px;
+    border: none;
+    background-color: var(--text-color-white);
+}
+
+.auth__phone,
+.SMSCode {
     width: 100%;
     height: 47px;
     display: flex;
@@ -2418,7 +2454,8 @@ input[type="number"]:focus {
     margin-bottom: 19px;
 }
 
-.profile__button {
+.button__forward,
+.auth__enter {
     cursor: pointer;
     border: none;
     background: #831335;
@@ -2430,15 +2467,60 @@ input[type="number"]:focus {
     color: var(--text-color-white);
     margin-bottom: 30px;
 }
+
 .profile__img {
     cursor: pointer;
 }
-.profile__close {
+
+.auth__close {
     cursor: pointer;
 }
 
-.profile__agreement,
-.profile__agreement .details {
+.code__re {
+    font-family: 'Good Pro';
+    font-style: normal;
+    font-weight: 450;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+
+    color: #757575;
+}
+
+
+.auth__main_code .auth__p,
+.auth__number {
+    padding-bottom: 20px;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 16px;
+    text-align: center;
+    color: #757575;
+}
+.auth__phone_correct {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 16px;
+    text-align: center;
+    color: #757575;
+    background-color: var(--text-color-white);
+    border: none;
+    cursor: pointer;
+}
+
+.auth__main_code .auth__p {
+    padding-top: 40px;
+}
+
+.auth__number {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 33px;
+    column-gap: 10px;
+}
+
+.auth__agreement,
+.auth__agreement .details {
     font-family: 'Good Pro';
     font-style: normal;
     font-weight: 450;
@@ -2448,7 +2530,7 @@ input[type="number"]:focus {
     color: #757575;
 }
 
-.profile__agreement .details {
+.auth__agreement .details {
     text-decoration: underline;
 }
 
@@ -2471,7 +2553,7 @@ input[type="number"]:focus {
         height: 124px;
     }
 
-    .modalProfile {
+    .modalAuth {
         position: absolute;
         top: 0;
         left: 0;
@@ -2479,11 +2561,23 @@ input[type="number"]:focus {
         height: 100vh;
     }
 
-    .profile__extra {
+    .auth__enter {
+        margin-bottom: 45px;
+    }
+
+    .auth__main_code .auth__p {
+        padding-top: 52px;
+    }
+
+    .auth__extra {
         display: none;
     }
 
-    .profile__main {
+    .auth__number {
+        padding-bottom: 47px;
+    }
+
+    .auth__main {
         position: absolute;
         width: 464px;
         height: 450px;
@@ -2492,10 +2586,11 @@ input[type="number"]:focus {
         padding-top: 38px;
     }
 
-    .profile__button {
+    .button__forward {
         margin-bottom: 50px;
     }
-    .profile__p  {
+
+    .auth__p {
         padding-bottom: 50px;
     }
 

@@ -65,8 +65,7 @@
           </a>
         </nav>
         <div class="profile profile__item">
-          <img src="assets/img/iconProfile.svg" alt="" class="profile__img"
-          />
+          <img src="assets/img/iconProfile.svg" alt="" class="profile__img" />
         </div>
         <div class="phone">
           <a class="contacts__a" href="tel:+78129362292"
@@ -664,31 +663,65 @@
       </div>
     </footer>
 
-
-    <div class="modalProfile">
-      <div class="profile__extra"></div>
-      <div class="profile__main">
-        <div class="profile__header">
-          <h2 class="profile__h2">Войти в аккаунт</h2>
-          <img src="assets/img/closeGrey.svg" alt="" class="profile__close" />
+    <div class="modalAuth">
+      <div class="auth__extra"></div>
+      <div class="auth__main">
+        <div class="auth__main_phone">
+          <div class="auth__header">
+            <h2 class="auth__h2">Войти в аккаунт</h2>
+            <img src="assets/img/closeGrey.svg" alt="" class="auth__close" />
+          </div>
+          <p class="auth__p">
+            Введите номер телефона и мы отправим SMS-код для входа в ваккаунт
+          </p>
+          <input type="text" class="auth__phone" id="auth__phone" />
+          <span class="auth__error"
+            >Введите номер телефона в указанном формате
+          </span>
+          <button class="button__forward" type="button">далее</button>
+          <p class="auth__agreement">
+            Нажимая кнопку "Далее", Вы принимаете
+            <a class="details" href="">Соглашение об условиях доставки </a> и
+            <a class="details" href="">
+              политику обработки персональных данных</a
+            >
+          </p>
         </div>
-        <p class="profile__p">
-          Введите номер телефона и мы отправим SMS-код для входа в ваккаунт
-        </p>
-        <input type="text" class="profile__phone" id="profile__phone" />
-        <button class="profile__button" type="button">далее</button>
-        <p class="profile__agreement">
-          Нажимая кнопку "Далее", Вы принимаете
-          <a class="details" href="">Соглашение об условиях доставки </a> и
-          <a href="" class="details"> политику обработки персональных данных</a>
-        </p>
+        <div class="auth__main_code">
+          <img src="assets/img/closeGrey.svg" alt="" class="auth__close" />
+          <p class="auth__p">Мы отправили код на номер:<br /></p>
+          <div class="auth__number">
+            <span class="auth__tel">+7 000 000 00 00 </span>
+            <span class="separator">|</span>
+            <button href="" class="auth__phone_correct">изменить номер</button>
+          </div>
+
+          <input
+            type="number"
+            class="SMSCode"
+            min="0000"
+            max="9999"
+            minlength="4"
+            step="1"
+            maxlength="4"
+            placeholder="код из SMS"
+          />
+          <button class="auth__enter">войти</button>
+          <p class="code__re">
+            <span class="code__error">Вы ввели неверный код </span>
+            Запросить код повторно Вы сможете через
+            <span class="timer"></span>
+
+            <button class="newSMS">Отправить код повторно</button>
+          </p>
+        </div>
       </div>
     </div>
 
-
-   <!-- <script src="/assets/js/index.js"></script>-->
-   <script src="assets/js/mask.js"></script>
-    <script src="assets/js/profile.js"></script>
+    <!-- <script src="/assets/js/index.js"></script>-->
+    <script src="assets/js/mask.js"></script>
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/auth.js"></script>
     <!--<script src="assets/swiper/swiper-bundle.min.js"></script>
     <script>
       function openMobileMenu() {
