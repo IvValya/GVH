@@ -220,7 +220,8 @@
 :root {
     --swiper-navigation-size: 44px
 }
-
+.swiper-button-next-mod,
+.swiper-button-prev-mod,
 .swiper-button-next,
 .swiper-button-prev {
     position: absolute;
@@ -235,26 +236,30 @@
     justify-content: center;
     color: var(--swiper-navigation-color, var(--swiper-theme-color))
 }
-
+.swiper-button-next-mod.swiper-button-disabled,
+.swiper-button-prev-mod.swiper-button-disabled,
 .swiper-button-next.swiper-button-disabled,
 .swiper-button-prev.swiper-button-disabled {
     opacity: .35;
     cursor: auto;
     pointer-events: none
 }
-
+.swiper-button-next-mod.swiper-button-hidden,
+.swiper-button-prev-mod.swiper-button-hidden
 .swiper-button-next.swiper-button-hidden,
 .swiper-button-prev.swiper-button-hidden {
     opacity: 0;
     cursor: auto;
     pointer-events: none
 }
-
+.swiper-navigation-disabled .swiper-button-next-mod,
+.swiper-navigation-disabled .swiper-button-prev-mod,
 .swiper-navigation-disabled .swiper-button-next,
 .swiper-navigation-disabled .swiper-button-prev {
     display: none !important
 }
-
+.swiper-button-next-mod:after,
+.swiper-button-prev-mod:after,
 .swiper-button-next:after,
 .swiper-button-prev:after {
     font-family: swiper-icons;
@@ -264,26 +269,30 @@
     font-variant: initial;
     line-height: 1
 }
-
+.swiper-button-prev-mod,
 .swiper-button-prev,
-.swiper-rtl .swiper-button-next {
+.swiper-rtl .swiper-button-next,
+.swiper-rtl .swiper-button-next-mod {
     left: 10px;
     right: auto
 }
-
+.swiper-button-prev-mod:after,
 .swiper-button-prev:after,
-.swiper-rtl .swiper-button-next:after {
+.swiper-rtl .swiper-button-next:after,
+.swiper-rtl .swiper-button-next-mod:after {
     content: 'prev'
 }
-
+.swiper-button-next-mod,
 .swiper-button-next,
-.swiper-rtl .swiper-button-prev {
+.swiper-rtl .swiper-button-prev,
+.swiper-rtl .swiper-button-prev-mod {
     right: 10px;
     left: auto
 }
-
+.swiper-button-next-mod:after,
 .swiper-button-next:after,
-.swiper-rtl .swiper-button-prev:after {
+.swiper-rtl .swiper-button-prev:after,
+.swiper-rtl .swiper-button-prev-mod:after {
     content: 'next'
 }
 

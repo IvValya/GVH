@@ -10,6 +10,7 @@
     <script>
       var page = 2;
     </script>
+    <script src="/assets/swiper/swiper-bundle.min.js"></script>
     <script src="/assets/js/config.js"></script>
     <script src="/assets/js/dishes.js"></script>
     <style>
@@ -189,14 +190,16 @@
 
     <template class="swiperGalleryModalTemp">
       <div class="swiper-slide">
-        <a class="modal__img">
+        <div class="swiper-zoom-container">
+        
           <img class="modal__card_img" src="/assets/img/kare.jpg" alt="" />
-        </a>
+       
+      </div>
       </div>
     </template>
     <div class="block"></div>
     <header class="header">
-      <a class="logo" href="/frontpage.html">
+      <a class="logo" href="">
         <picture>
           <source srcset="/assets/img/logo.svg" media="(min-width: 800px)" />
           <img
@@ -702,8 +705,8 @@
               <div class="swiper-wrapper">
                 <div class="swiper mySwiperModal">
                   <div class="swiper-wrapper"></div>
-                  <div class="swiper-button-next"></div>
-                  <div class="swiper-button-prev"></div>
+                  <div class="swiper-button-next-mod"></div>
+                  <div class="swiper-button-prev-mod"></div>
                   <div class="swiper-pagination"></div>
                 </div>
               </div>
@@ -777,11 +780,62 @@
         </div>
       </div>
     </aside>
-   
+    <!--
+    <div class="modalAuth">
+      <div class="auth__extra"></div>
+      <div class="auth__main">
+        <div class="auth__main_phone">
+          <div class="auth__header">
+            <h2 class="auth__h2">Войти в аккаунт</h2>
+            <img src="assets/img/closeGrey.svg" alt="" class="auth__close" />
+          </div>
+          <p class="auth__p">
+            Введите номер телефона и мы отправим SMS-код для входа в ваккаунт
+          </p>
+          <input type="text" class="auth__phone" id="auth__phone" />
+          <span class="auth__error"
+            >Введите номер телефона в указанном формате
+          </span>
+          <button class="button__forward" type="button">далее</button>
+          <p class="auth__agreement">
+            Нажимая кнопку "Далее", Вы принимаете
+            <a class="details" href="">Соглашение об условиях доставки </a> и
+            <a class="details" href="">
+              политику обработки персональных данных</a
+            >
+          </p>
+        </div>
+        <div class="auth__main_code">
+          <img src="assets/img/closeGrey.svg" alt="" class="auth__close" />
+          <p class="auth__p">Мы отправили код на номер:<br /></p>
+          <div class="auth__number">
+            <span class="auth__tel">+7 000 000 00 00 </span>
+            <span class="separator">|</span>
+            <button href="" class="auth__phone_correct">изменить номер</button>
+          </div>
 
-    
+          <input
+            type="number"
+            class="SMSCode"
+            min="0000"
+            max="9999"
+            step="1"
+            placeholder="код из SMS"
+          />
+          <button class="auth__enter">войти</button>
+          <p class="code__re">
+            <span class="code__error">Вы ввели неверный код </span>
+            Запросить код повторно Вы сможете через
+            <span class="timer"></span>
+
+            <button class="newSMS">Отправить код повторно</button>
+          </p>
+        </div>
+      </div>
+    </div>
+-->
     <!--<script src="/assets/js/order.js"></script>-->
-    <script src="/assets/swiper/swiper-bundle.min.js"></script>
+
     <script src="/assets/swiper/mobile-swipe-menu.min.js"></script>
     <script>
       function openMobileMenu() {
@@ -833,7 +887,10 @@
         openMobileMenu();
       });
     </script>
-
+    <!--
+    <script src="/assets/js/mask.js"></script>
+    <script src="/assets/js/auth.js"></script>
+    -->
     <script>
       function galleryFunc() {
         var slidesView;

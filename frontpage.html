@@ -9,6 +9,7 @@
     <script>
       var page = 3;
     </script>
+    <script src="/assets/swiper/swiper-bundle.min.js"></script>
     <script src="/assets/js/config.js"></script>
     <script src="/assets/js/dishes.js"></script>
     <style>
@@ -134,15 +135,16 @@
     </template>
 
     <template class="swiperGalleryModalTemp">
+      
       <div class="swiper-slide">
-        <a class="modal__img">
+        <div class="swiper-zoom-container">
           <img class="modal__card_img" src="/assets/img/kare.jpg" alt="" />
-        </a>
+        </div>
       </div>
     </template>
     <div class="block"></div>
     <header class="header">
-      <a class="logo" href="/frontpage.html">
+      <a class="logo" href="">
         <picture>
           <source srcset="/assets/img/logo.svg" media="(min-width: 800px)" />
           <img
@@ -399,8 +401,8 @@
               <div class="swiper-wrapper">
                 <div class="swiper mySwiperModal">
                   <div class="swiper-wrapper"></div>
-                  <div class="swiper-button-next"></div>
-                  <div class="swiper-button-prev"></div>
+                  <div class="swiper-button-next-mod"></div>
+                  <div class="swiper-button-prev-mod"></div>
                   <div class="swiper-pagination"></div>
                 </div>
               </div>
@@ -475,19 +477,11 @@
         </div>
       </div>
     </aside>
-    
+
     <!--<script src="/assets/js/frontpage.js"></script>-->
-    <script src="/assets/swiper/swiper-bundle.min.js"></script>
+
     <!-- Initialize Swiper -->
 
-    <script>
-      var swiper = new Swiper(".mySwiperModal", {
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-      });
-    </script>
     <script>
       function galleryFunc() {
         var slidesView;

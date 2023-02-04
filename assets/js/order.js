@@ -2,6 +2,8 @@ let data;
 let modalTrue = false;
 //window.onload = init;
 //function init() {
+const logo = document.querySelector(".logo");
+logo.href = linkToFrontpage;
 let buttonsCount = document.querySelectorAll(".button__count");
 for (let buttonCount of buttonsCount) {
   let minus = buttonCount.querySelector(".count_minus");
@@ -12,6 +14,24 @@ for (let buttonCount of buttonsCount) {
 }
 
 class order {
+  renderPriceCard() {
+    if (data.basket.length !== 0) {
+      let allMenu = document.querySelectorAll(".list_item");
+      data.basket.forEach((itemCard) => {
+        for (let itemMenu of allMenu) {
+          let toppPrice = 0;
+          if (itemMenu.dataset.id === "dish" + itemCard.id) {
+            let currentCard = itemMenu;      
+            itemCard.card.toppings.forEach((topp) => {
+              toppPrice +=topp.price;
+            })
+            currentCard.querySelector(".desc_price").textContent =
+            itemCard.card.price + toppPrice;
+          }
+        }
+      });
+    }
+  }
   convertFromBasket() {
     console.log(data);
     let convertedBasket = [];
@@ -233,8 +253,7 @@ class order {
     } else {
       document.getElementById("restaurantPay").style.display = "none";
     }
-    this.renderDelivery();
-    //bonus
+    this.renderDelivery();    
   }
   renderBonus() {
     let numberBonuses = 140;
@@ -336,7 +355,7 @@ class order {
       cardClone.querySelector(".basket__card").dataset.id = "dish" + item.id;
       cardClone.querySelector(".basket__card_img").src = item.card.img;
       cardClone.querySelector(".basket__h3").textContent = item.card.name;
-      cardClone.querySelector(".basket__weight").textContent = item.card.weight;
+      cardClone.querySelector(".basket__weight").textContent = item.card.weight + " г.";
       cardClone.querySelector(".basket__price").textContent = item.card.price;
       cardClone.querySelector(".input_text").value = item.card.quantity;
       let currentCount = cardClone.querySelector(".input_text");
@@ -345,6 +364,13 @@ class order {
       let currentPlus = cardClone.querySelector(".count_plus");
       currentMinus.dataset.id = "dish" + item.id;
       currentPlus.dataset.id = "dish" + item.id;
+      let toppPrice = 0;
+      if (item.card.toppings) {
+        item.card.toppings.forEach((topping) => {
+          toppPrice += topping.price;
+        });
+      }
+      cardClone.querySelector(".basket__price").textContent = item.card.price+toppPrice;
       currentPlus.addEventListener("click", countPlus(currentCount));
       currentCount.addEventListener("change", inputCountChange);
       currentMinus.addEventListener("click", countMinus(currentCount));
@@ -356,6 +382,7 @@ class order {
     });
     orderList.innerHTML = "";
     orderList.appendChild(fragment);
+    
   }
   load() {
     // localStorage.removeItem("basket");
@@ -386,6 +413,7 @@ class order {
     this.renderBasket();
     this.renderExtra();
     this.renderDate();
+    this.renderPriceCard();
   }
 }
 let orderNew = new order();
@@ -395,7 +423,8 @@ orderNew.load();
 
 function renderModal(dishId, target) {
   let { meals, toppings } = menuData;
-
+  modalFooter.querySelector(".modal__old_number").style.display = "inline-block";
+  modalFooter.querySelector(".modal__old_letter").style.display = "inline-block";
   let toppPrice = 0;
   meals.forEach((dish) => {
     const card = dish.products.find(
@@ -527,12 +556,18 @@ function renderModal(dishId, target) {
       );
       let priceAfterDiscount;
       if (parseInt(card.sale_price) === 0) {
+        console.log(card.sale_price);
+        console.log(card.price);
         priceAfterDiscount = card.price;
+        modalFooter.querySelector(".modal__old_number").style.display = "none";
+        modalFooter.querySelector(".modal__old_letter").style.display = "none";          
       } else {
+        console.log(card.sale_price);
+        console.log(card.price);
         priceAfterDiscount = parseInt(card.sale_price);
-      }
-      modalFooter.querySelector(".modal__old_number").textContent =
+        modalFooter.querySelector(".modal__old_number").textContent =
         (card.price + toppPrice) * currentValue;
+      }
       modalFooter.querySelector(".modal__total_number").textContent =
         (priceAfterDiscount + toppPrice) * currentValue;
     }
@@ -584,6 +619,13 @@ const imgsClick = document.querySelectorAll(".menu__card");
 for (let imgClick of imgsClick) {
   imgClick.addEventListener("click", (e) => {
     clearTimeout(timerId);
+    var swiperMod = new Swiper(".mySwiperModal", {
+      zoom: true,
+      navigation: {
+        nextEl: ".swiper-button-next-mod",
+        prevEl: ".swiper-button-prev-mod",
+      },
+    });
     /* let currentCard = e.currentTarget.closest(".list_item");
     let currentBtnAdd = currentCard.querySelector(".card__button");
     let currentBtnCount = currentCard.querySelector(".card__button_count");
@@ -595,7 +637,6 @@ for (let imgClick of imgsClick) {
     modalTrue = true;
     modal.style.display = "flex";
     divBlock.style.display = "block";
-    modal.style.overflow = "auto";
     if (window.innerWidth < 800) {
       btnCloseModal.style.display = "block";
       modal.style.animation = "modal 0.7s forwards";
@@ -609,6 +650,7 @@ for (let imgClick of imgsClick) {
         btnCloseModal.style.animation = "zoom 0.3s forwards";
         modalFooter.style.animation = "zoom 0.3s forwards";
       }, 400);
+      
       //document.querySelector(".asideMenu__ul").style.position = "fixed";
       //document.querySelector(".asideMenu__ul").style.top = ;
     }
@@ -662,12 +704,12 @@ for (let imgClick of imgsClick) {
             };
             dataCard.card.toppings.push(newTopping);
           }
-          changeModalPrice(dishId);
           orderNew.save();
           orderNew.renderPayment();
         } else {
           currentToppingCheck.classList.toggle("topping__check_active");
         }
+        changeModalPrice(dishId);
 
         /* currentToppingCheck.classList.toggle("topping__check_active");
           const cardID = parseInt(itemID.split("").splice(4).join());
@@ -683,7 +725,6 @@ function closeModal() {
   divBlock.style.display = "none";
   btnCloseModal.style.display = "none";
   modalFooter.style.display = "none";
-  modal.style.overflow = "unset";
   main.style.overflow = "unset";
   document.body.style.overflow = "unset";
   //modalFooter.style.display = "none";
@@ -800,10 +841,13 @@ function countMinus(count) {
           });
         } else if (count.value === "1") {
           data.basket.splice(indexCard, 1);
+          orderNew.renderPriceCard();
           let currentCards = document.querySelectorAll(
             '.list_item[data-id="' + count.dataset.id + '"]'
           );
           currentCards.forEach((currentCard) => {
+            currentCard.querySelector(".desc_price").textContent =
+            currCard.card.price;
             currentCard.querySelector(".card__button").style.display = "block";
             currentCard.querySelector(".card__button_count").style.display =
               "none";
@@ -843,11 +887,47 @@ function countMinus(count) {
 
 function changeModalPrice(itemID) {
   let { basket } = data;
-  console.log(itemID);
   const cardID = parseInt(itemID.split("").splice(4).join(""));
   const dataCard = basket.find((item) => item.id === cardID);
   let toppPrice = 0;
-  if (dataCard) {
+  let currentCard = null;
+  for (let t = 0; t < menuData.meals.length; t++) {
+    let dish = menuData.meals[t];
+    console.log(dish);
+    for (k = 0; k < dish.products.length; k++) {
+      if (dish.products[k].id === cardID) {
+        currentCard = dish.products[k];
+        break;
+      }
+    }
+    if (currentCard) {
+      break;
+    }
+  }
+  if (!dataCard) {
+    const modalToppingList = document.querySelector(".modal__topping");
+    const modalToppings = modalToppingList.querySelectorAll(".topping__card");
+    modalToppings.forEach((item) => {
+      if (
+        item
+          .querySelector(".topping__check_img")
+          .classList.contains("topping__check_active")
+      ) {
+        toppPrice += parseInt(
+          item.querySelector(".topping__price_number").textContent
+        );
+        if (currentCard.sale_price === 0) {
+          modalFooter.querySelector(".modal__total_number").textContent =
+            currentCard.price + toppPrice;
+        } else {
+          modalFooter.querySelector(".modal__old_number").textContent =
+            currentCard.price + toppPrice;
+          modalFooter.querySelector(".modal__total_number").textContent =
+            currentCard.sale_price + toppPrice;
+        }
+      }
+    });
+  } else {
     dataCard.card.toppings.forEach((topping) => {
       toppPrice += parseInt(topping.price);
     });
@@ -855,6 +935,24 @@ function changeModalPrice(itemID) {
       (dataCard.card.priceBeforeDiscount + toppPrice) * dataCard.card.quantity;
     modalFooter.querySelector(".modal__total_number").textContent =
       (dataCard.card.price + toppPrice) * dataCard.card.quantity;
+    const listCards = document.querySelectorAll(".list_item");
+    for (t = 0; t < listCards.length; t++) {
+      if (listCards[t].dataset.id === itemID) {
+        listCards[t].querySelector(".desc_price").textContent =
+          dataCard.card.price + toppPrice;
+      }
+    }
+    const currentBasket = document.querySelector(".order__basket");
+    console.log(currentBasket);
+    const basketCardList = currentBasket.querySelectorAll(".basket__card");
+    console.log(basketCardList);
+    for (t = 0; t < basketCardList.length; t++) {
+      if (basketCardList[t].dataset.id === itemID) {
+        console.log(basketCardList[t].querySelector(".basket__price"));
+        console.log(toppPrice);
+        basketCardList[t].querySelector(".basket__price").textContent = dataCard.card.price+ toppPrice;
+      }
+    }
   }
 }
 

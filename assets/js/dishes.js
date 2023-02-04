@@ -12,10 +12,26 @@ class dishesL {
   }
 
   loadScript(src) {
-    let script = document.createElement('script');
+    let script = document.createElement("script");
     script.src = src;
     script.async = false;
     document.body.append(script);
+    let modalAuth = document.querySelector(".modalAuth");
+    if (modalAuth) {
+      console.log("!");
+    } else {
+      fetch("/auth.html")
+      .then((response) => response.text())
+      .then((text) => {
+        let div = document.createElement("div");
+        div.className = "modalAuth";
+        div.innerHTML = text;
+        document.body.appendChild(div);
+        let scriptAuth = document.createElement("script");
+        scriptAuth.src = srcScriptAuth;
+        div.after(scriptAuth);
+      });
+    }    
   }
 
   load() {
@@ -23,6 +39,9 @@ class dishesL {
       .then(this.errorHandler)
       .then((res) => res.json())
       .then((data) => {
+        let scriptIMask = document.createElement("script");
+        scriptIMask.src = "/assets/js/mask.js";
+        document.body.prepend(scriptIMask);
         menuData = data;
         this.renderCategories(data);
         if (page === 1) {
@@ -81,19 +100,18 @@ class dishesL {
     const mainMenu = document.querySelector(".menu__main");
     const fragment = document.createDocumentFragment();
     const itemMenuTemp = document.querySelector(".itemMenuTemp");
-    meals.forEach(item => {
-        let cardClone = itemMenuTemp.content.cloneNode(true);
-        let className = item.columns;
-        let itemNMenu = cardClone.querySelector(".menu__main_item")
-        itemNMenu.href = linkToMenuPage + item.name;
-        itemNMenu.classList.add(className);
-        cardClone.querySelector(".menu__main_h2").textContent = item.name;
-        cardClone.querySelector(".menu__main_img").src = item.main_pic;
-        fragment.append(cardClone);
+    meals.forEach((item) => {
+      let cardClone = itemMenuTemp.content.cloneNode(true);
+      let className = item.columns;
+      let itemNMenu = cardClone.querySelector(".menu__main_item");
+      itemNMenu.href = linkToMenuPage + item.name;
+      itemNMenu.classList.add(className);
+      cardClone.querySelector(".menu__main_h2").textContent = item.name;
+      cardClone.querySelector(".menu__main_img").src = item.main_pic;
+      fragment.append(cardClone);
     });
     mainMenu.innerHTML = "";
     mainMenu.appendChild(fragment);
-
   }
 
   renderCategories(menu) {
@@ -146,10 +164,10 @@ class dishesL {
         // let hrefCat = dishesListTemp.querySelector(".href__cat");
         //hrefCat.name = "href" + item.id;
         menuCat.dataset.name = "cat" + item.id;
-        let menuH2 = categoryClone.querySelector(".menu__h2")
+        let menuH2 = categoryClone.querySelector(".menu__h2");
         menuH2.textContent = item.name;
-        menuH2.id = item.name;        
-       // document.querySelector(".anchorCat").name = item.name;
+        menuH2.id = item.name;
+        // document.querySelector(".anchorCat").name = item.name;
         // let fragmentCard = document.createDocumentFragment();
         let menuCardTemp = document.querySelector(".menuCardTemp");
         let { products, id, name } = item;
@@ -194,7 +212,7 @@ class dishesL {
         if (page !== 1) {
           let asideMenuDiv = cardCloneAside.querySelector(".asideMenu__div");
           asideMenuDiv.dataset.catHref = linkToMenuPage + item.name;
-         // cardCloneAside.querySelector(".asideMenu__a").href = linkToMenuPage + item.name;
+          // cardCloneAside.querySelector(".asideMenu__a").href = linkToMenuPage + item.name;
         }
         cardCloneAside.querySelector(".asideMenu__label").textContent =
           item.name;
@@ -207,7 +225,7 @@ class dishesL {
         .classList.add("category_active");
     }
     this.renderTop10(menu);
-    if ( page !== 1  && window.innerWidth > 800) {
+    if (page !== 1 && window.innerWidth > 800) {
       const asideMenu__label = document.querySelector(".category_active");
       asideMenu__label.classList.remove("category_active");
     }

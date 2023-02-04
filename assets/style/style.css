@@ -1784,7 +1784,8 @@ address {
 }
 
 .input_text {
-    height: 100%;
+    height: 47px;
+    border: solid 1px var(--color-bordeaux);
     text-align: center;
 }
 
@@ -1949,7 +1950,7 @@ input[type="number"]:focus {
     flex-direction: column;
     justify-content: flex-start;
     width: 100%;
-    height: calc(100vh - 190px);
+    height: calc(100vh - 130px);
     z-index: 100501;
     background-color: var(--text-color-white);
     /*max-height: calc(100vh - 130px);*/
@@ -2075,7 +2076,7 @@ input[type="number"]:focus {
 }
 
 .modal__card_img {
-    min-width: 100%;
+    width: 100%;
     height: 100%;
     height: 265px;
     object-fit: cover;
@@ -2090,6 +2091,7 @@ input[type="number"]:focus {
 
 .modal__desc {
     font-family: 'FF Good Pro';
+    height: 78px;
     font-weight: 450;
     font-size: 14px;
     padding-top: 15px;
@@ -2141,7 +2143,7 @@ input[type="number"]:focus {
     padding-right: 25px;
     padding-top: 10px;
     padding-bottom: 10px;
-    min-height: 174px;
+    height: 174px;
     overflow-x: auto;
 }
 
@@ -2170,6 +2172,7 @@ input[type="number"]:focus {
 }
 
 .topping__name {
+    white-space: nowrap;
     font-family: 'FF Good Pro';
     font-weight: 450;
     font-size: 14px;
@@ -2221,12 +2224,15 @@ input[type="number"]:focus {
 
 .aux {
     min-height: 70px;
+    background-color: var(--text-color-white);
 }
 
 .footer__BJU {
     display: flex;
     flex-wrap: nowrap;
     width: 100%;
+    flex-grow: 1;
+
     padding-left: 25px;
     padding-right: 25px;
     padding-top: 20px;
@@ -2271,6 +2277,7 @@ input[type="number"]:focus {
     bottom: 0;
     right: 0;
     width: 100%;
+    height: 56px;
     display: none;
     z-index: 100501;
     flex-direction: column;
@@ -2364,11 +2371,13 @@ input[type="number"]:focus {
 /*--------------------Modal profile-----------------------------------*/
 .modalAuth {
     display: none;
-    z-index: 1000;
-    position: absolute;
+    z-index: 100605;
+    position: fixed;
     top: 0;
     width: 100%;
     height: 100vh;
+
+
 }
 
 .auth__extra {
@@ -2394,7 +2403,7 @@ input[type="number"]:focus {
 
 .auth__main_code .auth__close {
     position: absolute;
-    right: 38px;
+    right: 0px;
 }
 
 .auth__h2 {
@@ -2497,6 +2506,7 @@ input[type="number"]:focus {
     text-align: center;
     color: #757575;
 }
+
 .auth__phone_correct {
     font-weight: 500;
     font-size: 15px;
@@ -2554,11 +2564,13 @@ input[type="number"]:focus {
     }
 
     .modalAuth {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         width: 100vw;
         height: 100vh;
+        background: rgba(176, 176, 176, 0.7);
+        backdrop-filter: blur(2.5px);
     }
 
     .auth__enter {
@@ -3051,7 +3063,7 @@ input[type="number"]:focus {
 
     .footer__BJU {
         width: 50%;
-        height: 100%;
+       /* height: 100%;*/
         /*75px*/
     }
 
@@ -3094,6 +3106,7 @@ input[type="number"]:focus {
         display: flex;
         column-gap: 50px;
         padding-top: 17px;
+        max-height: 156px;
     }
 
     .modal__desc {
@@ -3110,7 +3123,7 @@ input[type="number"]:focus {
 
     .modal__desc {
         font-size: 16px;
-        max-height: 75px;
+        max-height: 77px;
         /*  overflow: auto;*/
     }
 

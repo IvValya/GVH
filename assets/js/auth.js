@@ -4,7 +4,7 @@ const profile = document.querySelectorAll(".profile__item");
 const modalAuthFull = document.querySelector(".modalAuth");
 const modalAuth = document.querySelector(".auth__main");
 const modalAuthPhone = document.querySelector(".auth__main_phone")
-const main = document.querySelector(".main");
+const mainM = document.querySelector(".main");
 const authH2 = document.querySelector(".auth__h2");
 const auth = document.querySelector(".auth__main_code");
 const buttonEnter = document.querySelector(".auth__enter");
@@ -12,6 +12,7 @@ let authPhone = document.querySelector(".auth__phone");
 let authTel = document.querySelector(".auth__tel");
 let spanTimer = document.querySelector(".timer");
 let element = document.getElementById("auth__phone");
+const authError = document.querySelector(".auth__error");
 const btnCorrectPhone = document.querySelector(".auth__phone_correct");
 let valid = false;
 let codeError = document.querySelector(".code__error");
@@ -27,22 +28,22 @@ let timer = null;
 function openAuthWindow() {
   modalAuthFull.style.display = "block";
   document.body.style.overflow = "hidden";
-  main.style.overflow = "hidden";
+  mainM.style.overflow = "hidden";
   if (window.innerWidth < 800) {
-    modalAuth.style.animation = "modal 0.7s forwards";
+    modalAuthFull.style.animation = "modal 0.7s forwards";
   } else {
     modalAuth.style.animation = "zoom 0.7s forwards";
   }
 }
 function closeAuthWindow() {
   if (window.innerWidth < 800) {
-    modalAuth.style.animation = "modalBack 0.7s forwards";
+    modalAuthFull.style.animation = "modalBack 0.7s forwards";
   } else {
     modalAuth.style.animation = "zoomBack 0.7s forwards";
   }
   setTimeout(() => {
     document.body.style.overflow = "unset";
-    main.style.overflow = "unset";
+    mainM.style.overflow = "unset";
     modalAuthFull.style.display = "none";
   }, 700);
 }
@@ -55,17 +56,15 @@ authCloseBtn.forEach((item) => {
 
 function errorPhone() {
   const authPhone = document.querySelector(".auth__phone");
-  const authError = document.querySelector(".auth__error");
   authError.style.display = "block";
   authPhone.style.borderColor = "var(--color-bordeaux)";
-  console.log("Error");
 }
 let SMSCodeInput = document.querySelector(".SMSCode");
 SMSCodeInput.addEventListener("input", () => {
   SMSCodeInput.value = SMSCodeInput.value.slice(0, 4);
 });
 function startTimer(authPhone) {
-  let time = 10;
+  let time = timeForCode;
   timer = setInterval(() => {
     time--;
     let sec = time % 60 < 10 ? "0" + (time % 60) : time % 60;
@@ -155,6 +154,7 @@ function sentSMS(authPhone) {
 }
 
 function forwardFunc() {
+  authError.style.display = "none";
   if (timer) {
     clearInterval(timer);
     timer = null;
