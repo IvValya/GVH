@@ -135,7 +135,6 @@
     </template>
 
     <template class="swiperGalleryModalTemp">
-      
       <div class="swiper-slide">
         <div class="swiper-zoom-container">
           <img class="modal__card_img" src="/assets/img/kare.jpg" alt="" />
@@ -409,9 +408,30 @@
             </div>
           </div>
         </div>
-        <p class="modal__desc">
-          Подаём с маринованным луком, коул слоу и соусом сацебели
-        </p>
+        <div class="modal__desc_full">
+          <div class="swiper mySwiperDesc">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <p class="modal__desc">
+                </p>
+                <div class="button_next">
+                  <p class="modal__desc_next">состав</p>
+                  <img class="modal__desc_arrowRight" src="/assets/img/arrowRight.svg">
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <p class="modal__consist"></p>
+                <div class="button_prev">
+                  <img  class="modal__desc_arrowLeft" src="/assets/img/arrowLeft.svg" >
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+         
+        </div>
+
         <div class="modal__topping">
           <h3 class="topping__h3">Топинги:</h3>
           <div class="topping__list"></div>

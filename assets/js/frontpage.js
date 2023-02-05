@@ -30,12 +30,12 @@ class frontpage {
         for (let itemMenu of allMenu) {
           let toppPrice = 0;
           if (itemMenu.dataset.id === "dish" + itemCard.id) {
-            let currentCard = itemMenu;      
+            let currentCard = itemMenu;
             itemCard.card.toppings.forEach((topp) => {
-              toppPrice +=topp.price;
-            })
+              toppPrice += topp.price;
+            });
             currentCard.querySelector(".desc_price").textContent =
-            itemCard.card.price + toppPrice;
+              itemCard.card.price + toppPrice;
           }
         }
       });
@@ -169,7 +169,7 @@ class frontpage {
     this.renderBtnsTop();
   }
 }
-function renderModal(dishId, target) {
+function renderModal(dishId, target) {  
   let { meals, toppings } = menuData;
   modalFooter.querySelector(".modal__old_number").style.display =
     "inline-block";
@@ -209,9 +209,8 @@ function renderModal(dishId, target) {
       );
       mySwiperModal.innerHTML = "";
       mySwiperModal.appendChild(fragmentSwiperModal);
-
-      modalWindow.querySelector(".modal__desc").textContent =
-        card.description + " " + card.contents;
+      console.log(card.description);
+      console.log(card.contents);
       const fragmentTopping = document.createDocumentFragment();
       const toppingCardTemp = document.querySelector(".toppingCardTemp");
       const toppingList = modalWindow.querySelector(".topping__list");
@@ -248,7 +247,8 @@ function renderModal(dishId, target) {
       });
       toppingList.innerHTML = "";
       toppingList.appendChild(fragmentTopping);
-
+      modalWindow.querySelector(".modal__desc").textContent = card.description;
+      modalWindow.querySelector(".modal__consist").textContent = card.contents;
       const footerBJU = document.querySelector(".footer__BJU");
       footerBJU.querySelector(".modal__weight").textContent = card.weight;
       footerBJU.querySelector(
@@ -309,8 +309,9 @@ function renderModal(dishId, target) {
     }
   });
   changeModalPrice(dishId);
+ 
 }
-
+var swiperDesc;
 let front = new frontpage();
 front.load();
 let toppingActive = [];
@@ -333,9 +334,66 @@ for (let imgClick of imgsClick) {
         prevEl: ".swiper-button-prev-mod",
       },
     });
+
     let dishId;
     dishId = imgClick.closest(".list_item").dataset.id;
     renderModal(dishId, e.currentTarget);
+    swiperDesc = new Swiper(".mySwiperDesc", {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+    });
+    document.querySelector(".button_next").addEventListener("click", () =>
+    {
+      swiperDesc.slideToLoop(2, 300, true)
+    });
+    document.querySelector(".button_prev").addEventListener("click", () =>
+    {
+      swiperDesc.slideToLoop(1, 300, true)
+    });
+/*
+    var number=0;
+    swiperDesc.on("activeIndexChange", function () {
+      number = this.activeIndex;
+      console.log(number);
+    });
+    document.querySelector(".button_next").addEventListener("click", () =>
+    {
+      console.log(number+1);
+      swiperDesc.slideToLoop(number + 1, 300, true)
+    });
+    document.querySelector(".button_prev").addEventListener("click", () => {
+      swiperDesc.slideToLoop(-1, 300, true);
+    });
+    */
+    /*  if(this.activeIndex === 3) {
+        console.log(this.activeIndex);
+        console.log("slide1");
+        //document.querySelector(".button_prev").addEventListener("click", buttonPrev);
+        //document.querySelector(".button_next").addEventListener("click", buttonNext);
+      }
+      if(this.activeIndex === 1) {
+        console.log(this.activeIndex);
+        console.log("slide2");
+        //document.querySelector(".button_next").addEventListener("click", buttonNext);
+      }*/
+   
+    /*
+    addEventListener("DOMContentLoaded",
+    document.querySelector(".button_next").addEventListener("click", (e) => {
+      swiperDesc.slideNext(300, true);
+      console.log(e.currentTarget);
+    
+      //document.querySelector(".button_next").style.display = "none";
+      //document.querySelector(".button_prev").style.display = "block";
+    }));
+    addEventListener("DOMContentLoaded", document.querySelector(".button_prev").addEventListener("click", (e) => {
+      console.log(e.currentTarget);
+      //document.querySelector(".button_next").style.display = "block";
+      //document.querySelector(".button_prev").style.display = "none";
+      swiperDesc.slidePrev(300, true);
+    }));
+    */
     /* let currentCard = e.currentTarget.closest(".list_item");
     let currentBtnAdd = currentCard.querySelector(".card__button");
     let currentBtnCount = currentCard.querySelector(".card__button_count");
@@ -446,6 +504,7 @@ function closeModal() {
   }
   timerId = setTimeout(() => {
     modal.style.display = "none";
+    swiperDesc.destroy(true, true);
   }, 800);
 }
 
@@ -592,7 +651,7 @@ function countMinus(count) {
       );
       currentCards.forEach((currentCard) => {
         currentCard.querySelector(".desc_price").textContent =
-            currCard.card.price;
+          currCard.card.price;
         currentCard.querySelector(".card__button").style.display = "block";
         currentCard.querySelector(".card__button_count").style.display = "none";
       });
