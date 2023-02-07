@@ -1,3 +1,16 @@
+let formDataAuth = new FormData();
+
+fetch(
+  "http://new.grillvino.ru/auth",
+  {
+    body: formDataAuth,
+    method: "post",
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      numberBonuses = parseInt(response.points);
+    })
+;
 var menuData;
 class dishesL {
   errorHandler(res) {
@@ -21,27 +34,24 @@ class dishesL {
       console.log("!");
     } else {
       fetch("/auth.html")
-      .then((response) => response.text())
-      .then((text) => {
-        let div = document.createElement("div");
-        div.className = "modalAuth";
-        div.innerHTML = text;
-        document.body.appendChild(div);
-        let scriptAuth = document.createElement("script");
-        scriptAuth.src = srcScriptAuth;
-        div.after(scriptAuth);
-      });
-    }    
+        .then((response) => response.text())
+        .then((text) => {
+          let div = document.createElement("div");
+          div.className = "modalAuth";
+          div.innerHTML = text;
+          document.body.appendChild(div);
+          let scriptAuth = document.createElement("script");
+          scriptAuth.src = srcScriptAuth;
+          div.after(scriptAuth);
+        });
+    }
   }
 
   load() {
     fetch(urLForGet /*, "GET"*/)
       .then(this.errorHandler)
       .then((res) => res.json())
-      .then((data) => {
-        let scriptIMask = document.createElement("script");
-        scriptIMask.src = "/assets/js/mask.js";
-        document.body.prepend(scriptIMask);
+      .then((data) => {        
         menuData = data;
         this.renderCategories(data);
         if (page === 1) {

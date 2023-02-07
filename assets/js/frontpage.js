@@ -169,7 +169,7 @@ class frontpage {
     this.renderBtnsTop();
   }
 }
-function renderModal(dishId, target) {  
+function renderModal(dishId, target) {
   let { meals, toppings } = menuData;
   modalFooter.querySelector(".modal__old_number").style.display =
     "inline-block";
@@ -309,7 +309,6 @@ function renderModal(dishId, target) {
     }
   });
   changeModalPrice(dishId);
- 
 }
 var swiperDesc;
 let front = new frontpage();
@@ -343,15 +342,67 @@ for (let imgClick of imgsClick) {
       spaceBetween: 30,
       loop: true,
     });
+    var nextSlide = function (){
+      swiperDesc.slideNext();
+  }
+
+  var prevSlide = function (){
+      swiperDesc.slidePrev();
+  }
+
+  let next = document.querySelectorAll(".button_next");
+  let prev = document.querySelectorAll(".button_prev");
+
+  next.forEach((elem) => {
+    elem.addEventListener("click", nextSlide);
+  });
+  prev.forEach((elem) => {
+    elem.addEventListener("click", prevSlide);
+  })
+
+  swiperDesc.on('slideChange', function () {
+      let next = document.querySelectorAll(".button_next");
+      let prev = document.querySelectorAll(".button_prev");
+      next.forEach((elem) => {
+        elem.removeEventListener("click", nextSlide);
+      });
+      next.forEach((elem) => {
+        elem.addEventListener("click", nextSlide);
+      });
+      prev.forEach((elem) => {
+        elem.removeEventListener("click", prevSlide);
+      });
+      prev.forEach((elem) => {
+        elem.addEventListener("click", prevSlide);
+      });     
+ });
+    /*
+    swiperDesc.on("slideChange", function() {
+      console.log(this.activeIndex);
+    });
     document.querySelector(".button_next").addEventListener("click", () =>
     {
-      swiperDesc.slideToLoop(2, 300, true)
+      console.log("button_next")
+      swiperDesc.slideNext()
     });
     document.querySelector(".button_prev").addEventListener("click", () =>
     {
-      swiperDesc.slideToLoop(1, 300, true)
+      console.log("button_prev")
+      swiperDesc.slidePrev()
+    });*/
+    /*
+    setTimeout(()=>{
+      swiperDesc.slidePrev()}, 300);
+    document.querySelector(".button_next").addEventListener("click", () =>
+    {
+      swiperDesc.slideNext(300, true)
     });
-/*
+    document.querySelector(".button_prev").addEventListener("click", () =>
+    {
+      
+        swiperDesc.slidePrev(300, true);
+    });*/
+    /*
     var number=0;
     swiperDesc.on("activeIndexChange", function () {
       number = this.activeIndex;
@@ -377,7 +428,7 @@ for (let imgClick of imgsClick) {
         console.log("slide2");
         //document.querySelector(".button_next").addEventListener("click", buttonNext);
       }*/
-   
+
     /*
     addEventListener("DOMContentLoaded",
     document.querySelector(".button_next").addEventListener("click", (e) => {

@@ -3,7 +3,7 @@ const authCloseBtn = document.querySelectorAll(".auth__close");
 const profile = document.querySelectorAll(".profile__item");
 const modalAuthFull = document.querySelector(".modalAuth");
 const modalAuth = document.querySelector(".auth__main");
-const modalAuthPhone = document.querySelector(".auth__main_phone")
+const modalAuthPhone = document.querySelector(".auth__main_phone");
 const mainM = document.querySelector(".main");
 const authH2 = document.querySelector(".auth__h2");
 const auth = document.querySelector(".auth__main_code");
@@ -74,7 +74,6 @@ function startTimer(authPhone) {
 }
 //-------------------------------------------------
 function newCode(time, authPhone) {
-  
   if (time === 0) {
     clearInterval(timer);
     timer = null;
@@ -97,6 +96,22 @@ function enterToProfile() {
     code: currentCode,
   };
   console.log(JSON.stringify(currentCode));
+  let formData = new FormData();
+  formData.append("code", currentCode);
+  fetch("http://new.grillvino.ru/checkCode", {
+    body: formData,
+    method: "post",
+  })
+    .then((response) => response.json)
+    .then((response) => {
+      if (response.status === "Wrong code") {
+        console.log(response.status);
+        console.log("Wrong");
+      } else {
+        console.log(response.status);
+        console.log("Ok");
+      }
+    });
   /*fetch(urlForPost, {
     method: "POST",
     headers: {
@@ -140,8 +155,10 @@ function sentSMS(authPhone) {
     clearInterval(timer);
     timer = null;
   }
+  console.log(authPhone);
   startTimer(authPhone);
-  /*fetch(authPost, {
+}
+/* fetch("/checkPhone", {
     method: "POST",
     headers: {
       "Content-Type": "application/json", // отправляемые данные
@@ -150,8 +167,14 @@ function sentSMS(authPhone) {
   })
   .then(res => res.json())
   .then(result => testCode(parseInt(result.code)))
-  .catch((error) => console.error(error));*/
-}
+  .catch((error) => console.error(error));
+}*/
+let formData = new FormData();
+formData.append("phone", authPhone);
+fetch("http://new.grillvino.ru/checkPhone", {
+  body: formData,
+  method: "post",
+});
 
 function forwardFunc() {
   authError.style.display = "none";
@@ -174,7 +197,6 @@ function toEnterPhone() {
   modalAuthPhone.style.animation = "unset";
   modalAuthPhone.style.display = "block";
   auth.style.display = "none";
-  
 }
 buttonEnter.addEventListener("click", enterToProfile);
 buttonForward.addEventListener("click", forwardFunc);

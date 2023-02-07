@@ -21,12 +21,12 @@ class order {
         for (let itemMenu of allMenu) {
           let toppPrice = 0;
           if (itemMenu.dataset.id === "dish" + itemCard.id) {
-            let currentCard = itemMenu;      
+            let currentCard = itemMenu;
             itemCard.card.toppings.forEach((topp) => {
-              toppPrice +=topp.price;
-            })
+              toppPrice += topp.price;
+            });
             currentCard.querySelector(".desc_price").textContent =
-            itemCard.card.price + toppPrice;
+              itemCard.card.price + toppPrice;
           }
         }
       });
@@ -196,7 +196,7 @@ class order {
   }
 
   renderAddress() {
-    const { streets } = menuData.delivery_options;
+    const { streets } = menuData;
     const fragment = document.createDocumentFragment();
     const optionTemp = document.querySelector(".optionTemp");
     const street = document.querySelector(".street");
@@ -204,7 +204,8 @@ class order {
     //fragment.append(newElem);
     streets.forEach((item) => {
       const cardClone = optionTemp.content.cloneNode(true);
-      cardClone.querySelector(".street__item").textContent = item.street_name;
+      cardClone.querySelector(".street__item").textContent = item.name;
+      cardClone.querySelector(".street__item").value = item.id;
       fragment.append(cardClone);
     });
     street.innerHTML = "";
@@ -245,6 +246,8 @@ class order {
     if (delivery.typeDelivery === "takeaway") {
       document.querySelector(".order__address .order__item_h2").textContent =
         "Детали";
+      document.getElementById("paymentCard").value = document.getElementById("restaurantPay").value;
+        
       document.querySelector(".address__main").style.display = "none";
       document.querySelector(".comments__textarea").style.marginTop = 0;
       document.querySelector(".shortChange").style.display = "none";
@@ -253,11 +256,9 @@ class order {
     } else {
       document.getElementById("restaurantPay").style.display = "none";
     }
-    this.renderDelivery();    
+    this.renderDelivery();
   }
   renderBonus() {
-    let numberBonuses = 140;
-    let writeOffPercent = 10;
     numberBonuses = parseInt(numberBonuses);
     writeOffPercent = parseInt(writeOffPercent);
     const bonusMax = document.querySelector(".bonus_max");
@@ -300,10 +301,12 @@ class order {
     );
 
     if (delivery.typeDelivery === "takeaway") {
+      console.log(delivery.typeDelivery);
       deliveryPrice.textContent = 0;
+      console.log(totalCheck);
+      console.log(takeaway_discount_order_total);
+      otherText.textContent = " для скидки " + takeaway_discount + "%.";
       if (totalCheck >= takeaway_discount_order_total) {
-        otherText.textContent = " для скидки " + takeaway_discount + "%.";
-
         checKForFree.textContent = 0;
         totalCheck = Math.ceil((totalCheck * (100 - takeaway_discount)) / 100);
       } else {
@@ -355,7 +358,8 @@ class order {
       cardClone.querySelector(".basket__card").dataset.id = "dish" + item.id;
       cardClone.querySelector(".basket__card_img").src = item.card.img;
       cardClone.querySelector(".basket__h3").textContent = item.card.name;
-      cardClone.querySelector(".basket__weight").textContent = item.card.weight + " г.";
+      cardClone.querySelector(".basket__weight").textContent =
+        item.card.weight + " г.";
       cardClone.querySelector(".basket__price").textContent = item.card.price;
       cardClone.querySelector(".input_text").value = item.card.quantity;
       let currentCount = cardClone.querySelector(".input_text");
@@ -370,7 +374,8 @@ class order {
           toppPrice += topping.price;
         });
       }
-      cardClone.querySelector(".basket__price").textContent = item.card.price+toppPrice;
+      cardClone.querySelector(".basket__price").textContent =
+        item.card.price + toppPrice;
       currentPlus.addEventListener("click", countPlus(currentCount));
       currentCount.addEventListener("change", inputCountChange);
       currentMinus.addEventListener("click", countMinus(currentCount));
@@ -382,7 +387,6 @@ class order {
     });
     orderList.innerHTML = "";
     orderList.appendChild(fragment);
-    
   }
   load() {
     // localStorage.removeItem("basket");
@@ -421,10 +425,15 @@ orderNew.load();
 
 //-------------------------------------------------------------------
 
+document.querySelector(".street").onchange = (e) => console.log(e.target.value);
+console.log(document.querySelector(".street").value);
+
 function renderModal(dishId, target) {
   let { meals, toppings } = menuData;
-  modalFooter.querySelector(".modal__old_number").style.display = "inline-block";
-  modalFooter.querySelector(".modal__old_letter").style.display = "inline-block";
+  modalFooter.querySelector(".modal__old_number").style.display =
+    "inline-block";
+  modalFooter.querySelector(".modal__old_letter").style.display =
+    "inline-block";
   let toppPrice = 0;
   meals.forEach((dish) => {
     const card = dish.products.find(
@@ -560,13 +569,13 @@ function renderModal(dishId, target) {
         console.log(card.price);
         priceAfterDiscount = card.price;
         modalFooter.querySelector(".modal__old_number").style.display = "none";
-        modalFooter.querySelector(".modal__old_letter").style.display = "none";          
+        modalFooter.querySelector(".modal__old_letter").style.display = "none";
       } else {
         console.log(card.sale_price);
         console.log(card.price);
         priceAfterDiscount = parseInt(card.sale_price);
         modalFooter.querySelector(".modal__old_number").textContent =
-        (card.price + toppPrice) * currentValue;
+          (card.price + toppPrice) * currentValue;
       }
       modalFooter.querySelector(".modal__total_number").textContent =
         (priceAfterDiscount + toppPrice) * currentValue;
@@ -650,7 +659,7 @@ for (let imgClick of imgsClick) {
         btnCloseModal.style.animation = "zoom 0.3s forwards";
         modalFooter.style.animation = "zoom 0.3s forwards";
       }, 400);
-      
+
       //document.querySelector(".asideMenu__ul").style.position = "fixed";
       //document.querySelector(".asideMenu__ul").style.top = ;
     }
@@ -847,7 +856,7 @@ function countMinus(count) {
           );
           currentCards.forEach((currentCard) => {
             currentCard.querySelector(".desc_price").textContent =
-            currCard.card.price;
+              currCard.card.price;
             currentCard.querySelector(".card__button").style.display = "block";
             currentCard.querySelector(".card__button_count").style.display =
               "none";
@@ -950,7 +959,8 @@ function changeModalPrice(itemID) {
       if (basketCardList[t].dataset.id === itemID) {
         console.log(basketCardList[t].querySelector(".basket__price"));
         console.log(toppPrice);
-        basketCardList[t].querySelector(".basket__price").textContent = dataCard.card.price+ toppPrice;
+        basketCardList[t].querySelector(".basket__price").textContent =
+          dataCard.card.price + toppPrice;
       }
     }
   }
