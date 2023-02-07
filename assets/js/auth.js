@@ -97,7 +97,7 @@ function enterToProfile() {
   let formData = new FormData();
   formData.append("code", currentCode);
 
-  fetch("http://new.grillvino.ru/checkCode", {
+  fetch(urlPostCode, {
     body: formData,
     method: "post",
   })
@@ -109,7 +109,7 @@ function enterToProfile() {
       } else {
         console.log(response.status);
         console.log("Ok");
-        fetch("http://new.grillvino.ru/auth", {
+        fetch(urlPostAuth, {
           body: formDataAuth,
           method: "post",
         })
@@ -174,7 +174,7 @@ function sentSMS(authPhone) {
 let formData = new FormData();
 formData.append("phone", authPhone);
 console.log(authPhone.toString);
-fetch("http://new.grillvino.ru/checkPhone", {
+fetch(urlPostPhone, {
   body: formData,
   method: "post",
 });

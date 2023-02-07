@@ -1,7 +1,7 @@
 let formDataAuth = new FormData();
 
 fetch(
-  "http://new.grillvino.ru/auth",
+  urlPostAuth,
   {
     body: formDataAuth,
     method: "post",
