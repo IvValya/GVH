@@ -776,6 +776,11 @@ for (let imgClick of imgsClick) {
     }
   });
 }
+let textarea = document.querySelector(".comments__textarea");
+textarea.addEventListener("change", (e) => {
+  console.log(e.target.value);
+  e.target.value = e.target.value.replace(/[<>]/g, "");
+})
 /*----------------------Close modal window------------------------*/
 
 function closeModal() {

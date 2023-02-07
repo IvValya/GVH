@@ -103,23 +103,27 @@ function enterToProfile() {
   })
     .then((response) => response.json())
     .then((response) => {
+      console.log(response.status);
       if (response.status === "Wrong code") {
-        console.log(response.status);
+        spanTimer.textContent = "00:00";
+        codeError.style.display = "block";
+        let currentPhone = authTel.textContent.replace(/[^0-9+]/g, "");
+        newCode(0, currentPhone);
         console.log("Wrong");
-      } else {
-        console.log(response.status);
-        console.log("Ok");
+      } else if (response.status === "Ok") {
+        let formDataAuthN = new FormData();
         fetch(urlPostAuth, {
-          body: formDataAuth,
+          body: formDataAuthN,
           method: "post",
         })
-          .then((response) => response.json())
-          .then((response) => {
-            console.log(response);
-            console.log(response.isAuth);
-            if (response.isAuth) {
-              numberBonuses = parseInt(response.points);
-              document.querySelector(".mobile__profile_img img").src = iconInProfile;
+          .then((resp) => resp.json())
+          .then((resp) => {
+            console.log(resp);
+            console.log(resp.isAuth);
+            if (resp.isAuth) {
+              numberBonuses = parseInt(resp.points);
+              document.querySelector(".mobile__profile_img img").src =
+                iconInProfile;
               document.querySelector(".profile__img").src = iconInProfile;
               document.querySelector(".mobile__profile span").textContent = "ПРОФИЛЬ  |  ВЫЙТИ"
             }
@@ -130,22 +134,9 @@ function enterToProfile() {
               document.querySelector(".mobile__profile span").textContent = "ВОЙТИ"
             }
           });
+        closeAuthWindow();
       }
     });
-console.log(numberBonuses);
-  // let valid = JSON.parse(urlForPost);
-  //valid = valid.valid;
-  console.log(valid);
-  if (valid) {
-    console.log("true");
-    window.location = linkToProfile;
-  } else {
-    console.log(valid);
-    spanTimer.textContent = "00:00";
-    codeError.style.display = "block";
-    let currentPhone = authTel.textContent.replace(/[^0-9+]/g, "");
-    newCode(0, currentPhone);
-  }
 }
 function testCode(code) {
   if (currentCode === code) {
@@ -161,7 +152,6 @@ function sentSMS(authPhone) {
   let checkPhone = {
     phone: authPhone,
   };
-  console.log(JSON.stringify(checkPhone));
   if (timer) {
     clearInterval(timer);
     timer = null;
@@ -169,18 +159,13 @@ function sentSMS(authPhone) {
   console.log(authPhone);
   startTimer(authPhone);
 
-  console.log(typeof authPhone);
-
-  
-
-let formData = new FormData();
-formData.append("phone", authPhone);
-console.log(authPhone.toString);
-fetch(urlPostPhone, {
-  body: formData,
-  method: "post",
-});
-
+  let formData = new FormData();
+  formData.append("phone", authPhone);
+  console.log(authPhone.toString);
+  fetch(urlPostPhone, {
+    body: formData,
+    method: "post",
+  });
 }
 function forwardFunc() {
   authError.style.display = "none";
