@@ -1,25 +1,25 @@
 let formDataAuth = new FormData();
 
-fetch(
-  urlPostAuth,
-  {
-    body: formDataAuth,
-    method: "post",
-  })
-    .then((response) => response.json())
-    .then((response) => {
-      console.log(response.isAuth)
-      if (response.isAuth) {
-        numberBonuses = parseInt(response.points);
-        document.querySelector(".mobile__profile_img").src = "/assets/img/mobileIconProfileNew.svg";
-        document.querySelector(".profile__img").src = "/assets/img/mobileIconProfileNew.svg";
-        document.querySelector(".mobile__profile span").textContent = "ПРОФИЛЬ  |  ВЫЙТИ"
-      }
-      else {
-        numberBonuses = 0;
-        document.querySelector(".mobile__profile span").textContent = "ВОЙТИ"
-      }
-    });
+fetch(urlPostAuth, {
+  body: formDataAuth,
+  method: "post",
+})
+  .then((response) => response.json())
+  .then((response) => {
+    console.log(response.isAuth);
+    if (response.isAuth) {
+      numberBonuses = parseInt(response.points);
+      document.querySelector(".mobile__profile_img img").src = iconInProfile;
+      document.querySelector(".profile__img").src = iconInProfile;
+      document.querySelector(".mobile__profile span").textContent =
+        "ПРОФИЛЬ  |  ВЫЙТИ";
+    } else {
+      numberBonuses = 0;
+      document.querySelector(".mobile__profile_img img").src = iconOutProfile;
+      document.querySelector(".profile__img").src = iconOutProfile;
+      document.querySelector(".mobile__profile span").textContent = "ВОЙТИ";
+    }
+  });
 
 var menuData;
 class dishesL {
@@ -53,7 +53,6 @@ class dishesL {
           let scriptAuth = document.createElement("script");
           scriptAuth.src = srcScriptAuth;
           div.after(scriptAuth);
-          
         });
     }
   }
@@ -62,7 +61,7 @@ class dishesL {
     fetch(urLForGet)
       .then(this.errorHandler)
       .then((res) => res.json())
-      .then((data) => {        
+      .then((data) => {
         menuData = data;
         this.renderCategories(data);
         if (page === 1) {

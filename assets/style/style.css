@@ -145,7 +145,10 @@ input {
 .close {
     display: block;
 }
-
+.mobile__profile_img img {
+width: 22px;
+height: 22px;
+}
 .mobileBasket__close {}
 
 .header__nav,
@@ -2516,6 +2519,8 @@ input[type="number"]:focus {
 
 .profile__img {
     cursor: pointer;
+    width: 28px;
+    height: 28px;
 }
 
 .auth__close {

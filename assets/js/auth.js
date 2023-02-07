@@ -119,12 +119,14 @@ function enterToProfile() {
             console.log(response.isAuth);
             if (response.isAuth) {
               numberBonuses = parseInt(response.points);
-              document.querySelector(".mobile__profile_img").src = "/assets/img/mobileIconProfileNew.svg";
-              document.querySelector(".profile__img").src = "/assets/img/mobileIconProfileNew.svg";
+              document.querySelector(".mobile__profile_img img").src = iconInProfile;
+              document.querySelector(".profile__img").src = iconInProfile;
               document.querySelector(".mobile__profile span").textContent = "ПРОФИЛЬ  |  ВЫЙТИ"
             }
             else {
               numberBonuses = 0;
+              document.querySelector(".mobile__profile_img img").src = iconOutProfile;
+              document.querySelector(".profile__img").src = iconOutProfile;
               document.querySelector(".mobile__profile span").textContent = "ВОЙТИ"
             }
           });
