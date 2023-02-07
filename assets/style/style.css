@@ -363,6 +363,41 @@ input {
 }*/
 
 /*---------------------------------------------------------------------*/
+.modal__desc_arrowRight,
+.modal__desc_arrowLeft {
+    object-fit: cover;
+    width: 6px !important;
+    height: 10px;
+    align-items: center;
+    color: var(--color-bordeaux);
+    text-align: center;
+}
+
+.modal__desc_full {
+    height: 77px;
+}
+
+.modal__desc_item {
+    width: 100%;
+    display: flex;
+    row-gap: 5px;
+    padding-bottom: 5px;
+    flex-direction: column;
+    padding-left: 25px;
+    padding-right: 25px;
+    align-items: end;
+}
+.button_next,
+.button_prev {
+display: flex;
+flex-wrap: nowrap;
+align-items: center;
+column-gap: 10px;
+font-weight: 500;
+font-size: 15px;
+color: #831335;
+}
+
 /*-------------------MAIN---------------------------------------------*/
 .menu__mobile_nav {
     height: 75px;
@@ -2076,7 +2111,7 @@ input[type="number"]:focus {
     z-index: 100502;
 }
 
-.modal__card_img {
+.swiper .modal__card_img {
     width: 100%;
     height: 100%;
     height: 265px;
@@ -2093,14 +2128,13 @@ input[type="number"]:focus {
 .modal__desc,
 .modal__consist {
     font-family: 'FF Good Pro';
-    height: 78px;
+    height: 50px;
     width: 100%;
     font-weight: 450;
     font-size: 14px;
-    padding-top: 15px;
-    padding-left: 25px;
-    padding-right: 25px;
-    padding-bottom: 15px;
+    padding-top: 10px;
+    overflow: hidden;
+    /* padding-bottom: 15px;*/
     text-align: justify;
     color: #757575;
     background-color: var(--text-color-white);
@@ -2559,6 +2593,9 @@ input[type="number"]:focus {
         grid-template-columns: 195px 1fr;
         flex-wrap: nowrap;*/
     }
+    .modal__desc_item {
+        height: 100%;
+    }
 
     .header {
         padding-left: 43px;
@@ -2579,9 +2616,11 @@ input[type="number"]:focus {
     .auth__enter {
         margin-bottom: 45px;
     }
+
     .modal__desc {
         padding-right: 45px;
     }
+
     .auth__main_code .auth__p {
         padding-top: 52px;
     }
@@ -2623,8 +2662,9 @@ input[type="number"]:focus {
         display: flex;
         height: 77px;
     }
+
     .modal__consist {
-        padding-left: 45px;
+        padding-left: 20px;
     }
 
     .button_next {
@@ -2659,19 +2699,21 @@ input[type="number"]:focus {
         right: 10px;
         bottom: 35px;
         align-items: center;
-        color: var(--color-bordeaux);        
+        color: var(--color-bordeaux);
         text-align: center;
     }
-    .button_prev { 
+
+    .button_prev {
         position: absolute;
-        padding-left: 10px;
+        padding-left: 15px;
         cursor: pointer;
-        width: 70px;
+        width: 30px;
         height: 78px;
         left: 0px;
         bottom: 0px;
         z-index: 100801;
     }
+
     .modal__desc_arrowLeft {
         position: absolute;
         bottom: 35px;
@@ -3178,8 +3220,9 @@ input[type="number"]:focus {
         max-height: 156px;
     }
 
-    .modal__desc {
-        height: 75px;
+    .modal__desc,
+    .modal__consist {
+        height: 100%;
 
     }
 }

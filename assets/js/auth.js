@@ -22,7 +22,6 @@ let maskOptions = {
 };
 let newSMS = document.querySelector(".newSMS");
 let mask = new IMask(element, maskOptions);
-
 let timer = null;
 
 function openAuthWindow() {
@@ -92,17 +91,17 @@ function enterToProfile() {
   codeError.style.display = "none";
   let currentCode = document.querySelector(".SMSCode").value;
   currentCode = parseInt(currentCode.replace(/[^0-9]/g, ""));
-  currentCode = {
-    code: currentCode,
-  };
-  console.log(JSON.stringify(currentCode));
+  currentCode = currentCode.toString();
+  console.log(typeof currentCode);
+  console.log(currentCode);
   let formData = new FormData();
   formData.append("code", currentCode);
+
   fetch("http://new.grillvino.ru/checkCode", {
     body: formData,
     method: "post",
   })
-    .then((response) => response.json)
+    .then((response) => response.json())
     .then((response) => {
       if (response.status === "Wrong code") {
         console.log(response.status);
@@ -110,18 +109,28 @@ function enterToProfile() {
       } else {
         console.log(response.status);
         console.log("Ok");
+        fetch("http://new.grillvino.ru/auth", {
+          body: formDataAuth,
+          method: "post",
+        })
+          .then((response) => response.json())
+          .then((response) => {
+            console.log(response);
+            console.log(response.isAuth);
+            if (response.isAuth) {
+              numberBonuses = parseInt(response.points);
+              document.querySelector(".mobile__profile_img").src = "/assets/img/mobileIconProfileNew.svg";
+              document.querySelector(".profile__img").src = "/assets/img/mobileIconProfileNew.svg";
+              document.querySelector(".mobile__profile span").textContent = "ПРОФИЛЬ  |  ВЫЙТИ"
+            }
+            else {
+              numberBonuses = 0;
+              document.querySelector(".mobile__profile span").textContent = "ВОЙТИ"
+            }
+          });
       }
     });
-  /*fetch(urlForPost, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json", // отправляемые данные
-    },
-    body: JSON.stringify(currentCode),
-  })
-  .then(res => res.json())
-  .then(result => testCode(parseInt(result.valid)))
-  .catch((error) => console.error(error));*/
+console.log(numberBonuses);
   // let valid = JSON.parse(urlForPost);
   //valid = valid.valid;
   console.log(valid);
@@ -157,25 +166,20 @@ function sentSMS(authPhone) {
   }
   console.log(authPhone);
   startTimer(authPhone);
-}
-/* fetch("/checkPhone", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json", // отправляемые данные
-    },
-    body: JSON.stringify(checkPhone),
-  })
-  .then(res => res.json())
-  .then(result => testCode(parseInt(result.code)))
-  .catch((error) => console.error(error));
-}*/
+
+  console.log(typeof authPhone);
+
+  
+
 let formData = new FormData();
 formData.append("phone", authPhone);
+console.log(authPhone.toString);
 fetch("http://new.grillvino.ru/checkPhone", {
   body: formData,
   method: "post",
 });
 
+}
 function forwardFunc() {
   authError.style.display = "none";
   if (timer) {
@@ -198,6 +202,7 @@ function toEnterPhone() {
   modalAuthPhone.style.display = "block";
   auth.style.display = "none";
 }
+
 buttonEnter.addEventListener("click", enterToProfile);
 buttonForward.addEventListener("click", forwardFunc);
 btnCorrectPhone.addEventListener("click", toEnterPhone);

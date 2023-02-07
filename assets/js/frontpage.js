@@ -247,6 +247,15 @@ function renderModal(dishId, target) {
       });
       toppingList.innerHTML = "";
       toppingList.appendChild(fragmentTopping);
+      if (window.innerWidth < 800) {
+        document.querySelector(".button_prev .modal__desc_next").textContent =
+          "описание";
+        document.querySelector(".modal__desc_arrowLeft").src =
+          "/assets/img/arrowRight.svg";
+      } else {
+        document.querySelector(".button_prev .modal__desc_next").style.display =
+          "none";
+      }
       modalWindow.querySelector(".modal__desc").textContent = card.description;
       modalWindow.querySelector(".modal__consist").textContent = card.contents;
       const footerBJU = document.querySelector(".footer__BJU");
@@ -342,25 +351,31 @@ for (let imgClick of imgsClick) {
       spaceBetween: 30,
       loop: true,
     });
-    var nextSlide = function (){
+    var nextSlide = function () {
       swiperDesc.slideNext();
-  }
+    };
 
-  var prevSlide = function (){
+    var prevSlide = function () {
       swiperDesc.slidePrev();
-  }
+    };
 
-  let next = document.querySelectorAll(".button_next");
-  let prev = document.querySelectorAll(".button_prev");
+    let next = document.querySelectorAll(".button_next");
+    let prev = document.querySelectorAll(".button_prev");
 
-  next.forEach((elem) => {
-    elem.addEventListener("click", nextSlide);
-  });
-  prev.forEach((elem) => {
-    elem.addEventListener("click", prevSlide);
-  })
+    next.forEach((elem) => {
+      elem.addEventListener("click", nextSlide);
+    });
+    prev.forEach((elem) => {
+      elem.addEventListener("click", () => {
+        if (window.innerWidth < 800) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      });
+    });
 
-  swiperDesc.on('slideChange', function () {
+    swiperDesc.on("slideChange", function () {
       let next = document.querySelectorAll(".button_next");
       let prev = document.querySelectorAll(".button_prev");
       next.forEach((elem) => {
@@ -374,8 +389,8 @@ for (let imgClick of imgsClick) {
       });
       prev.forEach((elem) => {
         elem.addEventListener("click", prevSlide);
-      });     
- });
+      });
+    });
     /*
     swiperDesc.on("slideChange", function() {
       console.log(this.activeIndex);

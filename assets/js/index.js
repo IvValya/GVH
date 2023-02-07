@@ -560,6 +560,51 @@ for (let imgClick of imgsClick) {
     let dishId;
     dishId = imgClick.closest(".list_item").dataset.id;
     renderModal(dishId, e.currentTarget);
+    swiperDesc = new Swiper(".mySwiperDesc", {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+    });
+    var nextSlide = function () {
+      swiperDesc.slideNext();
+    };
+
+    var prevSlide = function () {
+      swiperDesc.slidePrev();
+    };
+
+    let next = document.querySelectorAll(".button_next");
+    let prev = document.querySelectorAll(".button_prev");
+
+    next.forEach((elem) => {
+      elem.addEventListener("click", nextSlide);
+    });
+    prev.forEach((elem) => {
+      elem.addEventListener("click", () => {
+        if (window.innerWidth < 800) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      });
+    });
+
+    swiperDesc.on("slideChange", function () {
+      let next = document.querySelectorAll(".button_next");
+      let prev = document.querySelectorAll(".button_prev");
+      next.forEach((elem) => {
+        elem.removeEventListener("click", nextSlide);
+      });
+      next.forEach((elem) => {
+        elem.addEventListener("click", nextSlide);
+      });
+      prev.forEach((elem) => {
+        elem.removeEventListener("click", prevSlide);
+      });
+      prev.forEach((elem) => {
+        elem.addEventListener("click", prevSlide);
+      });
+    });
     modalTrue = true;
     modal.style.display = "flex";
     divBlock.style.display = "block";
@@ -674,6 +719,7 @@ function closeModal() {
   }
   timerId = setTimeout(() => {
     modal.style.display = "none";
+    swiperDesc.destroy(true, true);
   }, 800);
 }
 
@@ -1701,8 +1747,7 @@ function renderModal(dishId, target) {
     mySwiperModal.innerHTML = "";
     mySwiperModal.appendChild(fragmentSwiperModal);
 
-    modalWindow.querySelector(".modal__desc").textContent =
-      card.description + " " + card.contents;
+    
     const fragmentTopping = document.createDocumentFragment();
     const toppingCardTemp = document.querySelector(".toppingCardTemp");
     const toppingList = modalWindow.querySelector(".topping__list");
@@ -1738,6 +1783,18 @@ function renderModal(dishId, target) {
     });
     toppingList.innerHTML = "";
     toppingList.appendChild(fragmentTopping);
+
+    if (window.innerWidth < 800) {
+      document.querySelector(".button_prev .modal__desc_next").textContent =
+        "описание";
+      document.querySelector(".modal__desc_arrowLeft").src =
+        "/assets/img/arrowRight.svg";
+    } else {
+      document.querySelector(".button_prev .modal__desc_next").style.display =
+        "none";
+    }
+    modalWindow.querySelector(".modal__desc").textContent = card.description;
+    modalWindow.querySelector(".modal__consist").textContent = card.contents;
 
     const footerBJU = modalWindow.querySelector(".footer__BJU");
     footerBJU.querySelector(".modal__weight").textContent = card.weight;

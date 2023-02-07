@@ -6,5 +6,4 @@ var linkToOrder = "/order.html";
 var linkToFrontpage = "/";
 var timeForCode = 60;
 var srcScriptAuth = "/assets/js/auth.js";
-let numberBonuses = 0;
-let writeOffPercent = 10;
+var profileIconEnter = "/assets/img/mobileIconProfile.svg"
