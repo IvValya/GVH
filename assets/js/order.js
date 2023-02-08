@@ -1326,6 +1326,16 @@ if (window.innerWidth > 1450) {
     currentText.innerText = text;
     select.classList.remove("is_active");
   }
+  window.addEventListener('click', e => {
+    const target = e.target;
+    if (!target.closest(".paymentCardSelect") &&  !target.closest(".select")) { // если этот элемент или его родительские элементы не окно навигации и не кнопка
+      document.querySelector(".paymentCardSelect").classList.remove("is_active");
+      document.querySelector(".select").classList.remove("is_active");
+    }
+  })
+  window.addEventListener("click", () => {
+    console.log("click");
+  })
 }
 
 //}
