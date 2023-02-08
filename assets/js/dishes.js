@@ -1,4 +1,6 @@
 let formDataAuth = new FormData();
+let profileData;
+var numberBonuses = 0;
 
 fetch(urlPostAuth, {
   body: formDataAuth,
@@ -7,7 +9,8 @@ fetch(urlPostAuth, {
   .then((response) => response.json())
   .then((response) => {
     console.log(response.isAuth);
-    if (response.isAuth) {
+    profileData = response;
+    if (response.isAuth) {      
       numberBonuses = parseInt(response.points);
       document.querySelector(".mobile__profile_img img").src = iconInProfile;
       document.querySelector(".profile__img").src = iconInProfile;

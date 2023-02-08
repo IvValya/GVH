@@ -13,8 +13,27 @@ for (let buttonCount of buttonsCount) {
   minus.addEventListener("click", countMinus(count));
   plus.addEventListener("click", countPlus(count));
 }
-
+/*
+ profileData = {isAuth: true, name: "Андрей",bonus: 500,street: 628,building: "15",corp: "5",apt: "168",entrance:
+"2",floor: "15",intercom:"2304"};*/
 class order {
+  
+  renderOrderWithProfileData() {
+    let {isAuth, name, bonus, street, building, corp, apt, entrance, floor, intercom} = profileData;
+    numberBonuses = bonus;
+    let maxBonus = bonus/100*parseInt(menuData.delivery_options.bonus_percent)
+    document.querySelector(".bonus_max").textContent = maxBonus ;
+    document.querySelector(".street").value = street;
+    document.querySelector(".house").value = building;
+    document.querySelector(".housing").value = corp;
+    document.querySelector(".flat").value = apt;
+    document.querySelector(".entrance").value = entrance;
+    document.querySelector(".level").value = floor;
+    document.querySelector(".intercom").value = intercom;
+    document.querySelector(".range").max = maxBonus;
+    orderNew.renderBonus();
+  }
+
   renderPriceCard() {
     if (data.basket.length !== 0) {
       let allMenu = document.querySelectorAll(".list_item");
@@ -268,6 +287,10 @@ class order {
     const numberBonusesText = document.querySelector(".numberBonuses");
     const writeOffBonuses = document.querySelector(".writeOffBonuses");
     if (numberBonuses !== 0) {
+      numberBonusesText.style.display = "inline";
+      document.querySelector(".bonus__text_other").style.display = "inline";
+      writeOffBonuses.style.display = "inline";
+      bonusText.textContent = "У вас ";      
       bonusMax.textContent = Math.ceil((numberBonuses * writeOffPercent) / 100);
       range.max = Math.ceil((numberBonuses * writeOffPercent) / 100);
       numberBonusesText.textContent = numberBonuses + " бонусов";
@@ -275,6 +298,9 @@ class order {
         (numberBonuses * writeOffPercent) / 100
       );
     } else {
+      numberBonusesText.style.display = "none";
+      document.querySelector(".bonus__text_other").style.display = "none";
+      writeOffBonuses.style.display = "none";
       range.max = 0;
       bonusMax.textContent = "0";
       bonusText.textContent = "У вас нет бонусов, доступных к списанию";
@@ -329,26 +355,6 @@ class order {
     document.querySelector(".orderPrice__price").textContent =
       totalCheck - range.value;
   }
-
-  /* load() {
-      fetch("order.json" )
-        .then(this.errorHandler)
-        .then((res) => res.json())
-        .then((order) => {
-          data = order;
-          this.renderAddress();
-          this.renderPayment();
-          this.renderBasket();
-          this.renderExtra();
-          this.renderDate();
-        })
-        .catch((err) => console.error(err));
-    }
-
-    save() {}
-  }
-*/
-
   renderBasket() {
     const { basket } = data;
     const fragment = document.createDocumentFragment();
@@ -419,6 +425,10 @@ class order {
     this.renderExtra();
     this.renderDate();
     this.renderPriceCard();
+    console.log(profileData.isAuth);
+    if (profileData.isAuth) {
+      this.renderOrderWithProfileData();
+    }
   }
 }
 let orderNew = new order();

@@ -83,6 +83,7 @@ function newCode(time, authPhone) {
   }
 }
 
+
 function enterToProfile() {
   if (timer) {
     clearInterval(timer);
@@ -96,6 +97,7 @@ function enterToProfile() {
   console.log(currentCode);
   let formData = new FormData();
   formData.append("code", currentCode);
+  orderNew.renderOrderWithProfileData();
 
   fetch(urlPostCode, {
     body: formData,
@@ -121,6 +123,10 @@ function enterToProfile() {
             console.log(resp);
             console.log(resp.isAuth);
             if (resp.isAuth) {
+              profileData = response;
+              if (page === 3) {
+                orderNew.renderOrderWithProfileData();
+              }
               numberBonuses = parseInt(resp.points);
               document.querySelector(".mobile__profile_img img").src =
                 iconInProfile;
@@ -161,7 +167,6 @@ function sentSMS(authPhone) {
 
   let formData = new FormData();
   formData.append("phone", authPhone);
-  console.log(authPhone.toString);
   fetch(urlPostPhone, {
     body: formData,
     method: "post",

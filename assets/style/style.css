@@ -562,7 +562,8 @@ color: #831335;
     /*pointer-events: none;*/
 }
 
-.bonus__text {
+.bonus__text,
+.bonus__text_other {
     padding-bottom: 10px;
 }
 
@@ -1021,10 +1022,13 @@ input[type=text]:-ms-input-placeholder {
 
 .numberBonuses,
 .writeOffBonuses {
+    font-weight: 500;
+    font-size: 13px;
     color: #B06D81;
 }
 
-.bonus__text {
+.bonus__text,
+.bonus__text_other {
     font-weight: 500;
     font-size: 13px;
     color: #838383;
@@ -2573,6 +2577,7 @@ input[type="number"]:focus {
 .auth__agreement .details {
     text-decoration: underline;
 }
+
 
 /*------------------------MEDIA---------------------------------------*/
 @media screen and (min-width: 800px) {
