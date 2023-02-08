@@ -145,10 +145,12 @@ input {
 .close {
     display: block;
 }
+
 .mobile__profile_img img {
-width: 47px;
-height: 47px;
+    width: 47px;
+    height: 47px;
 }
+
 .mobileBasket__close {}
 
 .header__nav,
@@ -183,10 +185,10 @@ height: 47px;
     cursor: pointer;
     margin-left: 25px;
     margin-right: 20px;
-    
+
     width: 65px;
     height: 65px;
-    
+
 }
 
 .phone {
@@ -277,10 +279,10 @@ height: 47px;
 }
 
 .mobile__profile_img {
-    
+
     width: 47px;
     height: 47px;
-    
+
 }
 
 .mobile__indicator {
@@ -380,15 +382,16 @@ height: 47px;
     padding-right: 25px;
     align-items: end;
 }
+
 .button_next,
 .button_prev {
-display: flex;
-flex-wrap: nowrap;
-align-items: center;
-column-gap: 10px;
-font-weight: 500;
-font-size: 15px;
-color: #831335;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    column-gap: 10px;
+    font-weight: 500;
+    font-size: 15px;
+    color: #831335;
 }
 
 /*-------------------MAIN---------------------------------------------*/
@@ -2591,6 +2594,7 @@ input[type="number"]:focus {
         grid-template-columns: 195px 1fr;
         flex-wrap: nowrap;*/
     }
+
     .modal__desc_item {
         height: 100%;
     }
@@ -2600,6 +2604,7 @@ input[type="number"]:focus {
         padding-right: 40px;
         height: 124px;
     }
+
     .swiper .modal__card_img {
         height: 410px;
     }
@@ -2804,8 +2809,67 @@ input[type="number"]:focus {
         column-gap: 20px;
     }
 
-    .street {
+    .street,
+    .select {
         grid-column: span 3;
+    }
+
+    .select {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+
+    .select.is_active {
+        outline: none;
+        background: #FFF3DC;
+        border-color: #B06D81;
+        border: 1px solid #B06D81;
+
+    }
+    .select__header {        
+        width: 100%;
+    }
+    .select__current {
+        font-size: 18px;
+        line-height: 24px;
+        padding: 8px;
+        width: 100%;
+    }
+    .select.is_active .select__body {
+        display: block;}
+
+    .select__body {
+        border: 2px solid #cccccc;
+        border-top: 0;
+        display: none;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 48px;
+        background-color: var(--text-color-white);
+        z-index: 10;
+    }
+
+    .select__item {
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 24px;
+        padding: 8px;
+    }
+
+    .select__item:hover {
+        background-color: #f2f2f2;
+    }
+
+    .select {
+        border: 1px solid #D6D6D6;
+        border-radius: 10px;
+        height: 47px;
+        width: 100%;
+        border-color: #B06D81;
+        text-align: left;
     }
 
     .flat,

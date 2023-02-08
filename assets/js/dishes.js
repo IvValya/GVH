@@ -66,6 +66,7 @@ class dishesL {
       .then((res) => res.json())
       .then((data) => {
         menuData = data;
+        console.log(menuData);
         this.renderCategories(data);
         if (page === 1) {
           this.loadScript("/assets/js/index.js");

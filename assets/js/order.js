@@ -17,13 +17,49 @@ for (let buttonCount of buttonsCount) {
  profileData = {isAuth: true, name: "Андрей",bonus: 500,street: 628,building: "15",corp: "5",apt: "168",entrance:
 "2",floor: "15",intercom:"2304"};*/
 class order {
-  
+  renderSelectStreets() {
+    const { streets } = menuData;
+    const fragment = document.createDocumentFragment();
+    const optionTemp = document.querySelector(".selectStreetItem");
+    const street = document.querySelector(".select__body");
+    streets.forEach((item) => {
+      const cardClone = optionTemp.content.cloneNode(true);
+      cardClone.querySelector(".select__item").textContent = item.name;
+      cardClone.querySelector(".select__item").dataset.id = item.id;
+      fragment.append(cardClone);
+    });
+    street.innerHTML = "";
+    street.appendChild(fragment);
+    document.querySelector(".select__current").textContent = streets[0].name;
+    document.querySelector(".select__current").dataset.id = streets[0].id;
+  }
+
   renderOrderWithProfileData() {
-    let {isAuth, name, bonus, street, building, corp, apt, entrance, floor, intercom} = profileData;
+    let {
+      isAuth,
+      name,
+      bonus,
+      street,
+      building,
+      corp,
+      apt,
+      entrance,
+      floor,
+      intercom,
+    } = profileData;
     numberBonuses = bonus;
-    let maxBonus = bonus/100*parseInt(menuData.delivery_options.bonus_percent)
-    document.querySelector(".bonus_max").textContent = maxBonus ;
-    document.querySelector(".street").value = street;
+    let maxBonus =
+      (bonus / 100) * parseInt(menuData.delivery_options.bonus_percent);
+    document.querySelector(".bonus_max").textContent = maxBonus;
+    if (window.innerWidth >1450) {
+     let nameStreet =  menuData.streets.find((elem) => elem.id === street );
+      document.querySelector(".select__current").textContent = nameStreet.name;
+      document.querySelector(".select__current").dataset.id = nameStreet.id;
+    }
+    else {
+      document.querySelector(".street").value = street;
+    }
+    
     document.querySelector(".house").value = building;
     document.querySelector(".housing").value = corp;
     document.querySelector(".flat").value = apt;
@@ -217,19 +253,26 @@ class order {
 
   renderAddress() {
     const { streets } = menuData;
-    const fragment = document.createDocumentFragment();
-    const optionTemp = document.querySelector(".optionTemp");
     const street = document.querySelector(".street");
-    // const newElem = document.createElement("option");
-    //fragment.append(newElem);
-    streets.forEach((item) => {
-      const cardClone = optionTemp.content.cloneNode(true);
-      cardClone.querySelector(".street__item").textContent = item.name;
-      cardClone.querySelector(".street__item").value = item.id;
-      fragment.append(cardClone);
-    });
-    street.innerHTML = "";
-    street.appendChild(fragment);
+    if (window.innerWidth > 1450) {
+      street.style.display = "none";
+      this.renderSelectStreets();
+    } else {
+      document.querySelector(".select").style.display = "none";
+      const fragment = document.createDocumentFragment();
+      const optionTemp = document.querySelector(".optionTemp");
+      const street = document.querySelector(".street");
+      // const newElem = document.createElement("option");
+      //fragment.append(newElem);
+      streets.forEach((item) => {
+        const cardClone = optionTemp.content.cloneNode(true);
+        cardClone.querySelector(".street__item").textContent = item.name;
+        cardClone.querySelector(".street__item").value = item.id;
+        fragment.append(cardClone);
+      });
+      street.innerHTML = "";
+      street.appendChild(fragment);
+    }
   }
 
   renderDate() {
@@ -266,8 +309,9 @@ class order {
     if (delivery.typeDelivery === "takeaway") {
       document.querySelector(".order__address .order__item_h2").textContent =
         "Детали";
-      document.getElementById("paymentCard").value = document.getElementById("restaurantPay").value;
-        
+      document.getElementById("paymentCard").value =
+        document.getElementById("restaurantPay").value;
+
       document.querySelector(".address__main").style.display = "none";
       document.querySelector(".comments__textarea").style.marginTop = 0;
       document.querySelector(".shortChange").style.display = "none";
@@ -290,7 +334,7 @@ class order {
       numberBonusesText.style.display = "inline";
       document.querySelector(".bonus__text_other").style.display = "inline";
       writeOffBonuses.style.display = "inline";
-      bonusText.textContent = "У вас ";      
+      bonusText.textContent = "У вас ";
       bonusMax.textContent = Math.ceil((numberBonuses * writeOffPercent) / 100);
       range.max = Math.ceil((numberBonuses * writeOffPercent) / 100);
       numberBonusesText.textContent = numberBonuses + " бонусов";
@@ -455,169 +499,165 @@ function renderModal(dishId, target) {
       }
     }
   }
-    if (card) {
-      const modalWindow = document.querySelector(".modal");
-      const modalFav = document.querySelector(".modal__fav");
-      const fragmentFav = document.createDocumentFragment();
-      const modalFavTemp = document.querySelector(".modalFavTemp");
-      modalWindow.dataset.id = "dish" + card.id;
-      card.typeDishFav.forEach((itemFav) => {
-        const favClone = modalFavTemp.content.cloneNode(true);
-        favClone.querySelector(".modal__fav_img").src = itemFav;
-        fragmentFav.append(favClone);
-      });
-      modalFav.innerHTML = "";
-      modalFav.appendChild(fragmentFav);
-      modalWindow.querySelector(".modal__h2").textContent = card.name;
-      const fragmentSwiperModal = document.createDocumentFragment();
-      const swiperGalleryModalTemp = document.querySelector(
-        ".swiperGalleryModalTemp"
-      );
-      card.img.forEach((itemimg) => {
-        const imgClone = swiperGalleryModalTemp.content.cloneNode(true);
-        imgClone.querySelector(".modal__card_img").src = itemimg;
-        fragmentSwiperModal.append(imgClone);
-      });
-      const mySwiperModal = modalWindow.querySelector(
-        ".mySwiperModal .swiper-wrapper"
-      );
-      mySwiperModal.innerHTML = "";
-      mySwiperModal.appendChild(fragmentSwiperModal);
+  if (card) {
+    const modalWindow = document.querySelector(".modal");
+    const modalFav = document.querySelector(".modal__fav");
+    const fragmentFav = document.createDocumentFragment();
+    const modalFavTemp = document.querySelector(".modalFavTemp");
+    modalWindow.dataset.id = "dish" + card.id;
+    card.typeDishFav.forEach((itemFav) => {
+      const favClone = modalFavTemp.content.cloneNode(true);
+      favClone.querySelector(".modal__fav_img").src = itemFav;
+      fragmentFav.append(favClone);
+    });
+    modalFav.innerHTML = "";
+    modalFav.appendChild(fragmentFav);
+    modalWindow.querySelector(".modal__h2").textContent = card.name;
+    const fragmentSwiperModal = document.createDocumentFragment();
+    const swiperGalleryModalTemp = document.querySelector(
+      ".swiperGalleryModalTemp"
+    );
+    card.img.forEach((itemimg) => {
+      const imgClone = swiperGalleryModalTemp.content.cloneNode(true);
+      imgClone.querySelector(".modal__card_img").src = itemimg;
+      fragmentSwiperModal.append(imgClone);
+    });
+    const mySwiperModal = modalWindow.querySelector(
+      ".mySwiperModal .swiper-wrapper"
+    );
+    mySwiperModal.innerHTML = "";
+    mySwiperModal.appendChild(fragmentSwiperModal);
 
-      if (card.toppings.length !== 0) {
-        const fragmentTopping = document.createDocumentFragment();
-        const toppingCardTemp = document.querySelector(".toppingCardTemp");
-        console.log(toppingCardTemp);
-        const toppingList = modalWindow.querySelector(".topping__list");
-        card.toppings.forEach((toppItem) => {
-          const cardTopp = toppings.find((item) => item.id === toppItem);
-          toppingClone = toppingCardTemp.content.cloneNode(true);
-          console.log(toppingClone);
-          toppingClone.querySelector(".topping__img").src = cardTopp.image;
-          toppingClone.querySelector(".topping__name").textContent =
-            cardTopp.name;
-          toppingClone.querySelector(".topping__modal_check").id =
-            "topping" + cardTopp.id;
-          toppingClone
-            .querySelector(".topping__label")
-            .setAttribute("for", "topping" + cardTopp.id);
-          toppingClone.querySelector(".topping__weight_number").textContent =
-            cardTopp.weight;
-          toppingClone.querySelector(".topping__price_number").textContent =
-            parseInt(cardTopp.price);
-          const cardBasket = data.basket.find(
-            (cardBasketL) => "dish" + cardBasketL.id === dishId
-          );
-          if (cardBasket) {
-            cardBasket.card.toppings.forEach((cardTopping) => {
-              if (cardTopping.id === cardTopp.id) {
-                toppPrice += parseInt(cardTopp.price);
-                toppingClone
-                  .querySelector(".topping__check_img")
-                  .classList.add("topping__check_active");
-              }
-            });
-          }
-          fragmentTopping.append(toppingClone);
-        });
-        toppingList.innerHTML = "";
-        toppingList.appendChild(fragmentTopping);
-      }else {
-        document.querySelector(".modal__topping").style.display = "none";
-        if (window.innerWidth > 800) {
-          document.querySelector(".modal").style.height = "562px";
-          document.querySelector(".modal__footer").style.top =
-            "calc(50% + 145px)";
+    if (card.toppings.length !== 0) {
+      const fragmentTopping = document.createDocumentFragment();
+      const toppingCardTemp = document.querySelector(".toppingCardTemp");
+      console.log(toppingCardTemp);
+      const toppingList = modalWindow.querySelector(".topping__list");
+      card.toppings.forEach((toppItem) => {
+        const cardTopp = toppings.find((item) => item.id === toppItem);
+        toppingClone = toppingCardTemp.content.cloneNode(true);
+        console.log(toppingClone);
+        toppingClone.querySelector(".topping__img").src = cardTopp.image;
+        toppingClone.querySelector(".topping__name").textContent =
+          cardTopp.name;
+        toppingClone.querySelector(".topping__modal_check").id =
+          "topping" + cardTopp.id;
+        toppingClone
+          .querySelector(".topping__label")
+          .setAttribute("for", "topping" + cardTopp.id);
+        toppingClone.querySelector(".topping__weight_number").textContent =
+          cardTopp.weight;
+        toppingClone.querySelector(".topping__price_number").textContent =
+          parseInt(cardTopp.price);
+        const cardBasket = data.basket.find(
+          (cardBasketL) => "dish" + cardBasketL.id === dishId
+        );
+        if (cardBasket) {
+          cardBasket.card.toppings.forEach((cardTopping) => {
+            if (cardTopping.id === cardTopp.id) {
+              toppPrice += parseInt(cardTopp.price);
+              toppingClone
+                .querySelector(".topping__check_img")
+                .classList.add("topping__check_active");
+            }
+          });
         }
+        fragmentTopping.append(toppingClone);
+      });
+      toppingList.innerHTML = "";
+      toppingList.appendChild(fragmentTopping);
+    } else {
+      document.querySelector(".modal__topping").style.display = "none";
+      if (window.innerWidth > 800) {
+        document.querySelector(".modal").style.height = "562px";
+        document.querySelector(".modal__footer").style.top =
+          "calc(50% + 145px)";
       }
-
-      
-      if (window.innerWidth < 800) {
-        document.querySelector(".button_prev .modal__desc_next").textContent =
-          "описание";
-        document.querySelector(".modal__desc_arrowLeft").src =
-          "/assets/img/arrowRight.svg";
-      } else {
-        document.querySelector(".button_prev .modal__desc_next").style.display =
-          "none";
-      }
-      modalWindow.querySelector(".modal__desc").textContent = card.description;
-      modalWindow.querySelector(".modal__consist").textContent = card.contents;
-      const footerBJU = modalWindow.querySelector(".footer__BJU");
-      footerBJU.querySelector(".modal__weight").textContent = card.weight;
-      footerBJU.querySelector(
-        ".modal__total_energy .modal__BJU_number"
-      ).textContent = card.nutrition_cal;
-      footerBJU.querySelector(
-        ".modal__squirreLS .modal__BJU_number"
-      ).textContent = card.nutrition_protein;
-      footerBJU.querySelector(".modal__fats .modal__BJU_number").textContent =
-        card.nutrition_fat;
-      footerBJU.querySelector(
-        ".modal__carbohydrates .modal__BJU_number"
-      ).textContent = card.nutrition_carbo;
-      const modalFooter = document.querySelector(".modal__footer");
-      toppingLabels = document.querySelectorAll(".topping__label");
-      const currentBTN = target
-        .closest(".list_item")
-        .querySelector(".card__button");
-      console.log(target.closest(".list_item"));
-      const currentValue = target
-        .closest(".list_item")
-        .querySelector(".input_text").value;
-      console.log(currentValue);
-      const btnCount = modalFooter.querySelector(".button__count");
-      const modalOrderBtn = modalFooter.querySelector(".modal__order_button");
-      const count = modalFooter.querySelector(".input_text");
-      const btnMinus = modalFooter.querySelector(".count_minus");
-      const btnPlus = modalFooter.querySelector(".count_plus");
-      if (currentBTN.style.display === "none") {
-        modalFooter.querySelector(".modal__order_button").style.display =
-          "none";
-        btnCount.style.display = "flex";
-        btnCount.querySelector(".input_text").value = currentValue;
-        buttonsCount = document.querySelectorAll(".button__count");
-      } else {
-        modalFooter.querySelector(".modal__order_button").style.display =
-          "block";
-        btnCount.style.display = "none";
-      }
-      modalOrderBtn.dataset.id = "dish" + card.id;
-      count.dataset.id = "dish" + card.id;
-      // count.addEventListener("onchange", inputOnchange(count));
-      btnCount.dataset.id = "dish" + card.id;
-      btnMinus.dataset.id = "dish" + card.id;
-      btnPlus.dataset.id = "dish" + card.id;
-      // прорисовываем топпинги
-
-      const cardTopping = data.basket.find(
-        (cardBasket) => "dish" + cardBasket.id === dishId
-      );
-      // прибавляем топпинги
-
-      const cardBasket = data.basket.find(
-        (cardBasketL) => "dish" + cardBasketL.id === dishId
-      );
-      let priceAfterDiscount;
-      if (parseInt(card.sale_price) === 0) {
-        console.log(card.sale_price);
-        console.log(card.price);
-        priceAfterDiscount = card.price;
-        modalFooter.querySelector(".modal__old_number").style.display = "none";
-        modalFooter.querySelector(".modal__old_letter").style.display = "none";
-      } else {
-        console.log(card.sale_price);
-        console.log(card.price);
-        priceAfterDiscount = parseInt(card.sale_price);
-        modalFooter.querySelector(".modal__old_number").textContent =
-          (card.price + toppPrice) * currentValue;
-      }
-      modalFooter.querySelector(".modal__total_number").textContent =
-        (priceAfterDiscount + toppPrice) * currentValue;
     }
 
-    changeModalPrice(dishId);
- 
+    if (window.innerWidth < 800) {
+      document.querySelector(".button_prev .modal__desc_next").textContent =
+        "описание";
+      document.querySelector(".modal__desc_arrowLeft").src =
+        "/assets/img/arrowRight.svg";
+    } else {
+      document.querySelector(".button_prev .modal__desc_next").style.display =
+        "none";
+    }
+    modalWindow.querySelector(".modal__desc").textContent = card.description;
+    modalWindow.querySelector(".modal__consist").textContent = card.contents;
+    const footerBJU = modalWindow.querySelector(".footer__BJU");
+    footerBJU.querySelector(".modal__weight").textContent = card.weight;
+    footerBJU.querySelector(
+      ".modal__total_energy .modal__BJU_number"
+    ).textContent = card.nutrition_cal;
+    footerBJU.querySelector(
+      ".modal__squirreLS .modal__BJU_number"
+    ).textContent = card.nutrition_protein;
+    footerBJU.querySelector(".modal__fats .modal__BJU_number").textContent =
+      card.nutrition_fat;
+    footerBJU.querySelector(
+      ".modal__carbohydrates .modal__BJU_number"
+    ).textContent = card.nutrition_carbo;
+    const modalFooter = document.querySelector(".modal__footer");
+    toppingLabels = document.querySelectorAll(".topping__label");
+    const currentBTN = target
+      .closest(".list_item")
+      .querySelector(".card__button");
+    console.log(target.closest(".list_item"));
+    const currentValue = target
+      .closest(".list_item")
+      .querySelector(".input_text").value;
+    console.log(currentValue);
+    const btnCount = modalFooter.querySelector(".button__count");
+    const modalOrderBtn = modalFooter.querySelector(".modal__order_button");
+    const count = modalFooter.querySelector(".input_text");
+    const btnMinus = modalFooter.querySelector(".count_minus");
+    const btnPlus = modalFooter.querySelector(".count_plus");
+    if (currentBTN.style.display === "none") {
+      modalFooter.querySelector(".modal__order_button").style.display = "none";
+      btnCount.style.display = "flex";
+      btnCount.querySelector(".input_text").value = currentValue;
+      buttonsCount = document.querySelectorAll(".button__count");
+    } else {
+      modalFooter.querySelector(".modal__order_button").style.display = "block";
+      btnCount.style.display = "none";
+    }
+    modalOrderBtn.dataset.id = "dish" + card.id;
+    count.dataset.id = "dish" + card.id;
+    // count.addEventListener("onchange", inputOnchange(count));
+    btnCount.dataset.id = "dish" + card.id;
+    btnMinus.dataset.id = "dish" + card.id;
+    btnPlus.dataset.id = "dish" + card.id;
+    // прорисовываем топпинги
+
+    const cardTopping = data.basket.find(
+      (cardBasket) => "dish" + cardBasket.id === dishId
+    );
+    // прибавляем топпинги
+
+    const cardBasket = data.basket.find(
+      (cardBasketL) => "dish" + cardBasketL.id === dishId
+    );
+    let priceAfterDiscount;
+    if (parseInt(card.sale_price) === 0) {
+      console.log(card.sale_price);
+      console.log(card.price);
+      priceAfterDiscount = card.price;
+      modalFooter.querySelector(".modal__old_number").style.display = "none";
+      modalFooter.querySelector(".modal__old_letter").style.display = "none";
+    } else {
+      console.log(card.sale_price);
+      console.log(card.price);
+      priceAfterDiscount = parseInt(card.sale_price);
+      modalFooter.querySelector(".modal__old_number").textContent =
+        (card.price + toppPrice) * currentValue;
+    }
+    modalFooter.querySelector(".modal__total_number").textContent =
+      (priceAfterDiscount + toppPrice) * currentValue;
+  }
+
+  changeModalPrice(dishId);
 }
 
 const confirmLabel = document.querySelector(".confirm__label");
@@ -641,8 +681,6 @@ const finalOrder = document.querySelector(".finalOrder");
 finalOrder.addEventListener("click", () => {
   console.log(selectTime.value);
 });
-
-
 
 const header = document.querySelector(".header");
 const asideMenuUl = document.querySelector(".asideMenu__ul");
@@ -805,7 +843,7 @@ let textarea = document.querySelector(".comments__textarea");
 textarea.addEventListener("change", (e) => {
   console.log(e.target.value);
   e.target.value = e.target.value.replace(/[<>]/g, "");
-})
+});
 /*----------------------Close modal window------------------------*/
 
 function closeModal() {
@@ -832,9 +870,9 @@ function closeModal() {
   timerId = setTimeout(() => {
     document.querySelector(".modal__topping").style.display = "flex";
     modal.style.display = "none";
-    swiperDesc.destroy(true, true);    
-    
-    if (window.innerWidth>800) {
+    swiperDesc.destroy(true, true);
+
+    if (window.innerWidth > 800) {
       document.querySelector(".modal__footer").style.top = "calc(50% + 301px)";
       document.querySelector(".modal").style.height = "718px";
     }
@@ -1224,4 +1262,29 @@ for (let asideMenuDiv of asideMenuDivs) {
     window.location = asideMenuDiv.dataset.catHref;
   });
 }
+if (window.innerWidth > 1450) {
+  let selectHeader = document.querySelectorAll(".select__header");
+  let selectItem = document.querySelectorAll(".select__item");
+
+  selectHeader.forEach((item) => {
+    item.addEventListener("click", selectToggle);
+  });
+
+  selectItem.forEach((item) => {
+    item.addEventListener("click", selectChoose);
+  });
+
+  function selectToggle() {
+    this.parentElement.classList.toggle("is_active");
+  }
+
+  function selectChoose() {
+    let text = this.innerText,
+      select = this.closest(".select"),
+      currentText = select.querySelector(".select__current");
+    currentText.innerText = text;
+    select.classList.remove("is_active");
+  }
+}
+
 //}
