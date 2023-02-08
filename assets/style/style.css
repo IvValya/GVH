@@ -2811,16 +2811,21 @@ input[type="number"]:focus {
 
     .street,
     .select {
+        
         grid-column: span 3;
     }
 
-    .select {
+    .select,
+    .paymentCardSelect {
+        cursor: pointer;
         position: relative;
         display: flex;
         align-items: center;
     }
-
-
+    .paymentCardSelect {
+        margin-bottom: 20px;
+    }
+    .paymentCardSelect.is_active,
     .select.is_active {
         outline: none;
         background: #FFF3DC;
@@ -2828,7 +2833,8 @@ input[type="number"]:focus {
         border: 1px solid #B06D81;
 
     }
-    .select__header {        
+    .paymentCardSelect .select__header,
+    .select__header {
         width: 100%;
     }
     .select__current {
@@ -2837,10 +2843,12 @@ input[type="number"]:focus {
         padding: 8px;
         width: 100%;
     }
-    .select.is_active .select__body {
+    .select.is_active .select__body,
+    .paymentCardSelect.is_active .select__body {
         display: block;}
 
-    .select__body {
+    .select__body,
+    .paymentCardSelect .select__body {
         border: 2px solid #cccccc;
         border-top: 0;
         display: none;
@@ -2852,18 +2860,21 @@ input[type="number"]:focus {
         z-index: 10;
     }
 
-    .select__item {
+    .select__item,
+    .select__item_pay {
         cursor: pointer;
         font-size: 16px;
         line-height: 24px;
         padding: 8px;
     }
 
-    .select__item:hover {
+    .select__item:hover,
+    .select__item_pay:hover {
         background-color: #f2f2f2;
     }
 
-    .select {
+    .select,
+    .paymentCardSelect {
         border: 1px solid #D6D6D6;
         border-radius: 10px;
         height: 47px;

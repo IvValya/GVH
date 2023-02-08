@@ -34,6 +34,28 @@ class order {
     document.querySelector(".select__current").dataset.id = streets[0].id;
   }
 
+  renderSelectPayment() {
+    const { delivery } = data;
+    console.log(delivery.typeDelivery);
+    if (delivery.typeDelivery === "takeaway") {
+      document.querySelector(".order__address .order__item_h2").textContent =
+        "Детали";
+      document.querySelector(
+        ".paymentCardSelect .select__current"
+      ).textContent = "Наличными/картой в ресторане";
+      document.querySelector(".address__main").style.display = "none";
+      document.querySelector(".comments__textarea").style.marginTop = 0;
+      document.querySelector(".shortChange").style.display = "none";
+      document.querySelector(".cashPay").style.display = "none";
+      document.querySelector(".courierPay").style.display = "none";
+    } else {
+      document.querySelector(
+        ".paymentCardSelect .select__current"
+      ).textContent = "Наличными курьеру";
+      document.querySelector(".restaurantPay").style.display = "none";
+    }
+  }
+
   renderOrderWithProfileData() {
     let {
       isAuth,
@@ -51,15 +73,14 @@ class order {
     let maxBonus =
       (bonus / 100) * parseInt(menuData.delivery_options.bonus_percent);
     document.querySelector(".bonus_max").textContent = maxBonus;
-    if (window.innerWidth >1450) {
-     let nameStreet =  menuData.streets.find((elem) => elem.id === street );
+    if (window.innerWidth > 1450) {
+      let nameStreet = menuData.streets.find((elem) => elem.id === street);
       document.querySelector(".select__current").textContent = nameStreet.name;
       document.querySelector(".select__current").dataset.id = nameStreet.id;
-    }
-    else {
+    } else {
       document.querySelector(".street").value = street;
     }
-    
+
     document.querySelector(".house").value = building;
     document.querySelector(".housing").value = corp;
     document.querySelector(".flat").value = apt;
@@ -306,22 +327,30 @@ class order {
   renderPayment() {
     let totalCheck = this.getCheck();
     const { delivery } = data;
-    if (delivery.typeDelivery === "takeaway") {
-      document.querySelector(".order__address .order__item_h2").textContent =
-        "Детали";
-      document.getElementById("paymentCard").value =
-        document.getElementById("restaurantPay").value;
-
-      document.querySelector(".address__main").style.display = "none";
-      document.querySelector(".comments__textarea").style.marginTop = 0;
-      document.querySelector(".shortChange").style.display = "none";
-      document.getElementById("cashPay").style.display = "none";
-      document.getElementById("courierPay").style.display = "none";
+    if (window.innerWidth > 1450) {
+      document.getElementById("paymentCard").style.display = "none";
+      document.querySelector(".paymentCardSelect").style.display = "flex";
+      this.renderSelectPayment();
     } else {
-      document.getElementById("restaurantPay").style.display = "none";
+      document.getElementById("paymentCard").style.display = "block";
+      document.querySelector(".paymentCardSelect").style.display = "none";
+      if (delivery.typeDelivery === "takeaway") {
+        document.querySelector(".order__address .order__item_h2").textContent =
+          "Детали";
+        document.getElementById("paymentCard").value =
+          document.getElementById("restaurantPay").value;
+        document.querySelector(".address__main").style.display = "none";
+        document.querySelector(".comments__textarea").style.marginTop = 0;
+        document.querySelector(".shortChange").style.display = "none";
+        document.getElementById("cashPay").style.display = "none";
+        document.getElementById("courierPay").style.display = "none";
+      } else {
+        document.getElementById("restaurantPay").style.display = "none";
+      }
     }
     this.renderDelivery();
   }
+
   renderBonus() {
     numberBonuses = parseInt(numberBonuses);
     writeOffPercent = parseInt(writeOffPercent);
@@ -1265,6 +1294,7 @@ for (let asideMenuDiv of asideMenuDivs) {
 if (window.innerWidth > 1450) {
   let selectHeader = document.querySelectorAll(".select__header");
   let selectItem = document.querySelectorAll(".select__item");
+  let selectItemPay = document.querySelectorAll(".select__item_pay");
 
   selectHeader.forEach((item) => {
     item.addEventListener("click", selectToggle);
@@ -1274,8 +1304,19 @@ if (window.innerWidth > 1450) {
     item.addEventListener("click", selectChoose);
   });
 
+  selectItemPay.forEach((item) => {
+    item.addEventListener("click", selectChoosePay);
+  });
+
   function selectToggle() {
     this.parentElement.classList.toggle("is_active");
+  }
+  function selectChoosePay() {
+    let text = this.innerText,
+      select = this.closest(".paymentCardSelect"),
+      currentText = select.querySelector(".select__current");
+    currentText.innerText = text;
+    select.classList.remove("is_active");
   }
 
   function selectChoose() {
