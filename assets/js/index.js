@@ -718,8 +718,14 @@ function closeModal() {
     asideMenuUl.style.position = "sticky";
   }
   timerId = setTimeout(() => {
+    document.querySelector(".modal__topping").style.display = "flex";
     modal.style.display = "none";
-    swiperDesc.destroy(true, true);
+    swiperDesc.destroy(true, true);    
+    
+    if (window.innerWidth>800) {
+      document.querySelector(".modal__footer").style.top = "calc(50% + 301px)";
+      document.querySelector(".modal").style.height = "718px";
+    }
   }, 800);
 }
 
@@ -1747,42 +1753,51 @@ function renderModal(dishId, target) {
     mySwiperModal.innerHTML = "";
     mySwiperModal.appendChild(fragmentSwiperModal);
 
-    
-    const fragmentTopping = document.createDocumentFragment();
-    const toppingCardTemp = document.querySelector(".toppingCardTemp");
-    const toppingList = modalWindow.querySelector(".topping__list");
-    card.toppings.forEach((toppItem) => {
-      const cardTopp = toppings.find((item) => item.id === toppItem);
-      toppingClone = toppingCardTemp.content.cloneNode(true);
-      toppingClone.querySelector(".topping__img").src = cardTopp.image;
-      toppingClone.querySelector(".topping__name").textContent = cardTopp.name;
-      toppingClone.querySelector(".topping__modal_check").id =
-        "topping" + cardTopp.id;
-      toppingClone
-        .querySelector(".topping__label")
-        .setAttribute("for", "topping" + cardTopp.id);
-      toppingClone.querySelector(".topping__weight_number").textContent =
-        cardTopp.weight;
-      toppingClone.querySelector(".topping__price_number").textContent =
-        parseInt(cardTopp.price);
-      const cardBasket = data.basket.find(
-        (cardBasketL) => "dish" + cardBasketL.id === dishId
-      );
-      if (cardBasket) {
-        cardBasket.card.toppings.forEach((cardTopping) => {
-          if (cardTopping.id === cardTopp.id) {
-            toppPrice += parseInt(cardTopp.price);
-            toppingClone
-              .querySelector(".topping__check_img")
-              .classList.add("topping__check_active");
-          }
-        });
-      }
-
-      fragmentTopping.append(toppingClone);
-    });
-    toppingList.innerHTML = "";
-    toppingList.appendChild(fragmentTopping);
+    if (card.toppings.length !== 0) {
+      const fragmentTopping = document.createDocumentFragment();
+      const toppingCardTemp = document.querySelector(".toppingCardTemp");
+      const toppingList = modalWindow.querySelector(".topping__list");
+      card.toppings.forEach((toppItem) => {
+        const cardTopp = toppings.find((item) => item.id === toppItem);
+        toppingClone = toppingCardTemp.content.cloneNode(true);
+        toppingClone.querySelector(".topping__img").src = cardTopp.image;
+        toppingClone.querySelector(".topping__name").textContent = cardTopp.name;
+        toppingClone.querySelector(".topping__modal_check").id =
+          "topping" + cardTopp.id;
+        toppingClone
+          .querySelector(".topping__label")
+          .setAttribute("for", "topping" + cardTopp.id);
+        toppingClone.querySelector(".topping__weight_number").textContent =
+          cardTopp.weight;
+        toppingClone.querySelector(".topping__price_number").textContent =
+          parseInt(cardTopp.price);
+        const cardBasket = data.basket.find(
+          (cardBasketL) => "dish" + cardBasketL.id === dishId
+        );
+        if (cardBasket) {
+          cardBasket.card.toppings.forEach((cardTopping) => {
+            if (cardTopping.id === cardTopp.id) {
+              toppPrice += parseInt(cardTopp.price);
+              toppingClone
+                .querySelector(".topping__check_img")
+                .classList.add("topping__check_active");
+            }
+          });
+        }
+  
+        fragmentTopping.append(toppingClone);
+      });
+      toppingList.innerHTML = "";
+      toppingList.appendChild(fragmentTopping);
+    }
+    else {
+      document.querySelector(".modal__topping").style.display = "none";
+        if (window.innerWidth > 800) {
+          document.querySelector(".modal").style.height = "562px";
+          document.querySelector(".modal__footer").style.top =
+            "calc(50% + 145px)";
+        }
+    }    
 
     if (window.innerWidth < 800) {
       document.querySelector(".button_prev .modal__desc_next").textContent =
