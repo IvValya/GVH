@@ -134,8 +134,8 @@ function enterToProfile() {
               document.querySelector(".mobile__profile span").textContent = "ВОЙТИ"
             }
           });
-        closeAuthWindow();
       }
+      closeAuthWindow();
     });
 }
 function testCode(code) {
