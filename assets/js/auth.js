@@ -97,7 +97,6 @@ function enterToProfile() {
   console.log(currentCode);
   let formData = new FormData();
   formData.append("code", currentCode);
-  orderNew.renderOrderWithProfileData();
 
   fetch(urlPostCode, {
     body: formData,
@@ -112,7 +111,7 @@ function enterToProfile() {
         let currentPhone = authTel.textContent.replace(/[^0-9+]/g, "");
         newCode(0, currentPhone);
         console.log("Wrong");
-      } else if (response.status === "Ok") {
+      } else  {
         let formDataAuthN = new FormData();
         fetch(urlPostAuth, {
           body: formDataAuthN,
@@ -140,14 +139,10 @@ function enterToProfile() {
               document.querySelector(".mobile__profile span").textContent = "ВОЙТИ"
             }
           });
+          closeAuthWindow();
       }
-      closeAuthWindow();
+      
     });
-}
-function testCode(code) {
-  if (currentCode === code) {
-    window.location = linkToProfile;
-  }
 }
 
 function sentSMS(authPhone) {
