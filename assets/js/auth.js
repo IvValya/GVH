@@ -193,3 +193,13 @@ function toEnterPhone() {
 buttonEnter.addEventListener("click", enterToProfile);
 buttonForward.addEventListener("click", forwardFunc);
 btnCorrectPhone.addEventListener("click", toEnterPhone);
+document.querySelector(".auth__phone").addEventListener('keydown', function(e) {
+  if (e.keyCode === 13) {
+    forwardFunc();
+  }
+});
+document.querySelector(".SMSCode").addEventListener('keydown', function(e) {
+  if (e.keyCode === 13) {
+    enterToProfile();
+  }
+});
