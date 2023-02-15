@@ -2,13 +2,24 @@ var data;
 const logo = document.querySelector(".logo");
 logo.href = linkToFrontpage;
 let modalTrue = false;
+profileData = {
+  isAuth: false,
+  name: "Андрей",
+  bonus: 500,
+  street: 628,
+  building: "15",
+  corp: "5",
+  apt: "168",
+  entrance: "2",
+  floor: "15",
+  intercom: "2304",
+};
 
 //item.addEventListener("click", openAuthWindow);
 
 //window.onload = init;
 //function init() {
-  
-class frontpage {
+class profileClass {
   renderBtnsTop() {
     let allMenu = document.querySelectorAll(".list_item");
 
@@ -146,6 +157,13 @@ class frontpage {
 
   load() {
     // localStorage.removeItem("basket");
+    console.log(profileData.isAuth);
+    if (profileData.isAuth) {
+      console.log(document.querySelectorAll(".profile__item"));
+      document.querySelectorAll(".profile__item").forEach((item) => {
+        item.classList.add("active");
+      })
+    }
     let currentBasket = localStorage.getItem("basket");
     if (currentBasket) {
       let currentData = JSON.parse(currentBasket);
@@ -331,13 +349,13 @@ function renderModal(dishId, target) {
   changeModalPrice(dishId);
 }
 var swiperDesc;
-let front = new frontpage();
-front.load();
+let prof = new profileClass();
+prof.load();
 let toppingActive = [];
 const header = document.querySelector(".header");
 const asideMenuUl = document.querySelector(".asideMenu__ul");
 const modalFooter = document.querySelector(".modal__footer");
-const main = document.querySelector(".main");
+const main = document.querySelector(".mainProfile");
 const btnCloseModal = document.querySelector(".modal__close");
 const modal = document.querySelector(".modal");
 const divBlock = document.querySelector(".block");
@@ -577,7 +595,7 @@ function addToBasket(dishId, target) {
     },
   };
   basket.push(elem);
-  front.save();
+  prof.save();
   // renderData("dish" + elem.id);
   toppingActive = [];
 }
@@ -636,7 +654,7 @@ function countPlus(count) {
       cards.forEach((item) => {
         item.value = card.card.quantity;
       });
-      front.save();
+      prof.save();
       changeModalPrice(count.dataset.id);
     }
   };
@@ -664,7 +682,7 @@ function countMinus(count) {
       });
     } else if (count.value === "1") {
       data.basket.splice(indexCard, 1);
-      front.renderPriceCard();
+      prof.renderPriceCard();
       let currentCards = document.querySelectorAll(
         '.list_item[data-id="' + count.dataset.id + '"]'
       );
@@ -681,7 +699,7 @@ function countMinus(count) {
           "none";
       }
     }
-    front.save();
+    prof.save();
     changeModalPrice(count.dataset.id);
   };
 }
@@ -772,7 +790,7 @@ function inputCountChange(e) {
     minus.click();
   } else {
     currentCard.card.quantity = e.currentTarget.value;
-    front.save();
+    prof.save();
     changeModalPrice(dishID);
   }
 }

@@ -1,63 +1,37 @@
 {
-    "basket": [
-      {
-        "id": 231,
-        "card": {
-          "name": "Каре ягненка",
-          "img": "http://new.grillvino.ru/wp-content/uploads/2023/01/no_photo-1024x576.jpg",
-          "weight": "360 г.",
-          "price": 400,
-          "priceBeforeDiscount": 650,
-          "quantity": 5,
-          "toppings": [
-            {
-              "id": 220,
-              "price": 90
-            },
-            {
-              "id": 210,
-              "price": 90
-            }
-        ]
-        }
-      },
-      {
-        "id": 485,
-        "card": {
-          "name": "newName",
-          "img": "http://new.grillvino.ru/wp-content/uploads/2023/01/no_photo-1024x576.jpg",
-          "weight": "360 г.",
-          "price": 400,
-          "priceBeforeDiscount": 650,
-          "quantity": 1,
-          "toppings": []
-        }
-      },
-      {
-        "id": 343,
-        "card": {
-          "name": "Стейк",
-          "img": "http://new.grillvino.ru/wp-content/uploads/2023/01/no_photo-1024x576.jpg",
-          "weight": "360 г.",
-          "price": 400,
-          "priceBeforeDiscount": 650,
-          "quantity": 2,
-          "toppings": [
-            {
-              "id": 107,
-              "price": 90
-            }
-          ]
-        }
-      }
-     
-      ],
-   
-    "delivery": {
-      "typeDelivery": "takeaway"
+  "basket": [
+    {
+      "id": 0,
+      "quantity": 0,
+      "toppingsID": [
+        0
+      ]
     },
-    "customerInfo": {
-      "address": {},
-      "payment": {}
+    {
+      "id": "delivery",
+      "price": 0
     }
+  ],
+  "typeDelivery": "",
+  "customerInfo": {
+    "address": {
+      "street": 0,
+      "building": "",
+      "corp": "",
+      "apt": "",
+      "entrance": "",
+      "floor": "",
+      "intercom": ""
+    },
+    "payment": {
+      "kindPay": "",
+      "shortChange": "",
+      "bonusUse": 0
+    },
+    "comments": "",
+    "doNotCall": true,
+    "date": "",
+    "time": "",
+    "cutlery": 0
   }
+}

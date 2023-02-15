@@ -14,9 +14,191 @@ for (let buttonCount of buttonsCount) {
   plus.addEventListener("click", countPlus(count));
 }
 /*
- profileData = {isAuth: true, name: "Андрей",bonus: 500,street: 628,building: "15",corp: "5",apt: "168",entrance:
-"2",floor: "15",intercom:"2304"};*/
+profileData = {
+  isAuth: true,
+  name: "Андрей",
+  bonus: 500,
+  street: 628,
+  building: "15",
+  corp: "5",
+  apt: "168",
+  entrance: "2",
+  floor: "15",
+  intercom: "2304",
+};*/
 class order {
+  getCustomerInfo(currentTypeDelivery) {
+    let currentAddress = {};
+    let currentStreet;
+    console.log(currentTypeDelivery);
+    if (currentTypeDelivery === "delivery") {
+      if (window.innerWidth < 1450) {
+        currentStreet = document.querySelector(".street").value;
+      } else {
+        currentStreet = document.querySelector(
+          ".address__main .select__current"
+        ).dataset.id;
+      }
+    }
+    let currentBuilding = document.querySelector(".house").value;
+    let currentCorp = document.querySelector(".housing").value;
+    let currentApt = document.querySelector(".flat").value;
+    let currentEntrance = document.querySelector(".entrance").value;
+    let currentFloor = document.querySelector(".level").value;
+    let currentIntercom = document.querySelector(".intercom").value;
+    currentAddress = {
+      street: parseInt(currentStreet),
+      building: currentBuilding,
+      corp: currentCorp,
+      apt: currentApt,
+      entrance: currentEntrance,
+      floor: currentFloor,
+      intercom: currentIntercom,
+    };
+    let currentKindPay;
+    if (window.innerWidth > 1450) {
+      currentKindPay = document.querySelector(
+        ".paymentCardSelect .select__current"
+      ).textContent;
+    } else {
+      currentKindPay = document.querySelector(".paymentCard").value;
+    }
+    let currentShortChange = document.querySelector(
+      ".shortChange__input"
+    ).value;
+    console.log(currentShortChange);
+    let currentBonusUse = document.querySelector(".range").value;
+    let currentComments = document.querySelector(".comments__textarea").value;
+    let currentConfirm = document
+      .querySelector(".confirm_img")
+      .classList.contains("confirm__active");
+    let currentDate = document.querySelector(".date").value;
+    let currentTime = document.querySelector(".time").value;
+    let currentCutlery = document.querySelector(".cutlery .input_text").value;
+    let currentPayment = {
+      kindPay: currentKindPay,
+      shortChange: currentShortChange,
+      bonusUse: parseInt(currentBonusUse),
+    };
+    let customerInfo = {
+        address: currentAddress,
+        payment: currentPayment,
+        comments: currentComments,
+        doNotCall: currentConfirm,
+        date: currentDate,
+        time: currentTime,
+        cutlery: parseInt(currentCutlery)
+      };
+      console.log(customerInfo);
+    return customerInfo;
+  }
+  renderOrderFromBasket(currentData) {
+    console.log(currentData.customerInfo.address.building);
+    if (
+      currentData.typeDelivery === "delivery" &&
+      currentData.customerInfo.address !== undefined 
+    ) {
+      let { street, building, corp, apt, entrance, floor, intercom } =
+        currentData.customerInfo.address;
+      if (window.innerWidth > 1450) {
+        let nameStreet = menuData.streets.find((elem) => elem.id === street);
+        document.querySelector(".select__current").textContent =
+          nameStreet.name;
+        document.querySelector(".select__current").dataset.id = nameStreet.id;
+      } else {
+        document.querySelector(".street").value = street;
+      }
+      document.querySelector(".house").value = building;
+      document.querySelector(".housing").value = corp;
+      document.querySelector(".flat").value = apt;
+      document.querySelector(".entrance").value = entrance;
+      document.querySelector(".level").value = floor;
+      document.querySelector(".intercom").value = intercom;
+    }
+    
+    if (currentData.customerInfo.payment !== undefined) {
+      let currentKindPay = currentData.customerInfo.payment.kindPay;
+      console.log(currentKindPay);
+    if (window.innerWidth > 1450) {
+      document.querySelector(
+        ".paymentCardSelect .select__current"
+      ).textContent = currentKindPay;
+    } else {
+      document.querySelector(".paymentCard").value = currentKindPay;
+    }
+    }
+    let { shortChange, bonusUse } = currentData.customerInfo.payment;
+    numberBonuses = profileData.bonus;
+    let maxBonus =
+      (profileData.bonus / 100) *
+      parseInt(menuData.delivery_options.bonus_percent);
+    document.querySelector(".bonus_max").textContent = maxBonus;
+
+    document.querySelector(".range").max = maxBonus;
+    document.querySelector(".range").value = bonusUse;
+    document.querySelector("output").value = bonusUse;
+    document.querySelector(".shortChange__input").value = shortChange;
+    document.querySelector(".comments__textarea").value =
+      currentData.customerInfo.comments;
+    if (currentData.customerInfo.doNotCall) {
+      document.querySelector(".confirm_img").classList.add("confirm__active");
+    } else {
+      document
+        .querySelector(".confirm_img")
+        .classList.remove("confirm__active");
+    }
+    document.querySelector(".cutlery .input_text").value =
+      currentData.customerInfo.cutlery;
+    document.querySelector(".date").value = currentData.customerInfo.date;
+    document.querySelector(".time").value = currentData.customerInfo.time;
+    this.renderDelivery();
+  }
+  sendOrder() {
+    let finalOrderData;
+    let currentBasket = localStorage.getItem("basket");
+    currentBasket = JSON.parse(currentBasket);
+    let currentBuilding = document.querySelector(".house").value;
+    if (currentBasket.typeDelivery === "delivery" &&
+    currentBuilding === "" ) {
+      document.querySelector(".house").focus();
+    }else {
+      let totalCheckBasket = currentBasket.totalCheck;
+      let convertedBasket = currentBasket.basket;
+      console.log(convertedBasket);
+      let currentTypeDelivery = currentBasket.typeDelivery;
+      let lastElemBasket;
+      if (currentTypeDelivery === "delivery") {
+        if (
+          totalCheckBasket < menuData.delivery_options.free_delivery_order_total
+        ) {
+          lastElemBasket = {
+            id: delivery,
+            price: menuData.delivery_options.delivery_price,
+          };
+        } else {
+          lastElemBasket = {
+            id: "delivery",
+            price: 0,
+          };
+        }
+        convertedBasket.push(lastElemBasket);
+      }
+      delete currentBasket.customerInfo.totalCheck;
+      finalOrderData = {
+        basket: convertedBasket,
+        typeDelivery: currentBasket.typeDelivery,
+        customerInfo: this.getCustomerInfo(currentTypeDelivery),
+      };
+      console.log(finalOrderData);
+      let formDataOrder = new FormData();
+     /* formDataOrder.append(finalOrderData);
+        fetch(urlSendOrder, {
+          body: formDataAuthN,
+          method: "post",
+        })*/
+    }
+   
+  }
   renderSelectStreets() {
     const { streets } = menuData;
     const fragment = document.createDocumentFragment();
@@ -56,7 +238,7 @@ class order {
     }
   }
 
-  renderOrderWithProfileData() {
+  renderOrderWithProfileData(profileData) {
     let {
       isAuth,
       name,
@@ -111,6 +293,7 @@ class order {
   }
   convertFromBasket() {
     console.log(data);
+    let totalCheckBasket = 0;
     let convertedBasket = [];
     let currentRefreshTime = Date.now();
     let currentTypeDelivery = data.delivery.typeDelivery;
@@ -118,8 +301,10 @@ class order {
       let currentId = item.id;
       let currentQuantity = item.card.quantity;
       let currentToppingsId = [];
+      totalCheckBasket += item.card.price * item.card.quantity;
       item.card.toppings.forEach((topping) => {
         currentToppingsId.push(topping.id);
+        totalCheckBasket += topping.price * item.card.quantity;
       });
       convertedBasket.push({
         id: currentId,
@@ -127,12 +312,74 @@ class order {
         toppingsId: currentToppingsId,
       });
     });
+    let currentAddress = {};
+    let currentStreet;
+    console.log(currentTypeDelivery);
+    if (currentTypeDelivery === "delivery") {
+      if (window.innerWidth < 1450) {
+        currentStreet = document.querySelector(".street").value;
+      } else {
+        currentStreet = document.querySelector(
+          ".address__main .select__current"
+        ).dataset.id;
+      }
+    }
+    let currentBuilding = document.querySelector(".house").value;
+    let currentCorp = document.querySelector(".housing").value;
+    let currentApt = document.querySelector(".flat").value;
+    let currentEntrance = document.querySelector(".entrance").value;
+    let currentFloor = document.querySelector(".level").value;
+    let currentIntercom = document.querySelector(".intercom").value;
+    currentAddress = {
+      street: parseInt(currentStreet),
+      building: currentBuilding,
+      corp: currentCorp,
+      apt: currentApt,
+      entrance: currentEntrance,
+      floor: currentFloor,
+      intercom: currentIntercom,
+    };
+    let currentKindPay;
+    if (window.innerWidth > 1450) {
+      currentKindPay = document.querySelector(
+        ".paymentCardSelect .select__current"
+      ).textContent;
+    } else {
+      currentKindPay = document.querySelector(".paymentCard").value;
+    }
+    let currentShortChange = document.querySelector(
+      ".shortChange__input"
+    ).value;
+    console.log(currentShortChange);
+    let currentBonusUse = document.querySelector(".range").value;
+    let currentComments = document.querySelector(".comments__textarea").value;
+    let currentConfirm = document
+      .querySelector(".confirm_img")
+      .classList.contains("confirm__active");
+    let currentDate = document.querySelector(".date").value;
+    let currentTime = document.querySelector(".time").value;
+    let currentCutlery = document.querySelector(".cutlery .input_text").value;
+    let currentPayment = {
+      kindPay: currentKindPay,
+      shortChange: currentShortChange,
+      bonusUse: parseInt(currentBonusUse),
+    };
     let convertedData = {
       basket: convertedBasket,
       typeDelivery: currentTypeDelivery,
+      customerInfo: {
+        address: currentAddress,
+        payment: currentPayment,
+        comments: currentComments,
+        doNotCall: currentConfirm,
+        date: currentDate,
+        time: currentTime,
+        cutlery: parseInt(currentCutlery),
+        totalCheck: totalCheckBasket,
+      },
+
       refreshTime: currentRefreshTime,
     };
-    console.log(convertedData);
     return convertedData;
   }
 
@@ -196,16 +443,24 @@ class order {
       basket: currBasket,
       delivery: {
         typeDelivery: currentData.typeDelivery,
-      },
+      } /*,
+      customerInfo: {
+        address: {},
+        payment: {},
+        comments: currentComments,
+        confirm: currentConfirm,
+        date: currentDate,
+        time: currentTime,
+      },*/,
     };
     console.log(data);
   }
 
   save() {
     let order = JSON.stringify(this.convertFromBasket());
-    console.log(order);
     localStorage.setItem("basket", order);
   }
+
   loadFreeBasket() {
     data = {
       basket: [],
@@ -305,8 +560,10 @@ class order {
     moment.locale("ru");
     let today = document.querySelectorAll(".date option");
     today.item(0).textContent = "Сегодня, " + moment().format("D MMMM");
+    today.item(0).value = moment().format("Y-DD-MM");
     today.item(1).textContent =
       "Завтра, " + moment().add(1, "days").format("D MMMM"); //date.toLocaleString("ru", options);
+    today.item(1).value = moment().add(1, "days").format("Y-DD-MM");
   }
 
   getCheck() {
@@ -325,7 +582,6 @@ class order {
   }
 
   renderPayment() {
-    let totalCheck = this.getCheck();
     const { delivery } = data;
     if (window.innerWidth > 1450) {
       document.getElementById("paymentCard").style.display = "none";
@@ -425,8 +681,8 @@ class order {
         checKForFree.textContent = 0;
       }
     }
-    document.querySelector(".orderPrice__price").textContent =
-      totalCheck - range.value;
+    totalCheck = totalCheck - range.value;
+    document.querySelector(".orderPrice__price").textContent = totalCheck;
   }
   renderBasket() {
     const { basket } = data;
@@ -462,17 +718,25 @@ class order {
       const range = document.querySelector(".range");
       range.addEventListener("input", function () {
         orderNew.renderDelivery();
+        orderNew.save();
       });
       fragment.append(cardClone);
     });
     orderList.innerHTML = "";
     orderList.appendChild(fragment);
+    document.querySelector(".cutlery .input_text").dataset.id = "cutlery";
   }
   load() {
-    // localStorage.removeItem("basket");
+    //localStorage.removeItem("basket");
     let currentBasket = localStorage.getItem("basket");
+    let currentData = JSON.parse(currentBasket);
+    if (profileData.isAuth) {
+      console.log(document.querySelectorAll(".profile__item"));
+      document.querySelectorAll(".profile__item").forEach((item) => {
+        item.classList.add("active");
+      })
+    }
     if (currentBasket) {
-      let currentData = JSON.parse(currentBasket);
       console.log(currentData);
       let currentTime = Date.now();
       if (currentTime - currentData.refreshTime > 2 * 3600 * 1000) {
@@ -498,9 +762,22 @@ class order {
     this.renderExtra();
     this.renderDate();
     this.renderPriceCard();
-    console.log(profileData.isAuth);
-    if (profileData.isAuth) {
-      this.renderOrderWithProfileData();
+    console.log(currentData !== undefined && currentData !== null);
+    if (currentData !== undefined && currentData !== null) {
+      console.log(currentData.customerInfo);
+      if (currentData.customerInfo !== undefined && currentData.customerInfo !== null) {
+        this.renderOrderFromBasket(currentData);
+      }
+      else {
+        if (profileData.isAuth) {
+          this.renderOrderWithProfileData(profileData);
+        }
+      }
+    } 
+    else {
+      if (profileData.isAuth) {
+        this.renderOrderWithProfileData(profileData);
+      }
     }
   }
 }
@@ -509,9 +786,7 @@ orderNew.load();
 
 //-------------------------------------------------------------------
 
-document.querySelector(".street").onchange = (e) => console.log(e.target.value);
-console.log(document.querySelector(".street").value);
-
+console.log(profileData);
 function renderModal(dishId, target) {
   let { meals, toppings } = menuData;
   modalFooter.querySelector(".modal__old_number").style.display =
@@ -601,6 +876,10 @@ function renderModal(dishId, target) {
         document.querySelector(".modal").style.height = "562px";
         document.querySelector(".modal__footer").style.top =
           "calc(50% + 145px)";
+      } else {
+        document.querySelector(".modal").style.top = "304px";
+        document.querySelector(".modal").style.height = "calc(100vh - 304px)";
+        document.querySelector(".modal__close").style.top = "319px";
       }
     }
 
@@ -688,15 +967,13 @@ function renderModal(dishId, target) {
 
   changeModalPrice(dishId);
 }
-
 const confirmLabel = document.querySelector(".confirm__label");
 const confirmCheck = document.querySelector(".confirm_img");
 confirmLabel.addEventListener("click", () => {
   confirmCheck.classList.toggle("confirm__active");
+  orderNew.save();
 });
 
-const selectDate = document.getElementById("date");
-const selectTime = document.getElementById("time");
 /*selectDate.addEventListener("change", function () {
   let getDateValue = this.value;
 });
@@ -705,10 +982,15 @@ const selectTime = document.getElementById("time");
 selectTime.addEventListener("input", function () {
   let getTimeValue = this.value;
 });
+*/ /*
+function sendOrder() {}
+
+
+});
 */
 const finalOrder = document.querySelector(".finalOrder");
 finalOrder.addEventListener("click", () => {
-  console.log(selectTime.value);
+  orderNew.sendOrder();
 });
 
 const header = document.querySelector(".header");
@@ -868,10 +1150,31 @@ for (let imgClick of imgsClick) {
     }
   });
 }
+let addressItems = document.querySelectorAll(".address__item");
+addressItems.forEach((addressItem) => {
+  addressItem.addEventListener("change", () => {
+    orderNew.save();
+  });
+});
+
+let dates = document.querySelector(".date");
+dates.addEventListener("change", () => {
+  orderNew.save();
+});
+
+let times = document.querySelector(".time");
+times.addEventListener("change", () => {
+  orderNew.save();
+});
+let payment = document.querySelector(".paymentCard");
+payment.addEventListener("change", () => {
+  orderNew.save();
+});
+
 let textarea = document.querySelector(".comments__textarea");
 textarea.addEventListener("change", (e) => {
-  console.log(e.target.value);
   e.target.value = e.target.value.replace(/[<>]/g, "");
+  orderNew.save();
 });
 /*----------------------Close modal window------------------------*/
 
@@ -904,6 +1207,10 @@ function closeModal() {
     if (window.innerWidth > 800) {
       document.querySelector(".modal__footer").style.top = "calc(50% + 301px)";
       document.querySelector(".modal").style.height = "718px";
+    } else {
+      document.querySelector(".modal").style.top = "130px";
+      document.querySelector(".modal").style.height = "calc(100vh - 130px)";
+      document.querySelector(".modal__close").style.top = "145px";
     }
   }, 800);
 }
@@ -929,6 +1236,7 @@ btnsShortChange.forEach((btnShortChange) => {
       document.querySelector(".shortChange__input").value =
         "сдача с " + btnShortChange.textContent.trim();
     }
+    orderNew.save();
   });
 });
 
@@ -938,19 +1246,17 @@ function countPlus(count) {
 
     if (count.closest(".cutlery")) {
       count.value++;
+      orderNew.save();
       console.log("here");
     } else {
       if (parseInt(count.value) === 0) {
         count.value++;
-        console.log("here1");
         addToBasket(count.dataset.id, count);
       } else if (count.value < 999) {
-        console.log("here1");
         let currentElementId = count.dataset.id;
         let cards = document.querySelectorAll(
           '.input_text[data-id="' + currentElementId + '"]'
         );
-
         currentElementId = parseInt(
           currentElementId.split("").splice(4).join("")
         );
@@ -958,17 +1264,14 @@ function countPlus(count) {
           (card) => card.id === parseInt(currentElementId)
         );
         card.card.quantity++;
-
-        console.log(card.card.quantity);
         cards.forEach((item) => {
           item.value = card.card.quantity;
-          console.log(item.value);
         });
         changeModalPrice(count.dataset.id);
       }
-      orderNew.save();
-      orderNew.renderPayment();
     }
+    orderNew.save();
+    orderNew.renderPayment();
   };
 }
 
@@ -1105,13 +1408,9 @@ function changeModalPrice(itemID) {
       }
     }
     const currentBasket = document.querySelector(".order__basket");
-    console.log(currentBasket);
     const basketCardList = currentBasket.querySelectorAll(".basket__card");
-    console.log(basketCardList);
     for (t = 0; t < basketCardList.length; t++) {
       if (basketCardList[t].dataset.id === itemID) {
-        console.log(basketCardList[t].querySelector(".basket__price"));
-        console.log(toppPrice);
         basketCardList[t].querySelector(".basket__price").textContent =
           dataCard.card.price + toppPrice;
       }
@@ -1125,25 +1424,40 @@ inputs.forEach((input) => {
 });
 function inputCountChange(e) {
   let dishID = e.currentTarget.dataset.id;
-  currentElementId = parseInt(dishID.split("").splice(4).join(""));
-  let cardTrue = data.basket.find((item) => item.id === currentElementId);
-  this.value = this.value.replace(/[^\d.]/g, "");
-  if (cardTrue) {
-    const currentCard = data.basket.find(
-      (card) => card.id === parseInt(currentElementId)
-    );
-    if (e.currentTarget.value < 1) {
-      e.currentTarget.value = 1;
-      let minus = e.currentTarget
-        .closest(".button__count")
-        .querySelector(".count_minus");
-      minus.click();
-    } else {
-      currentCard.card.quantity = e.currentTarget.value;
-      changeModalPrice(dishID);
-    }
+  if (dishID === "cutlery") {
+    this.value = this.value.replace(/[^\d.]/g, "");
+    orderNew.save();
   } else {
-    addToBasket(dishID, e.currentTarget);
+    currentElementId = parseInt(dishID.split("").splice(4).join(""));
+    let cardTrue = data.basket.find((item) => item.id === currentElementId);
+    this.value = this.value.replace(/[^\d.]/g, "");
+    if (cardTrue) {
+      const currentCard = data.basket.find(
+        (card) => card.id === parseInt(currentElementId)
+      );
+      if (e.currentTarget.value < 1) {
+        e.currentTarget.value = 1;
+        let minus = e.currentTarget
+          .closest(".button__count")
+          .querySelector(".count_minus");
+        minus.click();
+      } else {
+        let cards = document.querySelectorAll(
+          '.input_text[data-id="' + dishID + '"]'
+        );
+        const card = data.basket.find(
+          (card) => card.id === parseInt(currentElementId)
+        );
+        currentCard.card.quantity = e.currentTarget.value;
+        cards.forEach((item) => {
+          item.value = currentCard.card.quantity;
+        });
+        orderNew.save();
+        changeModalPrice(dishID);
+      }
+    } else {
+      addToBasket(dishID, e.currentTarget);
+    }
   }
 }
 function truncateNames() {
@@ -1316,7 +1630,9 @@ if (window.innerWidth > 1450) {
       select = this.closest(".paymentCardSelect"),
       currentText = select.querySelector(".select__current");
     currentText.innerText = text;
+    currentText.dataset.id = this.dataset.id;
     select.classList.remove("is_active");
+    orderNew.save();
   }
 
   function selectChoose() {
@@ -1324,18 +1640,20 @@ if (window.innerWidth > 1450) {
       select = this.closest(".select"),
       currentText = select.querySelector(".select__current");
     currentText.innerText = text;
+    currentText.dataset.id = this.dataset.id;
     select.classList.remove("is_active");
+    orderNew.save();
   }
-  window.addEventListener('click', e => {
+  window.addEventListener("click", (e) => {
     const target = e.target;
-    if (!target.closest(".paymentCardSelect") &&  !target.closest(".select")) { // если этот элемент или его родительские элементы не окно навигации и не кнопка
-      document.querySelector(".paymentCardSelect").classList.remove("is_active");
+    if (!target.closest(".paymentCardSelect") && !target.closest(".select")) {
+      // если этот элемент или его родительские элементы не окно навигации и не кнопка
+      document
+        .querySelector(".paymentCardSelect")
+        .classList.remove("is_active");
       document.querySelector(".select").classList.remove("is_active");
     }
-  })
-  window.addEventListener("click", () => {
-    console.log("click");
-  })
+  });
 }
 
 //}

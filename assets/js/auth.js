@@ -46,9 +46,13 @@ function closeAuthWindow() {
     modalAuthFull.style.display = "none";
   }, 700);
 }
-profile.forEach((item) => {
-  item.addEventListener("click", openAuthWindow);
-});
+console.log(profileData.isAuth);
+if (!profileData.isAuth) {
+  profile.forEach((item) => {
+    item.addEventListener("click", openAuthWindow);
+  });
+}
+
 authCloseBtn.forEach((item) => {
   item.addEventListener("click", closeAuthWindow);
 });
@@ -93,8 +97,6 @@ function enterToProfile() {
   let currentCode = document.querySelector(".SMSCode").value;
   currentCode = parseInt(currentCode.replace(/[^0-9]/g, ""));
   currentCode = currentCode.toString();
-  console.log(typeof currentCode);
-  console.log(currentCode);
   let formData = new FormData();
   formData.append("code", currentCode);
 
@@ -110,7 +112,6 @@ function enterToProfile() {
         codeError.style.display = "block";
         let currentPhone = authTel.textContent.replace(/[^0-9+]/g, "");
         newCode(0, currentPhone);
-        console.log("Wrong");
       } else  {
         let formDataAuthN = new FormData();
         fetch(urlPostAuth, {
@@ -120,7 +121,6 @@ function enterToProfile() {
           .then((resp) => resp.json())
           .then((resp) => {
             console.log(resp);
-            console.log(resp.isAuth);
             if (resp.isAuth) {
               profileData = response;
               if (page === 3) {
@@ -130,13 +130,22 @@ function enterToProfile() {
               document.querySelector(".mobile__profile_img img").src =
                 iconInProfile;
               document.querySelector(".profile__img").src = iconInProfile;
-              document.querySelector(".mobile__profile span").textContent = "ПРОФИЛЬ  |  ВЫЙТИ"
+              document.querySelectorAll(".profile__item").forEach((item) => {
+                item.classList.add("active");
+              })
+               document.querySelectorAll(".profileDropDown").forEach((item) => {
+        item.style.display = "flex";
+      })
+              document.querySelector(".enter").style.display = "none";
             }
             else {
               numberBonuses = 0;
               document.querySelector(".mobile__profile_img img").src = iconOutProfile;
               document.querySelector(".profile__img").src = iconOutProfile;
-              document.querySelector(".mobile__profile span").textContent = "ВОЙТИ"
+              document.querySelector(".enter").style.display = "inline";
+               document.querySelectorAll(".profileDropDown").forEach((item) => {
+        item.style.display = "none";
+      })
             }
           });
           closeAuthWindow();
@@ -157,7 +166,6 @@ function sentSMS(authPhone) {
     clearInterval(timer);
     timer = null;
   }
-  console.log(authPhone);
   startTimer(authPhone);
 
   let formData = new FormData();
@@ -203,3 +211,9 @@ document.querySelector(".SMSCode").addEventListener('keydown', function(e) {
     enterToProfile();
   }
 });
+let exitProfile = document.querySelectorAll(".exitProfile");
+exitProfile.forEach((item) => {
+  item.addEventListener("click", () => {
+    console.log("EXIT");
+  })
+})

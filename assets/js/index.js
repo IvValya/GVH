@@ -1,5 +1,7 @@
 //window.onload = init;
 //function init() {
+let customerInfo = undefined;
+let typeDeliveryFromBasket = undefined;
 const logo = document.querySelector(".logo");
 logo.href = linkToFrontpage;
 let toppingActive = [];
@@ -94,11 +96,22 @@ class basket {
         toppingsId: currentToppingsId,
       });
     });
-    let convertedData = {
-      basket: convertedBasket,
-      typeDelivery: currentTypeDelivery,
-      refreshTime: currentRefreshTime,
-    };
+    let convertedData;
+    if (customerInfo && typeDeliveryFromBasket === customerInfo.typeDelivery) {
+      convertedData = {
+        basket: convertedBasket,
+        typeDelivery: currentTypeDelivery,
+        customerInfo: customerInfo,
+        refreshTime: currentRefreshTime,
+      };
+    } else {
+      convertedData = {
+        basket: convertedBasket,
+        typeDelivery: currentTypeDelivery,
+        refreshTime: currentRefreshTime,
+      };
+    }
+
     console.log(convertedData);
     return convertedData;
   }
@@ -207,7 +220,7 @@ class basket {
         cardClone.querySelector(".basket__h3").textContent = item.card.name;
         cardClone.querySelector(".basket__weight").textContent =
           item.card.weight + " гр.";
-        
+
         let toppPrice = 0;
         if (item.card.toppings) {
           item.card.toppings.forEach((topping) => {
@@ -215,7 +228,8 @@ class basket {
           });
         }
         totalCheck += (item.card.price + toppPrice) * item.card.quantity;
-        cardClone.querySelector(".basket__price").textContent = item.card.price+ toppPrice;
+        cardClone.querySelector(".basket__price").textContent =
+          item.card.price + toppPrice;
         let currentMinus = cardClone.querySelector(".count_minus");
         let currentCount = cardClone.querySelector(".input_text");
         let currentPlus = cardClone.querySelector(".count_plus");
@@ -303,11 +317,15 @@ class basket {
   }
 
   load() {
-    // localStorage.removeItem("basket");
+    //localStorage.removeItem("basket");
     let currentBasket = localStorage.getItem("basket");
     if (currentBasket) {
       let currentData = JSON.parse(currentBasket);
       console.log(currentData);
+      if (currentData.customerInfo !== "undefined") {
+        customerInfo = currentData.customerInfo;
+      }
+      typeDeliveryFromBasket = currentData.typeDelivery;
       let currentTime = Date.now();
       if (currentTime - currentData.refreshTime > 2 * 3600 * 1000) {
         localStorage.removeItem("basket");
@@ -353,7 +371,7 @@ class basket {
     let currentWeight = currentCard
       .querySelector(".card__desc_weight")
       .textContent.split(" ");
-    currentWeight = currentWeight[0];     
+    currentWeight = currentWeight[0];
     let toppings = document.querySelectorAll(".topping__check_active");
     if (toppings) {
     }
@@ -476,7 +494,7 @@ function countMinus(count) {
       );
       currentCards.forEach((currentCard) => {
         currentCard.querySelector(".desc_price").textContent =
-            currCard.card.price;
+          currCard.card.price;
         currentCard.querySelector(".card__button").style.display = "block";
         currentCard.querySelector(".card__button_count").style.display = "none";
       });
@@ -720,11 +738,15 @@ function closeModal() {
   timerId = setTimeout(() => {
     document.querySelector(".modal__topping").style.display = "flex";
     modal.style.display = "none";
-    swiperDesc.destroy(true, true);    
-    
-    if (window.innerWidth>800) {
+    swiperDesc.destroy(true, true);
+
+    if (window.innerWidth > 800) {
       document.querySelector(".modal__footer").style.top = "calc(50% + 301px)";
       document.querySelector(".modal").style.height = "718px";
+    } else {
+      document.querySelector(".modal").style.top = "130px";
+      document.querySelector(".modal").style.height = "calc(100vh - 130px)";
+      document.querySelector(".modal__close").style.top = "145px";
     }
   }, 800);
 }
@@ -781,6 +803,7 @@ function openMobileBasketFunc() {
   /*mobileBasketOpen.style.position = "fixed";
   mobileBasketOpen.style.top = 0;*/
   touchTrue = false;
+  mobileBasketFooter.style.top = "unset";
   openMobileBasket.removeEventListener("click", openMobileBasketFunc);
   btnCloseMobileBasket.addEventListener("click", closeMobileBasketFunc);
   mobileBasketSticky.classList.add("transition");
@@ -819,7 +842,8 @@ function closeMobileBasketFunc() {
   //mobileBasketOpen.style.position = "unset";
   // mobileBasketFooter.style.position = "unset";
   //}, 700);
-
+  mobileBasketFooter.style.top = "unset";
+  //mobileBasketFooter.classList.add("transition");
   mobileBasketSticky.classList.add("transition");
   mobileBasketSticky.classList.remove("opened");
 
@@ -1152,36 +1176,6 @@ for (let t = 0; t < btnDelivery.length; t++) {
     currentDeliveryBtn.classList.add("basket__delivery_active");
   });
 }*/
-/*
-const btnDeliverys = document.querySelectorAll(
-  ".desktopBasket__delivery__item"
-);
-for (let t = 0; t < btnDeliverys.length; t++) {
-  btnDeliverys[t].addEventListener("click", (e) => {
-    let currentDeliverys = e.currentTarget.closest(
-      ".desktopBasket__delivery__item"
-    );
-    let wrapp = e.currentTarget.closest(".deskBasket__delivery__wrapper");
-    let currentTypeDelivery = currentDeliverys.querySelector(
-      ".deskBasket__delivery_input"
-    ).id;
-    let hoverActive = wrapp.querySelector(".hovering_active");
-    if (currentTypeDelivery === "takeaway") {
-      hoverActive.classList.remove("hover__active_left");
-      hoverActive.classList.add("hover__active_right");
-    } else {
-      hoverActive.classList.remove("hover__active_right");
-      hoverActive.classList.add("hover__active_left");
-    }
-    document
-      .querySelectorAll(".desktopBasket__delivery__item")
-      .forEach((el) => {
-        el.classList.remove("basket__delivery_active");
-      });
-    e.currentTarget.classList.add("basket__delivery_active");
-  });
-}
-*/
 //---------------------------Scroll menu-------------------------------------------------
 
 function scrollAsideMenu() {
@@ -1406,10 +1400,10 @@ function handleTouchMove(event) {
   let newPosition = parseInt(mobileBasketSticky.style.top) - yDiff;
   if (window.innerHeight - 60 > y2 && y2 > 0) {
     mobileBasketSticky.style.top = y2 + "px";
-    //mobileBasketFooter.style.top = window.innerHeight + y2 - 125 +"px";
+    mobileBasketFooter.style.top = window.innerHeight - 125 + y2 + "px";
   }
 }
-/*console.log(positionBasket);
+/*
   var currentBottom = -window.innerHeight + (60 - yDiff) + "px";
   if (positionBasket > window.innerHeight / 2) {
     var animation = mobileBasketOpen.animate(
@@ -1577,11 +1571,11 @@ function changeModalPrice(itemID) {
     const basketCardList = currentBasket.querySelectorAll(".basket__card");
     for (t = 0; t < basketCardList.length; t++) {
       if (basketCardList[t].dataset.id === itemID) {
-        basketCardList[t].querySelector(".basket__price").textContent = dataCard.card.price+ toppPrice;
+        basketCardList[t].querySelector(".basket__price").textContent =
+          dataCard.card.price + toppPrice;
       }
     }
   }
-  
 }
 
 function renderData(itemID) {
@@ -1597,9 +1591,9 @@ function renderData(itemID) {
     if (dataCard) {
       cards.forEach((item) => {
         if (!modalTrue) {
-          item.value = dataCard.card.quantity; // изменение value в input         
+          item.value = dataCard.card.quantity; // изменение value в input
         }
-       /* if (modalTrue) {
+        /* if (modalTrue) {
           let toppPrice = 0;
           dataCard.card.toppings.forEach((topping) => {
             toppPrice += parseInt(topping.price);
@@ -1629,7 +1623,7 @@ function renderData(itemID) {
       });
       changeModalPrice(itemID);
     }
-    
+
     basket.forEach((element) => {
       let toppingPrice = 0;
       element.card.toppings.forEach((topping) => {
@@ -1637,18 +1631,17 @@ function renderData(itemID) {
       });
       totalCheck += element.card.quantity * (element.card.price + toppingPrice);
     });
-    
   }
 
   document.querySelector(".mobileBasket__header_price").textContent =
     totalCheck;
 
-    if (window.innerWidth < 1450) {
-      currentBasket = document.querySelector(".mobileBasket");
-    } else {
-      currentBasket = document.querySelector(".deskBasket");
-    }
-  
+  if (window.innerWidth < 1450) {
+    currentBasket = document.querySelector(".mobileBasket");
+  } else {
+    currentBasket = document.querySelector(".deskBasket");
+  }
+
   // Delivery
 
   let deliveryPrice = currentBasket.querySelector(".priceDelivery");
@@ -1718,12 +1711,6 @@ function renderModal(dishId, target) {
       }
     }
   }
-  /* meals.forEach((dish) => {
-     card = dish.products.find(
-      (product) => "dish" + product.id === dishId
-    );
-  });*/
-  console.log(card);
   if (card) {
     const modalWindow = document.querySelector(".modal");
     const modalFav = document.querySelector(".modal__fav");
@@ -1761,7 +1748,8 @@ function renderModal(dishId, target) {
         const cardTopp = toppings.find((item) => item.id === toppItem);
         toppingClone = toppingCardTemp.content.cloneNode(true);
         toppingClone.querySelector(".topping__img").src = cardTopp.image;
-        toppingClone.querySelector(".topping__name").textContent = cardTopp.name;
+        toppingClone.querySelector(".topping__name").textContent =
+          cardTopp.name;
         toppingClone.querySelector(".topping__modal_check").id =
           "topping" + cardTopp.id;
         toppingClone
@@ -1784,20 +1772,23 @@ function renderModal(dishId, target) {
             }
           });
         }
-  
+
         fragmentTopping.append(toppingClone);
       });
       toppingList.innerHTML = "";
       toppingList.appendChild(fragmentTopping);
-    }
-    else {
+    } else {
       document.querySelector(".modal__topping").style.display = "none";
-        if (window.innerWidth > 800) {
-          document.querySelector(".modal").style.height = "562px";
-          document.querySelector(".modal__footer").style.top =
-            "calc(50% + 145px)";
-        }
-    }    
+      if (window.innerWidth > 800) {
+        document.querySelector(".modal").style.height = "562px";
+        document.querySelector(".modal__footer").style.top =
+          "calc(50% + 145px)";
+      } else {
+        document.querySelector(".modal").style.top = "304px";
+        document.querySelector(".modal").style.height = "calc(100vh - 304px)";
+        document.querySelector(".modal__close").style.top = "319px";
+      }
+    }
 
     if (window.innerWidth < 800) {
       document.querySelector(".button_prev .modal__desc_next").textContent =

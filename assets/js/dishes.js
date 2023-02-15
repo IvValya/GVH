@@ -10,17 +10,23 @@ fetch(urlPostAuth, {
   .then((response) => {
     console.log(response.isAuth);
     profileData = response;
-    if (response.isAuth) {      
+    if (response.isAuth) {
+      console.log(response.isAuth)
       numberBonuses = parseInt(response.points);
       document.querySelector(".mobile__profile_img img").src = iconInProfile;
       document.querySelector(".profile__img").src = iconInProfile;
-      document.querySelector(".mobile__profile span").textContent =
-        "ПРОФИЛЬ  |  ВЫЙТИ";
+      document.querySelectorAll(".profileDropDown").forEach((item) => {
+        item.style.display = "flex";
+      })
+      document.querySelector(".enter").style.display = "none";
     } else {
       numberBonuses = 0;
       document.querySelector(".mobile__profile_img img").src = iconOutProfile;
       document.querySelector(".profile__img").src = iconOutProfile;
-      document.querySelector(".mobile__profile span").textContent = "ВОЙТИ";
+      document.querySelector(".enter").style.display = "inline";
+      document.querySelectorAll(".profileDropDown").forEach((item) => {
+        item.style.display = "none";
+      })
     }
   });
 
@@ -78,6 +84,12 @@ class dishesL {
           this.renderFrontpage();
           this.loadScript("/assets/js/frontpage.js");
         }
+        if (page === 4) {
+          this.loadScript("/assets/js/profile.js");
+        }
+        document.querySelector(".header__nav a:first-child").href = linkToMenu;
+        document.querySelector(".mobile__nav a:first-child").href = linkToMenu;
+        document.querySelector(".footerMenu").href = linkToMenu;
       })
       .catch((err) => console.error(err));
   }

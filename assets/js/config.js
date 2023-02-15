@@ -1,7 +1,7 @@
 var linkToMenuPage = "/index.html#";
-var urLForGet = "http://new.grillvino.ru/menu/";
-var urlForPost;
+var urLForGet ="http://new.grillvino.ru/menu/";
 var linkToProfile;
+var linkToMenu = "/index.html";
 var linkToOrder = "/order.html";
 var linkToFrontpage = "/";
 var timeForCode = 60;
@@ -11,3 +11,4 @@ var iconOutProfile = "/assets/img/Group56.svg";
 var urlPostAuth = "http://new.grillvino.ru/auth";
 var urlPostPhone = "http://new.grillvino.ru/checkPhone";
 var urlPostCode = "http://new.grillvino.ru/checkCode";
+var urlSendOrder = "http://new.grillvino.ru/saveOrder";

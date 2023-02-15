@@ -964,7 +964,17 @@ input[type=text]:-ms-input-placeholder {
     color: var(--color-bordeaux-light);
     font-weight: 700;
 }
+.profileDropDown {
+    display: flex;
+    
+    column-gap: 20px;
+}
 
+.exitProfile {
+    width: 100%;
+    padding-left: 20px;
+    border-left: solid 2px white;
+}
 .order__list,
 .last__card {
     padding-left: 20px;
@@ -2811,7 +2821,7 @@ input[type="number"]:focus {
 
     .street,
     .select {
-        
+
         grid-column: span 3;
     }
 
@@ -2822,9 +2832,11 @@ input[type="number"]:focus {
         display: flex;
         align-items: center;
     }
+
     .paymentCardSelect {
         margin-bottom: 20px;
     }
+
     .paymentCardSelect.is_active,
     .select.is_active {
         outline: none;
@@ -2833,19 +2845,23 @@ input[type="number"]:focus {
         border: 1px solid #B06D81;
 
     }
+
     .paymentCardSelect .select__header,
     .select__header {
         width: 100%;
     }
+
     .select__current {
         font-size: 18px;
         line-height: 24px;
         padding: 8px;
         width: 100%;
     }
+
     .select.is_active .select__body,
     .paymentCardSelect.is_active .select__body {
-        display: block;}
+        display: block;
+    }
 
     .select__body,
     .paymentCardSelect .select__body {
@@ -3307,6 +3323,38 @@ input[type="number"]:focus {
     .wrapper {
         padding-left: 195px;
         padding-right: 147px;
+    }
+
+    .profile_wrap {
+        position: relative;
+
+    }
+    .exitProfile {
+        cursor: pointer;
+        border: none;
+        padding-left: 0;
+        text-align: center;
+    }
+    .profileDropDown {
+        position: absolute;
+        display: none;
+        width: 100%;
+        background: #831335;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 35px;
+        height: 100px;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    .profile_wrap:hover .profileDropDown {
+
+        display: flex;
+        
     }
 
     .modal__desc {

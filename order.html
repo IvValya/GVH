@@ -51,12 +51,10 @@
     <template class="optionTemp">
       <option class="street__item" value="">пр-т. Авиаторов Балтики</option>
     </template>
-    <template class=" selectStreetItem">
+    <template class="selectStreetItem">
       <div class="select__item"></div>
     </template>
-      
-  
-  
+
     <template class="extraCardTemp">
       <div class="order__topping_card item">
         <h3 class="basket__h3">Бородинский хлеб</h3>
@@ -218,16 +216,23 @@
       </a>
       <div class="header__nav">
         <nav class="nav">
-          <a href=""> <li class="nav__item">МЕНЮ</li> </a
+          <a href="/"> <li class="nav__item">МЕНЮ</li> </a
           ><a href=""> <li class="nav__item">АКЦИИ</li> </a
           ><a href=""> <li class="nav__item">О НАС</li> </a
           ><a href="">
             <li class="nav__item">КОНТАКТЫ</li>
           </a>
         </nav>
-        <div class="profile profile__item">
-          <img src="/assets/img/Group56.svg" alt="" class="profile__img" />
+        <div class="profile_wrap">
+          <div class="profile profile__item">
+            <img src="/assets/img/Group56.svg" alt="" class="profile__img" />
+          </div>
+          <div class="profileDropDown">
+            <a class="goToProfile" href="">ПРОФИЛЬ</a>
+            <div class="exitProfile" href="">ВЫХОД</div>
+          </div>
         </div>
+
         <div class="phone">
           <a class="contacts__a" href="tel:+78129362292"
             ><span class="contacts__span">РЕСТОРАН </span>+7 812 936 22 92</a
@@ -275,7 +280,11 @@
           <div class="mobile__profile_img">
             <img src="/assets/img/Group56.svg" alt="" />
           </div>
-          <span>ПРОФИЛЬ</span>
+          <div class="profileDropDown">
+            <a class="goToProfile" href="">ПРОФИЛЬ</a>
+            <div class="exitProfile" href="">ВЫХОД</div>
+          </div>
+          <span class="enter">ВОЙТИ</span>
         </div>
         <div class="mobile__phone">
           <a class="mobileContacts__a" href="tel:+78129362292"
@@ -328,9 +337,8 @@
                   <div class="select">
                     <div class="select__header">
                       <span class="select__current"></span>
-                    </div>                  
-                    <div class="select__body">
                     </div>
+                    <div class="select__body"></div>
                   </div>
                   <select class="address__item street" name="" id=""></select>
                   <input
@@ -385,7 +393,7 @@
                   <label class="confirm__label" for="confirm">
                     <div class="confirm">
                       <img
-                        class="confirm_img"
+                        class="confirm_img confirm__active"
                         src="/assets/img/marker.svg"
                         alt=""
                       />
@@ -450,9 +458,15 @@
                   </div>
                   <div class="select__body">
                     <div class="select__item_pay cashPay">Наличные курьеру</div>
-                    <div class="select__item_pay courierPay">Картой курьеру</div>
-                    <div class="select__item_pay restaurantPay">Наличные/картой в ресторане</div>
-                    <div class="select__item_pay onlinePay">Онлайн на сайте</div>
+                    <div class="select__item_pay courierPay">
+                      Картой курьеру
+                    </div>
+                    <div class="select__item_pay restaurantPay">
+                      Наличные/картой в ресторане
+                    </div>
+                    <div class="select__item_pay onlinePay">
+                      Онлайн на сайте
+                    </div>
                   </div>
                 </div>
                 <select name="paymentCard" id="paymentCard" class="paymentCard">
@@ -676,7 +690,7 @@
             <a href="">
               <li class="footer__nav_item">О нас</li>
             </a>
-            <a href="">
+            <a class="footerMenu" href="">
               <li class="footer__nav_item">Меню</li>
             </a>
             <a href="">

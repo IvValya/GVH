@@ -6,7 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/assets/style/style.css" />
     <link rel="stylesheet" href="/assets/swiper/swiper-bundle.min.css" />
-
+    <script>
+      var page = 4;
+    </script>
+    <script src="/assets/js/mask.js"></script>
+    <script src="/assets/swiper/swiper-bundle.min.js"></script>
+    <script src="/assets/js/config.js"></script>
+    <script src="/assets/js/dishes.js"></script>
     <style>
       .swiper {
         width: 100%;
@@ -38,53 +44,15 @@
         object-fit: cover;
       }
     </style>
-    <script>
-      var page = 1;
-    </script>
-    <script src="/assets/js/mask.js"></script>
-    <script src="/assets/swiper/swiper-bundle.min.js"></script>
-    <script src="/assets/js/config.js"></script>
-    <script src="/assets/js/dishes.js"></script>
     <title>GRILL VINO & ХАЧАПУРИ</title>
   </head>
   <body>
-    <template class="basketTemp">
-      <div class="basket__card">
-        <div class="basket__card_pict">
-          <img class="basket__card_img" src="/assets/img/kebab.jpg" alt="" />
-        </div>
-        <div class="basket__desc">
-          <h3 class="basket__h3">
-            Кебаб из ягненка с салатом из свежих овощей
-          </h3>
-          <div class="basket__desc_main">
-            <div class="basket__weightPrice">
-              <span class="basket__weight"> 360 г. </span>
-              <div class="divBasket__price">
-                <span class="basket__price">670</span>
-                <span class="rouble">i</span>
-              </div>
-            </div>
-            <div class="basket__count button__count">
-              <div class="count_minus">-</div>
-              <div class="count__wrapper">
-                <input
-                  type="text"
-                  class="input_text"
-                  minlength="1"
-                  maxlength="3"
-                  size="6"
-                  value="1"
-                  inputmode="numeric"
-                />
-              </div>
-              <div class="count_plus">+</div>
-            </div>
-          </div>
-        </div>
+    <template class="asideItemTemp">
+      <div class="asideMenu__div">
+        <input class="asideMenu__input" type="radio" id="cat1" />
+        <label class="asideMenu__label" for="cat1">Популярные</label>
       </div>
     </template>
-
     <template class="galleryTemp">
       <div class="swiper-slide">
         <div class="top10__card list_item">
@@ -119,8 +87,6 @@
               <input
                 type="text"
                 class="input_text"
-                minlength="1"
-                maxlength="3"
                 size="6"
                 value="1"
                 inputmode="numeric"
@@ -131,7 +97,15 @@
         </div>
       </div>
     </template>
-
+    <template class="itemMenuTemp">
+      <a class="menu__main_item" href="">
+        <h2 class="menu__main_h2">Напитки</h2>
+        <img src="/assets/img/bigImg.jpg" alt="" class="menu__main_img" />
+      </a>
+    </template>
+    <template class="modalFavTemp">
+      <img class="modal__fav_img" src="/assets/img/spicy.svg" alt="" />
+    </template>
     <template class="toppingCardTemp">
       <div class="topping__card">
         <input class="topping__modal_check" type="checkbox" />
@@ -160,89 +134,14 @@
         </label>
       </div>
     </template>
-
-    <template class="modalFavTemp">
-      <img class="modal__fav_img" src="/assets/img/spicy.svg" alt="" />
-    </template>
-
     <template class="swiperGalleryModalTemp">
       <div class="swiper-slide">
         <div class="swiper-zoom-container">
-      
           <img class="modal__card_img" src="/assets/img/kare.jpg" alt="" />
-       
-      </div>
-      </div>
-    </template>
-    <template class="nav__li_temp">
-      <li class="nav__li">
-        <input
-          class="nav__input"
-          type="radio"
-          name="categoty"
-          value="0"
-          id="tab_0"
-          checked=""
-        />
-        <label class="nav__label" data-name="cat1" for="tab_0"
-          >Популярные блюда</label
-        >
-      </li>
-    </template>
-    <template class="asideItemTemp">
-      <input class="asideMenu__input" type="radio" id="cat1" />
-      <label class="asideMenu__label" for="cat1">Популярные</label>
-    </template>
-
-    <template class="dishesListTemp">
-      <div class="menu__cat" data-name="cat1">
-        <h2 class="menu__h2">Популярные блюда</h2>
-      </div>
-    </template>
-    <template class="menuCardTemp">
-      <div class="menu__list_item list_item">
-        <a class="menu__card">
-          <img class="card__img" src="/assets/img/kare.jpg" alt="" />
-          <div class="card_desc">
-            <div class="card__text">
-              <div class="card">
-                <span class="card__desc_name"
-                  >Пеновани из слоёного теста с беконом, сыром сулугуни и
-                  зеленью Подается со сметаной</span
-                >
-                <span class="card__desc_weight">280 г.</span>
-              </div>
-            </div>
-            <div class="card__desc_price">
-              <span class="desc_price">670</span>
-              <span class="rouble">i</span>
-            </div>
-          </div>
-        </a>
-        <button class="card__button" type="button">
-          <div class="card__button_add">
-            <img class="img__plus" src="/assets/img/plus.svg" alt="" />
-            <span>добавить</span>
-          </div>
-        </button>
-        <div class="card__button_count button__count">
-          <div class="count_minus card__count_minus">-</div>
-          <div class="card__count_wrapper">
-            <input
-              type="text"
-              class="input_text"
-              minlength="1"
-              maxlength="3"
-              size="6"
-              value="1"
-              inputmode="numeric"
-            />
-          </div>
-          <div class="count_plus card__count_plus">+</div>
         </div>
       </div>
     </template>
-    
+
     <div class="block"></div>
     <header class="header">
       <a class="logo" href="">
@@ -260,7 +159,7 @@
       </a>
       <div class="header__nav">
         <nav class="nav">
-          <a href="/"> <li class="nav__item">МЕНЮ</li> </a
+          <a href=""> <li class="nav__item">МЕНЮ</li> </a
           ><a href=""> <li class="nav__item">АКЦИИ</li> </a
           ><a href=""> <li class="nav__item">О НАС</li> </a
           ><a href="">
@@ -276,6 +175,7 @@
             <div class="exitProfile" href="">ВЫХОД</div>
           </div>
         </div>
+
         <div class="phone">
           <a class="contacts__a" href="tel:+78129362292"
             ><span class="contacts__span">РЕСТОРАН </span>+7 812 936 22 92</a
@@ -286,7 +186,6 @@
         </div>
       </div>
     </header>
-
     <aside id="burgerMenu" class="mobile_wr">
       <div class="mobileWr__img">
         <div class="mobileWr__header_img">
@@ -362,203 +261,35 @@
         </address>
       </div>
     </aside>
-
-    <section class="menu__mobile_nav"></section>
-
-    <aside class="mobileBasket_sticky">
-      <div class="mobileBasket">
-        <div class="mobileBasket_open">
-          <header class="mobileBasket__header">
-            <div class="mobileBasket__header_img"></div>
-            <div class="mobileBasket__header_wr">
-              <span class="mobileBasket__header_span">Ваш заказ</span>
-              <img
-                class="mobileBasket__close"
-                src="/assets/img/close.svg"
-                alt=""
-              />
-              <div class="mobileBasket__header_totalPrice">
-                <span class="mobileBasket__header_price"> </span>
-                <span class="rouble">i</span>
-              </div>
-            </div>
-          </header>
-          <div class="mobileBasket__wrapper">
-            <div class="mobileBasket__img">
-              <img
-                src="/assets/img/image_for_basket.jpg"
-                alt=""
-                class="tablet__img_main"
-              />
-            </div>
-            <div class="mobileBasket__main_wr">
-              <main class="mobileBasket__main">
-                <section class="mobileBasket__delivery">
-                  <div class="mobileBasket__delivery__wrapper">
-                    <li class="basket__delivery__item basket__delivery_active">
-                      <input
-                        class="basket__delivery_input"
-                        type="radio"
-                        name="delivery"
-                        value="0"
-                        id="delivery"
-                        checked="true"
-                      />
-                      <label class="mobileBasket__delivery_label" for="delivery"
-                        >Доставка</label
-                      >
-                    </li>
-                    <li class="basket__delivery__item">
-                      <input
-                        class="basket__delivery_input"
-                        type="radio"
-                        name="delivery"
-                        value=""
-                        id="takeaway"
-                        checked=""
-                      />
-                      <label class="mobileBasket__delivery_label" for="takeaway"
-                        >На вынос</label
-                      >
-                    </li>
-                    <div class="hovering_active hover__active_left"></div>
-                  </div>
-                </section>
-                <section class="mobileBasket__menu basket__menu"></section>
-                <button class="mobileBasket__button_clear clear" type="button">
-                  Убрать все
-                </button>
-              </main>
-            </div>
-          </div>
-        </div>
-        <footer class="mobileBasket__footer">
-          <div class="mobileBasket__footer_item">
-            <div class="mobileBasket_priceDelivery">
-              <span class="mobileBasket__footer_span">Доставка</span>
-              <div class="mobileBasket__price_delivery">
-                <span class="priceDelivery"> </span>
-                <span class="rouble"> i</span>
-              </div>
-            </div>
-            <p class="basket_forFreeDelivery">
-              Закажите ещё на
-              <span class="check_forFreeDelivery"></span>
-              <span class="rouble">i</span>
-              <span class="other__text"> для бесплатной доставки!</span>
-            </p>
-          </div>
-          <a class="mobileBasket__button_order button_order" href="">
-            <span>Верно, далее</span>
-            <div class="mobileBasket_totalCheck">
-              <span class="totalCheck"></span>
-              <span class="rouble">i</span>
-            </div>
-          </a>
-        </footer>
-      </div>
-    </aside>
-
-    <main class="main">
+    <main class="mainProfile">
       <div class="auxiliary"></div>
       <section class="mainGallery">
-        <img class="mainGallery__item" src="/assets/img/bigImg.jpg" alt="" />
+        <img
+          class="mainGallery__item"
+          src="/assets/img/mainFrontpage.jpg"
+          alt=""
+        />
       </section>
       <div class="wrapper__main_big">
         <aside class="asideMenu">
-          <ul class="asideMenu__ul"></ul>
+          <ul class="asideMenu__ul">
+            <input class="asideMenu__input" type="radio" id="cat1" />
+            <label class="asideMenu__label category_active" for="cat1"
+              >Популярные блюда</label
+            >
+            <input class="asideMenu__input" type="radio" id="cat2" />
+            <label class="asideMenu__label" for="cat2">Блюда на углях</label>
+            <input class="asideMenu__input" type="radio" id="cat3" />
+            <label class="asideMenu__label" for="cat3">Супы</label>
+            <input class="asideMenu__input" type="radio" id="cat4" />
+            <label class="asideMenu__label" for="cat4">Десерты</label>
+          </ul>
           <h1 class="visually-hidden"></h1>
         </aside>
+        <a href=""></a>
         <div class="wrapper__main_small">
-          <div class="menu">
-            <div class="menu__list"></div>
-            <div class="deskBasket">
-              <div class="deskBasket__wrapper">
-                <div class="deskBasket__header">
-                  <span class="deskBasket__header_span">Ваш заказ</span>
-                  <button class="desk__button_clear clear">Очистить</button>
-                </div>
-                <div class="deskBasket__main">
-                  <section class="deskBasket__delivery">
-                    <div class="deskBasket__delivery__wrapper">
-                      <li
-                        class="basket__delivery__item basket__delivery_active"
-                      >
-                        <input
-                          class="basket__delivery_input"
-                          type="radio"
-                          name="delivery"
-                          value="0"
-                          id="delivery"
-                          checked="true"
-                        />
-                        <label
-                          class="deskBasket__delivery_label color_transition_left"
-                          for="delivery"
-                          >Доставка</label
-                        >
-                      </li>
-                      <li class="basket__delivery__item">
-                        <input
-                          class="basket__delivery_input"
-                          type="radio"
-                          name="delivery"
-                          value=""
-                          id="takeaway"
-                          checked=""
-                        />
-                        <label class="deskBasket__delivery_label" for="takeaway"
-                          >На вынос</label
-                        >
-                      </li>
-                      <div class="hovering_active hover__active_left"></div>
-                    </div>
-                  </section>
-                  <section class="deskBasket__menu basket__menu"></section>
-                </div>
-                <div class="deskBasket__footer">
-                  <div class="deskBasket__footer_item">
-                    <button
-                      class="deskBasket__button_clear clear"
-                      type="button"
-                    >
-                      Убрать все
-                    </button>
-                    <p class="deskBasket_priceDelivery">
-                      <span class="deskBasket__footer_span">Доставка</span>
-                      <span class="priceDelivery"></span>
-                      <span class="rouble"> i</span>
-                    </p>
-                    <p class="basket_forFreeDelivery">
-                      Закажите ещё на
-                      <span class="check_forFreeDelivery"></span>
-                      <span class="rouble">i</span>
-                      <span class="other__text"> для бесплатной доставки!</span>
-                    </p>
-                  </div>
-                  <a
-                    class="deskBasket__button_order button_order"
-                    href=""
-                  >
-                    <span>Верно, далее</span>
-                    <div class="deskBasket_totalCheck">
-                      <span class="totalCheck"></span>
-                      <span class="rouble"> i</span>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button class="add__order_tablet">
-            <div class="add__order_desc">
-              <span class="add__order_text">Ваш заказ</span>
-              <div class="add__order_total">
-                <span class="add__order_price"></span>
-                <span class="add__order_letter rouble">i</span>
-              </div>
-            </div>
-          </button>
+          <section class="main"></section>
+
           <section class="gallery" loading="lazy">
             <div class="gallery__div">
               <h2 class="gallery__h2">ТОП-10</h2>
@@ -569,6 +300,7 @@
                   <div class="gallery__list">
                     <div class="swiper mySwiper">
                       <div class="swiper-wrapper"></div>
+
                       <div class="swiper-pagination"></div>
                     </div>
                   </div>
@@ -578,14 +310,12 @@
           </section>
           <section class="aboutUs">
             <div class="aboutUs__div">
-              <div class="aboutUs__wr">
-                <div class="workTime">
-                  <div class="indicator"></div>
-                  <span class="workTime__span_now"> Сейчас работаем </span>
-                  <span class="workTime__span"> Пн-Вс: 11:00-24:00 </span>
-                </div>
-                <h2 class="aboutUs__h2">Как нас найти</h2>
+              <div class="workTime">
+                <div class="indicator"></div>
+                <span class="workTime__span_now"> Сейчас работаем </span>
+                <span class="workTime__span"> Пн-Вс: 11:00-24:00 </span>
               </div>
+              <h2 class="aboutUs__h2">Как нас найти</h2>
               <address class="address">
                 г. Мурино, пр. Авиаторов Балтики, д.11/1
               </address>
@@ -613,8 +343,6 @@
         </div>
       </div>
     </main>
-    <div class="support"></div>
-
     <footer class="footer">
       <div class="footer__color1 wrapper">
         <div class="footer__main">
@@ -670,7 +398,6 @@
         >
       </div>
     </footer>
-
     <aside class="asideModal">
       <img class="modal__close" src="/assets/img/close.svg" alt="" />
       <div class="modal">
@@ -722,6 +449,7 @@
             </div>
           </div>
         </div>
+
         <div class="modal__topping">
           <h3 class="topping__h3">Топинги:</h3>
           <div class="topping__list"></div>
@@ -750,6 +478,7 @@
         </div>
         <div class="aux"></div>
       </div>
+
       <div class="modal__footer">
         <div class="modal__order">
           <div class="modal__order_total">
@@ -786,20 +515,7 @@
         </div>
       </div>
     </aside>
-    
 
-    <!--<script src="/assets/js/index.js"></script>-->
-    
-    <!-- Initialize Swiper -->
-
-    <!--<script>
-      var swiper = new Swiper(".mySwiperModal", {
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-      });
-    </script>-->
     <script>
       function galleryFunc() {
         var slidesView;
@@ -844,7 +560,6 @@
         document
           .getElementById("openMenu")
           .addEventListener("click", function () {
-            document.querySelector(".mobileBasket_sticky").style.zIndex = 10;
             document.body.style.overflow = "hidden";
             setTimeout(() => {
               mobileMenu.open();
@@ -857,9 +572,6 @@
             setTimeout(() => {
               //document.getElementById("burgerMenu").style.display = "none";
               document.body.style.overflow = "unset";
-              document.querySelector(
-                ".mobileBasket_sticky"
-              ).style.zIndex = 100500;
             }, 400);
           });
       }
