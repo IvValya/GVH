@@ -1,5 +1,5 @@
 var linkToMenuPage = "/index.html#";
-var urLForGet ="http://new.grillvino.ru/menu/";
+var urLForGet = "new.json";//"http://new.grillvino.ru/menu/";
 var linkToProfile;
 var linkToMenu = "/index.html";
 var linkToOrder = "/order.html";
@@ -12,3 +12,4 @@ var urlPostAuth = "http://new.grillvino.ru/auth";
 var urlPostPhone = "http://new.grillvino.ru/checkPhone";
 var urlPostCode = "http://new.grillvino.ru/checkCode";
 var urlSendOrder = "http://new.grillvino.ru/saveOrder";
+var urlLogout = "http://new.grillvino.ru/logout";

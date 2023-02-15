@@ -57,7 +57,18 @@ let modalTrue = false;
 let basketTrue = false;
 let scrollTrue = true;
 let startPosition = window.innerHeight;
-
+profileData = {
+  isAuth: true,
+  name: "Андрей",
+  bonus: 500,
+  street: 628,
+  building: "15",
+  corp: "5",
+  apt: "168",
+  entrance: "2",
+  floor: "15",
+  intercom: "2304",
+};
 class basket {
   renderPriceCard() {
     if (data.basket.length !== 0) {
@@ -281,6 +292,7 @@ class basket {
           totalCheck;
       }
     }
+    totalCheck = Math.ceil(totalCheck);
     let currentBasketMenu = currentBasket.querySelector(".basket__menu");
     currentBasketMenu.innerHTML = "";
     currentBasketMenu.appendChild(fragment);

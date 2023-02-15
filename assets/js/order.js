@@ -1,8 +1,6 @@
 let data;
 let modalTrue = false;
 let writeOffPercent = parseInt(menuData.delivery_options.bonus_percent);
-//window.onload = init;
-//function init() {
 const logo = document.querySelector(".logo");
 logo.href = linkToFrontpage;
 let buttonsCount = document.querySelectorAll(".button__count");
@@ -13,7 +11,7 @@ for (let buttonCount of buttonsCount) {
   minus.addEventListener("click", countMinus(count));
   plus.addEventListener("click", countPlus(count));
 }
-/*
+
 profileData = {
   isAuth: true,
   name: "Андрей",
@@ -25,7 +23,7 @@ profileData = {
   entrance: "2",
   floor: "15",
   intercom: "2304",
-};*/
+};
 class order {
   getCustomerInfo(currentTypeDelivery) {
     let currentAddress = {};
@@ -81,22 +79,22 @@ class order {
       bonusUse: parseInt(currentBonusUse),
     };
     let customerInfo = {
-        address: currentAddress,
-        payment: currentPayment,
-        comments: currentComments,
-        doNotCall: currentConfirm,
-        date: currentDate,
-        time: currentTime,
-        cutlery: parseInt(currentCutlery)
-      };
-      console.log(customerInfo);
+      address: currentAddress,
+      payment: currentPayment,
+      comments: currentComments,
+      doNotCall: currentConfirm,
+      date: currentDate,
+      time: currentTime,
+      cutlery: parseInt(currentCutlery),
+    };
+    console.log(customerInfo);
     return customerInfo;
   }
   renderOrderFromBasket(currentData) {
     console.log(currentData.customerInfo.address.building);
     if (
       currentData.typeDelivery === "delivery" &&
-      currentData.customerInfo.address !== undefined 
+      currentData.customerInfo.address !== undefined
     ) {
       let { street, building, corp, apt, entrance, floor, intercom } =
         currentData.customerInfo.address;
@@ -115,23 +113,26 @@ class order {
       document.querySelector(".level").value = floor;
       document.querySelector(".intercom").value = intercom;
     }
-    
+
     if (currentData.customerInfo.payment !== undefined) {
       let currentKindPay = currentData.customerInfo.payment.kindPay;
       console.log(currentKindPay);
-    if (window.innerWidth > 1450) {
-      document.querySelector(
-        ".paymentCardSelect .select__current"
-      ).textContent = currentKindPay;
-    } else {
-      document.querySelector(".paymentCard").value = currentKindPay;
-    }
+      if (window.innerWidth > 1450) {
+        document.querySelector(
+          ".paymentCardSelect .select__current"
+        ).textContent = currentKindPay;
+      } else {
+        document.querySelector(".paymentCard").value = currentKindPay;
+      }
     }
     let { shortChange, bonusUse } = currentData.customerInfo.payment;
-    numberBonuses = profileData.bonus;
+    console.log(numberBonuses);
+    console.log(profileData);
+    if (profileData.isAuth) {
+      numberBonuses = profileData.bonus;
+    }
     let maxBonus =
-      (profileData.bonus / 100) *
-      parseInt(menuData.delivery_options.bonus_percent);
+      (numberBonuses / 100) * parseInt(menuData.delivery_options.bonus_percent);
     document.querySelector(".bonus_max").textContent = maxBonus;
 
     document.querySelector(".range").max = maxBonus;
@@ -157,47 +158,60 @@ class order {
     let finalOrderData;
     let currentBasket = localStorage.getItem("basket");
     currentBasket = JSON.parse(currentBasket);
-    let currentBuilding = document.querySelector(".house").value;
-    if (currentBasket.typeDelivery === "delivery" &&
-    currentBuilding === "" ) {
-      document.querySelector(".house").focus();
-    }else {
-      let totalCheckBasket = currentBasket.totalCheck;
-      let convertedBasket = currentBasket.basket;
-      console.log(convertedBasket);
-      let currentTypeDelivery = currentBasket.typeDelivery;
-      let lastElemBasket;
-      if (currentTypeDelivery === "delivery") {
-        if (
-          totalCheckBasket < menuData.delivery_options.free_delivery_order_total
-        ) {
-          lastElemBasket = {
-            id: delivery,
-            price: menuData.delivery_options.delivery_price,
-          };
-        } else {
-          lastElemBasket = {
-            id: "delivery",
-            price: 0,
-          };
+    console.log(currentBasket);
+    if (
+      currentBasket !== undefined &&
+      currentBasket !== null &&
+      currentBasket.basket.length !== 0
+    ) {
+      let currentBuilding = document.querySelector(".house").value;
+      if (currentBasket.typeDelivery === "delivery" && currentBuilding === "") {
+        document.querySelector(".house").focus();
+      } else {
+        let totalCheckBasket = currentBasket.totalCheck;
+        let convertedBasket = currentBasket.basket;
+        console.log(convertedBasket);
+        let currentTypeDelivery = currentBasket.typeDelivery;
+        let lastElemBasket;
+        if (currentTypeDelivery === "delivery") {
+          if (
+            totalCheckBasket <
+            menuData.delivery_options.free_delivery_order_total
+          ) {
+            lastElemBasket = {
+              id: delivery,
+              price: menuData.delivery_options.delivery_price,
+            };
+          } else {
+            lastElemBasket = {
+              id: "delivery",
+              price: 0,
+            };
+          }
+          convertedBasket.push(lastElemBasket);
         }
-        convertedBasket.push(lastElemBasket);
+        delete currentBasket.customerInfo.totalCheck;
+        finalOrderData = {
+          basket: convertedBasket,
+          typeDelivery: currentTypeDelivery,
+          customerInfo: this.getCustomerInfo(currentTypeDelivery),
+        };
+        console.log(finalOrderData);
+        let formDataOrder = new FormData();
+        /* formDataOrder.append(finalOrderData);
+          fetch(urlSendOrder, {
+            body: formDataAuthN,
+            method: "post",
+          })
+          .then((resp) => {
+             localStorage.removeItem("basket");
+             orderNew.load();
+          })*/
+          
       }
-      delete currentBasket.customerInfo.totalCheck;
-      finalOrderData = {
-        basket: convertedBasket,
-        typeDelivery: currentBasket.typeDelivery,
-        customerInfo: this.getCustomerInfo(currentTypeDelivery),
-      };
-      console.log(finalOrderData);
-      let formDataOrder = new FormData();
-     /* formDataOrder.append(finalOrderData);
-        fetch(urlSendOrder, {
-          body: formDataAuthN,
-          method: "post",
-        })*/
+    } else {
+      console.log("Ваша корзина пуста");
     }
-   
   }
   renderSelectStreets() {
     const { streets } = menuData;
@@ -239,6 +253,7 @@ class order {
   }
 
   renderOrderWithProfileData(profileData) {
+    console.log(profileData);
     let {
       isAuth,
       name,
@@ -251,6 +266,7 @@ class order {
       floor,
       intercom,
     } = profileData;
+    console.log("here!!!!");
     numberBonuses = bonus;
     let maxBonus =
       (bonus / 100) * parseInt(menuData.delivery_options.bonus_percent);
@@ -377,7 +393,6 @@ class order {
         cutlery: parseInt(currentCutlery),
         totalCheck: totalCheckBasket,
       },
-
       refreshTime: currentRefreshTime,
     };
     return convertedData;
@@ -609,6 +624,7 @@ class order {
 
   renderBonus() {
     numberBonuses = parseInt(numberBonuses);
+    console.log(numberBonuses);
     writeOffPercent = parseInt(writeOffPercent);
     const bonusMax = document.querySelector(".bonus_max");
     const range = document.querySelector(".range");
@@ -731,10 +747,9 @@ class order {
     let currentBasket = localStorage.getItem("basket");
     let currentData = JSON.parse(currentBasket);
     if (profileData.isAuth) {
-      console.log(document.querySelectorAll(".profile__item"));
       document.querySelectorAll(".profile__item").forEach((item) => {
         item.classList.add("active");
-      })
+      });
     }
     if (currentBasket) {
       console.log(currentData);
@@ -765,16 +780,17 @@ class order {
     console.log(currentData !== undefined && currentData !== null);
     if (currentData !== undefined && currentData !== null) {
       console.log(currentData.customerInfo);
-      if (currentData.customerInfo !== undefined && currentData.customerInfo !== null) {
+      if (
+        currentData.customerInfo !== undefined &&
+        currentData.customerInfo !== null
+      ) {
         this.renderOrderFromBasket(currentData);
-      }
-      else {
+      } else {
         if (profileData.isAuth) {
           this.renderOrderWithProfileData(profileData);
         }
       }
-    } 
-    else {
+    } else {
       if (profileData.isAuth) {
         this.renderOrderWithProfileData(profileData);
       }
@@ -974,20 +990,6 @@ confirmLabel.addEventListener("click", () => {
   orderNew.save();
 });
 
-/*selectDate.addEventListener("change", function () {
-  let getDateValue = this.value;
-});
-
-
-selectTime.addEventListener("input", function () {
-  let getTimeValue = this.value;
-});
-*/ /*
-function sendOrder() {}
-
-
-});
-*/
 const finalOrder = document.querySelector(".finalOrder");
 finalOrder.addEventListener("click", () => {
   orderNew.sendOrder();

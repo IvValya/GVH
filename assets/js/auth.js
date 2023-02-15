@@ -46,7 +46,6 @@ function closeAuthWindow() {
     modalAuthFull.style.display = "none";
   }, 700);
 }
-console.log(profileData.isAuth);
 if (!profileData.isAuth) {
   profile.forEach((item) => {
     item.addEventListener("click", openAuthWindow);
@@ -87,7 +86,6 @@ function newCode(time, authPhone) {
   }
 }
 
-
 function enterToProfile() {
   if (timer) {
     clearInterval(timer);
@@ -112,7 +110,7 @@ function enterToProfile() {
         codeError.style.display = "block";
         let currentPhone = authTel.textContent.replace(/[^0-9+]/g, "");
         newCode(0, currentPhone);
-      } else  {
+      } else {
         let formDataAuthN = new FormData();
         fetch(urlPostAuth, {
           body: formDataAuthN,
@@ -132,25 +130,24 @@ function enterToProfile() {
               document.querySelector(".profile__img").src = iconInProfile;
               document.querySelectorAll(".profile__item").forEach((item) => {
                 item.classList.add("active");
-              })
-               document.querySelectorAll(".profileDropDown").forEach((item) => {
-        item.style.display = "flex";
-      })
+              });
+              document.querySelectorAll(".profileDropDown").forEach((item) => {
+                item.style.display = "flex";
+              });
               document.querySelector(".enter").style.display = "none";
-            }
-            else {
+            } else {
               numberBonuses = 0;
-              document.querySelector(".mobile__profile_img img").src = iconOutProfile;
+              document.querySelector(".mobile__profile_img img").src =
+                iconOutProfile;
               document.querySelector(".profile__img").src = iconOutProfile;
               document.querySelector(".enter").style.display = "inline";
-               document.querySelectorAll(".profileDropDown").forEach((item) => {
-        item.style.display = "none";
-      })
+              document.querySelectorAll(".profileDropDown").forEach((item) => {
+                item.style.display = "none";
+              });
             }
           });
-          closeAuthWindow();
+        closeAuthWindow();
       }
-      
     });
 }
 
@@ -201,12 +198,14 @@ function toEnterPhone() {
 buttonEnter.addEventListener("click", enterToProfile);
 buttonForward.addEventListener("click", forwardFunc);
 btnCorrectPhone.addEventListener("click", toEnterPhone);
-document.querySelector(".auth__phone").addEventListener('keydown', function(e) {
-  if (e.keyCode === 13) {
-    forwardFunc();
-  }
-});
-document.querySelector(".SMSCode").addEventListener('keydown', function(e) {
+document
+  .querySelector(".auth__phone")
+  .addEventListener("keydown", function (e) {
+    if (e.keyCode === 13) {
+      forwardFunc();
+    }
+  });
+document.querySelector(".SMSCode").addEventListener("keydown", function (e) {
   if (e.keyCode === 13) {
     enterToProfile();
   }
@@ -214,6 +213,46 @@ document.querySelector(".SMSCode").addEventListener('keydown', function(e) {
 let exitProfile = document.querySelectorAll(".exitProfile");
 exitProfile.forEach((item) => {
   item.addEventListener("click", () => {
+    let formDataLogout = new FormData();
+    /* fetch(urlLogout, {
+      body: formDataLogout,
+      method: "post",
+    }).then((resp) => {*/
+    localStorage.removeItem("basket");
+    numberBonuses = 0;
+    document.querySelectorAll(".profile__item").forEach((item) => {
+      item.classList.remove("active");
+    });
+    profileData = {
+      isAuth: false,
+      street: 618,
+      building: "",
+      corp: "",
+      apt: "",
+      entrance: "",
+      floor: "",
+      intercom: "",
+    };
+    if (page === 1) {
+      orderBasket.load();
+    }
+    if (page === 2) { 
+      document.querySelector(".house").value ="";
+      document.querySelector(".housing").value ="";
+      document.querySelector(".flat").value = "";
+      document.querySelector(".entrance").value = "";
+      document.querySelector(".level").value = "";
+      document.querySelector(".intercom").value ="";
+      document.querySelector(".shortChange__input").value ="";
+      orderNew.load();
+    }
+    if (page === 3) {
+      front.load();
+    }
+    if (page === 4) {
+      prof.load();
+    }
     console.log("EXIT");
-  })
-})
+  });
+});
+//}});
