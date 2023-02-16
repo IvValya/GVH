@@ -119,9 +119,9 @@ function enterToProfile() {
           .then((resp) => resp.json())
           .then((resp) => {
             console.log(resp);
+            profileData = resp;
             if (resp.isAuth) {
-              profileData = response;
-              if (page === 3) {
+              if (page === 2) {
                 orderNew.renderOrderWithProfileData();
               }
               numberBonuses = parseInt(resp.points);
@@ -214,45 +214,17 @@ let exitProfile = document.querySelectorAll(".exitProfile");
 exitProfile.forEach((item) => {
   item.addEventListener("click", () => {
     let formDataLogout = new FormData();
-    /* fetch(urlLogout, {
+    fetch(urlLogout, {
       body: formDataLogout,
       method: "post",
-    }).then((resp) => {*/
-    localStorage.removeItem("basket");
-    numberBonuses = 0;
-    document.querySelectorAll(".profile__item").forEach((item) => {
-      item.classList.remove("active");
+    }).then(() => {
+      localStorage.removeItem("basket");
+      numberBonuses = 0;
+      document.querySelectorAll(".profile__item").forEach((item) => {
+        item.classList.remove("active");
+        window.location = "/";
+      });      
+      console.log("EXIT");
     });
-    profileData = {
-      isAuth: false,
-      street: 618,
-      building: "",
-      corp: "",
-      apt: "",
-      entrance: "",
-      floor: "",
-      intercom: "",
-    };
-    if (page === 1) {
-      orderBasket.load();
-    }
-    if (page === 2) { 
-      document.querySelector(".house").value ="";
-      document.querySelector(".housing").value ="";
-      document.querySelector(".flat").value = "";
-      document.querySelector(".entrance").value = "";
-      document.querySelector(".level").value = "";
-      document.querySelector(".intercom").value ="";
-      document.querySelector(".shortChange__input").value ="";
-      orderNew.load();
-    }
-    if (page === 3) {
-      front.load();
-    }
-    if (page === 4) {
-      prof.load();
-    }
-    console.log("EXIT");
   });
 });
-//}});

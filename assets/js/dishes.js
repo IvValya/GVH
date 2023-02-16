@@ -1,35 +1,6 @@
 let formDataAuth = new FormData();
 let profileData;
 var numberBonuses = 0;
-
-fetch(urlPostAuth, {
-  body: formDataAuth,
-  method: "post",
-})
-  .then((response) => response.json())
-  .then((response) => {
-    console.log(response.isAuth);
-    profileData = response;
-    if (response.isAuth) {
-      console.log(response.isAuth)
-      numberBonuses = parseInt(response.points);
-      document.querySelector(".mobile__profile_img img").src = iconInProfile;
-      document.querySelector(".profile__img").src = iconInProfile;
-      document.querySelectorAll(".profileDropDown").forEach((item) => {
-        item.style.display = "flex";
-      })
-      document.querySelector(".enter").style.display = "none";
-    } else {
-      numberBonuses = 0;
-      document.querySelector(".mobile__profile_img img").src = iconOutProfile;
-      document.querySelector(".profile__img").src = iconOutProfile;
-      document.querySelector(".enter").style.display = "inline";
-      document.querySelectorAll(".profileDropDown").forEach((item) => {
-        item.style.display = "none";
-      })
-    }
-  });
-
 var menuData;
 class dishesL {
   errorHandler(res) {
@@ -268,4 +239,35 @@ class dishesL {
   }
 }
 let dishesList = new dishesL();
-dishesList.load();
+fetch(urlPostAuth, {
+  body: formDataAuth,
+  method: "post",
+})
+  .then((response) => response.json())
+  .then((response) => {
+    console.log(response.isAuth);
+    profileData = response;
+    dishesList.load();
+    if (response.isAuth) {
+      console.log(response.isAuth)
+      numberBonuses = parseInt(response.points);
+      document.querySelector(".mobile__profile_img img").src = iconInProfile;
+      document.querySelector(".profile__img").src = iconInProfile;
+      document.querySelectorAll(".profileDropDown").forEach((item) => {
+        item.style.display = "flex";
+      })
+      document.querySelector(".enter").style.display = "none";
+    } else {
+      numberBonuses = 0;
+      document.querySelector(".mobile__profile_img img").src = iconOutProfile;
+      document.querySelector(".profile__img").src = iconOutProfile;
+      document.querySelector(".enter").style.display = "inline";
+      document.querySelectorAll(".profileDropDown").forEach((item) => {
+        item.style.display = "none";
+      })
+    }
+  });
+
+
+
+

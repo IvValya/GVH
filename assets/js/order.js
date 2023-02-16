@@ -11,7 +11,7 @@ for (let buttonCount of buttonsCount) {
   minus.addEventListener("click", countMinus(count));
   plus.addEventListener("click", countPlus(count));
 }
-
+/*
 profileData = {
   isAuth: true,
   name: "Андрей",
@@ -23,7 +23,7 @@ profileData = {
   entrance: "2",
   floor: "15",
   intercom: "2304",
-};
+};*/
 class order {
   getCustomerInfo(currentTypeDelivery) {
     let currentAddress = {};
@@ -126,8 +126,6 @@ class order {
       }
     }
     let { shortChange, bonusUse } = currentData.customerInfo.payment;
-    console.log(numberBonuses);
-    console.log(profileData);
     if (profileData.isAuth) {
       numberBonuses = profileData.bonus;
     }
@@ -168,7 +166,7 @@ class order {
       if (currentBasket.typeDelivery === "delivery" && currentBuilding === "") {
         document.querySelector(".house").focus();
       } else {
-        let totalCheckBasket = currentBasket.totalCheck;
+        let totalCheckBasket = currentBasket.customerInfo.totalCheck;
         let convertedBasket = currentBasket.basket;
         console.log(convertedBasket);
         let currentTypeDelivery = currentBasket.typeDelivery;
@@ -179,7 +177,7 @@ class order {
             menuData.delivery_options.free_delivery_order_total
           ) {
             lastElemBasket = {
-              id: delivery,
+              id: "delivery",
               price: menuData.delivery_options.delivery_price,
             };
           } else {
@@ -198,16 +196,16 @@ class order {
         };
         console.log(finalOrderData);
         let formDataOrder = new FormData();
-        /* formDataOrder.append(finalOrderData);
+        formDataOrder.append("order", finalOrderData);
           fetch(urlSendOrder, {
-            body: formDataAuthN,
+            body: formDataOrder,
             method: "post",
           })
-          .then((resp) => {
+          .then(() => {
              localStorage.removeItem("basket");
-             orderNew.load();
-          })*/
-          
+              window.location = "/";
+            
+          })
       }
     } else {
       console.log("Ваша корзина пуста");

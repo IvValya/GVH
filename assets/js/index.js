@@ -1,6 +1,6 @@
 //window.onload = init;
 //function init() {
-let customerInfo = undefined;
+let customerInfoBasket;
 let typeDeliveryFromBasket = undefined;
 const logo = document.querySelector(".logo");
 logo.href = linkToFrontpage;
@@ -57,6 +57,7 @@ let modalTrue = false;
 let basketTrue = false;
 let scrollTrue = true;
 let startPosition = window.innerHeight;
+/*
 profileData = {
   isAuth: true,
   name: "Андрей",
@@ -68,7 +69,7 @@ profileData = {
   entrance: "2",
   floor: "15",
   intercom: "2304",
-};
+};*/
 class basket {
   renderPriceCard() {
     if (data.basket.length !== 0) {
@@ -108,11 +109,11 @@ class basket {
       });
     });
     let convertedData;
-    if (customerInfo && typeDeliveryFromBasket === customerInfo.typeDelivery) {
+    if (customerInfoBasket && typeDeliveryFromBasket === currentTypeDelivery) {
       convertedData = {
         basket: convertedBasket,
         typeDelivery: currentTypeDelivery,
-        customerInfo: customerInfo,
+        customerInfo: customerInfoBasket,
         refreshTime: currentRefreshTime,
       };
     } else {
@@ -335,7 +336,7 @@ class basket {
       let currentData = JSON.parse(currentBasket);
       console.log(currentData);
       if (currentData.customerInfo !== "undefined") {
-        customerInfo = currentData.customerInfo;
+        customerInfoBasket = currentData.customerInfo;
       }
       typeDeliveryFromBasket = currentData.typeDelivery;
       let currentTime = Date.now();
