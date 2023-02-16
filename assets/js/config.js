@@ -1,5 +1,5 @@
 var linkToMenuPage = "/index.html#";
-var urLForGet = "new.json";//"http://new.grillvino.ru/menu/";
+var urLForGet = "http://new.grillvino.ru/menu/";
 var linkToProfile;
 var linkToMenu = "/index.html";
 var linkToOrder = "/order.html";

@@ -4,8 +4,15 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="assets/style/style.css" />
-    <link rel="stylesheet" href="assets/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="/assets/style/style.css" />
+    <link rel="stylesheet" href="/assets/swiper/swiper-bundle.min.css" />
+    <script>
+      var page = 5;
+    </script>
+    <script src="/assets/js/mask.js"></script>
+    <script src="/assets/swiper/swiper-bundle.min.js"></script>
+    <script src="/assets/js/config.js"></script>
+    <script src="/assets/js/dishes.js"></script>
     <style>
       .swiper {
         width: 100%;
@@ -40,20 +47,115 @@
     <title>GRILL VINO & ХАЧАПУРИ</title>
   </head>
   <body>
+    <template class="asideItemTemp">
+      <div class="asideMenu__div">
+        <input class="asideMenu__input" type="radio" id="cat1" />
+        <label class="asideMenu__label" for="cat1">Популярные</label>
+      </div>
+    </template>
+    <template class="galleryTemp">
+      <div class="swiper-slide">
+        <div class="top10__card list_item">
+          <a class="menu__card">
+            <img class="card__img" src="/assets/img/kare.jpg" alt="" />
+            <div class="card_desc">
+              <div class="card__text">
+                <div class="card">
+                  <span class="card__desc_name"
+                    >Пеновани из слоёного теста с беконом, сыром сулугуни и
+                    зеленью Подается со сметаной</span
+                  >
+                  <span class="card__desc_weight">280 г.</span>
+                </div>
+              </div>
+              <div class="card__desc_price">
+                <span class="desc_price">670</span>
+                <span class="rouble">i</span>
+              </div>
+            </div>
+          </a>
+          <button class="card__button" type="button">
+            <div class="card__button_add">
+              <img class="img__plus" src="/assets/img/plus.svg" alt="" />
+              <span>добавить</span>
+            </div>
+          </button>
+
+          <div class="card__button_count button__count">
+            <div class="count_minus card__count_minus">-</div>
+            <div class="card__count_wrapper">
+              <input
+                type="text"
+                class="input_text"
+                size="6"
+                value="1"
+                inputmode="numeric"
+              />
+            </div>
+            <div class="count_plus card__count_plus">+</div>
+          </div>
+        </div>
+      </div>
+    </template>
+    <template class="itemMenuTemp">
+      <a class="menu__main_item" href="">
+        <h2 class="menu__main_h2">Напитки</h2>
+        <img src="/assets/img/bigImg.jpg" alt="" class="menu__main_img" />
+      </a>
+    </template>
+    <template class="modalFavTemp">
+      <img class="modal__fav_img" src="/assets/img/spicy.svg" alt="" />
+    </template>
+    <template class="toppingCardTemp">
+      <div class="topping__card">
+        <input class="topping__modal_check" type="checkbox" />
+        <label class="topping__label" for="chicken"
+          ><div class="topping__check">
+            <img
+              class="topping__check_img"
+              src="/assets/img/marker.svg"
+              alt=""
+            />
+          </div>
+          <img class="topping__img" src="/assets/img/cheese.svg" alt="" />
+          <div class="topping_desc">
+            <span class="topping__name">Сыр чеддер</span>
+            <div class="topping__other">
+              <div class="topping__weight">
+                <span class="topping__weight_number">30</span>
+                <span class="topping__weight_letter"> г.</span>
+              </div>
+              <div class="topping__price">
+                <span class="topping__price_number">90</span>
+                <span class="topping__price_letter rouble">i</span>
+              </div>
+            </div>
+          </div>
+        </label>
+      </div>
+    </template>
+    <template class="swiperGalleryModalTemp">
+      <div class="swiper-slide">
+        <div class="swiper-zoom-container">
+          <img class="modal__card_img" src="/assets/img/kare.jpg" alt="" />
+        </div>
+      </div>
+    </template>
+
     <div class="block"></div>
     <header class="header">
-      <a class="logo" href="index.html">
+      <a class="logo" href="">
         <picture>
-          <source srcset="assets/img/logo.svg" media="(min-width: 800px)" />
+          <source srcset="/assets/img/logo.svg" media="(min-width: 800px)" />
           <img
-            src="assets/img/mobileLogo.svg"
+            src="/assets/img/mobileLogo.svg"
             alt="Логотип GRILL VINO и ХАЧАПУРИ"
           />
         </picture>
         <span class="resto"> ресторан современной грузинской кухни </span>
       </a>
       <a id="openMenu" class="burgerMenu">
-        <img src="assets/img/icon_menu_burger.svg" alt="Мобильное меню" />
+        <img src="/assets/img/icon_menu_burger.svg" alt="Мобильное меню" />
       </a>
       <div class="header__nav">
         <nav class="nav">
@@ -64,9 +166,16 @@
             <li class="nav__item">КОНТАКТЫ</li>
           </a>
         </nav>
-        <div class="profile profile__item">
-          <img src="assets/img/iconProfile.svg" alt="" class="profile__img" />
+        <div class="profile_wrap">
+          <div class="profile profile__item">
+            <img src="/assets/img/Group56.svg" alt="" class="profile__img" />
+          </div>
+          <div class="profileDropDown">
+            <a class="goToProfile" href="">ПРОФИЛЬ</a>
+            <div class="exitProfile" href="">ВЫХОД</div>
+          </div>
         </div>
+
         <div class="phone">
           <a class="contacts__a" href="tel:+78129362292"
             ><span class="contacts__span">РЕСТОРАН </span>+7 812 936 22 92</a
@@ -80,10 +189,10 @@
     <aside id="burgerMenu" class="mobile_wr">
       <div class="mobileWr__img">
         <div class="mobileWr__header_img">
-          <img src="assets/img/mobileLogo.svg" alt="" class="mobile__logo" />
+          <img src="/assets/img/mobileLogo.svg" alt="" class="mobile__logo" />
         </div>
         <img
-          src="assets/img/image_for_basket.jpg"
+          src="/assets/img/image_for_basket.jpg"
           alt=""
           class="tablet__img_main"
         />
@@ -91,13 +200,13 @@
       <div class="mobile">
         <div class="mobile__header">
           <img
-            src="assets/img/mobileLogo.svg"
+            src="/assets/img/mobileLogo.svg"
             alt=""
             class="mobile__logo logo_close"
           />
           <img
             id="closeMenu"
-            src="assets/img/close.svg"
+            src="/assets/img/close.svg"
             alt=""
             class="mobile__close"
           />
@@ -110,11 +219,15 @@
             <li class="nav__item">КОНТАКТЫ</li>
           </a>
         </nav>
-        <div class="mobile__profile">
+        <div class="mobile__profile profile__item">
           <div class="mobile__profile_img">
-            <a href=""><img src="assets/img/mobileIconProfile.svg" alt="" /></a>
+            <img src="/assets/img/Group56.svg" alt="" />
           </div>
-          <span>ПРОФИЛЬ</span>
+          <div class="profileDropDown">
+            <a class="goToProfile" href="">ПРОФИЛЬ</a>
+            <div class="exitProfile" href="">ВЫХОД</div>
+          </div>
+          <span class="enter">ВОЙТИ</span>
         </div>
         <div class="mobile__phone">
           <a class="mobileContacts__a" href="tel:+78129362292"
@@ -148,10 +261,14 @@
         </address>
       </div>
     </aside>
-    <main class="main">
+    <main class="mainProfile">
       <div class="auxiliary"></div>
       <section class="mainGallery">
-        <img class="mainGallery__item" src="assets/img/bigImg.jpg" alt="" />
+        <img
+          class="mainGallery__item"
+          src="/assets/img/mainFrontpage.jpg"
+          alt=""
+        />
       </section>
       <div class="wrapper__main_big">
         <aside class="asideMenu">
@@ -169,9 +286,10 @@
           </ul>
           <h1 class="visually-hidden"></h1>
         </aside>
+        <a href=""></a>
         <div class="wrapper__main_small">
-          <!--  <div class="menu"></div>     --->
-          <section class="menu__main"></section>
+          <section class="main"></section>
+
           <section class="gallery" loading="lazy">
             <div class="gallery__div">
               <h2 class="gallery__h2">ТОП-10</h2>
@@ -181,388 +299,7 @@
                 <div class="swiper-wrapper">
                   <div class="gallery__list">
                     <div class="swiper mySwiper">
-                      <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                          <div class="top10__card list_item">
-                            <a class="menu__card">
-                              <img
-                                class="card__img"
-                                src="assets/img/kare.jpg"
-                                alt=""
-                              />
-                              <div class="card_desc">
-                                <div class="card__text">
-                                  <div class="card">
-                                    <span class="card__desc_name"
-                                      >Пеновани из слоёного теста с беконом,
-                                      сыром сулугуни и зеленью Подается со
-                                      сметаной</span
-                                    >
-                                    <span class="card__desc_weight"
-                                      >280 г.</span
-                                    >
-                                  </div>
-                                </div>
-                                <div class="card__desc_price">
-                                  <span class="desc_price">670</span>
-                                  <span class="rouble">₽</span>
-                                </div>
-                              </div>
-                            </a>
-                            <button class="card__button" type="button">
-                              <div class="card__button_add">
-                                <img
-                                  class="img__plus"
-                                  src="assets/img/plus.svg"
-                                  alt=""
-                                />
-                                <span>добавить</span>
-                              </div>
-                            </button>
-
-                            <div class="card__button_count button__count">
-                              <div
-                                class="count_minus card__count_minus"
-                                id="left"
-                              >
-                                -
-                              </div>
-                              <div class="card__count_wrapper">
-                                <input
-                                  type="text"
-                                  class="input_text"
-                                  size="6"
-                                  value="1"
-                                  pattern="[0-9]{,3}"
-                                  inputmode="numeric"
-                                />
-                              </div>
-                              <div
-                                class="count_plus card__count_plus"
-                                id="right"
-                              >
-                                +
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="swiper-slide">
-                          <div class="top10__card list_item">
-                            <a class="menu__card">
-                              <img
-                                class="card__img"
-                                src="assets/img/kare.jpg"
-                                alt=""
-                              />
-                              <div class="card_desc">
-                                <div class="card__text">
-                                  <div class="card">
-                                    <span class="card__desc_name"
-                                      >Пеновани из слоёного теста с беконом,
-                                      сыром сулугуни и зеленью Подается со
-                                      сметаной</span
-                                    >
-                                    <span class="card__desc_weight"
-                                      >280 г.</span
-                                    >
-                                  </div>
-                                </div>
-                                <div class="card__desc_price">
-                                  <span class="desc_price">670</span>
-                                  <span class="rouble">₽</span>
-                                </div>
-                              </div>
-                            </a>
-                            <button class="card__button" type="button">
-                              <div class="card__button_add">
-                                <img
-                                  class="img__plus"
-                                  src="assets/img/plus.svg"
-                                  alt=""
-                                />
-                                <span>добавить</span>
-                              </div>
-                            </button>
-
-                            <div class="card__button_count button__count">
-                              <div
-                                class="count_minus card__count_minus"
-                                id="left"
-                              >
-                                -
-                              </div>
-                              <div class="card__count_wrapper">
-                                <input
-                                  type="text"
-                                  class="input_text"
-                                  size="6"
-                                  value="1"
-                                  pattern="[0-9]{,3}"
-                                  inputmode="numeric"
-                                />
-                              </div>
-                              <div
-                                class="count_plus card__count_plus"
-                                id="right"
-                              >
-                                +
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="swiper-slide">
-                          <div class="top10__card list_item">
-                            <a class="menu__card">
-                              <img
-                                class="card__img"
-                                src="assets/img/kare.jpg"
-                                alt=""
-                              />
-                              <div class="card_desc">
-                                <div class="card__text">
-                                  <div class="card">
-                                    <span class="card__desc_name"
-                                      >Пеновани из слоёного теста с беконом,
-                                      сыром сулугуни и зеленью Подается со
-                                      сметаной</span
-                                    >
-                                    <span class="card__desc_weight"
-                                      >280 г.</span
-                                    >
-                                  </div>
-                                </div>
-                                <div class="card__desc_price">
-                                  <span class="desc_price">670</span>
-                                  <span class="rouble">₽</span>
-                                </div>
-                              </div>
-                            </a>
-                            <button class="card__button" type="button">
-                              <div class="card__button_add">
-                                <img
-                                  class="img__plus"
-                                  src="assets/img/plus.svg"
-                                  alt=""
-                                />
-                                <span>добавить</span>
-                              </div>
-                            </button>
-
-                            <div class="card__button_count button__count">
-                              <div
-                                class="count_minus card__count_minus"
-                                id="left"
-                              >
-                                -
-                              </div>
-                              <div class="card__count_wrapper">
-                                <input
-                                  type="text"
-                                  class="input_text"
-                                  size="6"
-                                  value="1"
-                                  pattern="[0-9]{,3}"
-                                  inputmode="numeric"
-                                />
-                              </div>
-                              <div
-                                class="count_plus card__count_plus"
-                                id="right"
-                              >
-                                +
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="swiper-slide">
-                          <div class="top10__card list_item">
-                            <a class="menu__card">
-                              <img
-                                class="card__img"
-                                src="assets/img/kare.jpg"
-                                alt=""
-                              />
-                              <div class="card_desc">
-                                <div class="card__text">
-                                  <div class="card">
-                                    <span class="card__desc_name"
-                                      >Пеновани
-                                    </span>
-                                    <span class="card__desc_weight"
-                                      >280 г.</span
-                                    >
-                                  </div>
-                                </div>
-                                <div class="card__desc_price">
-                                  <span class="desc_price">670</span>
-                                  <span class="rouble">₽</span>
-                                </div>
-                              </div>
-                            </a>
-                            <button class="card__button" type="button">
-                              <div class="card__button_add">
-                                <img
-                                  class="img__plus"
-                                  src="assets/img/plus.svg"
-                                  alt=""
-                                />
-                                <span>добавить</span>
-                              </div>
-                            </button>
-
-                            <div class="card__button_count button__count">
-                              <div
-                                class="count_minus card__count_minus"
-                                id="left"
-                              >
-                                -
-                              </div>
-                              <div class="card__count_wrapper">
-                                <input
-                                  type="text"
-                                  class="input_text"
-                                  size="6"
-                                  value="1"
-                                  pattern="[0-9]{,3}"
-                                  inputmode="numeric"
-                                />
-                              </div>
-                              <div
-                                class="count_plus card__count_plus"
-                                id="right"
-                              >
-                                +
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="swiper-slide">
-                          <div class="top10__card list_item">
-                            <a class="menu__card">
-                              <img
-                                class="card__img"
-                                src="assets/img/kare.jpg"
-                                alt=""
-                              />
-                              <div class="card_desc">
-                                <div class="card__text">
-                                  <div class="card">
-                                    <span class="card__desc_name"
-                                      >Пеновани из слоёного теста с беконом,
-                                      сыром сулугуни и зеленью Подается со
-                                      сметаной</span
-                                    >
-                                    <span class="card__desc_weight"
-                                      >280 г.</span
-                                    >
-                                  </div>
-                                </div>
-                                <div class="card__desc_price">
-                                  <span class="desc_price">670</span>
-                                  <span class="rouble">₽</span>
-                                </div>
-                              </div>
-                            </a>
-                            <button class="card__button" type="button">
-                              <div class="card__button_add">
-                                <img
-                                  class="img__plus"
-                                  src="assets/img/plus.svg"
-                                  alt=""
-                                />
-                                <span>добавить</span>
-                              </div>
-                            </button>
-
-                            <div class="card__button_count button__count">
-                              <div
-                                class="count_minus card__count_minus"
-                                id="left"
-                              >
-                                -
-                              </div>
-                              <div class="card__count_wrapper">
-                                <input
-                                  type="text"
-                                  class="input_text"
-                                  size="6"
-                                  value="1"
-                                  pattern="[0-9]{,3}"
-                                  inputmode="numeric"
-                                />
-                              </div>
-                              <div
-                                class="count_plus card__count_plus"
-                                id="right"
-                              >
-                                +
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="swiper-slide">
-                          <div class="top10__card list_item">
-                            <a class="menu__card">
-                              <img
-                                class="card__img"
-                                src="assets/img/kare.jpg"
-                                alt=""
-                              />
-                              <div class="card_desc">
-                                <div class="card__text">
-                                  <div class="card">
-                                    <span class="card__desc_name"
-                                      >Пеновани</span
-                                    >
-                                    <span class="card__desc_weight"
-                                      >280 г.</span
-                                    >
-                                  </div>
-                                </div>
-                                <div class="card__desc_price">
-                                  <span class="desc_price">670</span>
-                                  <span class="rouble">₽</span>
-                                </div>
-                              </div>
-                            </a>
-                            <button class="card__button" type="button">
-                              <div class="card__button_add">
-                                <img
-                                  class="img__plus"
-                                  src="assets/img/plus.svg"
-                                  alt=""
-                                />
-                                <span>добавить</span>
-                              </div>
-                            </button>
-
-                            <div class="card__button_count button__count">
-                              <div
-                                class="count_minus card__count_minus"
-                                id="left"
-                              >
-                                -
-                              </div>
-                              <div class="card__count_wrapper">
-                                <input
-                                  type="text"
-                                  class="input_text"
-                                  size="6"
-                                  value="1"
-                                  pattern="[0-9]{,3}"
-                                  inputmode="numeric"
-                                />
-                              </div>
-                              <div
-                                class="count_plus card__count_plus"
-                                id="right"
-                              >
-                                +
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      <div class="swiper-wrapper"></div>
 
                       <div class="swiper-pagination"></div>
                     </div>
@@ -606,26 +343,25 @@
         </div>
       </div>
     </main>
-
     <footer class="footer">
       <div class="footer__color1 wrapper">
         <div class="footer__main">
           <div class="footer__logo">
             <img
-              src="assets/img/logoFooterMobile.svg"
+              src="/assets/img/logoFooterMobile.svg"
               alt=""
               class="footer__img"
             />
             <div class="footer__favicon">
-              <img src="assets/img/vk.svg" alt="" class="vk" />
-              <img src="assets/img/telegramm.svg" alt="" class="telegram" />
+              <img src="/assets/img/vk.svg" alt="" class="vk" />
+              <img src="/assets/img/telegramm.svg" alt="" class="telegram" />
             </div>
           </div>
           <ul class="footer__nav">
             <a href="">
               <li class="footer__nav_item">О нас</li>
             </a>
-            <a href="">
+            <a class="footerMenu" href="">
               <li class="footer__nav_item">Меню</li>
             </a>
             <a href="">
@@ -662,67 +398,147 @@
         >
       </div>
     </footer>
-
-    <div class="modalAuth">
-      <div class="auth__extra"></div>
-      <div class="auth__main">
-        <div class="auth__main_phone">
-          <div class="auth__header">
-            <h2 class="auth__h2">Войти в аккаунт</h2>
-            <img src="assets/img/closeGrey.svg" alt="" class="auth__close" />
-          </div>
-          <p class="auth__p">
-            Введите номер телефона и мы отправим SMS-код для входа в ваккаунт
-          </p>
-          <input type="text" class="auth__phone" id="auth__phone" />
-          <span class="auth__error"
-            >Введите номер телефона в указанном формате
-          </span>
-          <button class="button__forward" type="button">далее</button>
-          <p class="auth__agreement">
-            Нажимая кнопку "Далее", Вы принимаете
-            <a class="details" href="">Соглашение об условиях доставки </a> и
-            <a class="details" href="">
-              политику обработки персональных данных</a
-            >
-          </p>
+    <aside class="asideModal">
+      <img class="modal__close" src="/assets/img/close.svg" alt="" />
+      <div class="modal">
+        <div class="modal__header">
+          <div class="modal__fav"></div>
         </div>
-        <div class="auth__main_code">
-          <img src="assets/img/closeGrey.svg" alt="" class="auth__close" />
-          <p class="auth__p">Мы отправили код на номер:<br /></p>
-          <div class="auth__number">
-            <span class="auth__tel">+7 000 000 00 00 </span>
-            <span class="separator">|</span>
-            <button href="" class="auth__phone_correct">изменить номер</button>
+        <div class="modal__gallery">
+          <div class="modal__div">
+            <h2 class="modal__h2">Каре ягненка</h2>
+            <div class="swiper mySwiper">
+              <div class="swiper-wrapper">
+                <div class="swiper mySwiperModal">
+                  <div class="swiper-wrapper"></div>
+                  <div class="swiper-button-next-mod"></div>
+                  <div class="swiper-button-prev-mod"></div>
+                  <div class="swiper-pagination"></div>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+        <div class="modal__desc_full">
+          <div class="swiper mySwiperDesc">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="modal__desc_item">
+                  <p class="modal__desc"></p>
+                  <div class="button_next">
+                    <span class="modal__desc_next">состав</span>
+                    <img
+                      class="modal__desc_arrowRight"
+                      src="/assets/img/arrowRight.svg"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="modal__desc_item">
+                  <p class="modal__consist"></p>
+                  <div class="button_prev">
+                    <p class="modal__desc_next"></p>
+                    <img
+                      class="modal__desc_arrowLeft"
+                      src="/assets/img/arrowLeft.svg"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-          <input
-            type="number"
-            class="SMSCode"
-            min="0000"
-            max="9999"
-            minlength="4"
-            step="1"
-            maxlength="4"
-            placeholder="код из SMS"
-          />
-          <button class="auth__enter">войти</button>
-          <p class="code__re">
-            <span class="code__error">Вы ввели неверный код </span>
-            Запросить код повторно Вы сможете через
-            <span class="timer"></span>
+        <div class="modal__topping">
+          <h3 class="topping__h3">Топинги:</h3>
+          <div class="topping__list"></div>
+        </div>
+        <div class="footer__BJU">
+          <div class="modal__total_weight modal__BJU_item">
+            <span class="modal__weight">280</span>
+            <span>г.</span>
+          </div>
+          <div class="modal__total_energy modal__BJU_item">
+            <span class="modal__BJU_number">509</span>
+            <span class="modal__BJU_letter">ккал</span>
+          </div>
+          <div class="modal__squirreLS modal__BJU_item">
+            <span class="modal__BJU_number">29</span>
+            <span class="modal__BJU_letter">белки</span>
+          </div>
+          <div class="modal__fats modal__BJU_item">
+            <span class="modal__BJU_number">24</span>
+            <span class="modal__BJU_letter">жиры</span>
+          </div>
+          <div class="modal__carbohydrates modal__BJU_item">
+            <span class="modal__BJU_number">51</span>
+            <span class="modal__BJU_letter">углеводы</span>
+          </div>
+        </div>
+        <div class="aux"></div>
+      </div>
 
-            <button class="newSMS">Отправить код повторно</button>
-          </p>
+      <div class="modal__footer">
+        <div class="modal__order">
+          <div class="modal__order_total">
+            <div class="modal__order_old">
+              <span class="modal__old_number">390</span>
+              <span class="modal__old_letter rouble">i</span>
+            </div>
+            <div class="modal__total_price">
+              <span class="modal__total_number">460</span>
+              <span class="modal__total_letter rouble">i</span>
+            </div>
+          </div>
+          <button class="modal__order_button">
+            <div class="modal__order_click">
+              <img src="/assets/img/plus.svg" alt="" />
+              <span>добавить</span>
+            </div>
+          </button>
+          <div class="card__button_count button__count modal__button_count">
+            <div class="count_minus card__count_minus">-</div>
+            <div class="card__count_wrapper">
+              <input
+                type="text"
+                class="input_text"
+                minlength="1"
+                maxlength="3"
+                size="6"
+                value="1"
+                inputmode="numeric"
+              />
+            </div>
+            <div class="count_plus card__count_plus">+</div>
+          </div>
         </div>
       </div>
-    </div>
+    </aside>
 
-    <!-- <script src="/assets/js/index.js"></script>-->
-    <script src="assets/js/mask.js"></script>
-    <script src="assets/js/config.js"></script>
-    <script src="assets/js/auth.js"></script>
-    <!--<script src="assets/swiper/swiper-bundle.min.js"></script>
+    <script>
+      function galleryFunc() {
+        var slidesView;
+        if (window.innerWidth < 800) {
+          slidesView = 1;
+        } else if (window.innerWidth < 1400) {
+          slidesView = 2;
+        } else {
+          slidesView = "auto";
+        }
+        var swiper = new Swiper(".mySwiper", {
+          slidesPerView: slidesView,
+          spaceBetween: 20,
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+        });
+      }
+      window.addEventListener("DOMContentLoaded", galleryFunc);
+      window.addEventListener("resize", galleryFunc);
+    </script>
+    <script src="/assets/swiper/mobile-swipe-menu.min.js"></script>
     <script>
       function openMobileMenu() {
         var mobileMenu = new MobileSwipeMenu("#burgerMenu", {
@@ -767,6 +583,6 @@
         document.getElementById("burgerMenu").style.display = "flex";
         openMobileMenu();
       });
-    </script>-->
+    </script>
   </body>
 </html>

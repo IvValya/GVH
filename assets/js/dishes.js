@@ -58,6 +58,9 @@ class dishesL {
         if (page === 4) {
           this.loadScript("/assets/js/profile.js");
         }
+        if (page === 5) {
+          this.loadScript("/assets/js/template.js");
+        }
         document.querySelector(".header__nav a:first-child").href = linkToMenu;
         document.querySelector(".mobile__nav a:first-child").href = linkToMenu;
         document.querySelector(".footerMenu").href = linkToMenu;
