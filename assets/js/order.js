@@ -170,7 +170,7 @@ class order {
         let convertedBasket = currentBasket.basket;
         console.log(convertedBasket);
         let currentTypeDelivery = currentBasket.typeDelivery;
-        let lastElemBasket;
+        /*let lastElemBasket;
         if (currentTypeDelivery === "delivery") {
           if (
             totalCheckBasket <
@@ -187,7 +187,7 @@ class order {
             };
           }
           convertedBasket.push(lastElemBasket);
-        }
+        }*/
         delete currentBasket.customerInfo.totalCheck;
         finalOrderData = {
           basket: convertedBasket,
@@ -684,17 +684,21 @@ class order {
           parseInt(takeaway_discount_order_total) - totalCheck;
       }
     } else {
+      
       otherText.textContent = " для бесплатной доставки!";
       if (totalCheck < free_delivery_order_total) {
         checKForFree.textContent =
           parseInt(free_delivery_order_total) - totalCheck;
         deliveryPrice.textContent = priceDelivery;
+        totalCheck = totalCheck*(100 - parseInt(menuData.delivery_options.delivery_discount))/100;
         totalCheck += delivery_price;
       } else {
         deliveryPrice.textContent = 0;
         checKForFree.textContent = 0;
+        totalCheck = totalCheck*(100 - parseInt(menuData.delivery_options.delivery_discount))/100;
       }
     }
+    
     totalCheck = totalCheck - range.value;
     document.querySelector(".orderPrice__price").textContent = totalCheck;
   }

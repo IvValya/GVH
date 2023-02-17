@@ -292,6 +292,7 @@ class basket {
           parseInt(menuData.delivery_options.free_delivery_order_total) -
           totalCheck;
       }
+      totalCheck = totalCheck*(100 - parseInt(menuData.delivery_options.delivery_discount))/100;
     }
     totalCheck = Math.ceil(totalCheck);
     let currentBasketMenu = currentBasket.querySelector(".basket__menu");
@@ -1692,6 +1693,7 @@ function renderData(itemID) {
         parseInt(menuData.delivery_options.free_delivery_order_total) -
         totalCheck;
     }
+    totalCheck = totalCheck*(100 - parseInt(menuData.delivery_options.delivery_discount))/100;
   }
 
   /*console.log(data.delivery);
