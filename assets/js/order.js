@@ -57,7 +57,7 @@ class order {
     if (window.innerWidth > 1450) {
       currentKindPay = document.querySelector(
         ".paymentCardSelect .select__current"
-      ).textContent;
+      ).dataset.id;
     } else {
       currentKindPay = document.querySelector(".paymentCard").value;
     }
@@ -118,9 +118,16 @@ class order {
       let currentKindPay = currentData.customerInfo.payment.kindPay;
       console.log(currentKindPay);
       if (window.innerWidth > 1450) {
-        document.querySelector(
+        let kindPayFromBasket = document.querySelector(
           ".paymentCardSelect .select__current"
-        ).textContent = currentKindPay;
+        );
+        kindPayFromBasket.dataset.id = currentKindPay;
+        if (currentKindPay === "ONLINE") {
+          kindPayFromBasket.textContent = "ОНЛАЙН";
+        }
+        else {
+          kindPayFromBasket.textContent = "НАЛИЧНЫМИ ИЛИ КАРТОЙ";
+        }
       } else {
         document.querySelector(".paymentCard").value = currentKindPay;
       }
@@ -156,7 +163,7 @@ class order {
     let finalOrderData;
     let currentBasket = localStorage.getItem("basket");
     currentBasket = JSON.parse(currentBasket);
-    console.log(currentBasket);
+    let currentTypeDelivery = currentBasket.typeDelivery;
     if (
       currentBasket !== undefined &&
       currentBasket !== null &&
@@ -169,7 +176,7 @@ class order {
         let totalCheckBasket = currentBasket.customerInfo.totalCheck;
         let convertedBasket = currentBasket.basket;
         console.log(convertedBasket);
-        let currentTypeDelivery = currentBasket.typeDelivery;
+       
         /*let lastElemBasket;
         if (currentTypeDelivery === "delivery") {
           if (
@@ -188,6 +195,7 @@ class order {
           }
           convertedBasket.push(lastElemBasket);
         }*/
+        currentTypeDelivery = currentTypeDelivery.toUpperCase();
         delete currentBasket.customerInfo.totalCheck;
         finalOrderData = {
           basket: convertedBasket,
@@ -228,7 +236,7 @@ class order {
     document.querySelector(".select__current").dataset.id = streets[0].id;
   }
 
-  renderSelectPayment() {
+  /*renderSelectPayment() {
     const { delivery } = data;
     console.log(delivery.typeDelivery);
     if (delivery.typeDelivery === "takeaway") {
@@ -248,7 +256,7 @@ class order {
       ).textContent = "Наличными курьеру";
       document.querySelector(".restaurantPay").style.display = "none";
     }
-  }
+  }*/
 
   renderOrderWithProfileData(profileData) {
     console.log(profileData);
@@ -357,7 +365,7 @@ class order {
     if (window.innerWidth > 1450) {
       currentKindPay = document.querySelector(
         ".paymentCardSelect .select__current"
-      ).textContent;
+      ).dataset.id;
     } else {
       currentKindPay = document.querySelector(".paymentCard").value;
     }
@@ -597,13 +605,16 @@ class order {
   renderPayment() {
     const { delivery } = data;
     if (window.innerWidth > 1450) {
+      let firstItem = document.querySelector(".cashPay");
       document.getElementById("paymentCard").style.display = "none";
       document.querySelector(".paymentCardSelect").style.display = "flex";
-      this.renderSelectPayment();
+      document.querySelector(".paymentCardSelect .select__current").textContent = firstItem.textContent;
+      document.querySelector(".paymentCardSelect .select__current").dataset.id = firstItem.dataset.id;
+      /*this.renderSelectPayment();*/
     } else {
       document.getElementById("paymentCard").style.display = "block";
       document.querySelector(".paymentCardSelect").style.display = "none";
-      if (delivery.typeDelivery === "takeaway") {
+     /* if (delivery.typeDelivery === "takeaway") {
         document.querySelector(".order__address .order__item_h2").textContent =
           "Детали";
         document.getElementById("paymentCard").value =
@@ -615,7 +626,7 @@ class order {
         document.getElementById("courierPay").style.display = "none";
       } else {
         document.getElementById("restaurantPay").style.display = "none";
-      }
+      }*/
     }
     this.renderDelivery();
   }
@@ -699,7 +710,7 @@ class order {
       }
     }
     
-    totalCheck = totalCheck - range.value;
+    totalCheck = Math.ceil(totalCheck) - range.value;
     document.querySelector(".orderPrice__price").textContent = totalCheck;
   }
   renderBasket() {

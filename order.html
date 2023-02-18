@@ -457,15 +457,9 @@
                     <span class="select__current"></span>
                   </div>
                   <div class="select__body">
-                    <div class="select__item_pay cashPay">Наличные курьеру</div>
-                    <div class="select__item_pay courierPay">
-                      Картой курьеру
-                    </div>
-                    <div class="select__item_pay restaurantPay">
-                      Наличные/картой в ресторане
-                    </div>
-                    <div class="select__item_pay onlinePay">
-                      Онлайн на сайте
+                    <div class="select__item_pay cashPay" data-id="OFFLINE">НАЛИЧНЫМИ ИЛИ КАРТОЙ</div>
+                    <div class="select__item_pay onlinePay" data-id="ONLINE">
+                      ОНЛАЙН
                     </div>
                   </div>
                 </div>
@@ -473,30 +467,16 @@
                   <option
                     class="option_item"
                     id="cashPay"
-                    value="Наличные курьеру"
+                    value="OFFLINE"
                   >
-                    Наличные курьеру
-                  </option>
-                  <option
-                    class="option_item"
-                    id="courierPay"
-                    value="Картой курьеру"
-                  >
-                    Картой курьеру
-                  </option>
-                  <option
-                    class="option_item"
-                    id="restaurantPay"
-                    value="Наличные/картой в ресторане"
-                  >
-                    Наличные/картой в ресторане
+                  НАЛИЧНЫМИ ИЛИ КАРТОЙ
                   </option>
                   <option
                     class="option_item"
                     id="onlinePay"
-                    value="Онлайн на сайте"
+                    value="ONLINE"
                   >
-                    Онлайн на сайте
+                  ОНЛАЙН
                   </option>
                 </select>
                 <div class="shortChange">
