@@ -122,7 +122,7 @@ function enterToProfile() {
             profileData = resp;
             if (resp.isAuth) {
               if (page === 2) {
-                orderNew.renderOrderWithProfileData();
+                orderNew.renderOrderWithProfileData(profileData);
               }
               numberBonuses = parseInt(resp.points);
               document.querySelector(".mobile__profile_img img").src =

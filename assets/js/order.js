@@ -16,7 +16,7 @@ profileData = {
   isAuth: true,
   name: "Андрей",
   bonus: 500,
-  street: 628,
+  street: 0,
   building: "15",
   corp: "5",
   apt: "168",
@@ -235,27 +235,18 @@ class order {
     document.querySelector(".select__current").dataset.id = streets[0].id;
   }
 
-  /*renderSelectPayment() {
+  renderSelectPayment() {
     const { delivery } = data;
     console.log(delivery.typeDelivery);
     if (delivery.typeDelivery === "takeaway") {
       document.querySelector(".order__address .order__item_h2").textContent =
         "Детали";
-      document.querySelector(
-        ".paymentCardSelect .select__current"
-      ).textContent = "Наличными/картой в ресторане";
       document.querySelector(".address__main").style.display = "none";
       document.querySelector(".comments__textarea").style.marginTop = 0;
       document.querySelector(".shortChange").style.display = "none";
-      document.querySelector(".cashPay").style.display = "none";
-      document.querySelector(".courierPay").style.display = "none";
     } else {
-      document.querySelector(
-        ".paymentCardSelect .select__current"
-      ).textContent = "Наличными курьеру";
-      document.querySelector(".restaurantPay").style.display = "none";
     }
-  }*/
+  }
 
   renderOrderWithProfileData(profileData) {
     console.log(profileData);
@@ -276,12 +267,24 @@ class order {
     let maxBonus =
       (bonus / 100) * parseInt(menuData.delivery_options.bonus_percent);
     document.querySelector(".bonus_max").textContent = maxBonus;
+    
     if (window.innerWidth > 1450) {
-      let nameStreet = menuData.streets.find((elem) => elem.id === street);
+      if (street) {
+        let nameStreet = menuData.streets.find((elem) => elem.id === street);
       document.querySelector(".select__current").textContent = nameStreet.name;
       document.querySelector(".select__current").dataset.id = nameStreet.id;
+     } else {
+      document.querySelector(".select__current").textContent = menuData.streets[0].name;
+      document.querySelector(".select__current").dataset.id = menuData.streets[0].id;
+     }
+     
     } else {
+      if (street) {
       document.querySelector(".street").value = street;
+      }
+      else {
+        document.querySelector(".street").value = menuData.streets[0].id;
+      }
     }
 
     document.querySelector(".house").value = building;
@@ -609,23 +612,20 @@ class order {
       document.querySelector(".paymentCardSelect").style.display = "flex";
       document.querySelector(".paymentCardSelect .select__current").textContent = firstItem.textContent;
       document.querySelector(".paymentCardSelect .select__current").dataset.id = firstItem.dataset.id;
-      /*this.renderSelectPayment();*/
+      this.renderSelectPayment();
     } else {
       document.getElementById("paymentCard").style.display = "block";
       document.querySelector(".paymentCardSelect").style.display = "none";
-     /* if (delivery.typeDelivery === "takeaway") {
+      if (delivery.typeDelivery === "takeaway") {
         document.querySelector(".order__address .order__item_h2").textContent =
           "Детали";
-        document.getElementById("paymentCard").value =
-          document.getElementById("restaurantPay").value;
+        
         document.querySelector(".address__main").style.display = "none";
         document.querySelector(".comments__textarea").style.marginTop = 0;
         document.querySelector(".shortChange").style.display = "none";
-        document.getElementById("cashPay").style.display = "none";
-        document.getElementById("courierPay").style.display = "none";
+       
       } else {
-        document.getElementById("restaurantPay").style.display = "none";
-      }*/
+        }
     }
     this.renderDelivery();
   }

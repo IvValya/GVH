@@ -109,7 +109,7 @@ class basket {
       });
     });
     let convertedData;
-    if (customerInfoBasket && typeDeliveryFromBasket === currentTypeDelivery) {
+    if (customerInfoBasket && (typeDeliveryFromBasket === currentTypeDelivery)) {
       convertedData = {
         basket: convertedBasket,
         typeDelivery: currentTypeDelivery,
