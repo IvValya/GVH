@@ -131,9 +131,9 @@ function enterToProfile() {
               document.querySelectorAll(".profile__item").forEach((item) => {
                 item.classList.add("active");
               });
-              document.querySelectorAll(".profileDropDown").forEach((item) => {
+              /*document.querySelectorAll(".profileDropDown").forEach((item) => {
                 item.style.display = "flex";
-              });
+              });*/
               document.querySelector(".enter").style.display = "none";
             } else {
               numberBonuses = 0;
