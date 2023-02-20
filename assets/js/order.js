@@ -202,17 +202,16 @@ class order {
           typeDelivery: currentTypeDelivery,
           customerInfo: this.getCustomerInfo(currentTypeDelivery),
         };
+        finalOrderData = JSON.stringify(finalOrderData);
         console.log(finalOrderData);
-        let formDataOrder = new FormData();
-        formDataOrder.append("order", finalOrderData);
+       
           fetch(urlSendOrder, {
-            body: formDataOrder,
+            body: finalOrderData,
             method: "post",
           })
           .then(() => {
              localStorage.removeItem("basket");
               window.location = "/";
-            
           })
       }
     } else {
