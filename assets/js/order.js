@@ -173,7 +173,7 @@ class order {
       if (currentBasket.typeDelivery === "delivery" && currentBuilding === "") {
         document.querySelector(".house").focus();
       } else {
-        let totalCheckBasket = currentBasket.customerInfo.totalCheck;
+        //let totalCheckBasket = currentBasket.customerInfo.totalCheck;
         let convertedBasket = currentBasket.basket;
         console.log(convertedBasket);
        
@@ -195,11 +195,11 @@ class order {
           }
           convertedBasket.push(lastElemBasket);
         }*/
-        currentTypeDelivery = currentTypeDelivery.toUpperCase();
-        delete currentBasket.customerInfo.totalCheck;
+        
+        //delete currentBasket.customerInfo.totalCheck;
         finalOrderData = {
           basket: convertedBasket,
-          typeDelivery: currentTypeDelivery,
+          typeDelivery: currentTypeDelivery.toUpperCase(),
           customerInfo: this.getCustomerInfo(currentTypeDelivery),
         };
         finalOrderData = JSON.stringify(finalOrderData);
