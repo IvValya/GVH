@@ -256,9 +256,9 @@ fetch(urlPostAuth, {
       numberBonuses = parseInt(response.points);
       document.querySelector(".mobile__profile_img img").src = iconInProfile;
       document.querySelector(".profile__img").src = iconInProfile;
-      document.querySelectorAll(".profileDropDown").forEach((item) => {
+      /*document.querySelectorAll(".profileDropDown").forEach((item) => {
         item.style.display = "flex";
-      })
+      })*/
       document.querySelector(".enter").style.display = "none";
     } else {
       numberBonuses = 0;
