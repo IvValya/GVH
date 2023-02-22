@@ -33,6 +33,7 @@ function openAuthWindow() {
   } else {
     modalAuth.style.animation = "zoom 0.7s forwards";
   }
+  document.querySelector(".auth__phone").focus();
 }
 function closeAuthWindow() {
   if (window.innerWidth < 800) {
@@ -147,6 +148,7 @@ function enterToProfile() {
             }
           });
         closeAuthWindow();
+        location.reload();
       }
     });
 }
@@ -174,6 +176,7 @@ function sentSMS(authPhone) {
 }
 function forwardFunc() {
   authError.style.display = "none";
+  document.querySelector(".SMSCode").focus();
   if (timer) {
     clearInterval(timer);
     timer = null;
@@ -228,3 +231,27 @@ exitProfile.forEach((item) => {
     });
   });
 });
+
+function toOrderWithAuth(e) {
+  profile.isAuth = true;
+  if (profile.isAuth) {
+    const linkToOrderMob = document.querySelector(".mobileBasket__button_order");
+    const linkToOrderDesk = document.querySelector(".deskBasket__button_order");
+    linkToOrderMob.href = linkToOrder;
+    linkToOrderDesk.href = linkToOrder;
+  }
+  else {
+    e.preventDefault();
+    openAuthWindow();
+  }
+}
+
+let buttonsOrder = document.querySelectorAll(".button_order");
+buttonsOrder.forEach((item) => {
+  item.addEventListener("click", toOrderWithAuth);
+})
+
+
+/*
+let authbtn=document.querySelector(authbtn);
+if(authbtn)authbtn.click(); else go to order page*/

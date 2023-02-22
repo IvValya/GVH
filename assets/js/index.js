@@ -14,10 +14,6 @@ let xDiff = 0;
 let yDiff = 0;
 let full = 0;
 let touchTrue = false;
-const linkToOrderMob = document.querySelector(".mobileBasket__button_order");
-const linkToOrderDesk = document.querySelector(".deskBasket__button_order");
-linkToOrderMob.href = linkToOrder;
-linkToOrderDesk.href = linkToOrder;
 const auxiliary = document.querySelector(".auxiliary");
 const header = document.querySelector(".header");
 const footer = document.querySelector(".footer");
@@ -228,7 +224,9 @@ class basket {
       const cardClone = basketCard.content.cloneNode(true);
       if (cardClone !== null) {
         cardClone.querySelector(".basket__card").dataset.id = "dish" + item.id;
+        let currentBasketImg = cardClone.querySelector(".basket__card_img");
         cardClone.querySelector(".basket__card_img").src = item.card.img;
+        currentBasketImg.addEventListener("click", openModal);
         cardClone.querySelector(".basket__h3").textContent = item.card.name;
         cardClone.querySelector(".basket__weight").textContent =
           item.card.weight + " гр.";
@@ -423,7 +421,7 @@ orderBasket.load();
 // - parseInt(mobileBasketSticky.style.bottom) + "px";
 
 buttonOrder.forEach((item) => {
-  item.addEventListener("click", renderFullOrder);
+    item.addEventListener("click", renderFullOrder);
 });
 
 function renderFullOrder() {
@@ -571,11 +569,7 @@ setTimeout(() => {
 addEventListener("resize", truncateNames);
 addEventListener("DOMContentLoaded", truncateNames);
 
-/*---------------------Modal window-------------------------------------*/
-var timerId = null;
-const imgsClick = document.querySelectorAll(".menu__card");
-for (let imgClick of imgsClick) {
-  imgClick.addEventListener("click", (e) => {
+function openModal(e) {
     clearTimeout(timerId);
     var swiperMod = new Swiper(".mySwiperModal", {
       zoom: true,
@@ -590,7 +584,13 @@ for (let imgClick of imgsClick) {
     currentBtnAdd.style.display = "none";
     currentBtnCount.style.display = "flex";*/
     let dishId;
-    dishId = imgClick.closest(".list_item").dataset.id;
+    if (e.currentTarget.closest(".list_item")) {
+      dishId = e.currentTarget.closest(".list_item").dataset.id;
+    }
+    else {
+      dishId = e.currentTarget.closest(".list__item_basket").dataset.id;
+    }
+    
     renderModal(dishId, e.currentTarget);
     swiperDesc = new Swiper(".mySwiperDesc", {
       slidesPerView: 1,
@@ -721,7 +721,14 @@ for (let imgClick of imgsClick) {
         */
       });
     }
-  });
+  
+}
+
+/*---------------------Modal window-------------------------------------*/
+var timerId = null;
+const imgsClick = document.querySelectorAll(".menu__card");
+for (let imgClick of imgsClick) {
+  imgClick.addEventListener("click", openModal);
 }
 /*----------------------Close modal window------------------------*/
 
@@ -1708,6 +1715,7 @@ function renderData(itemID) {
     console.log(totalCheck);
     console.log(priceDelivery);*/
   document.querySelectorAll(".totalCheck").forEach((elem) => {
+    totalCheck = Math.ceil(totalCheck);
     elem.textContent = totalCheck + priceDelivery;
   });
 }
@@ -1832,30 +1840,42 @@ function renderModal(dishId, target) {
     ).textContent = card.nutrition_carbo;
     const modalFooter = document.querySelector(".modal__footer");
     toppingLabels = document.querySelectorAll(".topping__label");
-    const currentBTN = target
-      .closest(".list_item")
-      .querySelector(".card__button");
-    const currentValue = target
-      .closest(".list_item")
-      .querySelector(".input_text").value;
+    let currentBTN;
+    let currentValue;
     const btnCount = modalFooter.querySelector(".button__count");
     const modalOrderBtn = modalFooter.querySelector(".modal__order_button");
     const count = modalFooter.querySelector(".input_text");
     const btnMinus = modalFooter.querySelector(".count_minus");
     const btnPlus = modalFooter.querySelector(".count_plus");
-    if (currentBTN.style.display === "none") {
+    if (target.closest(".list_item")) {
+      currentBTN= target
+      .closest(".list_item")
+      .querySelector(".card__button");
+    currentValue = target
+      .closest(".list_item")
+      .querySelector(".input_text").value;
+      if (currentBTN.style.display === "none") {
+        modalFooter.querySelector(".modal__order_button").style.display = "none";
+        btnCount.style.display = "flex";
+        btnCount.querySelector(".input_text").value = currentValue;
+        buttonsCount = document.querySelectorAll(".button__count");
+      } else {
+        modalFooter.querySelector(".modal__order_button").style.display = "block";
+        btnCount.style.display = "none";
+      }
+    } else {
+      currentValue = target
+      .closest(".list__item_basket")
+      .querySelector(".input_text").value;
       modalFooter.querySelector(".modal__order_button").style.display = "none";
       btnCount.style.display = "flex";
       btnCount.querySelector(".input_text").value = currentValue;
       buttonsCount = document.querySelectorAll(".button__count");
-    } else {
-      modalFooter.querySelector(".modal__order_button").style.display = "block";
-      btnCount.style.display = "none";
     }
     modalOrderBtn.dataset.id = "dish" + card.id;
     count.dataset.id = "dish" + card.id;
     // count.addEventListener("onchange", inputOnchange(count));
-    btnCount.dataset.id = "dish" + card.id;
+    btnCount.dataset.id = "dish" + card.id; 
     btnMinus.dataset.id = "dish" + card.id;
     btnPlus.dataset.id = "dish" + card.id;
     // прорисовываем топпинги

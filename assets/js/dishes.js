@@ -2,6 +2,85 @@ let formDataAuth = new FormData();
 let profileData;
 var numberBonuses = 0;
 var menuData;
+let timeJSON =  [
+  [
+    {
+      hour: 11,
+      minute: 00,
+    },
+    {
+      day: 0,
+      hour: 24,
+      minute: 00,
+    },
+  ],
+  [
+    {
+      hour: 11,
+      minute: 00,
+    },
+    {
+      day: 0,
+      hour: 24,
+      minute: 00,
+    },
+  ],
+  [
+    {
+      hour: 11,
+      minute: 00,
+    },
+    {
+      day: 0,
+      hour: 24,
+      minute: 00,
+    },
+  ],
+  [
+    {
+      hour: 11,
+      minute: 00,
+    },
+    {
+      day: 0,
+      hour: 24,
+      minute: 00,
+    },
+  ],
+  [
+    {
+      hour: 11,
+      minute: 00,
+    },
+    {
+      day: 0,
+      hour: 24,
+      minute: 00,
+    },
+  ],
+  [
+    {
+      hour: 11,
+      minute: 00,
+    },
+    {
+      day: 0,
+      hour: 24,
+      minute: 00,
+    },
+  ],
+  [
+    {
+      hour: 11,
+      minute: 00,
+    },
+    {
+      day: 0,
+      hour: 24,
+      minute: 00,
+    },
+  ],
+];
 class dishesL {
   errorHandler(res) {
     if (!res.ok) {
@@ -252,7 +331,7 @@ fetch(urlPostAuth, {
     profileData = response;
     dishesList.load();
     if (response.isAuth) {
-      console.log(response.isAuth)
+      console.log(response.isAuth);
       numberBonuses = parseInt(response.points);
       document.querySelector(".mobile__profile_img img").src = iconInProfile;
       document.querySelector(".profile__img").src = iconInProfile;
@@ -267,10 +346,152 @@ fetch(urlPostAuth, {
       document.querySelector(".enter").style.display = "inline";
       document.querySelectorAll(".profileDropDown").forEach((item) => {
         item.style.display = "none";
-      })
+      });
     }
   });
 
+var timerTime;
+function renderIndicator() {
+  
+  let indicator = document.querySelector(".indicator");
+  let textWorkTime = document.querySelector(".workTime__span_now");
+  let days = ["ВС", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"];
+  let previousTimeClose =  moment();
+  previousTimeClose = previousTimeClose.set({ hour: 0, minute: 0, second: 0 });
+  previousTimeClose = previousTimeClose.subtract(1, "days");
+  let previousDayClose;
+  let currentDay;
+  let nullTime;
+  let currentDayOpen;
+  let currentDayClose;
+  let now;
+  let timeOpen;
+  let timeClose;
+  currentDay = moment().format("e");
+  if (currentDay === 0) {
+    previousDayClose = timeJSON[6][1];
+  } else {
+    previousDayClose = timeJSON[currentDay - 1][1];
+  }
+  previousTimeClose = previousTimeClose.add({
+    days: previousDayClose.day,
+    hour: previousDayClose.hour,
+    minute: previousDayClose.minute
+  });
+  nullTime = moment();
+  nullTime = nullTime.set({ hour: 0, minute: 0, second: 0 });
+  currentDayOpen = timeJSON[currentDay][0];
+  currentDayClose = timeJSON[currentDay][1];
+  now = moment();
+  timeOpen = moment();
+  timeOpen= timeOpen.set({
+    hour: currentDayOpen.hour,
+    minute: currentDayOpen.minute,
+    second: 0
+  });
+  timeClose = nullTime;
+  timeClose = timeClose.add({
+    days: currentDayClose.day,
+    hour: currentDayClose.hour,
+    minute: currentDayClose.minute
+  });
+  console.log(previousTimeClose.format("DD-MM-YY HH:mm"));
+  console.log(timeClose.format("DD-MM-YY HH:mm"));
+  console.log(now);
+  console.log(now.format("DD-MM-YY HH:mm"));
+  console.log(timeOpen.format("DD-MM-YY HH:mm"));
 
 
+  timerTime = setInterval(() => {
+    console.log(now);
+  currentDay = moment().format("e");
+  if (currentDay === 0) {
+    previousDayClose = timeJSON[6][1];
+  } else {
+    previousDayClose = timeJSON[currentDay - 1][1];
+  }
+  previousTimeClose = previousTimeClose.add({
+    days: previousDayClose.day,
+    hour: previousDayClose.hour,
+    minute: previousDayClose.minute
+  });
+  nullTime = moment();
+  nullTime = nullTime.set({ hour: 0, minute: 0, second: 0 });
+  currentDayOpen = timeJSON[currentDay][0];
+  currentDayClose = timeJSON[currentDay][1];
+  now = moment();
+  timeOpen = moment();
+  timeOpen= timeOpen.set({
+    hour: currentDayOpen.hour,
+    minute: currentDayOpen.minute,
+    second: 0
+  });
+  timeClose = nullTime;
+  timeClose = timeClose.add({
+    days: currentDayClose.day,
+    hour: currentDayClose.hour,
+    minute: currentDayClose.minute
+  });
+  if (((timeOpen.format("DD-MM-YY HH:mm") <= now.format("DD-MM-YY HH:mm")) && (now.format("DD-MM-YY HH:mm") < timeClose.format("DD-MM-YY HH:mm"))) || (now.format("DD-MM-YY HH:mm") < previousTimeClose.format("DD-MM-YY HH:mm"))) {
+  
+    indicator.classList.remove("closeInd");
+    indicator.classList.add("openInd");
+    textWorkTime.textContent = "Сейчас работаем";
+  } else {
+    indicator.classList.remove("openInd");
+    indicator.classList.add("closeInd");
+    textWorkTime.textContent = "Сейчас закрыты";
+  }
+  console.log(previousTimeClose.format("DD-MM-YY HH:mm"));
+  console.log(timeClose.format("DD-MM-YY HH:mm"));
+  console.log(now);
+  console.log(now.format("DD-MM-YY HH:mm"));
+  console.log(timeOpen.format("DD-MM-YY HH:mm"));
+  }, 60000);
+}
 
+document.addEventListener("DOMContentLoaded", () => {
+  clearInterval(timerTime);
+  renderIndicator();
+});
+/*
+function renderIndicator() {
+  let indicator = document.querySelector(".indicator");
+  let textWorkTime = document.querySelector(".workTime__span_now");
+  let days = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
+  let now = new Date();
+  console.log(days[now.getDay()]);
+  let timeOpen = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+    timeJSON[0].hours,
+    timeJSON[0].minute
+  );
+  let timeClose = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() + timeJSON[1].day,
+    timeJSON[1].hours,
+    timeJSON[1].minute
+  );
+  if (timeOpen <= now && now < timeClose) {
+    indicator.classList.remove("closeInd");
+    indicator.classList.add("openInd");
+    textWorkTime.textContent = "Сейчас работаем"
+  } else {
+    indicator.classList.remove("openInd");
+    indicator.classList.add("closeInd");
+    textWorkTime.textContent = "Сейчас закрыты"
+  }
+  setInterval(() => {
+    if (timeOpen <= now && now < timeClose) {
+      indicator.classList.remove("closeInd");
+      indicator.classList.add("openInd");
+    } else {
+      indicator.classList.remove("openInd");
+      indicator.classList.add("closeInd");
+    }
+  }, 60000);
+}
+*/

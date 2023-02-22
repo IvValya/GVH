@@ -62,7 +62,7 @@
           <span class="basket__price">60</span>
           <span class="rouble">₽</span>
         </div>
-        <span class="order__topping_desc">2 кусочка ароматного хлеба </span>
+       <!-- <span class="order__topping_desc">2 кусочка ароматного хлеба </span>-->
         <div class="basket__count button__count">
           <div class="count_minus">-</div>
           <div class="count__wrapper">
@@ -80,7 +80,7 @@
     </template>
 
     <template class="basketCardTemp">
-      <div class="basket__card item">
+      <div class="basket__card item list__item_basket">
         <div class="basket__card_pict">
           <img class="basket__card_img" src="/assets/img/kebab.jpg" alt="" />
         </div>
@@ -484,21 +484,22 @@
                     type="text"
                     class="shortChange__input"
                     placeholder="сдача с ..."
+                    data-value=""
                   />
 
                   <div class="shortChange__price">
-                    <button type="button" class="shortChange__item">
+                    <button type="button" class="shortChange__item" data-value="1000">
                       1000
                     </button>
-                    <button type="button" class="shortChange__item">
+                    <button type="button" class="shortChange__item" data-value="2000">
                       2000
                     </button>
-                    <button type="button" class="shortChange__item">
+                    <button type="button" class="shortChange__item" data-value="5000">
                       5000
                     </button>
                     <button
                       type="button"
-                      class="shortChange__item noShortChange"
+                      class="shortChange__item noShortChange" data-value="без сдачи"
                     >
                       без сдачи
                     </button>

@@ -556,9 +556,7 @@ input {
 .paymentCard:active {
     background: #FFF3DC;
     border: 1px solid #B06D81;
-    border-radius: 10px
 }
-
 
 .range {
     width: 100%;
@@ -632,7 +630,10 @@ input {
     background: #831335;
     border-radius: 0px 0px 10px 10px;
 }
-
+.activeShort{
+    background: #FFF3DC;
+    border: 1px solid #B06D81;
+}
 .orderPrice .rouble {
     font-weight: 400;
     font-size: 20px;
@@ -760,6 +761,7 @@ select::-ms-expand {
 
 .address__item {
     width: 80px;
+    font-size: 15px;
     height: 47px;
     background: #FBFBFB;
     border: 1px solid #D6D6D6;
@@ -1020,7 +1022,7 @@ input[type=text]:-ms-input-placeholder {
 
 .last__card .basket__card_pict {
     background-color: var(--color-bordeaux-light);
-    border-radius: 10px;
+    /*border-radius: 10px;*/
     height: 68px;
     width: 75px;
     display: flex;
@@ -1620,7 +1622,8 @@ address {
     width: 75px;
     height: 75px;
     object-fit: cover;
-    border-radius: 10px;
+    cursor: pointer;
+    /*border-radius: 10px;*/
 }
 
 .basket__desc {
@@ -2165,6 +2168,7 @@ input[type="number"]:focus {
     font-size: 35px;
     color: var(--text-color-white);
     z-index: 20;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.35);
 }
 
 .modal__header {
@@ -2590,6 +2594,12 @@ input[type="number"]:focus {
 .auth__agreement .details {
     text-decoration: underline;
 }
+.indicator.openInd {
+    background-color: var(--indicator-color-green);
+}
+.indicator.closeInd {
+    background-color: red;
+}
 
 
 /*------------------------MEDIA---------------------------------------*/
@@ -2852,7 +2862,7 @@ input[type="number"]:focus {
     }
 
     .select__current {
-        font-size: 18px;
+        font-size: 15px;
         line-height: 24px;
         padding: 8px;
         width: 100%;
@@ -2879,7 +2889,7 @@ input[type="number"]:focus {
     .select__item,
     .select__item_pay {
         cursor: pointer;
-        font-size: 16px;
+        font-size: 15px;
         line-height: 24px;
         padding: 8px;
     }
@@ -2891,6 +2901,7 @@ input[type="number"]:focus {
 
     .select,
     .paymentCardSelect {
+        font-size: 15px;
         border: 1px solid #D6D6D6;
         border-radius: 10px;
         height: 47px;
@@ -3340,21 +3351,26 @@ input[type="number"]:focus {
         display: none;
         width: 100%;
         background: #831335;
+        top: 50px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 10px;
         font-weight: 500;
         font-size: 15px;
         line-height: 35px;
+        width: 121px;
         height: 100px;
         justify-content: center;
         align-items: center;
         flex-direction: column;
     }
+
+    .profile__img {
+        position: relative;
+        z-index: 100;
+    }
     
     .profile_wrap:hover .profileDropDown {
-
         display: flex;
-        
     }
 
     .modal__desc {

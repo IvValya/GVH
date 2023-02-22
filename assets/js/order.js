@@ -25,6 +25,11 @@ profileData = {
   intercom: "2304",
 };*/
 class order {
+  renderTime() {
+    let times = document.querySelectorAll(".time .option__item");
+    let currentTime = moment().format("HH:mm");
+    console.log(currentTime);
+  }
   getCustomerInfo(currentTypeDelivery) {
     let currentAddress = {};
     let currentStreet;
@@ -139,13 +144,19 @@ class order {
     let maxBonus =
       (numberBonuses / 100) * parseInt(menuData.delivery_options.bonus_percent);
     document.querySelector(".bonus_max").textContent = maxBonus;
+    let currentShortChanges = document.querySelectorAll(".shortChange__item");
+    currentShortChanges.forEach((item) => {
+      if (item.dataset.value === currentData.customerInfo.shortChangeValue) {
+        item.classList.add("activeShort");
+      }
+    })
 
     document.querySelector(".range").max = maxBonus;
     document.querySelector(".range").value = bonusUse;
     document.querySelector("output").value = bonusUse;
     document.querySelector(".shortChange__input").value = shortChange;
-    document.querySelector(".comments__textarea").value =
-      currentData.customerInfo.comments;
+    document.querySelector(".shortChange__input").dataset.value = currentData.customerInfo.shortChangeValue;
+    document.querySelector(".comments__textarea").value = currentData.customerInfo.comments;
     if (currentData.customerInfo.doNotCall) {
       document.querySelector(".confirm_img").classList.add("confirm__active");
     } else {
@@ -211,7 +222,7 @@ class order {
           })
           .then(() => {
              localStorage.removeItem("basket");
-              window.location = "/";
+              window.location = urlOrderSuccess;
           })
       }
     } else {
@@ -374,6 +385,7 @@ class order {
     let currentShortChange = document.querySelector(
       ".shortChange__input"
     ).value;
+    let currentShortChangeValueBasket = document.querySelector(".shortChange__input").dataset.value;
     console.log(currentShortChange);
     let currentBonusUse = document.querySelector(".range").value;
     let currentComments = document.querySelector(".comments__textarea").value;
@@ -400,6 +412,7 @@ class order {
         time: currentTime,
         cutlery: parseInt(currentCutlery),
         totalCheck: totalCheckBasket,
+        shortChangeValue: currentShortChangeValueBasket
       },
       refreshTime: currentRefreshTime,
     };
@@ -513,8 +526,8 @@ class order {
       currentPlus.addEventListener("click", countPlus(currentCount));
       currentCount.addEventListener("change", inputCountChange);
       currentMinus.addEventListener("click", countMinus(currentCount));
-      cardClone.querySelector(".order__topping_desc").textContent =
-        item.description + " " + item.contents;
+     /* cardClone.querySelector(".order__topping_desc").textContent =
+        item.description + " " + item.contents;*/
       if (data.basket.length === 0) {
         cardClone.querySelector(".input_text").value = 0;
       } else {
@@ -720,7 +733,9 @@ class order {
     basket.forEach((item) => {
       const cardClone = basketCard.content.cloneNode(true);
       cardClone.querySelector(".basket__card").dataset.id = "dish" + item.id;
+      let currentBasketImg = cardClone.querySelector(".basket__card_img");
       cardClone.querySelector(".basket__card_img").src = item.card.img;
+      currentBasketImg.addEventListener("click", openModal);
       cardClone.querySelector(".basket__h3").textContent = item.card.name;
       cardClone.querySelector(".basket__weight").textContent =
         item.card.weight + " г.";
@@ -937,28 +952,40 @@ function renderModal(dishId, target) {
     ).textContent = card.nutrition_carbo;
     const modalFooter = document.querySelector(".modal__footer");
     toppingLabels = document.querySelectorAll(".topping__label");
-    const currentBTN = target
-      .closest(".list_item")
-      .querySelector(".card__button");
-    console.log(target.closest(".list_item"));
-    const currentValue = target
-      .closest(".list_item")
-      .querySelector(".input_text").value;
-    console.log(currentValue);
+    let currentBTN;
+    let currentValue;
     const btnCount = modalFooter.querySelector(".button__count");
     const modalOrderBtn = modalFooter.querySelector(".modal__order_button");
     const count = modalFooter.querySelector(".input_text");
     const btnMinus = modalFooter.querySelector(".count_minus");
     const btnPlus = modalFooter.querySelector(".count_plus");
-    if (currentBTN.style.display === "none") {
+    if (target.closest(".list_item")) {
+      currentBTN= target
+      .closest(".list_item")
+      .querySelector(".card__button");
+    currentValue = target
+      .closest(".list_item")
+      .querySelector(".input_text").value;
+      if (currentBTN.style.display === "none") {
+        modalFooter.querySelector(".modal__order_button").style.display = "none";
+        btnCount.style.display = "flex";
+        btnCount.querySelector(".input_text").value = currentValue;
+        buttonsCount = document.querySelectorAll(".button__count");
+      } else {
+        modalFooter.querySelector(".modal__order_button").style.display = "block";
+        btnCount.style.display = "none";
+      }
+    } else {
+      currentValue = target
+      .closest(".list__item_basket")
+      .querySelector(".input_text").value;
       modalFooter.querySelector(".modal__order_button").style.display = "none";
       btnCount.style.display = "flex";
       btnCount.querySelector(".input_text").value = currentValue;
       buttonsCount = document.querySelectorAll(".button__count");
-    } else {
-      modalFooter.querySelector(".modal__order_button").style.display = "block";
-      btnCount.style.display = "none";
     }
+    
+    
     modalOrderBtn.dataset.id = "dish" + card.id;
     count.dataset.id = "dish" + card.id;
     // count.addEventListener("onchange", inputOnchange(count));
@@ -1016,154 +1043,167 @@ const modal = document.querySelector(".modal");
 const divBlock = document.querySelector(".block");
 var timerId = null;
 let toppingActive = [];
-const imgsClick = document.querySelectorAll(".menu__card");
-for (let imgClick of imgsClick) {
-  imgClick.addEventListener("click", (e) => {
-    clearTimeout(timerId);
-    var swiperMod = new Swiper(".mySwiperModal", {
-      zoom: true,
-      navigation: {
-        nextEl: ".swiper-button-next-mod",
-        prevEl: ".swiper-button-prev-mod",
-      },
-    });
-    /* let currentCard = e.currentTarget.closest(".list_item");
-    let currentBtnAdd = currentCard.querySelector(".card__button");
-    let currentBtnCount = currentCard.querySelector(".card__button_count");
-    currentBtnAdd.style.display = "none";
-    currentBtnCount.style.display = "flex";*/
-    let dishId;
-    dishId = imgClick.closest(".list_item").dataset.id;
-    renderModal(dishId, e.currentTarget);
-    swiperDesc = new Swiper(".mySwiperDesc", {
-      slidesPerView: 1,
-      spaceBetween: 30,
-      loop: true,
-    });
-    var nextSlide = function () {
-      swiperDesc.slideNext();
-    };
 
-    var prevSlide = function () {
-      swiperDesc.slidePrev();
-    };
 
+function openModal(e) {
+  clearTimeout(timerId);
+  var swiperMod = new Swiper(".mySwiperModal", {
+    zoom: true,
+    navigation: {
+      nextEl: ".swiper-button-next-mod",
+      prevEl: ".swiper-button-prev-mod",
+    },
+  });
+  /* let currentCard = e.currentTarget.closest(".list_item");
+  let currentBtnAdd = currentCard.querySelector(".card__button");
+  let currentBtnCount = currentCard.querySelector(".card__button_count");
+  currentBtnAdd.style.display = "none";
+  currentBtnCount.style.display = "flex";*/
+  let dishId;
+  if (e.currentTarget.closest(".list_item")) {
+    dishId = e.currentTarget.closest(".list_item").dataset.id;
+  }
+  else {
+    dishId = e.currentTarget.closest(".list__item_basket").dataset.id;
+  }
+  
+  renderModal(dishId, e.currentTarget);
+  swiperDesc = new Swiper(".mySwiperDesc", {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    loop: true,
+  });
+  var nextSlide = function () {
+    swiperDesc.slideNext();
+  };
+
+  var prevSlide = function () {
+    swiperDesc.slidePrev();
+  };
+
+  let next = document.querySelectorAll(".button_next");
+  let prev = document.querySelectorAll(".button_prev");
+
+  next.forEach((elem) => {
+    elem.addEventListener("click", nextSlide);
+  });
+  prev.forEach((elem) => {
+    elem.addEventListener("click", () => {
+      if (window.innerWidth < 800) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+    });
+  });
+
+  swiperDesc.on("slideChange", function () {
     let next = document.querySelectorAll(".button_next");
     let prev = document.querySelectorAll(".button_prev");
-
+    next.forEach((elem) => {
+      elem.removeEventListener("click", nextSlide);
+    });
     next.forEach((elem) => {
       elem.addEventListener("click", nextSlide);
     });
     prev.forEach((elem) => {
-      elem.addEventListener("click", () => {
-        if (window.innerWidth < 800) {
-          nextSlide();
-        } else {
-          prevSlide();
-        }
-      });
+      elem.removeEventListener("click", prevSlide);
     });
-
-    swiperDesc.on("slideChange", function () {
-      let next = document.querySelectorAll(".button_next");
-      let prev = document.querySelectorAll(".button_prev");
-      next.forEach((elem) => {
-        elem.removeEventListener("click", nextSlide);
-      });
-      next.forEach((elem) => {
-        elem.addEventListener("click", nextSlide);
-      });
-      prev.forEach((elem) => {
-        elem.removeEventListener("click", prevSlide);
-      });
-      prev.forEach((elem) => {
-        elem.addEventListener("click", prevSlide);
-      });
+    prev.forEach((elem) => {
+      elem.addEventListener("click", prevSlide);
     });
-    modalTrue = true;
-    modal.style.display = "flex";
-    divBlock.style.display = "block";
-    if (window.innerWidth < 800) {
+  });
+  modalTrue = true;
+  modal.style.display = "flex";
+  divBlock.style.display = "block";
+  if (window.innerWidth < 800) {
+    btnCloseModal.style.display = "block";
+    modal.style.animation = "modal 0.7s forwards";
+    btnCloseModal.style.animation = "modal 0.7s forwards";
+    modalFooter.style.display = "flex";
+  } else {
+    modal.style.animation = "zoom 0.7s forwards";
+    setTimeout(() => {
       btnCloseModal.style.display = "block";
-      modal.style.animation = "modal 0.7s forwards";
-      btnCloseModal.style.animation = "modal 0.7s forwards";
       modalFooter.style.display = "flex";
-    } else {
-      modal.style.animation = "zoom 0.7s forwards";
-      setTimeout(() => {
-        btnCloseModal.style.display = "block";
-        modalFooter.style.display = "flex";
-        btnCloseModal.style.animation = "zoom 0.3s forwards";
-        modalFooter.style.animation = "zoom 0.3s forwards";
-      }, 400);
-
-      //document.querySelector(".asideMenu__ul").style.position = "fixed";
-      //document.querySelector(".asideMenu__ul").style.top = ;
-    }
+      btnCloseModal.style.animation = "zoom 0.3s forwards";
+      modalFooter.style.animation = "zoom 0.3s forwards";
+    }, 400);
+    //document.querySelector(".asideMenu__ul").style.position = "fixed";
+    //document.querySelector(".asideMenu__ul").style.top = ;
+  }
     /*
-      if (data.basket.length !== 0) {
-        if (window.innerWidth < 1400) {
-          mobileBasket.style.display = "flex";
-          mobileBasketSticky.style.position = "fixed";
-          footer.style.paddingBottom = "60px";
-          mobileBasketSticky.style.display = "block";
-          btnCloseMobileBasket.style.display = "none";
-          startPosition = window.innerHeight - 60 + "px";
-          mobileBasketSticky.style.bottom = "60px";
-          mobileBasketHeaderWr.style.width = "100%";
-          mobileBasketHeaderImg.style.display = "none";
-          mobileBasketTrue = true;
-        }
+  if (data.basket.length !== 0) {
+    if (window.innerWidth < 1450) {
+      mobileBasket.style.display = "flex";
+      mobileBasketSticky.style.position = "fixed";
+      footer.style.paddingBottom = "60px";
+      mobileBasketSticky.style.display = "block";
+      btnCloseMobileBasket.style.display = "none";
+      startPosition = window.innerHeight - 60 + "px";
+      mobileBasketSticky.style.bottom = "60px";
+      mobileBasketHeaderWr.style.width = "100%";
+      mobileBasketHeaderImg.style.display = "none";
+      mobileBasketTrue = true;
+    }
       }*/
-    main.style.overflow = "hidden";
-    document.body.style.overflow = "hidden";
+  main.style.overflow = "hidden";
+  document.body.style.overflow = "hidden";
 
-    //toggle toppings
-    for (let toppingLabel of toppingLabels) {
-      toppingLabel.addEventListener("click", (e) => {
-        let currentTopping = e.currentTarget.closest(".topping__card");
-        let currentToppingCheck = currentTopping.querySelector(
-          ".topping__check_img"
+  //toggle toppings
+  for (let toppingLabel of toppingLabels) {
+    toppingLabel.addEventListener("click", (e) => {
+      let currentTopping = e.currentTarget.closest(".topping__card");
+      let currentToppingCheck = currentTopping.querySelector(
+        ".topping__check_img"
+      );
+      let toppingID = toppingLabel.getAttribute("for");
+      toppingID = parseInt(toppingID.split("").splice(7).join(""));
+      const cardID = parseInt(dishId.split("").splice(4).join(""));
+
+      const dataCard = data.basket.find((item) => item.id === cardID);
+      if (dataCard) {
+        let indexTopping = dataCard.card.toppings.find(
+          (item) => item.id === toppingID
         );
-        let toppingID = toppingLabel.getAttribute("for");
-        toppingID = parseInt(toppingID.split("").splice(7).join(""));
-        const cardID = parseInt(dishId.split("").splice(4).join(""));
-
-        const dataCard = data.basket.find((item) => item.id === cardID);
-        if (dataCard) {
-          let indexTopping = dataCard.card.toppings.find(
-            (item) => item.id === toppingID
-          );
-          let toppingPrice = parseInt(
-            e.currentTarget.querySelector(".topping__price_number").textContent
-          );
-          indexTopping = dataCard.card.toppings.indexOf(indexTopping);
-          const topping = dataCard.card.toppings;
-          if (currentToppingCheck.classList.contains("topping__check_active")) {
-            currentToppingCheck.classList.remove("topping__check_active");
-            dataCard.card.toppings.splice(indexTopping, 1);
-          } else {
-            currentToppingCheck.classList.add("topping__check_active");
-            let newTopping = {
-              id: toppingID,
-              price: toppingPrice,
-            };
-            dataCard.card.toppings.push(newTopping);
-          }
+        let toppingPrice = parseInt(
+          e.currentTarget.querySelector(".topping__price_number").textContent
+        );
+        indexTopping = dataCard.card.toppings.indexOf(indexTopping);
+        const topping = dataCard.card.toppings;
+        if (currentToppingCheck.classList.contains("topping__check_active")) {
+          currentToppingCheck.classList.remove("topping__check_active");
+          dataCard.card.toppings.splice(indexTopping, 1);
+        } else {
+          currentToppingCheck.classList.add("topping__check_active");
+          let newTopping = {
+            id: toppingID,
+            price: toppingPrice,
+          };
+          dataCard.card.toppings.push(newTopping);
+        }
           orderNew.save();
           orderNew.renderPayment();
-        } else {
-          currentToppingCheck.classList.toggle("topping__check_active");
-        }
-        changeModalPrice(dishId);
+      } else {
+        currentToppingCheck.classList.toggle("topping__check_active");
+      }
+      changeModalPrice(dishId);
 
-        /* currentToppingCheck.classList.toggle("topping__check_active");
-          const cardID = parseInt(itemID.split("").splice(4).join());
-        */
-      });
-    }
-  });
+      /* currentToppingCheck.classList.toggle("topping__check_active");
+        const cardID = parseInt(itemID.split("").splice(4).join());
+      */
+    });
+  }
+
 }
+
+/*---------------------Modal window-------------------------------------*/
+var timerId = null;
+const imgsClick = document.querySelectorAll(".menu__card");
+for (let imgClick of imgsClick) {
+imgClick.addEventListener("click", openModal);
+}
+
 let addressItems = document.querySelectorAll(".address__item");
 addressItems.forEach((addressItem) => {
   addressItem.addEventListener("change", () => {
@@ -1242,6 +1282,11 @@ const btnsShortChange = document.querySelectorAll(".shortChange__item");
 
 btnsShortChange.forEach((btnShortChange) => {
   btnShortChange.addEventListener("click", () => {
+    btnsShortChange.forEach((item) => {
+      item.classList.remove("activeShort");
+    });
+    btnShortChange.classList.add("activeShort");
+    document.querySelector(".shortChange__input").dataset.value=btnShortChange.textContent.trim();
     console.log(btnShortChange.classList.contains("noShortChange"));
     if (btnShortChange.classList.contains("noShortChange")) {
       document.querySelector(".shortChange__input").value =

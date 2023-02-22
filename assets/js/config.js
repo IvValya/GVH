@@ -13,3 +13,4 @@ var urlPostPhone = "http://new.grillvino.ru/checkPhone";
 var urlPostCode = "http://new.grillvino.ru/checkCode";
 var urlSendOrder = "http://new.grillvino.ru/saveOrder";
 var urlLogout = "http://new.grillvino.ru/logout";
+var urlOrderSuccess = "http://new.grillvino.ru/order_success";

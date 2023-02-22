@@ -8,7 +8,7 @@
     <p class="auth__p">
       Введите номер телефона и мы отправим SMS-код для входа в ваккаунт
     </p>
-    <input type="tel" class="auth__phone" id="auth__phone" />
+    <input type="tel" class="auth__phone" id="auth__phone" autofocus />
     <span class="auth__error">Введите номер телефона в указанном формате </span>
     <button class="button__forward" type="button">далее</button>
     <p class="auth__agreement">
@@ -33,6 +33,7 @@
       max="9999"
       step="1"
       placeholder="код из SMS"
+      autofocus
     />
     <button class="auth__enter">войти</button>
     <p class="code__re">
