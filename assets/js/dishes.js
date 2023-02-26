@@ -364,10 +364,10 @@ function renderIndicator() {
   let nullTime;
   let currentDayOpen;
   let currentDayClose;
-  let now;
+  let now; 
   let timeOpen;
   let timeClose;
-  currentDay = moment().format("e");
+  currentDay = parseInt(moment().format("e"));
   if (currentDay === 0) {
     previousDayClose = timeJSON[6][1];
   } else {
