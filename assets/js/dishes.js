@@ -404,7 +404,7 @@ function renderIndicator() {
 
   timerTime = setInterval(() => {
     console.log(now);
-  currentDay = moment().format("e");
+  currentDay = parseInt(moment().format("e"));
   if (currentDay === 0) {
     previousDayClose = timeJSON[6][1];
   } else {

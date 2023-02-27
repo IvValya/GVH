@@ -25,11 +25,131 @@ profileData = {
   intercom: "2304",
 };*/
 class order {
-  renderTime() {
-    let times = document.querySelectorAll(".time .option__item");
-    let currentTime = moment().format("HH:mm");
-    console.log(currentTime);
+  renderTodayTime() {
+    let currentBasket = localStorage.getItem("basket");
+    let currentData = JSON.parse(currentBasket);
+    let timeItems;
+    if (window.innerWidth <1450) {
+      timeItems = document.querySelectorAll(".time .option_item");
+    }
+    else {
+      timeItems = document.querySelectorAll(".select__item_time");
+    }
+    //let timeItems = document.querySelectorAll(".time .option_item");
+    /*for (i=0; i<timeItems.length-1; i++) {
+      if (item.value < moment().format("HH:mm")) {
+      timeItems[i].style.display = "none";
+      }
+    }*/
+    console.log(timeItems);
+    timeItems.forEach((item) => {
+      console.log(item.value);
+      console.log(item.dataset.id);
+      console.log(moment().format("HH:mm"));
+      let value;
+      if (window.innerWidth <1450) {
+        value = item.value;
+      }
+      else {
+        value = item.dataset.id;
+      }
+      if (value < moment().format("HH:mm")) {
+        console.log("here time");
+        item.style.display = "none";
+      }
+    })
+    let firstTime;
+    
+    for (let i=0; i<timeItems.length-1; i++) {
+      let value;
+      if (window.innerWidth <1450) {
+        value = timeItems[i].value;
+      }
+      else {
+     
+        value = timeItems[i].dataset.id;
+      }
+      if (value >= moment().format("HH:mm")) {
+        firstTime = value;
+        break
+      }
+    }
+     //= document.querySelector(".time .option_item").value;
+    console.log(firstTime);
+    if (currentData && currentData.customerInfo) {
+      if (currentData.customerInfo.time < moment().format("HH:mm")) {
+        if (window.innerWidth < 1450) {
+          document.querySelector(".time").value = firstTime;
+        }
+        else {
+          console.log(firstTime);
+          document.querySelector(".selectTime .select__current").dataset.id = firstTime;
+          document.querySelector(".selectTime .select__current").textContent = firstTime;
+        }        
+        orderNew.save();
+      }
+      else {
+        if (window.innerWidth < 1450) {
+          document.querySelector(".time").value = currentData.customerInfo.time;
+        }
+        else {
+          console.log(firstTime);
+          document.querySelector(".selectTime .select__current").dataset.id = currentData.customerInfo.time;
+          document.querySelector(".selectTime .select__current").textContent = currentData.customerInfo.time;
+        }        
+      }
+    } else {
+      if (window.innerWidth < 1450) {
+        document.querySelector(".time").value = firstTime;
+      }
+      else {
+        document.querySelector(".selectTime .select__current").dataset.id = firstTime;
+        document.querySelector(".selectTime .select__current").textContent = firstTime;
+      }
+    }
   }
+  renderTime() {
+    let timeStart = "11:00";
+    let timeEnd = "23:00";
+    let currentDate;
+    if (window.innerWidth < 1450) {
+      currentDate = document.querySelector(".date").value;
+    } else {
+      currentDate = document.querySelector(".selectDate .select__current").dataset.id;
+    }
+
+    if (currentDate === moment().format("Y-DD-MM")) {
+      console.log("today");
+      this.renderTodayTime();
+    }
+    else {
+      console.log("not today");
+
+      let timeItems;
+      if (window.innerWidth <1450) {
+        timeItems = document.querySelectorAll(".time .option_item");
+      }
+      else {
+        timeItems = document.querySelectorAll(".select__item_time");
+      }
+      timeItems.forEach((item) => {
+        item.style.display = "inline";
+      })
+    }
+  }
+  
+  /*  const fragment = document.createDocumentFragment();
+    const optionTemp = document.querySelector(".option__item");
+    const street = document.querySelector(".select__body");
+    streets.forEach((item) => {
+      const cardClone = optionTemp.content.cloneNode(true);
+      cardClone.querySelector(".select__item").textContent = item.name;
+      cardClone.querySelector(".select__item").dataset.id = item.id;
+      fragment.append(cardClone);
+    });
+    street.innerHTML = "";
+    street.appendChild(fragment);*/
+ 
   getCustomerInfo(currentTypeDelivery) {
     let currentAddress = {};
     let currentStreet;
@@ -59,12 +179,17 @@ class order {
       intercom: currentIntercom,
     };
     let currentKindPay;
+    let currentDate;
     if (window.innerWidth > 1450) {
       currentKindPay = document.querySelector(
         ".paymentCardSelect .select__current"
       ).dataset.id;
+      currentDate = document.querySelector(
+        ".selectDate .select__current"
+      ).dataset.id;
     } else {
       currentKindPay = document.querySelector(".paymentCard").value;
+      currentDate = document.querySelector(".date").value;
     }
     let currentShortChange = document.querySelector(
       ".shortChange__input"
@@ -75,7 +200,7 @@ class order {
     let currentConfirm = document
       .querySelector(".confirm_img")
       .classList.contains("confirm__active");
-    let currentDate = document.querySelector(".date").value;
+    
     let currentTime = document.querySelector(".time").value;
     let currentCutlery = document.querySelector(".cutlery .input_text").value;
     let currentPayment = {
@@ -150,7 +275,6 @@ class order {
         item.classList.add("activeShort");
       }
     })
-
     document.querySelector(".range").max = maxBonus;
     document.querySelector(".range").value = bonusUse;
     document.querySelector("output").value = bonusUse;
@@ -166,7 +290,20 @@ class order {
     }
     document.querySelector(".cutlery .input_text").value =
       currentData.customerInfo.cutlery;
-    document.querySelector(".date").value = currentData.customerInfo.date;
+    if (window.innerWidth < 1450) {
+      document.querySelector(".date").value = currentData.customerInfo.date;
+    }
+    else {
+      document.querySelector(".selectDate .select__current").dataset.id = currentData.customerInfo.date;
+      let selectsDate = document.querySelectorAll(".select__item_date");
+      selectsDate.forEach((item) => {
+        if (item.dataset.id === currentData.customerInfo.date) {
+          document.querySelector(".selectDate .select__current").textContent = item.textContent;
+        }
+      })
+     
+    }
+    this.renderTime();
     document.querySelector(".time").value = currentData.customerInfo.time;
     this.renderDelivery();
   }
@@ -375,12 +512,18 @@ class order {
       intercom: currentIntercom,
     };
     let currentKindPay;
+    let currentDate;
+    let currentTime;
     if (window.innerWidth > 1450) {
       currentKindPay = document.querySelector(
         ".paymentCardSelect .select__current"
       ).dataset.id;
+        currentDate = document.querySelector(".selectDate .select__current").dataset.id;
+        currentTime = document.querySelector(".selectTime .select__current").dataset.id;
     } else {
       currentKindPay = document.querySelector(".paymentCard").value;
+      currentDate = document.querySelector(".date").value;
+      currentTime = document.querySelector(".time").value;
     }
     let currentShortChange = document.querySelector(
       ".shortChange__input"
@@ -392,8 +535,8 @@ class order {
     let currentConfirm = document
       .querySelector(".confirm_img")
       .classList.contains("confirm__active");
-    let currentDate = document.querySelector(".date").value;
-    let currentTime = document.querySelector(".time").value;
+    
+    
     let currentCutlery = document.querySelector(".cutlery .input_text").value;
     let currentPayment = {
       kindPay: currentKindPay,
@@ -567,13 +710,13 @@ class order {
     const { streets } = menuData;
     const street = document.querySelector(".street");
     if (window.innerWidth > 1450) {
-      street.style.display = "none";
+      //street.style.display = "none";
       this.renderSelectStreets();
     } else {
-      document.querySelector(".select").style.display = "none";
+     // document.querySelector(".select").style.display = "none";
       const fragment = document.createDocumentFragment();
       const optionTemp = document.querySelector(".optionTemp");
-      const street = document.querySelector(".street");
+     // const street = document.querySelector(".street");
       // const newElem = document.createElement("option");
       //fragment.append(newElem);
       streets.forEach((item) => {
@@ -595,11 +738,24 @@ class order {
     let date = new Date();*/
     moment.locale("ru");
     let today = document.querySelectorAll(".date option");
-    today.item(0).textContent = "Сегодня, " + moment().format("D MMMM");
+    let selectDay = document.querySelectorAll(".select__item_date");
+    if (window.innerWidth < 1450) {
+      today.item(0).textContent = "Сегодня, " + moment().format("D MMMM");
     today.item(0).value = moment().format("Y-DD-MM");
     today.item(1).textContent =
       "Завтра, " + moment().add(1, "days").format("D MMMM"); //date.toLocaleString("ru", options);
     today.item(1).value = moment().add(1, "days").format("Y-DD-MM");
+    }
+    else {
+      selectDay.item(0).textContent = "Сегодня, " + moment().format("D MMMM");
+      selectDay.item(0).dataset.id = moment().format("Y-DD-MM");
+      selectDay.item(1).textContent =
+      "Завтра, " + moment().add(1, "days").format("D MMMM"); //date.toLocaleString("ru", options);
+      selectDay.item(1).dataset.id = moment().add(1, "days").format("Y-DD-MM");
+      let renderSelectDate = document.querySelector(".selectDate .select__current");
+      renderSelectDate.textContent = selectDay.item(0).textContent;
+      renderSelectDate.dataset.id = selectDay.item(0).dataset.id;
+  }
   }
 
   getCheck() {
@@ -621,14 +777,14 @@ class order {
     const { delivery } = data;
     if (window.innerWidth > 1450) {
       let firstItem = document.querySelector(".cashPay");
-      document.getElementById("paymentCard").style.display = "none";
-      document.querySelector(".paymentCardSelect").style.display = "flex";
+      //document.getElementById("paymentCard").style.display = "none";
+      //document.querySelector(".paymentCardSelect").style.display = "flex";
       document.querySelector(".paymentCardSelect .select__current").textContent = firstItem.textContent;
       document.querySelector(".paymentCardSelect .select__current").dataset.id = firstItem.dataset.id;
       this.renderSelectPayment();
     } else {
-      document.getElementById("paymentCard").style.display = "block";
-      document.querySelector(".paymentCardSelect").style.display = "none";
+      //document.getElementById("paymentCard").style.display = "block";
+      //document.querySelector(".paymentCardSelect").style.display = "none";
       if (delivery.typeDelivery === "takeaway") {
         document.querySelector(".order__address .order__item_h2").textContent =
           "Детали";
@@ -822,6 +978,7 @@ class order {
         this.renderOrderWithProfileData(profileData);
       }
     }
+    this.renderTime();
   }
 }
 let orderNew = new order();
@@ -1213,6 +1370,7 @@ addressItems.forEach((addressItem) => {
 
 let dates = document.querySelector(".date");
 dates.addEventListener("change", () => {
+  orderNew.renderTime();
   orderNew.save();
 });
 
@@ -1668,7 +1826,15 @@ if (window.innerWidth > 1450) {
   let selectHeader = document.querySelectorAll(".select__header");
   let selectItem = document.querySelectorAll(".select__item");
   let selectItemPay = document.querySelectorAll(".select__item_pay");
+  let selectItemDate = document.querySelectorAll(".select__item_date");
+  let selectItemTime = document.querySelectorAll(".select__item_time");
+  selectItemDate.forEach((item) => {
+    item.addEventListener("click", selectChooseDate);
+  });
 
+  selectItemTime.forEach((item) => {
+    item.addEventListener("click", selectChooseTime);
+  });
   selectHeader.forEach((item) => {
     item.addEventListener("click", selectToggle);
   });
@@ -1684,6 +1850,7 @@ if (window.innerWidth > 1450) {
   function selectToggle() {
     this.parentElement.classList.toggle("is_active");
   }
+
   function selectChoosePay() {
     let text = this.innerText,
       select = this.closest(".paymentCardSelect"),
@@ -1697,6 +1864,26 @@ if (window.innerWidth > 1450) {
   function selectChoose() {
     let text = this.innerText,
       select = this.closest(".select"),
+      currentText = select.querySelector(".select__current");
+    currentText.innerText = text;
+    currentText.dataset.id = this.dataset.id;
+    select.classList.remove("is_active");
+    orderNew.save();
+  }
+
+  function selectChooseDate() {
+    let text = this.innerText,
+      select = this.closest(".selectDate"),
+      currentText = select.querySelector(".select__current");
+    currentText.innerText = text;
+    currentText.dataset.id = this.dataset.id;
+    select.classList.remove("is_active");
+    orderNew.renderTime();
+    orderNew.save();
+  }
+  function selectChooseTime() {
+    let text = this.innerText,
+      select = this.closest(".selectTime"),
       currentText = select.querySelector(".select__current");
     currentText.innerText = text;
     currentText.dataset.id = this.dataset.id;

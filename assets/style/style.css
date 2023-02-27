@@ -790,7 +790,8 @@ select::-ms-expand {
     grid-template-columns: 2fr 1fr;
 
 }
-
+.selectTime,
+.selectDate,
 .dateTime__item {
     height: 47px;
     background: #FBFBFB;
@@ -802,6 +803,11 @@ select::-ms-expand {
     font-weight: 500;
 }
 
+.select,
+.selectDate,
+.selectTime {
+    display: none;
+}
 
 .date {}
 
@@ -900,14 +906,14 @@ input[type=range]::-moz-range-thumb {
     border-color: #B06D81;
     border: 1px solid #B06D81;
 }
-
+/*
 option:focus,
 option:active {
     background: unset;
     border-color: var(--text-color-white);
     border: unset;
 }
-
+*/
 input[type=text]::placeholder {
     font-size: 15px;
     font-weight: 500;
@@ -1180,10 +1186,12 @@ input[type=text]:-ms-input-placeholder {
     padding-left: 10px;
 }
 
+.street__item,
 .option_item {
     margin-top: 10px;
     padding-bottom: 10px;
     background-color: white;
+    border: none;
 }
 
 .card {
@@ -2605,7 +2613,15 @@ input[type="number"]:focus {
 .indicator.closeInd {
     background-color: red;
 }
-
+.selectTime {
+    display: none;
+}
+.paymentCardSelect {
+    display: none;
+}
+.selectDate {
+    display: none;
+}
 
 /*------------------------MEDIA---------------------------------------*/
 @media screen and (min-width: 800px) {
@@ -2842,26 +2858,29 @@ input[type="number"]:focus {
     }
 
     .select,
-    .paymentCardSelect {
+    .paymentCardSelect,
+    .selectDate,
+    .selectTime {
         cursor: pointer;
         position: relative;
-        display: flex;
         align-items: center;
     }
 
     .paymentCardSelect {
         margin-bottom: 20px;
     }
-
+    .selectTime.is_active,
     .paymentCardSelect.is_active,
-    .select.is_active {
+    .select.is_active,
+    .selectDate.is_active {
         outline: none;
         background: #FFF3DC;
         border-color: #B06D81;
         border: 1px solid #B06D81;
 
     }
-
+    .selectTime .select__header,
+    .selectDate .select__header,
     .paymentCardSelect .select__header,
     .select__header {
         width: 100%;
@@ -2873,12 +2892,15 @@ input[type="number"]:focus {
         padding: 8px;
         width: 100%;
     }
-
+    .selectTime.is_active .select__body,
+    .selectDate.is_active .select__body,
     .select.is_active .select__body,
     .paymentCardSelect.is_active .select__body {
-        display: block;
+        display: flex;
+        flex-direction: column;
     }
-
+    .selectTime .select__body,
+    .selectDate .select__body,
     .select__body,
     .paymentCardSelect .select__body {
         border: 2px solid #cccccc;
@@ -2893,11 +2915,14 @@ input[type="number"]:focus {
     }
 
     .select__item,
-    .select__item_pay {
+    .select__item_pay,
+    .select__item_date,
+    .select__item_time {
         cursor: pointer;
         font-size: 15px;
         line-height: 24px;
         padding: 8px;
+        display: block;
     }
 
     .select__item:hover,
@@ -2906,7 +2931,9 @@ input[type="number"]:focus {
     }
 
     .select,
-    .paymentCardSelect {
+    .paymentCardSelect,
+    .selectDate,
+    .selectTime {
         font-size: 15px;
         border: 1px solid #D6D6D6;
         border-radius: 10px;
@@ -3369,6 +3396,12 @@ input[type="number"]:focus {
         align-items: center;
         flex-direction: column;
     }
+    .select,
+    .paymentCardSelect,
+    .selectDate,
+    .selectTime {
+        display: flex;
+    }
 
     .profile__img {
         position: relative;
@@ -3762,6 +3795,16 @@ input[type="number"]:focus {
         align-self: start;
         padding-top: 4px;
     }
+    .street {
+        display: none;
+    }
+    .paymentCard {
+        display: none;
+    }
+    .time, 
+    .date {
+         display: none;
+    }
 }
 
 @media screen and (min-width: 1508px) {
@@ -3813,10 +3856,14 @@ input[type="number"]:focus {
         grid-template-columns: repeat(3, minmax(270px, 380px));
         /* grid-template-columns: 1fr 1fr 1fr;*/
     }
-
-
     .menu__h2 {
         grid-column: 1/4;
+    }
+    .selectTime {
+        display: flex;
+    }
+    .date {
+        display: none;
     }
 
 }

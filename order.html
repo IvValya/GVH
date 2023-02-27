@@ -62,7 +62,7 @@
           <span class="basket__price">60</span>
           <span class="rouble">₽</span>
         </div>
-       <!-- <span class="order__topping_desc">2 кусочка ароматного хлеба </span>-->
+        <!-- <span class="order__topping_desc">2 кусочка ароматного хлеба </span>-->
         <div class="basket__count button__count">
           <div class="count_minus">-</div>
           <div class="count__wrapper">
@@ -407,6 +407,15 @@
 
               <h2 class="order__item_h2">Время доставки</h2>
               <div class="dateTime">
+                <div class="selectDate">
+                  <div class="select__header">
+                    <span class="select__current"></span>
+                  </div>
+                  <div class="select__body">
+                    <div class="select__item_date"></div>
+                    <div class="select__item_date"></div>
+                  </div>
+                </div>
                 <select class="dateTime__item date" name="date" id="date">
                   <option
                     class="option_item"
@@ -419,6 +428,38 @@
                     value="завтра"
                   ></option>
                 </select>
+                <div class="selectTime">
+                  <div class="select__header">
+                    <span class="select__current"></span>
+                  </div>
+                  <div class="select__body">
+                    <div class="select__item_time" data-id="11:00">11:00</div>
+                    <div class="select__item_time" data-id="11:30">11:30</div>
+                    <div class="select__item_time" data-id="12:00">12:00</div>
+                    <div class="select__item_time" data-id="12:30">12:30</div>
+                    <div class="select__item_time" data-id="13:00">13:00</div>
+                    <div class="select__item_time" data-id="13:30">13:30</div>
+                    <div class="select__item_time" data-id="14:00">14:00</div>
+                    <div class="select__item_time" data-id="14:30">14:30</div>
+                    <div class="select__item_time" data-id="15:00">15:00</div>
+                    <div class="select__item_time" data-id="15:30">15:30</div>
+                    <div class="select__item_time" data-id="16:00">16:00</div>
+                    <div class="select__item_time" data-id="16:30">16:30</div>
+                    <div class="select__item_time" data-id="17:00">17:00</div>
+                    <div class="select__item_time" data-id="17:30">17:30</div>
+                    <div class="select__item_time" data-id="18:00">18:00</div>
+                    <div class="select__item_time" data-id="18:30">18:30</div>
+                    <div class="select__item_time" data-id="19:00">19:00</div>
+                    <div class="select__item_time" data-id="19:30">19:30</div>
+                    <div class="select__item_time" data-id="20:00">20:00</div>
+                    <div class="select__item_time" data-id="20:30">20:30</div>
+                    <div class="select__item_time" data-id="21:00">21:00</div>
+                    <div class="select__item_time" data-id="21:30">21:30</div>
+                    <div class="select__item_time" data-id="22:00">22:00</div>
+                    <div class="select__item_time" data-id="22:30">22:30</div>
+                    <div class="select__item_time" data-id="23:00">23:00</div>
+                  </div>
+                </div>
                 <select class="dateTime__item time" name="time" id="time">
                   <option class="option_item" value="11:00">11:00</option>
                   <option class="option_item" value="11:30">11:30</option>
@@ -457,26 +498,20 @@
                     <span class="select__current"></span>
                   </div>
                   <div class="select__body">
-                    <div class="select__item_pay cashPay" data-id="OFFLINE">НАЛИЧНЫМИ ИЛИ КАРТОЙ</div>
+                    <div class="select__item_pay cashPay" data-id="OFFLINE">
+                      НАЛИЧНЫМИ ИЛИ КАРТОЙ
+                    </div>
                     <div class="select__item_pay onlinePay" data-id="ONLINE">
                       ОНЛАЙН
                     </div>
                   </div>
                 </div>
                 <select name="paymentCard" id="paymentCard" class="paymentCard">
-                  <option
-                    class="option_item"
-                    id="cashPay"
-                    value="OFFLINE"
-                  >
-                  НАЛИЧНЫМИ ИЛИ КАРТОЙ
+                  <option class="option_item" id="cashPay" value="OFFLINE">
+                    НАЛИЧНЫМИ ИЛИ КАРТОЙ
                   </option>
-                  <option
-                    class="option_item"
-                    id="onlinePay"
-                    value="ONLINE"
-                  >
-                  ОНЛАЙН
+                  <option class="option_item" id="onlinePay" value="ONLINE">
+                    ОНЛАЙН
                   </option>
                 </select>
                 <div class="shortChange">
@@ -488,18 +523,31 @@
                   />
 
                   <div class="shortChange__price">
-                    <button type="button" class="shortChange__item" data-value="1000">
+                    <button
+                      type="button"
+                      class="shortChange__item"
+                      data-value="1000"
+                    >
                       1000
                     </button>
-                    <button type="button" class="shortChange__item" data-value="2000">
+                    <button
+                      type="button"
+                      class="shortChange__item"
+                      data-value="2000"
+                    >
                       2000
                     </button>
-                    <button type="button" class="shortChange__item" data-value="5000">
+                    <button
+                      type="button"
+                      class="shortChange__item"
+                      data-value="5000"
+                    >
                       5000
                     </button>
                     <button
                       type="button"
-                      class="shortChange__item noShortChange" data-value="без сдачи"
+                      class="shortChange__item noShortChange"
+                      data-value="без сдачи"
                     >
                       без сдачи
                     </button>
