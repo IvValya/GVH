@@ -1296,7 +1296,7 @@ input[type=text]:-ms-input-placeholder {
 .workTime {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+   /* align-items: center;*/
     padding-bottom: 30px;
 }
 
@@ -2625,6 +2625,9 @@ input[type="number"]:focus {
 
 /*------------------------MEDIA---------------------------------------*/
 @media screen and (min-width: 800px) {
+    .workTime__wrap {
+        display: flex;
+    }
 
     .main {
         width: 100%;
@@ -3199,9 +3202,9 @@ input[type="number"]:focus {
     }
 
     .workTime {
-        width: 100%;
+        width: 200%;
         order: 1;
-        column-gap: 10px;
+        column-gap: 40px;
         justify-content: end;
         padding-bottom: 0;
     }
@@ -3367,6 +3370,11 @@ input[type="number"]:focus {
     .wrapper {
         padding-left: 195px;
         padding-right: 147px;
+    }
+    .workTime__wrap {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
 
     .profile_wrap {

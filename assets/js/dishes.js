@@ -2,7 +2,7 @@ let formDataAuth = new FormData();
 let profileData;
 var numberBonuses = 0;
 var menuData;
-let timeJSON =  [
+let timeJSON = [
   [
     {
       hour: 11,
@@ -53,8 +53,8 @@ let timeJSON =  [
       minute: 00,
     },
     {
-      day: 0,
-      hour: 24,
+      day: 1,
+      hour: 00,
       minute: 00,
     },
   ],
@@ -351,12 +351,12 @@ fetch(urlPostAuth, {
   });
 
 var timerTime;
+/*
 function renderIndicator() {
-  
   let indicator = document.querySelector(".indicator");
   let textWorkTime = document.querySelector(".workTime__span_now");
   let days = ["ВС", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"];
-  let previousTimeClose =  moment();
+  let previousTimeClose = moment();
   previousTimeClose = previousTimeClose.set({ hour: 0, minute: 0, second: 0 });
   previousTimeClose = previousTimeClose.subtract(1, "days");
   let previousDayClose;
@@ -364,7 +364,7 @@ function renderIndicator() {
   let nullTime;
   let currentDayOpen;
   let currentDayClose;
-  let now; 
+  let now;
   let timeOpen;
   let timeClose;
   currentDay = parseInt(moment().format("e"));
@@ -376,7 +376,7 @@ function renderIndicator() {
   previousTimeClose = previousTimeClose.add({
     days: previousDayClose.day,
     hour: previousDayClose.hour,
-    minute: previousDayClose.minute
+    minute: previousDayClose.minute,
   });
   nullTime = moment();
   nullTime = nullTime.set({ hour: 0, minute: 0, second: 0 });
@@ -384,69 +384,60 @@ function renderIndicator() {
   currentDayClose = timeJSON[currentDay][1];
   now = moment();
   timeOpen = moment();
-  timeOpen= timeOpen.set({
+  timeOpen = timeOpen.set({
     hour: currentDayOpen.hour,
     minute: currentDayOpen.minute,
-    second: 0
+    second: 0,
   });
   timeClose = nullTime;
   timeClose = timeClose.add({
     days: currentDayClose.day,
     hour: currentDayClose.hour,
-    minute: currentDayClose.minute
+    minute: currentDayClose.minute,
   });
-  console.log(previousTimeClose.format("DD-MM-YY HH:mm"));
-  console.log(timeClose.format("DD-MM-YY HH:mm"));
-  console.log(now);
-  console.log(now.format("DD-MM-YY HH:mm"));
-  console.log(timeOpen.format("DD-MM-YY HH:mm"));
-
 
   timerTime = setInterval(() => {
-    console.log(now);
-  currentDay = parseInt(moment().format("e"));
-  if (currentDay === 0) {
-    previousDayClose = timeJSON[6][1];
-  } else {
-    previousDayClose = timeJSON[currentDay - 1][1];
-  }
-  previousTimeClose = previousTimeClose.add({
-    days: previousDayClose.day,
-    hour: previousDayClose.hour,
-    minute: previousDayClose.minute
-  });
-  nullTime = moment();
-  nullTime = nullTime.set({ hour: 0, minute: 0, second: 0 });
-  currentDayOpen = timeJSON[currentDay][0];
-  currentDayClose = timeJSON[currentDay][1];
-  now = moment();
-  timeOpen = moment();
-  timeOpen= timeOpen.set({
-    hour: currentDayOpen.hour,
-    minute: currentDayOpen.minute,
-    second: 0
-  });
-  timeClose = nullTime;
-  timeClose = timeClose.add({
-    days: currentDayClose.day,
-    hour: currentDayClose.hour,
-    minute: currentDayClose.minute
-  });
-  if (((timeOpen.format("DD-MM-YY HH:mm") <= now.format("DD-MM-YY HH:mm")) && (now.format("DD-MM-YY HH:mm") < timeClose.format("DD-MM-YY HH:mm"))) || (now.format("DD-MM-YY HH:mm") < previousTimeClose.format("DD-MM-YY HH:mm"))) {
-  
-    indicator.classList.remove("closeInd");
-    indicator.classList.add("openInd");
-    textWorkTime.textContent = "Сейчас работаем";
-  } else {
-    indicator.classList.remove("openInd");
-    indicator.classList.add("closeInd");
-    textWorkTime.textContent = "Сейчас закрыты";
-  }
-  console.log(previousTimeClose.format("DD-MM-YY HH:mm"));
-  console.log(timeClose.format("DD-MM-YY HH:mm"));
-  console.log(now);
-  console.log(now.format("DD-MM-YY HH:mm"));
-  console.log(timeOpen.format("DD-MM-YY HH:mm"));
+    currentDay = parseInt(moment().format("e"));
+    if (currentDay === 0) {
+      previousDayClose = timeJSON[6][1];
+    } else {
+      previousDayClose = timeJSON[currentDay - 1][1];
+    }
+    previousTimeClose = previousTimeClose.add({
+      days: previousDayClose.day,
+      hour: previousDayClose.hour,
+      minute: previousDayClose.minute,
+    });
+    nullTime = moment();
+    nullTime = nullTime.set({ hour: 0, minute: 0, second: 0 });
+    currentDayOpen = timeJSON[currentDay][0];
+    currentDayClose = timeJSON[currentDay][1];
+    now = moment();
+    timeOpen = moment();
+    timeOpen = timeOpen.set({
+      hour: currentDayOpen.hour,
+      minute: currentDayOpen.minute,
+      second: 0,
+    });
+    timeClose = nullTime;
+    timeClose = timeClose.add({
+      days: currentDayClose.day,
+      hour: currentDayClose.hour,
+      minute: currentDayClose.minute,
+    });
+    if (
+      (timeOpen.format("DD-MM-YY HH:mm") <= now.format("DD-MM-YY HH:mm") &&
+        now.format("DD-MM-YY HH:mm") < timeClose.format("DD-MM-YY HH:mm")) ||
+      now.format("DD-MM-YY HH:mm") < previousTimeClose.format("DD-MM-YY HH:mm")
+    ) {
+      indicator.classList.remove("closeInd");
+      indicator.classList.add("openInd");
+      textWorkTime.textContent = "Сейчас работаем";
+    } else {
+      indicator.classList.remove("openInd");
+      indicator.classList.add("closeInd");
+      textWorkTime.textContent = "Сейчас закрыты";
+    }
   }, 60000);
 }
 
@@ -454,44 +445,152 @@ document.addEventListener("DOMContentLoaded", () => {
   clearInterval(timerTime);
   renderIndicator();
 });
-/*
-function renderIndicator() {
+*/
+
+
+let datesWeek = [
+  {
+    from: "11:00",
+    to: "24:00",
+  },
+  {
+    from: "11:00",
+    to: "24:00",
+  },
+  {
+    from: "11:00",
+    to: "24:00",
+  },
+  {
+    from: "11:00",
+    to: "24:00",
+  },
+  {
+    from: "11:00",
+    to: "24:00",
+  },
+  {
+    from: "11:00",
+    to: "24:00",
+  },
+  {
+    from: "11:00",
+    to: "24:00",
+  },
+];
+
+
+function renderIndicatorTime() {
   let indicator = document.querySelector(".indicator");
   let textWorkTime = document.querySelector(".workTime__span_now");
-  let days = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
-  let now = new Date();
-  console.log(days[now.getDay()]);
-  let timeOpen = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate(),
-    timeJSON[0].hours,
-    timeJSON[0].minute
+  let workSpan = document.querySelector(".workTime__span");
+  let currentDay = parseInt(moment().format("e"));
+  let previousDay;
+  if (currentDay === 0) {
+    currentDay = 6;
+  } else {
+    currentDay = currentDay - 1;
+  }
+  if (currentDay === 0) {
+    previousDay = 6;
+  } else {
+    previousDay = currentDay - 1;
+  }
+  let nowDateOnly = moment().format("YYYY-MM-DD");
+  let prevDateOnly = moment().subtract(1, "days").format("YYYY-MM-DD");
+  let isOpenNow = false;
+  let curData = datesWeek[currentDay];
+  let prevData = datesWeek[previousDay];
+  let fromDate = moment(nowDateOnly + " " + curData.from, "YYYY-MM-DD HH:mm");
+  let toDate = moment(nowDateOnly + " " + curData.to, "YYYY-MM-DD HH:mm");
+  let fromDatePrev = moment(
+    prevDateOnly + " " + prevData.from,
+    "YYYY-MM-DD HH:mm"
   );
-  let timeClose = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate() + timeJSON[1].day,
-    timeJSON[1].hours,
-    timeJSON[1].minute
+  let toDatePrev = moment(
+    prevDateOnly + " " + prevData.to,
+    "YYYY-MM-DD HH:mm"
   );
-  if (timeOpen <= now && now < timeClose) {
+  if (toDate < fromDate) {
+    toDate = toDate.add(1, "days");
+  }
+  if (toDatePrev < fromDatePrev) {
+    toDatePrev = toDatePrev.add(1, "days");
+  }
+  if (moment().isBetween(fromDate, toDate) || moment() < toDatePrev) {
+    isOpenNow = true;
+  }
+  console.log(isOpenNow);
+  if (isOpenNow) {
     indicator.classList.remove("closeInd");
     indicator.classList.add("openInd");
-    textWorkTime.textContent = "Сейчас работаем"
+    textWorkTime.textContent = "Сейчас работаем";
   } else {
     indicator.classList.remove("openInd");
     indicator.classList.add("closeInd");
-    textWorkTime.textContent = "Сейчас закрыты"
-  }
-  setInterval(() => {
-    if (timeOpen <= now && now < timeClose) {
-      indicator.classList.remove("closeInd");
-      indicator.classList.add("openInd");
-    } else {
-      indicator.classList.remove("openInd");
-      indicator.classList.add("closeInd");
+    textWorkTime.textContent = "Сейчас закрыты";
+    let days = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+    let text = days[0];
+    let countStart = 0;
+    let countEnd = 0;
+    let count = 0;
+    let arrayText = [];
+    let is = false;
+    for (let i = 0; i < datesWeek.length - 1; i++) {
+      if (
+        datesWeek[i].from === datesWeek[i + 1].from &&
+        datesWeek[i].to === datesWeek[i + 1].to
+      ) {
+        is = true;
+        countEnd = i + 1;
+        arrayText[count] =
+          text +
+          "-" +
+          days[countEnd] +
+          ": " +
+          datesWeek[i + 1].from +
+          "-" +
+          datesWeek[i + 1].to;
+        console.log(
+          text +
+            "-" +
+            days[countEnd] +
+            ": " +
+            datesWeek[i + 1].from +
+            "-" +
+            datesWeek[i + 1].to
+        );
+      } else {
+        if (countStart === countEnd || is) {
+          count++;
+        }
+        arrayText[count] =
+          days[i + 1] +
+          ": " +
+          datesWeek[i + 1].from +
+          "-" +
+          datesWeek[i + 1].to;
+        
+        countStart = i + 1;
+        countEnd = i + 1;
+        text = days[i + 1];
+      }
     }
-  }, 60000);
+    workSpan.textContent = "";
+    for (let k=0; k <= count; k++) {
+      workSpan.innerHTML += arrayText[k] + "</br>";
+    }
+  }
 }
-*/
+
+function renderIndicator() {
+  renderIndicatorTime();
+  timerTime = setInterval(() => {
+    renderIndicatorTime();
+  }, 60000);
+ 
+};
+document.addEventListener("DOMContentLoaded", () => {
+  clearInterval(timerTime);
+  renderIndicator();
+});

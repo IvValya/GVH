@@ -43,9 +43,6 @@ class order {
     }*/
     console.log(timeItems);
     timeItems.forEach((item) => {
-      console.log(item.value);
-      console.log(item.dataset.id);
-      console.log(moment().format("HH:mm"));
       let value;
       if (window.innerWidth <1450) {
         value = item.value;
@@ -1892,12 +1889,14 @@ if (window.innerWidth > 1450) {
   }
   window.addEventListener("click", (e) => {
     const target = e.target;
-    if (!target.closest(".paymentCardSelect") && !target.closest(".select")) {
+    if (!target.closest(".paymentCardSelect") && !target.closest(".select") && !target.closest(".selectDate") && !target.closest(".selectTime")) {
       // если этот элемент или его родительские элементы не окно навигации и не кнопка
       document
         .querySelector(".paymentCardSelect")
         .classList.remove("is_active");
       document.querySelector(".select").classList.remove("is_active");
+      document.querySelector(".selectTime").classList.remove("is_active");
+      document.querySelector(".selectDate").classList.remove("is_active");
     }
   });
 }
