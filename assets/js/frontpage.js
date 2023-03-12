@@ -343,6 +343,20 @@ const modal = document.querySelector(".modal");
 const divBlock = document.querySelector(".block");
 var timerId = null;
 
+function renderNewContent() {
+  const modalWindow = document.querySelector(".modal");
+  const modalNewContentTemp = document.querySelector(".modalNewContentTemp");
+  const fragmentNewContent = document.createDocumentFragment();
+  const clone = modalNewContentTemp.content.cloneNode(true);
+  clone.querySelector(".newContent__p").textContent = "newContent";
+  fragmentNewContent.append(clone);
+  modalWindow.innerHTML = "";
+  modalWindow.appendChild(fragmentNewContent);
+  document.querySelector(".modal__footer").remove();
+}
+
+let flagModal = 1;
+
 function openModalForCard(e, imgClick) {
     clearTimeout(timerId);
     var swiperMod = new Swiper(".mySwiperModal", {
@@ -464,7 +478,11 @@ const imgsClick = document.querySelectorAll(".menu__card");
 for (let imgClick of imgsClick) {
   imgClick.addEventListener("click", (e) => {
  openModal(e);
- openModalForCard(e, imgClick);
+ if (flagModal === 1) { renderNewContent()}
+ else{
+  openModalForCard(e, imgClick);
+ }
+ 
   });
 }
 /*----------------------Close modal window------------------------*/
@@ -510,13 +528,16 @@ function closeModal() {
 
 divBlock.addEventListener("click", (e) => {
   closeModal();
-  closeModalForCard();
+  if (flagModal !== 1) {
+    closeModalForCard();
+  }
 });
 const modalClose = document.querySelector(".modal__close");
 
 modalClose.addEventListener("click", () => {
-  closeModal();
-  closeModalForCard();
+  closeModal();if (flagModal !== 1) {
+    closeModalForCard();
+  }
 });
 
 function addToBasket(dishId, target) {
