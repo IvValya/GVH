@@ -342,9 +342,8 @@ const btnCloseModal = document.querySelector(".modal__close");
 const modal = document.querySelector(".modal");
 const divBlock = document.querySelector(".block");
 var timerId = null;
-const imgsClick = document.querySelectorAll(".menu__card");
-for (let imgClick of imgsClick) {
-  imgClick.addEventListener("click", (e) => {
+
+function openModalForCard(e, imgClick) {
     clearTimeout(timerId);
     var swiperMod = new Swiper(".mySwiperModal", {
       zoom: true,
@@ -353,7 +352,6 @@ for (let imgClick of imgsClick) {
         prevEl: ".swiper-button-prev-mod",
       },
     });
-
     let dishId;
     dishId = imgClick.closest(".list_item").dataset.id;
     renderModal(dishId, e.currentTarget);
@@ -402,50 +400,6 @@ for (let imgClick of imgsClick) {
         elem.addEventListener("click", prevSlide);
       });
     });
-
-    /* let currentCard = e.currentTarget.closest(".list_item");
-    let currentBtnAdd = currentCard.querySelector(".card__button");
-    let currentBtnCount = currentCard.querySelector(".card__button_count");
-    currentBtnAdd.style.display = "none";
-    currentBtnCount.style.display = "flex";*/
-    modalTrue = true;
-    modal.style.display = "flex";
-    divBlock.style.display = "block";
-    if (window.innerWidth < 800) {
-      btnCloseModal.style.display = "block";
-      modal.style.animation = "modal 0.7s forwards";
-      btnCloseModal.style.animation = "modal 0.7s forwards";
-      modalFooter.style.display = "flex";
-    } else {
-      modal.style.animation = "zoom 0.7s forwards";
-      setTimeout(() => {
-        btnCloseModal.style.display = "block";
-        modalFooter.style.display = "flex";
-        btnCloseModal.style.animation = "zoom 0.3s forwards";
-        modalFooter.style.animation = "zoom 0.3s forwards";
-      }, 400);
-      //document.querySelector(".asideMenu__ul").style.position = "fixed";
-      //document.querySelector(".asideMenu__ul").style.top = ;
-    }
-    /*
-      if (data.basket.length !== 0) {
-        if (window.innerWidth < 1400) {
-          mobileBasket.style.display = "flex";
-          mobileBasketSticky.style.position = "fixed";
-          footer.style.paddingBottom = "60px";
-          mobileBasketSticky.style.display = "block";
-          btnCloseMobileBasket.style.display = "none";
-          startPosition = window.innerHeight - 60 + "px";
-          mobileBasketSticky.style.bottom = "60px";
-          mobileBasketHeaderWr.style.width = "100%";
-          mobileBasketHeaderImg.style.display = "none";
-          mobileBasketTrue = true;
-        }
-      }*/
-    main.style.overflow = "hidden";
-    document.body.style.overflow = "hidden";
-
-    //toggle toppings
     for (let toppingLabel of toppingLabels) {
       toppingLabel.addEventListener("click", (e) => {
         let currentTopping = e.currentTarget.closest(".topping__card");
@@ -481,36 +435,41 @@ for (let imgClick of imgsClick) {
           currentToppingCheck.classList.toggle("topping__check_active");
         }
         changeModalPrice(dishId);
-        /* currentToppingCheck.classList.toggle("topping__check_active");
-          const cardID = parseInt(itemID.split("").splice(4).join());
-        */
       });
     }
+}
+function openModal(e) {
+  modalTrue = true;
+  modal.style.display = "flex";
+  divBlock.style.display = "block";
+  if (window.innerWidth < 800) {
+    btnCloseModal.style.display = "block";
+    modal.style.animation = "modal 0.7s forwards";
+    btnCloseModal.style.animation = "modal 0.7s forwards";
+    modalFooter.style.display = "flex";
+  } else {
+    modal.style.animation = "zoom 0.7s forwards";
+    setTimeout(() => {
+      btnCloseModal.style.display = "block";
+      modalFooter.style.display = "flex";
+      btnCloseModal.style.animation = "zoom 0.3s forwards";
+      modalFooter.style.animation = "zoom 0.3s forwards";
+    }, 400);
+  }
+  main.style.overflow = "hidden";
+  document.body.style.overflow = "hidden";
+}
+
+const imgsClick = document.querySelectorAll(".menu__card");
+for (let imgClick of imgsClick) {
+  imgClick.addEventListener("click", (e) => {
+ openModal(e);
+ openModalForCard(e, imgClick);
   });
 }
 /*----------------------Close modal window------------------------*/
 
-function closeModal() {
-  modalTrue = false;
-  divBlock.style.display = "none";
-  btnCloseModal.style.display = "none";
-  modalFooter.style.display = "none";
-  main.style.overflow = "unset";
-  document.body.style.overflow = "unset";
-  //modalFooter.style.display = "none";
-  if (window.innerWidth < 800) {
-    modal.style.animation = "modalBack 0.7s forwards";
-    btnCloseModal.style.animation = "modalBack 0.7s forwards";
-    header.style.position = "sticky";
-  } else if (window.innerWidth < 1400) {
-    asideMenuUl.style.position = "sticky";
-    header.style.top = 0;
-    header.style.position = "sticky";
-    modal.style.animation = "zoomBack 0.7s forwards";
-  } else {
-    modal.style.animation = "zoomBack 0.7s forwards";
-    asideMenuUl.style.position = "sticky";
-  }
+function closeModalForCard() {
   timerId = setTimeout(() => {
     document.querySelector(".modal__topping").style.display = "flex";
     modal.style.display = "none";
@@ -527,13 +486,37 @@ function closeModal() {
   }, 800);
 }
 
+function closeModal() {
+  modalTrue = false;
+  divBlock.style.display = "none";
+  btnCloseModal.style.display = "none";
+  modalFooter.style.display = "none";
+  main.style.overflow = "unset";
+  document.body.style.overflow = "unset";
+  if (window.innerWidth < 800) {
+    modal.style.animation = "modalBack 0.7s forwards";
+    btnCloseModal.style.animation = "modalBack 0.7s forwards";
+    header.style.position = "sticky";
+  } else if (window.innerWidth < 1400) {
+    asideMenuUl.style.position = "sticky";
+    header.style.top = 0;
+    header.style.position = "sticky";
+    modal.style.animation = "zoomBack 0.7s forwards";
+  } else {
+    modal.style.animation = "zoomBack 0.7s forwards";
+    asideMenuUl.style.position = "sticky";
+  }
+}
+
 divBlock.addEventListener("click", (e) => {
   closeModal();
+  closeModalForCard();
 });
 const modalClose = document.querySelector(".modal__close");
 
 modalClose.addEventListener("click", () => {
   closeModal();
+  closeModalForCard();
 });
 
 function addToBasket(dishId, target) {
