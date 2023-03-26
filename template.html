@@ -264,12 +264,39 @@
     </aside>
     <main class="mainProfile">
       <div class="auxiliary"></div>
+
       <section class="mainGallery">
-        <img
-          class="mainGallery__item"
-          src="/assets/img/mainFrontpage.jpg"
-          alt=""
-        />
+        <div class="swiper mySwiperGallery">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="mainGallery__div_h2">
+                <h2 class="mainGallery__h2">15% на самовывоз</h2>
+              </div>
+              <img
+                class="mainGallery__item"
+                src="/assets/img/mainFrontpage.jpg"
+                alt=""
+              />
+            </div>
+            <div class="swiper-slide">
+              <div class="mainGallery__div_h2">
+                <h2 class="mainGallery__h2">бесплатная доставка при заказе от 1500 руб</h2>
+              </div>
+              <img
+                class="mainGallery__item"
+                src="/assets/img/mainFrontpage.jpg"
+                alt=""
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                class="mainGallery__item"
+                src="/assets/img/mainFrontpage.jpg"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
       </section>
       <div class="wrapper__main_big">
         <aside class="asideMenu">
@@ -314,13 +341,13 @@
               <div class="workTime__wrap">
 
               
-              <div class="workTime">
-                <div class="indicator"></div>
-                <span class="workTime__span_now"> Сейчас работаем </span>
-                <span class="workTime__span"> Пн-Вс: 11:00-24:00 </span>
+                <div class="workTime">
+                  <div class="indicator"></div>
+                  <span class="workTime__span_now"> Сейчас работаем </span>
+                  <span class="workTime__span"> Пн-Вс: 11:00-24:00 </span>
+                </div>
+                <h2 class="aboutUs__h2">Как нас найти</h2>
               </div>
-              <h2 class="aboutUs__h2">Как нас найти</h2>
-            </div>
               <address class="address">
                 г. Мурино, пр. Авиаторов Балтики, д.11/1
               </address>
@@ -588,6 +615,9 @@
         document.getElementById("burgerMenu").style.display = "flex";
         openMobileMenu();
       });
+    </script>
+    <script>
+      var swiper = new Swiper(".mySwiperGallery", {});
     </script>
   </body>
 </html>

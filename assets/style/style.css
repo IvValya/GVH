@@ -2625,6 +2625,25 @@ input[type="number"]:focus {
 
 /*------------------------MEDIA---------------------------------------*/
 @media screen and (min-width: 800px) {
+    .mainGallery__div_h2 {
+        width: 100%;
+        position: absolute;
+        bottom: 50px;
+        left: 0;
+    }
+    .mainGallery__h2 {
+        position: relative;
+        width: 100%;
+        padding-left: 30px;
+        padding-right: 30px;
+        font-family: "Muller";
+        color: #FFFFFF;
+        text-align: left;
+        font-family: Muller;
+        font-size: 24px;
+        font-weight: 700;
+    }
+
     .workTime__wrap {
         display: flex;
     }
@@ -3367,6 +3386,18 @@ input[type="number"]:focus {
 }
 
 @media screen and (min-width: 1450px) {
+    .mainGallery__div_h2 {
+        width: calc(100% - 195px);
+        bottom: 110px;
+        left: 195px;
+    }
+    .mainGallery__h2 {
+        padding-left: 147px;
+        padding-right: 147px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 50px;
+    }
     .wrapper {
         padding-left: 195px;
         padding-right: 147px;
